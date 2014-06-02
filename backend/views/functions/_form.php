@@ -1,9 +1,6 @@
 <?php
 
-use yii\helpers\Html;
-use kartik\widgets\ActiveForm;
-use kartik\builder\Form;
-use kartik\datecontrol\DateControl;
+use kartik\detail\DetailView;
 
 /**
  * @var yii\web\View $this
@@ -12,24 +9,33 @@ use kartik\datecontrol\DateControl;
  */
 ?>
 
-<div class="functions-form">
-
-    <?php $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]);
-    echo Form::widget([
-
-        'model' => $model,
-        'form' => $form,
-        'columns' => 1,
-        'attributes' => [
-
-            'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Name...', 'maxlength' => 255]],
-            'code' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Code...', 'rows' => 20]],
-
-        ]
-
-
-    ]);
-    echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
-    ActiveForm::end(); ?>
-
-</div>
+<?=
+DetailView::widget([
+    'model' => $model,
+    'condensed' => false,
+    'hover' => true,
+    'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
+    'panel' => [
+        'heading' => $this->title,
+        'type' => DetailView::TYPE_INFO,
+    ],
+    'attributes' => [
+        'name',
+        [
+            'attribute' => 'code',
+            'format' => 'ntext',
+            'value' => $model->code,
+            'type' => DetailView::INPUT_TEXTAREA,
+            'options' => ['rows' => 15]
+        ],
+    ],
+    'deleteOptions' => [
+        'url' => ['delete', 'id' => $model->id],
+        'data' => [
+            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+            'method' => 'post',
+        ],
+    ],
+    'enableEditMode' => true,
+])
+?>

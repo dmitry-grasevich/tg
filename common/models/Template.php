@@ -5,6 +5,9 @@ namespace common\models;
 use kartik\helpers\Html;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
+
 
 /**
  * This is the model class for table "template".
@@ -41,9 +44,9 @@ class Template extends ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'name', 'filename'], 'required'],
+            [['category_id', 'name'], 'required'],
             [['category_id'], 'integer'],
-            [['code'], 'string'],
+            [['code', 'filename'], 'string'],
             [['img'], 'file', 'types' => 'jpg,jpeg,gif,png'],
             [['name', 'filename', 'directory', 'img'], 'string', 'max' => 255]
         ];
@@ -56,7 +59,7 @@ class Template extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'category_id' => Yii::t('app', 'Category ID'),
+            'category_id' => Yii::t('app', 'Category'),
             'name' => Yii::t('app', 'Name'),
             'filename' => Yii::t('app', 'Filename'),
             'directory' => Yii::t('app', 'Dir'),
@@ -82,7 +85,8 @@ class Template extends ActiveRecord
      *
      * @return string  category name
      */
-    public function getCategoryName() {
+    public function getCategoryName()
+    {
         return $this->category->name;
     }
 
@@ -180,5 +184,23 @@ class Template extends ActiveRecord
             return implode(', ', $names);
         }
         return '';
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $dir = Yii::getAlias('@webroot/images');
+            FileHelper::createDirectory($dir);
+            // TODO: create thumbnail image; check for an image with the same name existing
+            $img = UploadedFile::getInstance($this, 'img');
+            if (!empty($img)) {
+                $img->saveAs($dir . '/' . $img->name);
+                $this->img = $img->name;
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
 }
