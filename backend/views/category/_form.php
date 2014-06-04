@@ -21,7 +21,11 @@ DetailView::widget([
     ],
     'attributes' => [
         'name',
-        'is_basic',
+        [
+            'attribute' => 'is_basic',
+            'value' => $model->is_basic,
+            'type' => DetailView::INPUT_CHECKBOX,
+        ],
     ],
     'deleteOptions' => [
         'url' => ['delete', 'id' => $model->id],
