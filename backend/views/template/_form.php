@@ -71,7 +71,7 @@ DetailView::widget([
             'type' => DetailView::INPUT_SELECT2,
             'value' => $model->parentsName,
             'widgetOptions' => [
-                'data' => Template::listAll([$model->id]),
+                'data' => Template::listAll($model->id),
                 'options' => [
                     'placeholder' => 'Select Parents ...',
                     'multiple' => true,
@@ -85,7 +85,7 @@ DetailView::widget([
             'type' => DetailView::INPUT_SELECT2,
             'value' => $model->childrenName,
             'widgetOptions' => [
-                'data' => Template::listAll([$model->id]),
+                'data' => Template::listAll($model->id),
                 'options' => [
                     'placeholder' => 'Select Children ...',
                     'multiple' => true,
