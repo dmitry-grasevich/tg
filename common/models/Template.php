@@ -24,13 +24,13 @@ use yii\web\UploadedFile;
  * @property TemplateCss[] $templateCsses
  * @property TemplateJs[] $templateJses
  * @property TemplateFunctions[] $templateFunctions
- * @property Csses[] $csses
- * @property Jses[] $jses
+ * @property Css[] $csses
+ * @property Js] $jses
  * @property Functions[] $functions
  * @property Template[] $children
  * @property Template[] $parents
  */
-class Template extends ActiveRecord
+class Template extends Library
 {
     /**
      * @inheritdoc
@@ -71,6 +71,8 @@ class Template extends ActiveRecord
             'CssesName' => Yii::t('app', 'Css'),
             'JsesName' => Yii::t('app', 'Js'),
             'FunctionsName' => Yii::t('app', 'Functions'),
+            'parentsName' => Yii::t('app', 'Parents'),
+            'childrenName' => Yii::t('app', 'Children'),
         ];
     }
 
@@ -134,6 +136,36 @@ class Template extends ActiveRecord
             $names = [];
             foreach ($this->csses as $css) {
                 $names[] = Html::a($css->name, ['/css/view', 'id' => $css->id]);
+            }
+            return implode(', ', $names);
+        }
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentsName()
+    {
+        if (!empty($this->parents)) {
+            $names = [];
+            foreach ($this->parents as $parent) {
+                $names[] = Html::a($parent->name, ['/template/view', 'id' => $parent->id]);
+            }
+            return implode(', ', $names);
+        }
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getChildrenName()
+    {
+        if (!empty($this->children)) {
+            $names = [];
+            foreach ($this->children as $child) {
+                $names[] = Html::a($child->name, ['/template/view', 'id' => $child->id]);
             }
             return implode(', ', $names);
         }

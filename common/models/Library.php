@@ -7,9 +7,9 @@ use yii\helpers\ArrayHelper;
 
 class Library extends ActiveRecord
 {
-    public static function listAll()
+    public static function listAll($excludeIds = [])
     {
-        $all = self::find()->orderBy('name')->asArray()->all();
+        $all = self::find()->where(['not in', 'id', $excludeIds])->orderBy('name')->asArray()->all();
         if (!empty($all)) {
             return ArrayHelper::map($all, 'id', 'name');
         } else {

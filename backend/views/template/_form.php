@@ -2,12 +2,11 @@
 
 use yii\helpers\Html;
 use kartik\detail\DetailView;
-use kartik\datecontrol\DateControl;
 use common\models\TemplateCategory;
-use yii\helpers\ArrayHelper;
 use common\models\Css;
 use common\models\Js;
 use common\models\Functions;
+use common\models\Template;
 
 /**
  * @var yii\web\View $this
@@ -65,6 +64,34 @@ DetailView::widget([
             'value' => $model->code,
             'type' => DetailView::INPUT_TEXTAREA,
             'options' => ['rows' => 15]
+        ],
+        [
+            'attribute' => 'parents',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_SELECT2,
+            'value' => $model->parentsName,
+            'widgetOptions' => [
+                'data' => Template::listAll([$model->id]),
+                'options' => [
+                    'placeholder' => 'Select Parents ...',
+                    'multiple' => true,
+                ],
+                'pluginOptions' => ['allowClear' => true],
+            ],
+        ],
+        [
+            'attribute' => 'children',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_SELECT2,
+            'value' => $model->childrenName,
+            'widgetOptions' => [
+                'data' => Template::listAll([$model->id]),
+                'options' => [
+                    'placeholder' => 'Select Children ...',
+                    'multiple' => true,
+                ],
+                'pluginOptions' => ['allowClear' => true],
+            ],
         ],
         [
             'attribute' => 'templateCsses',
