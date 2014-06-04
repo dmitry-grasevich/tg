@@ -7,9 +7,9 @@ use yii\web\Controller;
 
 class TemplateController extends Controller
 {
-    public function actionIndex()
+    public function actionIndex($q)
     {
-        TemplateGenerator::create();
+        TemplateGenerator::create($q);
 //        return $this->render('index');
         return;
     }

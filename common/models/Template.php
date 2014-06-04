@@ -27,6 +27,8 @@ use yii\web\UploadedFile;
  * @property Csses[] $csses
  * @property Jses[] $jses
  * @property Functions[] $functions
+ * @property Template[] $children
+ * @property Template[] $parents
  */
 class Template extends ActiveRecord
 {
@@ -169,6 +171,24 @@ class Template extends ActiveRecord
     {
         return $this->hasMany(Functions::className(), ['id' => 'functions_id'])
             ->viaTable('template_functions', ['template_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChildren()
+    {
+        return $this->hasMany(Template::className(), ['id' => 'child_id'])
+            ->viaTable('related_template', ['parent_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParents()
+    {
+        return $this->hasMany(Template::className(), ['id' => 'parent_id'])
+            ->viaTable('related_template', ['child_id' => 'id']);
     }
 
     /**

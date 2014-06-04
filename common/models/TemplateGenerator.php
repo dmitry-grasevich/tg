@@ -6,14 +6,17 @@ use Yii;
 
 class TemplateGenerator
 {
-    public static function create()
+    public static function create($q)
     {
         $file = tempnam("tmp", uniqid('zip'));
         $zip = new \ZipArchiveEx();
         $zip->open($file, \ZipArchive::OVERWRITE);
 
-        $templates = Template::find()->all();
-        foreach ($templates as $template) {
+        xdebug_var_dump($q);
+        $commonTemplates = Template::find()->innerJoinWith('category')->where(['template_category.is_basic' => 1])->all();
+        foreach ($commonTemplates as $template) {
+            xdebug_var_dump($template->name);
+            /*
             $path = $template->directory != '' ? $template->directory . '/' . $template->filename : $template->filename;
             $zip->addFromString($path, $template->code);
 
@@ -32,8 +35,9 @@ class TemplateGenerator
                     $zip->addFromString($path, $js->code);
                 }
             }
+            */
         }
-
+return;
         // Close and send to users
         $zip->close();
         header('Content-Type: application/zip');
