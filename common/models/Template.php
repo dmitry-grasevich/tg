@@ -4,8 +4,9 @@ namespace common\models;
 
 use kartik\helpers\Html;
 use Yii;
-use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 
 
@@ -21,17 +22,25 @@ use yii\web\UploadedFile;
  * @property string $code
  *
  * @property TemplateCategory $category
- * @property TemplateCss[] $templateCsses
- * @property TemplateJs[] $templateJses
+ * @property TemplateCss[] $templateCss
+ * @property TemplateJs[] $templateJs
  * @property TemplateFunctions[] $templateFunctions
- * @property Css[] $csses
- * @property Js] $jses
+ * @property Css[] $css
+ * @property Js] $js
  * @property Functions[] $functions
  * @property Template[] $children
  * @property Template[] $parents
  */
 class Template extends Library
 {
+    protected $relations = [
+        'parents',
+        'children',
+        'css',
+        'js',
+        'functions',
+    ];
+
     /**
      * @inheritdoc
      */
@@ -68,8 +77,11 @@ class Template extends Library
             'img' => Yii::t('app', 'Img'),
             'code' => Yii::t('app', 'Code'),
             'categoryName' => Yii::t('app', 'Category'),
-            'CssesName' => Yii::t('app', 'Css'),
-            'JsesName' => Yii::t('app', 'Js'),
+            'css' => Yii::t('app', 'Css'),
+            'CssName' => Yii::t('app', 'Css'),
+            'js' => Yii::t('app', 'Js'),
+            'JsName' => Yii::t('app', 'Js'),
+            'functions' => Yii::t('app', 'Functions'),
             'FunctionsName' => Yii::t('app', 'Functions'),
             'parentsName' => Yii::t('app', 'Parents'),
             'childrenName' => Yii::t('app', 'Children'),
@@ -97,7 +109,7 @@ class Template extends Library
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTemplateCsses()
+    public function getTemplateCss()
     {
         return $this->hasMany(TemplateCss::className(), ['template_id' => 'id']);
     }
@@ -105,7 +117,7 @@ class Template extends Library
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTemplateJses()
+    public function getTemplateJs()
     {
         return $this->hasMany(TemplateJs::className(), ['template_id' => 'id']);
     }
@@ -121,7 +133,7 @@ class Template extends Library
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCsses()
+    public function getCss()
     {
         return $this->hasMany(Css::className(), ['id' => 'css_id'])
             ->viaTable('template_css', ['template_id' => 'id']);
@@ -130,11 +142,11 @@ class Template extends Library
     /**
      * @return string
      */
-    public function getCssesName()
+    public function getCssName()
     {
-        if (!empty($this->csses)) {
+        if (!empty($this->css)) {
             $names = [];
-            foreach ($this->csses as $css) {
+            foreach ($this->css as $css) {
                 $names[] = Html::a($css->name, ['/css/view', 'id' => $css->id]);
             }
             return implode(', ', $names);
@@ -143,18 +155,60 @@ class Template extends Library
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getJs()
+    {
+        return $this->hasMany(Js::className(), ['id' => 'js_id'])
+            ->viaTable('template_js', ['template_id' => 'id']);
+    }
+
+    /**
      * @return string
      */
-    public function getParentsName()
+    public function getJsName()
     {
-        if (!empty($this->parents)) {
+        if (!empty($this->js)) {
             $names = [];
-            foreach ($this->parents as $parent) {
-                $names[] = Html::a($parent->name, ['/template/view', 'id' => $parent->id]);
+            foreach ($this->js as $js) {
+                $names[] = Html::a($js->name, ['/js/view', 'id' => $js->id]);
             }
             return implode(', ', $names);
         }
         return '';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFunctions()
+    {
+        return $this->hasMany(Functions::className(), ['id' => 'functions_id'])
+            ->viaTable('template_functions', ['template_id' => 'id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFunctionsName()
+    {
+        if (!empty($this->functions)) {
+            $names = [];
+            foreach ($this->functions as $function) {
+                $names[] = Html::a($function->name, ['/functions/view', 'id' => $function->id]);
+            }
+            return implode(', ', $names);
+        }
+        return '';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChildren()
+    {
+        return $this->hasMany(Template::className(), ['id' => 'child_id'])
+            ->viaTable('related_template', ['parent_id' => 'id']);
     }
 
     /**
@@ -175,63 +229,22 @@ class Template extends Library
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getJses()
-    {
-        return $this->hasMany(Js::className(), ['id' => 'js_id'])
-            ->viaTable('template_js', ['template_id' => 'id']);
-    }
-
-    /**
-     * @return string
-     */
-    public function getJsesName()
-    {
-        if (!empty($this->jses)) {
-            $names = [];
-            foreach ($this->jses as $js) {
-                $names[] = Html::a($js->name, ['/js/view', 'id' => $js->id]);
-            }
-            return implode(', ', $names);
-        }
-        return '';
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFunctions()
-    {
-        return $this->hasMany(Functions::className(), ['id' => 'functions_id'])
-            ->viaTable('template_functions', ['template_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getChildren()
-    {
-        return $this->hasMany(Template::className(), ['id' => 'child_id'])
-            ->viaTable('related_template', ['parent_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getParents()
     {
         return $this->hasMany(Template::className(), ['id' => 'parent_id'])
             ->viaTable('related_template', ['child_id' => 'id']);
     }
 
+
     /**
      * @return string
      */
-    public function getFunctionsName()
+    public function getParentsName()
     {
-        if (!empty($this->functions)) {
+        if (!empty($this->parents)) {
             $names = [];
-            foreach ($this->functions as $function) {
-                $names[] = Html::a($function->name, ['/functions/view', 'id' => $function->id]);
+            foreach ($this->parents as $parent) {
+                $names[] = Html::a($parent->name, ['/template/view', 'id' => $parent->id]);
             }
             return implode(', ', $names);
         }
@@ -253,6 +266,18 @@ class Template extends Library
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function afterSave($insert)
+    {
+        parent::afterSave($insert);
+
+        if ($post = ArrayHelper::getValue($_POST, 'Template')) {
+            foreach ($this->relations as $relation) {
+                if (isset($post[$relation]))
+                    $this->saveRelated($relation, $post[$relation]);
+            }
         }
     }
 }

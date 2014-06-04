@@ -94,10 +94,10 @@ DetailView::widget([
             ],
         ],
         [
-            'attribute' => 'templateCsses',
+            'attribute' => 'css',
             'format' => 'raw',
             'type' => DetailView::INPUT_SELECT2,
-            'value' => $model->CssesName,
+            'value' => $model->CssName,
             'widgetOptions' => [
                 'data' => Css::listAll(),
                 'options' => [
@@ -108,10 +108,10 @@ DetailView::widget([
             ],
         ],
         [
-            'attribute' => 'templateJses',
+            'attribute' => 'js',
             'format' => 'raw',
             'type' => DetailView::INPUT_SELECT2,
-            'value' => $model->JsesName,
+            'value' => $model->JsName,
             'widgetOptions' => [
                 'data' => Js::listAll(),
                 'options' => [
@@ -122,7 +122,7 @@ DetailView::widget([
             ],
         ],
         [
-            'attribute' => 'templateFunctions',
+            'attribute' => 'functions',
             'format' => 'raw',
             'type' => DetailView::INPUT_SELECT2,
             'value' => $model->FunctionsName,

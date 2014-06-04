@@ -16,4 +16,20 @@ class Library extends ActiveRecord
             return [0 => ''];
         }
     }
+
+    public function saveRelated($relation, $data)
+    {
+        // remove old relations
+        foreach ($this->$relation as $related) {
+            $this->unlink($relation, $related, true);
+        }
+
+        // create new if exists
+        if (is_array($data)) {
+            $related = self::findAll($data);
+            foreach($related as $rel) {
+                $this->link($relation, $rel);
+            }
+        }
+    }
 }

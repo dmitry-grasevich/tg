@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'filename',
             'directory',
             [
-                'attribute' => 'CssesName',
+                'attribute' => 'CssName',
                 'format' => 'raw',
             ],
             [
-                'attribute' => 'JsesName',
+                'attribute' => 'JsName',
                 'format' => 'raw',
             ],
             [
