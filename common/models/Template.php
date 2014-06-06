@@ -6,7 +6,6 @@ use kartik\helpers\Html;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
-use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 
 
@@ -24,9 +23,11 @@ use yii\web\UploadedFile;
  * @property TemplateCategory $category
  * @property TemplateCss[] $templateCss
  * @property TemplateJs[] $templateJs
+ * @property TemplateImage[] $templateImages
  * @property TemplateFunctions[] $templateFunctions
  * @property Css[] $css
- * @property Js] $js
+ * @property Js[] $js
+ * @property Image[] $images
  * @property Functions[] $functions
  * @property Template[] $children
  * @property Template[] $parents
@@ -38,6 +39,7 @@ class Template extends Library
         'children',
         'css',
         'js',
+        'images',
         'functions',
     ];
 
@@ -81,6 +83,8 @@ class Template extends Library
             'CssName' => Yii::t('app', 'Css'),
             'js' => Yii::t('app', 'Js'),
             'JsName' => Yii::t('app', 'Js'),
+            'image' => Yii::t('app', 'Images'),
+            'ImageName' => Yii::t('app', 'Images'),
             'functions' => Yii::t('app', 'Functions'),
             'FunctionsName' => Yii::t('app', 'Functions'),
             'parentsName' => Yii::t('app', 'Parents'),
@@ -120,6 +124,14 @@ class Template extends Library
     public function getTemplateJs()
     {
         return $this->hasMany(TemplateJs::className(), ['template_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTemplateImages()
+    {
+        return $this->hasMany(TemplateImage::className(), ['template_id' => 'id']);
     }
 
     /**
@@ -172,6 +184,30 @@ class Template extends Library
             $names = [];
             foreach ($this->js as $js) {
                 $names[] = Html::a($js->name, ['/js/view', 'id' => $js->id]);
+            }
+            return implode(', ', $names);
+        }
+        return '';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImages()
+    {
+        return $this->hasMany(Image::className(), ['id' => 'image_id'])
+            ->viaTable('template_image', ['template_id' => 'id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageName()
+    {
+        if (!empty($this->images)) {
+            $names = [];
+            foreach ($this->images as $image) {
+                $names[] = Html::a($image->name, ['/image/view', 'id' => $image->id]);
             }
             return implode(', ', $names);
         }

@@ -3,7 +3,6 @@
 namespace common\models;
 
 use Yii;
-use common\models\Library;
 
 /**
  * This is the model class for table "js".

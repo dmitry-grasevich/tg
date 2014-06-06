@@ -3,7 +3,6 @@
 namespace common\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
@@ -17,7 +16,7 @@ use yii\web\UploadedFile;
  *
  * @property TemplateImage[] $templateImages
  */
-class Image extends ActiveRecord
+class Image extends Library
 {
     /**
      * @inheritdoc

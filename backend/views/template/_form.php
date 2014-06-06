@@ -5,6 +5,7 @@ use kartik\detail\DetailView;
 use common\models\TemplateCategory;
 use common\models\Css;
 use common\models\Js;
+use common\models\Image;
 use common\models\Functions;
 use common\models\Template;
 
@@ -116,6 +117,20 @@ DetailView::widget([
                 'data' => Js::listAll(),
                 'options' => [
                     'placeholder' => 'Select Js ...',
+                    'multiple' => true,
+                ],
+                'pluginOptions' => ['allowClear' => true],
+            ],
+        ],
+        [
+            'attribute' => 'images',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_SELECT2,
+            'value' => $model->ImageName,
+            'widgetOptions' => [
+                'data' => Image::listAll(),
+                'options' => [
+                    'placeholder' => 'Select Images ...',
                     'multiple' => true,
                 ],
                 'pluginOptions' => ['allowClear' => true],
