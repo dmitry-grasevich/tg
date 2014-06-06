@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "image".
@@ -32,6 +34,7 @@ class Image extends ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['filename'], 'file', 'types' => 'jpg,jpeg,gif,png'],
             [['name', 'filename', 'directory'], 'string', 'max' => 255]
         ];
     }
@@ -44,7 +47,7 @@ class Image extends ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'filename' => Yii::t('app', 'Filename'),
+            'filename' => Yii::t('app', 'File'),
             'directory' => Yii::t('app', 'Directory'),
         ];
     }
@@ -55,5 +58,22 @@ class Image extends ActiveRecord
     public function getTemplateImages()
     {
         return $this->hasMany(TemplateImage::className(), ['image_id' => 'id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $dir = Yii::getAlias('@webroot/templateImages');
+            FileHelper::createDirectory($dir);
+            $img = UploadedFile::getInstance($this, 'filename');
+            if (!empty($img)) {
+                $img->saveAs($dir . '/' . $img->name);
+                $this->filename = $img->name;
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
 }

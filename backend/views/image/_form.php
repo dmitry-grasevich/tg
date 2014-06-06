@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 use kartik\detail\DetailView;
 
 /**
@@ -12,6 +13,9 @@ use kartik\detail\DetailView;
 <?=
 DetailView::widget([
     'model' => $model,
+    'formOptions' => [
+        'options' => ['enctype' => 'multipart/form-data']
+    ],
     'condensed' => false,
     'hover' => true,
     'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
@@ -21,7 +25,21 @@ DetailView::widget([
     ],
     'attributes' => [
         'name',
-        'filename',
+        [
+            'attribute' => 'filename',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_FILEINPUT,
+            'value' => $model->filename ? Html::img(Yii::getAlias('@web/templateImages') . '/' . $model->filename, ['class'=>'file-preview-image']) : false,
+            'widgetOptions' => [
+                'options' => ['accept' => 'image/*'],
+                'pluginOptions' => [
+                    'showUpload' => false,
+                    'initialPreview' => $model->filename ? [
+                            Html::img(Yii::getAlias('@web/templateImages') . '/' . $model->filename, ['class'=>'file-preview-image']),
+                        ] : false,
+                ],
+            ],
+        ],
         'directory',
     ],
     'deleteOptions' => [
