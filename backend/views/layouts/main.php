@@ -41,6 +41,7 @@ AppAsset::register($this);
                         ['label' => 'Templates', 'url' => ['/template']],
                         ['label' => 'Css', 'url' => ['/css/index']],
                         ['label' => 'Js', 'url' => ['/js']],
+                        ['label' => 'Images', 'url' => ['/image']],
                         ['label' => 'Functions', 'url' => ['/functions']],
                     ],
                 ],
@@ -77,8 +78,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; Template Generator <?= date('Y') ?></p>
         </div>
     </footer>
 
