@@ -7,13 +7,18 @@ use yii\helpers\VarDumper;
 
 class TemplateGenerator
 {
+    protected static $_imagesPath = '@backend/web/templateImages/';
+    protected static $_templateImagesPath = 'images';
+
     public static function create($q)
     {
         $file = tempnam("tmp", uniqid('zip'));
         $zip = new \ZipArchiveEx();
         $zip->open($file, \ZipArchive::OVERWRITE);
+        $zip->addEmptyDir('images');
 
-        $commonTemplates = Template::find()->innerJoinWith('category')->where(['template_category.is_basic' => 1])->all();
+        $commonTemplates = Template::find()->innerJoinWith('category')
+            ->where(['template_category.is_basic' => 1])->all();
 
         $selectedIds = explode(',', $q);
         $map = [];
@@ -28,6 +33,48 @@ class TemplateGenerator
             }
         }
 
+        $files = self::prepareCommonFiles($commonTemplates);
+
+        foreach ($files as $filename => $fileData) {
+            foreach ($fileData as $directory => $fileContent) {
+                $path = $directory != '' ? $directory . '/' . $filename : $filename;
+
+                if (isset($fileContent['image'])) { // Add image to archive
+                    $zipPath = self::getImagesPath() . '/' . $path;
+                    $zip->addFile(Yii::getAlias(self::getImagesPath() . $path), $zipPath);
+                } else {
+                    $code = $fileContent['code'];
+                    if (isset($map[$fileContent['id']])) {
+                        foreach ($map[$fileContent['id']] as $child) {
+                            $code .= "\n" . $child->code;
+
+                            /** Linked images **/
+                            $images = $child->images;
+                            if (is_array($images) && count($images)) {
+                                foreach ($images as $image) {
+                                    $p = $image->directory != '' ? $image->directory . '/' . $image->filename : $image->filename;
+                                    $zipPath = self::getImagesPath() . '/' . $p;
+                                    $zip->addFile(Yii::getAlias(self::getImagesPath() . $p), $zipPath);
+                                }
+                            }
+                        }
+                    }
+                    $zip->addFromString($path, $code);
+                }
+            }
+        }
+
+        // Close and send to users
+        $zip->close();
+        header('Content-Type: application/zip');
+        header('Content-Length: ' . filesize($file));
+        header('Content-Disposition: attachment; filename="template.zip"');
+        readfile($file);
+        unlink($file);
+    }
+
+    protected function prepareCommonFiles($commonTemplates)
+    {
         $files = [];
 
         foreach ($commonTemplates as $template) {
@@ -69,29 +116,27 @@ class TemplateGenerator
                     }
                 }
             }
-        }
 
-        foreach ($files as $filename => $fileData) {
-            foreach ($fileData as $directory => $fileContent) {
-                $path = $directory != '' ? $directory . '/' . $filename : $filename;
-                $code = $fileContent['code'];
-
-                if (isset($map[$fileContent['id']])) {
-                    foreach ($map[$fileContent['id']] as $child) {
-                        $code .= "\n" . $child->code;
+            $images = $template->images;
+            if (is_array($images) && count($images)) {
+                foreach ($images as $image) {
+                    if (!isset($files[$image->filename][$image->directory])) {
+                        $files[$image->filename][$image->directory]['image'] = true;
                     }
                 }
-
-                $zip->addFromString($path, $code);
             }
         }
 
-        // Close and send to users
-        $zip->close();
-        header('Content-Type: application/zip');
-        header('Content-Length: ' . filesize($file));
-        header('Content-Disposition: attachment; filename="template.zip"');
-        readfile($file);
-        unlink($file);
+        return $files;
+    }
+
+    public function getImagesPath()
+    {
+        return self::$_imagesPath;
+    }
+
+    public function getTemplateImagesPath()
+    {
+        return self::$_templateImagesPath;
     }
 }
