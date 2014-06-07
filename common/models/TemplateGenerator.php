@@ -46,7 +46,11 @@ class TemplateGenerator
                     $code = $fileContent['code']; // common code
                     if (isset($map[$fileContent['id']])) { // children files
                         foreach ($map[$fileContent['id']] as $child) {
-                            $code .= "\n" . $child->code;
+                            if ($filename == 'footer.php') { // Add code to the footer - child code should be before common code
+                                $code = $child->code . "\n" . $code;
+                            } else {
+                                $code .= "\n" . $child->code;
+                            }
 
                             /** Linked images **/
                             $images = $child->images; // children can see images
