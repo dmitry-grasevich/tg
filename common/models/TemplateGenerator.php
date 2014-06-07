@@ -40,20 +40,20 @@ class TemplateGenerator
                 $path = $directory != '' ? $directory . '/' . $filename : $filename;
 
                 if (isset($fileContent['image'])) { // Add image to archive
-                    $zipPath = self::getImagesPath() . '/' . $path;
+                    $zipPath = self::getTemplateImagesPath() . '/' . $path;
                     $zip->addFile(Yii::getAlias(self::getImagesPath() . $path), $zipPath);
                 } else {
-                    $code = $fileContent['code'];
-                    if (isset($map[$fileContent['id']])) {
+                    $code = $fileContent['code']; // common code
+                    if (isset($map[$fileContent['id']])) { // children files
                         foreach ($map[$fileContent['id']] as $child) {
                             $code .= "\n" . $child->code;
 
                             /** Linked images **/
-                            $images = $child->images;
+                            $images = $child->images; // children can see images
                             if (is_array($images) && count($images)) {
                                 foreach ($images as $image) {
                                     $p = $image->directory != '' ? $image->directory . '/' . $image->filename : $image->filename;
-                                    $zipPath = self::getImagesPath() . '/' . $p;
+                                    $zipPath = self::getTemplateImagesPath() . '/' . $p;
                                     $zip->addFile(Yii::getAlias(self::getImagesPath() . $p), $zipPath);
                                 }
                             }
