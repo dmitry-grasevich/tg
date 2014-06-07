@@ -73,7 +73,7 @@ class TemplateGenerator
         unlink($file);
     }
 
-    protected function prepareCommonFiles($commonTemplates)
+    protected static function prepareCommonFiles($commonTemplates)
     {
         $files = [];
 
@@ -130,12 +130,12 @@ class TemplateGenerator
         return $files;
     }
 
-    public function getImagesPath()
+    public static function getImagesPath()
     {
         return self::$_imagesPath;
     }
 
-    public function getTemplateImagesPath()
+    public static function getTemplateImagesPath()
     {
         return self::$_templateImagesPath;
     }

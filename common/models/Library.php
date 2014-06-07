@@ -25,6 +25,8 @@ class Library extends ActiveRecord
             $this->unlink($relation, $related, true);
         }
 
+        $this->setOldAttributes([]);
+
         // create new if exists
         if (is_array($data)) {
             $related = self::findAll($data);
