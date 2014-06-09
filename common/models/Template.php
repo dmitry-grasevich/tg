@@ -28,6 +28,7 @@ use yii\web\UploadedFile;
  * @property Css[] $css
  * @property Js[] $js
  * @property Image[] $images
+ * @property Font[] $fonts
  * @property Functions[] $functions
  * @property Template[] $children
  * @property Template[] $parents
@@ -40,6 +41,7 @@ class Template extends Library
         'css',
         'js',
         'images',
+        'fonts',
         'functions',
     ];
 
@@ -85,6 +87,8 @@ class Template extends Library
             'JsName' => Yii::t('app', 'Js'),
             'image' => Yii::t('app', 'Images'),
             'ImageName' => Yii::t('app', 'Images'),
+            'font' => Yii::t('app', 'Fonts'),
+            'FontName' => Yii::t('app', 'Fonts'),
             'functions' => Yii::t('app', 'Functions'),
             'FunctionsName' => Yii::t('app', 'Functions'),
             'parentsName' => Yii::t('app', 'Parents'),
@@ -208,6 +212,30 @@ class Template extends Library
             $names = [];
             foreach ($this->images as $image) {
                 $names[] = Html::a($image->name, ['/image/view', 'id' => $image->id]);
+            }
+            return implode(', ', $names);
+        }
+        return '';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFonts()
+    {
+        return $this->hasMany(Font::className(), ['id' => 'font_id'])
+            ->viaTable('template_font', ['template_id' => 'id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFontName()
+    {
+        if (!empty($this->fonts)) {
+            $names = [];
+            foreach ($this->fonts as $font) {
+                $names[] = Html::a($font->name, ['/font/view', 'id' => $font->id]);
             }
             return implode(', ', $names);
         }

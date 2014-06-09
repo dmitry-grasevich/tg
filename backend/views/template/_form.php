@@ -6,6 +6,7 @@ use common\models\TemplateCategory;
 use common\models\Css;
 use common\models\Js;
 use common\models\Image;
+use common\models\Font;
 use common\models\Functions;
 use common\models\Template;
 
@@ -131,6 +132,20 @@ DetailView::widget([
                 'data' => Image::listAll(),
                 'options' => [
                     'placeholder' => 'Select Images ...',
+                    'multiple' => true,
+                ],
+                'pluginOptions' => ['allowClear' => true],
+            ],
+        ],
+        [
+            'attribute' => 'fonts',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_SELECT2,
+            'value' => $model->FontName,
+            'widgetOptions' => [
+                'data' => Font::listAll(),
+                'options' => [
+                    'placeholder' => 'Select Fonts ...',
                     'multiple' => true,
                 ],
                 'pluginOptions' => ['allowClear' => true],
