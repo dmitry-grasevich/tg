@@ -42,6 +42,7 @@ AppAsset::register($this);
                         ['label' => 'Css', 'url' => ['/css/index']],
                         ['label' => 'Js', 'url' => ['/js']],
                         ['label' => 'Images', 'url' => ['/image']],
+                        ['label' => 'Fonts', 'url' => ['/font']],
                         ['label' => 'Functions', 'url' => ['/functions']],
                     ],
                 ],

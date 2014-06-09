@@ -7,23 +7,23 @@ use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
 /**
- * This is the model class for table "image".
+ * This is the model class for table "font".
  *
  * @property integer $id
  * @property string $name
  * @property string $filename
  * @property string $directory
  *
- * @property TemplateImage[] $templateImages
+ * @property TemplateFont[] $templateFonts
  */
-class Image extends Library
+class Font extends Library
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'image';
+        return 'font';
     }
 
     /**
@@ -33,7 +33,6 @@ class Image extends Library
     {
         return [
             [['name'], 'required'],
-            [['filename'], 'file', 'types' => 'jpg,jpeg,gif,png'],
             [['name', 'filename', 'directory'], 'string', 'max' => 255]
         ];
     }
@@ -46,7 +45,7 @@ class Image extends Library
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'filename' => Yii::t('app', 'File'),
+            'filename' => Yii::t('app', 'Filename'),
             'directory' => Yii::t('app', 'Directory'),
         ];
     }
@@ -54,20 +53,20 @@ class Image extends Library
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTemplateImages()
+    public function getTemplateFonts()
     {
-        return $this->hasMany(TemplateImage::className(), ['image_id' => 'id']);
+        return $this->hasMany(TemplateFont::className(), ['font_id' => 'id']);
     }
 
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $dir = Yii::getAlias('@webroot' . Yii::$app->params['template']['alias']['images']);
+            $dir = Yii::getAlias('@webroot' . Yii::$app->params['template']['alias']['fonts']);
             FileHelper::createDirectory($dir);
-            $img = UploadedFile::getInstance($this, 'filename');
-            if (!empty($img)) {
-                $img->saveAs($dir . '/' . $img->name);
-                $this->filename = $img->name;
+            $font = UploadedFile::getInstance($this, 'filename');
+            if (!empty($font)) {
+                $font->saveAs($dir . '/' . $font->name);
+                $this->filename = $font->name;
             }
 
             return true;

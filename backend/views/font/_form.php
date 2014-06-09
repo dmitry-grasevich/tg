@@ -5,11 +5,11 @@ use kartik\detail\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var common\models\Image $model
+ * @var common\models\Font $model
  * @var yii\widgets\ActiveForm $form
  */
 
-$imagesAlias = '@web' . Yii::$app->params['template']['alias']['images'];
+$fontsAlias = '@web' . Yii::$app->params['template']['alias']['fonts'];
 ?>
 
 <?=
@@ -31,14 +31,11 @@ DetailView::widget([
             'attribute' => 'filename',
             'format' => 'raw',
             'type' => DetailView::INPUT_FILEINPUT,
-            'value' => $model->filename ? Html::img(Yii::getAlias($imagesAlias) . '/' . $model->filename, ['class' => 'file-preview-image']) : false,
+            'value' => $model->filename,
             'widgetOptions' => [
-                'options' => ['accept' => 'image/*'],
                 'pluginOptions' => [
                     'showUpload' => false,
-                    'initialPreview' => $model->filename ? [
-                            Html::img(Yii::getAlias($imagesAlias) . '/' . $model->filename, ['class' => 'file-preview-image']),
-                        ] : false,
+                    'initialPreview' => false,
                 ],
             ],
         ],

@@ -7,9 +7,6 @@ use yii\helpers\VarDumper;
 
 class TemplateGenerator
 {
-    protected static $_imagesPath = '@backend/web/templateImages/';
-    protected static $_templateImagesPath = 'images';
-
     public static function create($q)
     {
         $file = tempnam("tmp", uniqid('zip'));
@@ -136,11 +133,11 @@ class TemplateGenerator
 
     public static function getImagesPath()
     {
-        return self::$_imagesPath;
+        return '@backend/web' . Yii::$app->params['template']['alias']['images'];
     }
 
     public static function getTemplateImagesPath()
     {
-        return self::$_templateImagesPath;
+        return 'images';
     }
 }
