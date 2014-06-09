@@ -13,6 +13,7 @@ class TemplateGenerator
         $zip = new \ZipArchiveEx();
         $zip->open($file, \ZipArchive::OVERWRITE);
         $zip->addEmptyDir('images');
+        $zip->addEmptyDir('fonts');
 
         $commonTemplates = Template::find()->innerJoinWith('category')
             ->where(['template_category.is_basic' => 1])->all();
@@ -39,6 +40,9 @@ class TemplateGenerator
                 if (isset($fileContent['image'])) { // Add image to archive
                     $zipPath = self::getTemplateImagesPath() . '/' . $path;
                     $zip->addFile(Yii::getAlias(self::getImagesPath() . $path), $zipPath);
+                } elseif (isset($fileContent['font'])) { // Add font to archive
+                    $zipPath = self::getTemplateFontsPath() . '/' . $path;
+                    $zip->addFile(Yii::getAlias(self::getFontsPath() . $path), $zipPath);
                 } else {
                     $code = $fileContent['code']; // common code
                     if (isset($map[$fileContent['id']])) { // children files
@@ -56,6 +60,15 @@ class TemplateGenerator
                                     $p = $image->directory != '' ? $image->directory . '/' . $image->filename : $image->filename;
                                     $zipPath = self::getTemplateImagesPath() . '/' . $p;
                                     $zip->addFile(Yii::getAlias(self::getImagesPath() . $p), $zipPath);
+                                }
+                            }
+                            /** Linked fonts **/
+                            $fonts = $child->images; // children can see fonts
+                            if (is_array($fonts) && count($fonts)) {
+                                foreach ($fonts as $font) {
+                                    $p = $font->directory != '' ? $font->directory . '/' . $font->filename : $font->filename;
+                                    $zipPath = self::getTemplateFontsPath() . '/' . $p;
+                                    $zip->addFile(Yii::getAlias(self::getFontsPath() . $p), $zipPath);
                                 }
                             }
                         }
@@ -126,6 +139,16 @@ class TemplateGenerator
                     }
                 }
             }
+
+            $fonts = $template->fonts;
+            if (is_array($fonts) && count($fonts)) {
+
+                foreach ($fonts as $font) {
+                    if (!isset($files[$font->filename][$font->directory])) {
+                        $files[$font->filename][$font->directory]['font'] = true;
+                    }
+                }
+                VarDumper::dump($files, 10, true); exit;            }
         }
 
         return $files;
@@ -139,5 +162,15 @@ class TemplateGenerator
     public static function getTemplateImagesPath()
     {
         return 'images';
+    }
+
+    public static function getFontsPath()
+    {
+        return '@backend/web' . Yii::$app->params['template']['alias']['fonts'];
+    }
+
+    public static function getTemplateFontsPath()
+    {
+        return 'fonts';
     }
 }
