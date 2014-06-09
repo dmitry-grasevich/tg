@@ -39,10 +39,10 @@ class TemplateGenerator
 
                 if (isset($fileContent['image'])) { // Add image to archive
                     $zipPath = self::getTemplateImagesPath() . '/' . $path;
-                    $zip->addFile(Yii::getAlias(self::getImagesPath() . $path), $zipPath);
+                    $zip->addFile(Yii::getAlias(self::getImagesPath() . '/' . $path), $zipPath);
                 } elseif (isset($fileContent['font'])) { // Add font to archive
                     $zipPath = self::getTemplateFontsPath() . '/' . $path;
-                    $zip->addFile(Yii::getAlias(self::getFontsPath() . $path), $zipPath);
+                    $zip->addFile(Yii::getAlias(self::getFontsPath() . '/' . $path), $zipPath);
                 } else {
                     $code = $fileContent['code']; // common code
                     if (isset($map[$fileContent['id']])) { // children files
@@ -59,7 +59,7 @@ class TemplateGenerator
                                 foreach ($images as $image) {
                                     $p = $image->directory != '' ? $image->directory . '/' . $image->filename : $image->filename;
                                     $zipPath = self::getTemplateImagesPath() . '/' . $p;
-                                    $zip->addFile(Yii::getAlias(self::getImagesPath() . $p), $zipPath);
+                                    $zip->addFile(Yii::getAlias(self::getImagesPath() . '/' . $p), $zipPath);
                                 }
                             }
                             /** Linked fonts **/
@@ -68,7 +68,7 @@ class TemplateGenerator
                                 foreach ($fonts as $font) {
                                     $p = $font->directory != '' ? $font->directory . '/' . $font->filename : $font->filename;
                                     $zipPath = self::getTemplateFontsPath() . '/' . $p;
-                                    $zip->addFile(Yii::getAlias(self::getFontsPath() . $p), $zipPath);
+                                    $zip->addFile(Yii::getAlias(self::getFontsPath()  . '/' . $p), $zipPath);
                                 }
                             }
                         }
@@ -148,7 +148,7 @@ class TemplateGenerator
                         $files[$font->filename][$font->directory]['font'] = true;
                     }
                 }
-                VarDumper::dump($files, 10, true); exit;            }
+            }
         }
 
         return $files;

@@ -8,8 +8,6 @@ use kartik\detail\DetailView;
  * @var common\models\Font $model
  * @var yii\widgets\ActiveForm $form
  */
-
-$fontsAlias = '@web' . Yii::$app->params['template']['alias']['fonts'];
 ?>
 
 <?=
