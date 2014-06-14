@@ -10,8 +10,10 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property string $code
+ * @property integer $parent_id
  *
  * @property TemplateFunctions[] $templateFunctions
+ * @property Template $parent
  */
 class Functions extends Library
 {
@@ -31,6 +33,7 @@ class Functions extends Library
         return [
             [['name'], 'required'],
             [['code'], 'string'],
+            [['parent_id'], 'integer'],
             [['name'], 'string', 'max' => 255]
         ];
     }
@@ -44,7 +47,27 @@ class Functions extends Library
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'code' => Yii::t('app', 'Code'),
+            'parent_id' => Yii::t('app', 'Parent'),
+            'parentName' => Yii::t('app', 'Parent'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParent()
+    {
+        return $this->hasOne(Template::className(), ['id' => 'parent_id']);
+    }
+
+    /**
+     * Getter for parent name
+     *
+     * @return string  parent name
+     */
+    public function getParentName()
+    {
+        return $this->parent->name;
     }
 
     /**

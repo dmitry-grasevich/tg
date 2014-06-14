@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 
 class TemplateGenerator
@@ -15,23 +16,35 @@ class TemplateGenerator
         $zip->addEmptyDir('images');
         $zip->addEmptyDir('fonts');
 
+        $data = [
+            'templates' => [],  // included templates
+            'css' => [],        // css code to add to style.css or css files
+            'js' => [],         // js
+            'images' => [],     // images files
+            'fonts' => [],      // fonts files
+            'functions' => [],  // code to add to functions.php
+        ];
+
         $commonTemplates = Template::find()->innerJoinWith('category')
             ->where(['template_category.is_basic' => 1])->all();
 
-        $selectedIds = explode(',', $q);
-        $map = [];
-        foreach ($selectedIds as $id) {
-            $selectedTemplate = Template::findOne(intval($id));
-
-            if (empty($selectedTemplate))
-                continue;
-
-            foreach ($selectedTemplate->parents as $parent) {
-                $map[$parent->id][] = $selectedTemplate;
-            }
+        foreach ($commonTemplates as $template) {
+            self::prepareData($template, $data);
         }
 
-        $files = self::prepareCommonFiles($commonTemplates);
+        $selectedIds = explode(',', $q);
+        foreach ($selectedIds as $id) {
+            $selectedTemplate = Template::findOne(intval($id));
+            self::prepareData($selectedTemplate, $data);
+        }
+
+        VarDumper::dump($data, 4, true); die();
+
+//        foreach ($data as $type => $entites) {
+//
+//        }
+
+        $files = [];
 
         foreach ($files as $filename => $fileData) {
             foreach ($fileData as $directory => $fileContent) {
@@ -71,6 +84,8 @@ class TemplateGenerator
                                     $zip->addFile(Yii::getAlias(self::getFontsPath()  . '/' . $p), $zipPath);
                                 }
                             }
+                            /** Functions **/
+
                         }
                     }
                     $zip->addFromString($path, $code);
@@ -87,71 +102,56 @@ class TemplateGenerator
         unlink($file);
     }
 
-    protected static function prepareCommonFiles($commonTemplates)
+    public static function prepareData($template, &$data)
     {
-        $files = [];
+        if (empty($template)) return;
 
-        foreach ($commonTemplates as $template) {
-            $files[$template->filename][$template->directory]['id'] = $template->id;
-            $files[$template->filename][$template->directory]['code'] = $template->code;
-
-            $csses = $template->css;
-            if (is_array($csses) && count($csses)) {
-                foreach ($csses as $css) {
-                    if (isset($files[$css->filename][$css->directory])) {
-                        $files[$css->filename][$css->directory]['code'] .= "\n" . $css->code;
-                    } else {
-                        $files[$css->filename][$css->directory]['id'] = $css->id;
-                        $files[$css->filename][$css->directory]['code'] = $css->code;
-                    }
+        if (count($template->parents)) {
+            foreach ($template->parents as $parent) {
+                if (!isset($data['templates'][$parent->id][$template->id])) {
+                    $data['templates'][$parent->id][$template->id] = $template;
                 }
             }
-
-            $jses = $template->js;
-            if (is_array($jses) && count($jses)) {
-                foreach ($jses as $js) {
-                    if (isset($files[$js->filename][$js->directory])) {
-                        $files[$js->filename][$js->directory]['code'] .= "\n" . $js->code;
-                    } else {
-                        $files[$js->filename][$js->directory]['id'] = $js->id;
-                        $files[$js->filename][$js->directory]['code'] = $js->code;
-                    }
-                }
+        } else {
+            if (!isset($data['templates']['file'][$template->id])) {
+                $data['templates']['file'][$template->id] = $template; // single file
             }
-
-            $functions = $template->functions;
-            if (is_array($functions) && count($functions)) {
-                foreach ($functions as $function) {
-                    if (isset($files[$function->filename][$function->directory])) {
-                        $files[$function->filename][$function->directory]['code'] .= "\n" . $function->code;
-                    } else {
-                        $files[$function->filename][$function->directory]['id'] = $function->id;
-                        $files[$function->filename][$function->directory]['code'] = "\n" . $function->code;
-                    }
-                }
-            }
-
-            $images = $template->images;
-            if (is_array($images) && count($images)) {
-                foreach ($images as $image) {
-                    if (!isset($files[$image->filename][$image->directory])) {
-                        $files[$image->filename][$image->directory]['image'] = true;
-                    }
-                }
-            }
-
-            $fonts = $template->fonts;
-            if (is_array($fonts) && count($fonts)) {
-
-                foreach ($fonts as $font) {
-                    if (!isset($files[$font->filename][$font->directory])) {
-                        $files[$font->filename][$font->directory]['font'] = true;
-                    }
+        }
+        if (count($template->css)) {
+            foreach ($template->css as $css) {
+                if (!isset($data['css'][$css->id])) {
+                    $data['css'][$css->id] = $css;
                 }
             }
         }
-
-        return $files;
+        if (count($template->js)) {
+            foreach ($template->js as $js) {
+                if (!isset($data['js'][$js->id])) {
+                    $data['js'][$js->id] = $js;
+                }
+            }
+        }
+        if (count($template->images)) {
+            foreach ($template->images as $image) {
+                if (!isset($data['images'][$image->id])) {
+                    $data['images'][$image->id] = $image;
+                }
+            }
+        }
+        if (count($template->fonts)) {
+            foreach ($template->fonts as $font) {
+                if (!isset($data['fonts'][$font->id])) {
+                    $data['fonts'][$font->id] = $font;
+                }
+            }
+        }
+        if (count($template->functions)) {
+            foreach ($template->functions as $function) {
+                if (!isset($data['functions'][$function->id])) {
+                    $data['functions'][$function->id] = $function;
+                }
+            }
+        }
     }
 
     public static function getImagesPath()
