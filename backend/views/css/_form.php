@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use kartik\datecontrol\DateControl;
+use common\models\Template;
 
 /**
  * @var yii\web\View $this
@@ -22,6 +23,17 @@ DetailView::widget([
         'type' => DetailView::TYPE_INFO,
     ],
     'attributes' => [
+        [
+            'attribute' => 'parent_id',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_SELECT2,
+            'value' => $model->parent ? $model->parent->name : '',
+            'widgetOptions' => [
+                'data' => Template::listAll(),
+                'options' => ['placeholder' => 'Select Parent Css'],
+                'pluginOptions' => ['allowClear' => false],
+            ],
+        ],
         'name',
         [
             'attribute' => 'code',

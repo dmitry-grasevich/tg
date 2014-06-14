@@ -17,6 +17,7 @@ class Css extends CssModel
         return [
             [['id'], 'integer'],
             [['name', 'code', 'filename', 'directory'], 'safe'],
+            [['parentName'], 'safe'],
         ];
     }
 
@@ -34,7 +35,27 @@ class Css extends CssModel
             'query' => $query,
         ]);
 
+        /**
+         * Setup your sorting attributes
+         * Note: This is setup before the $this->load($params)
+         * statement below
+         */
+        $dataProvider->setSort([
+            'attributes' => [
+                'id',
+                'name',
+                'filename',
+                'directory',
+                'parentName' => [
+                    'asc' => ['template.name' => SORT_ASC],
+                    'desc' => ['template.name' => SORT_DESC],
+                    'label' => 'Parent'
+                ]
+            ]
+        ]);
+
         if (!($this->load($params) && $this->validate())) {
+            $query->joinWith(['parent']);
             return $dataProvider;
         }
 
@@ -46,6 +67,11 @@ class Css extends CssModel
             ->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'filename', $this->filename])
             ->andFilterWhere(['like', 'directory', $this->directory]);
+
+        // filter by parent name
+        $query->joinWith(['parent' => function ($q) {
+            $q->where('template.name LIKE "%' . $this->parentName . '%"');
+        }]);
 
         return $dataProvider;
     }

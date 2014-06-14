@@ -14,6 +14,7 @@ use Yii;
  * @property string $directory
  *
  * @property TemplateCss[] $templateCsses
+ * @property Template $parent
  */
 class Css extends Library
 {
@@ -33,6 +34,7 @@ class Css extends Library
         return [
             [['name'], 'required'],
             [['code'], 'string'],
+            [['parent_id'], 'integer'],
             [['name', 'filename', 'directory'], 'string', 'max' => 255]
         ];
     }
@@ -48,7 +50,27 @@ class Css extends Library
             'code' => Yii::t('app', 'Code'),
             'filename' => Yii::t('app', 'Filename'),
             'directory' => Yii::t('app', 'Directory'),
+            'parent_id' => Yii::t('app', 'Parent'),
+            'parentName' => Yii::t('app', 'Parent'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParent()
+    {
+        return $this->hasOne(Template::className(), ['id' => 'parent_id']);
+    }
+
+    /**
+     * Getter for parent name
+     *
+     * @return string  parent name
+     */
+    public function getParentName()
+    {
+        return $this->parent->name;
     }
 
     /**
