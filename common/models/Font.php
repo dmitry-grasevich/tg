@@ -62,6 +62,9 @@ class Font extends Library
     {
         if (parent::beforeSave($insert)) {
             $dir = Yii::getAlias('@webroot' . Yii::$app->params['template']['alias']['fonts']);
+            if ($this->directory) {
+                $dir .= '/' . $this->directory;
+            }
             FileHelper::createDirectory($dir);
             $font = UploadedFile::getInstance($this, 'filename');
             if (!empty($font)) {
