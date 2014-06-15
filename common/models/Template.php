@@ -29,6 +29,7 @@ use yii\web\UploadedFile;
  * @property Js[] $js
  * @property Image[] $images
  * @property Font[] $fonts
+ * @property Plugin[] $plugins
  * @property Functions[] $functions
  * @property Template[] $children
  * @property Template[] $parents
@@ -43,6 +44,7 @@ class Template extends Library
         'images' => '\common\models\Image',
         'fonts' => '\common\models\Font',
         'functions' => '\common\models\Functions',
+        'plugins' => '\common\models\Plugin',
     ];
 
     /**
@@ -89,6 +91,8 @@ class Template extends Library
             'ImageName' => Yii::t('app', 'Images'),
             'font' => Yii::t('app', 'Fonts'),
             'FontName' => Yii::t('app', 'Fonts'),
+            'plugin' => Yii::t('app', 'Plugins'),
+            'PluginName' => Yii::t('app', 'Plugins'),
             'functions' => Yii::t('app', 'Functions'),
             'FunctionsName' => Yii::t('app', 'Functions'),
             'parentsName' => Yii::t('app', 'Parents'),
@@ -236,6 +240,30 @@ class Template extends Library
             $names = [];
             foreach ($this->fonts as $font) {
                 $names[] = Html::a($font->name, ['/font/view', 'id' => $font->id]);
+            }
+            return implode(', ', $names);
+        }
+        return '';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlugins()
+    {
+        return $this->hasMany(Plugin::className(), ['id' => 'plugin_id'])
+            ->viaTable('template_plugin', ['template_id' => 'id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPluginName()
+    {
+        if (!empty($this->plugins)) {
+            $names = [];
+            foreach ($this->plugins as $plugin) {
+                $names[] = Html::a($plugin->name, ['/plugin/view', 'id' => $plugin->id]);
             }
             return implode(', ', $names);
         }

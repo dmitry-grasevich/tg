@@ -9,6 +9,7 @@ use common\models\Image;
 use common\models\Font;
 use common\models\Functions;
 use common\models\Template;
+use common\models\Plugin;
 
 /**
  * @var yii\web\View $this
@@ -160,6 +161,20 @@ DetailView::widget([
                 'data' => Functions::listAll(),
                 'options' => [
                     'placeholder' => 'Select Functions ...',
+                    'multiple' => true,
+                ],
+                'pluginOptions' => ['allowClear' => true],
+            ],
+        ],
+        [
+            'attribute' => 'plugins',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_SELECT2,
+            'value' => $model->PluginName,
+            'widgetOptions' => [
+                'data' => Plugin::listAll(),
+                'options' => [
+                    'placeholder' => 'Select Plugins ...',
                     'multiple' => true,
                 ],
                 'pluginOptions' => ['allowClear' => true],
