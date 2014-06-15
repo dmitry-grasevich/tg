@@ -36,13 +36,13 @@ use yii\web\UploadedFile;
 class Template extends Library
 {
     protected $relations = [
-        'parents',
-        'children',
-        'css',
-        'js',
-        'images',
-        'fonts',
-        'functions',
+        'parents' => '\common\models\Template',
+        'children' => '\common\models\Template',
+        'css' => '\common\models\Css',
+        'js' => '\common\models\Js',
+        'images' => '\common\models\Image',
+        'fonts' => '\common\models\Font',
+        'functions' => '\common\models\Functions',
     ];
 
     /**
@@ -338,9 +338,11 @@ class Template extends Library
         parent::afterSave($insert);
 
         if ($post = ArrayHelper::getValue($_POST, 'Template')) {
-            foreach ($this->relations as $relation) {
-                if (isset($post[$relation]))
-                    $this->saveRelated($relation, $post[$relation]);
+            foreach ($this->relations as $relation => $class) {
+                if (isset($post[$relation])) {
+                    $related = $class::findAll($post[$relation]);
+                    $this->saveRelated($relation, $related);
+                }
             }
         }
     }

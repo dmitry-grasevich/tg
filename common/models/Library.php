@@ -18,18 +18,17 @@ class Library extends ActiveRecord
         }
     }
 
-    public function saveRelated($relation, $data)
+    public function saveRelated($relation, $related = [])
     {
         // remove old relations
-        foreach ($this->$relation as $related) {
-            $this->unlink($relation, $related, true);
+        foreach ($this->$relation as $rel) {
+            $this->unlink($relation, $rel, true);
         }
 
         $this->setOldAttributes([]);
 
         // create new if exists
-        if (is_array($data)) {
-            $related = self::findAll($data);
+        if (count($related)) {
             foreach($related as $rel) {
                 $this->link($relation, $rel);
             }
