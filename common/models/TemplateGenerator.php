@@ -2,9 +2,8 @@
 
 namespace common\models;
 
+use common\helpers\ZipArchiveTg;
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 
 class TemplateGenerator
 {
@@ -17,6 +16,7 @@ class TemplateGenerator
             'images' => [],     // images files
             'fonts' => [],      // fonts files
             'functions' => [],  // code to add to functions.php
+            'plugins' => [],    // plugins directories with files
         ];
 
         $commonTemplates = Template::find()->innerJoinWith('category')
@@ -84,6 +84,13 @@ class TemplateGenerator
                 }
             }
         }
+        if (count($template->plugins)) {
+            foreach ($template->plugins as $plugin) {
+                if (!isset($data['plugins'][$plugin->id])) {
+                    $data['plugins'][$plugin->id] = $plugin;
+                }
+            }
+        }
         if (count($template->functions)) {
             foreach ($template->functions as $function) {
                 if (!empty($function->parent)) {
@@ -102,7 +109,7 @@ class TemplateGenerator
     public static function createZip($data)
     {
         $file = tempnam("tmp", uniqid('zip'));
-        $zip = new \ZipArchiveEx();
+        $zip = new ZipArchiveTg();
         $zip->open($file, \ZipArchive::OVERWRITE);
         $zip->addEmptyDir('images');
         $zip->addEmptyDir('fonts');
@@ -168,6 +175,12 @@ class TemplateGenerator
             }
         }
 
+        if (count($data['plugins'])) { // add plugins to zip
+            foreach ($data['plugins'] as $id => $plugin) {
+                $zip->addDir(Yii::getAlias(self::getPluginsPath() . '/' . $plugin->directory), self::getTemplatePluginsPath());
+            }
+        }
+
         // TODO: add js
 
         // Close and send to users
@@ -197,5 +210,15 @@ class TemplateGenerator
     public static function getTemplateFontsPath()
     {
         return 'fonts';
+    }
+
+    public static function getPluginsPath()
+    {
+        return '@backend/web' . Yii::$app->params['template']['alias']['plugins'];
+    }
+
+    public static function getTemplatePluginsPath()
+    {
+        return 'plugins';
     }
 }
