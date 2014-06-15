@@ -44,6 +44,7 @@ AppAsset::register($this);
                         ['label' => 'Images', 'url' => ['/image']],
                         ['label' => 'Fonts', 'url' => ['/font']],
                         ['label' => 'Functions', 'url' => ['/functions']],
+                        ['label' => 'Plugins', 'url' => ['/plugin']],
                     ],
                 ],
             ];

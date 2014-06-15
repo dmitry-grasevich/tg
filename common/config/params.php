@@ -7,6 +7,7 @@ return [
         'alias' => [
             'images' => '/templateData/images',
             'fonts' => '/templateData/fonts',
+            'plugins' => '/templateData/plugins',
         ]
     ]
 ];
