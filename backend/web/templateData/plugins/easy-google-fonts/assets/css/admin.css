@@ -13,16 +13,18 @@
  * Global Styles
  */
 .clear, .clearfix {
-	clear: both;
+    clear: both;
 }
 
 .howto {
     display: block;
     font-style: italic;
 }
+
 textarea, input, select {
     font-size: 14px;
 }
+
 #contextual-help-columns a {
     outline: none !important;
 }
@@ -87,8 +89,8 @@ textarea, input, select {
     margin-top: 23px;
     padding: 10px;
     border: 1px solid #ddd;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
     -webkit-border-radius: 0;
     border-radius: 0;
     background: none repeat scroll 0 0 #FBFBFB;
@@ -115,17 +117,17 @@ textarea, input, select {
 }
 
 #edit-controls-wrap {
-	margin-top: 23px;
+    margin-top: 23px;
     border: 1px solid #ddd;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
 
 .control-edit {
     background: #FFFFFF;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
 }
 
 /* Header and Footer */
@@ -133,36 +135,37 @@ textarea, input, select {
 #edit-control-footer {
     background: #F5F5F5;
     line-height: 1.4em;
-	padding: 0 10px;
+    padding: 0 10px;
 }
+
 #edit-control-header {
-	border-bottom: 1px solid #DFDFDF;
+    border-bottom: 1px solid #DFDFDF;
 }
 
 #edit-control-footer {
-	border-top: 1px solid #FFFFFF;
+    border-top: 1px solid #FFFFFF;
 }
 
 #edit-control-footer .delete-action {
-	float: left;
-	margin-top: 6px;
+    float: left;
+    margin-top: 6px;
 }
 
 #edit-control-footer .delete-action a {
-	margin: 4px 0;
+    margin: 4px 0;
 }
 
 #edit-control-header .publishing-action,
 #edit-control-footer .publishing-action {
-	float: right;
-	margin: 2px 0 1px;
-	text-align: right;
-	line-height: 23px;
+    float: right;
+    margin: 2px 0 1px;
+    text-align: right;
+    line-height: 23px;
 }
 
 .control-edit .major-publishing-actions {
     clear: both;
-    padding: 3px 0 5px;	
+    padding: 3px 0 5px;
 }
 
 .control-edit .spinner {
@@ -171,16 +174,18 @@ textarea, input, select {
 
 .control-edit #post-body {
     background: #FFFFFF;
-	border-bottom: 1px solid #DFDFDF;
-	padding: 0 10px 10px;
+    border-bottom: 1px solid #DFDFDF;
+    padding: 0 10px 10px;
 }
 
 .control-edit #post-body-content {
-	float: none;
+    float: none;
 }
+
 #control-force-styles {
     margin-bottom: 10px;
 }
+
 /**
  * Tag it Plugin
  * =============
@@ -198,23 +203,25 @@ ul.tagit {
     margin-right: inherit;
     margin-bottom: 30px;
 }
+
 ul.tagit li {
     display: block;
     float: left;
     margin: 2px 5px 2px 0;
 }
-ul.tagit li.tagit-choice {    
+
+ul.tagit li.tagit-choice {
     position: relative;
     line-height: inherit;
 }
 
-ul.tagit li.tagit-choice-read-only { 
-    padding: .2em .5em .2em .5em; 
-} 
+ul.tagit li.tagit-choice-read-only {
+    padding: .2em .5em .2em .5em;
+}
 
-ul.tagit li.tagit-choice-editable { 
-    padding: .2em 18px .2em .5em; 
-} 
+ul.tagit li.tagit-choice-editable {
+    padding: .2em 18px .2em .5em;
+}
 
 ul.tagit li.tagit-new {
     padding: .25em 4px .25em 0;
@@ -224,6 +231,7 @@ ul.tagit li.tagit-choice a.tagit-label {
     cursor: pointer;
     text-decoration: none;
 }
+
 ul.tagit li.tagit-choice .tagit-close {
     cursor: pointer;
     position: absolute;
@@ -243,10 +251,11 @@ ul.tagit li.tagit-choice input {
     float: left;
     margin: 2px 5px 2px 0;
 }
+
 ul.tagit input[type="text"] {
-    -moz-box-sizing:    border-box;
+    -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    box-sizing:         border-box;
+    box-sizing: border-box;
 
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
@@ -259,11 +268,13 @@ ul.tagit input[type="text"] {
     background-color: inherit;
     outline: none;
 }
+
 ul.tagit {
     border: 1px solid #e8e8e8;
     max-width: 100%;
     background: inherit;
 }
+
 ul.tagit li.tagit-choice {
     -moz-border-radius: 0px;
     border-radius: 0px;
@@ -275,40 +286,49 @@ ul.tagit li.tagit-choice {
 
     font-weight: normal;
 }
+
 ul.tagit li.tagit-choice .tagit-label:not(a) {
     color: #555;
 }
+
 ul.tagit li.tagit-choice a.tagit-close {
     text-decoration: none;
 }
+
 ul.tagit li.tagit-choice .tagit-close {
     right: .4em;
 }
+
 ul.tagit li.tagit-choice .ui-icon {
     display: none;
 }
+
 ul.tagit li.tagit-choice .tagit-close .text-icon {
     display: inline;
     font-size: 16px;
     line-height: 16px;
     color: #444444;
-    color: rgba(0,0,0,0.5);
+    color: rgba(0, 0, 0, 0.5);
     font-weight: bold;
-    
+
 }
+
 ul.tagit li.tagit-choice:hover, ul.tagit li.tagit-choice.remove {
     background-color: #bbcef1;
     border-color: #6d95e0;
 }
+
 ul.tagit li.tagit-choice a.tagLabel:hover,
 ul.tagit li.tagit-choice a.tagit-close .text-icon:hover {
     color: #222;
 }
+
 ul.tagit input[type="text"] {
     color: #333333;
-    color: rgba(0,0,0,0.6);
+    color: rgba(0, 0, 0, 0.6);
     background: none;
 }
+
 .ui-widget {
     font-size: 1.1em;
 }
@@ -380,6 +400,7 @@ ul.tagit input[type="text"] {
     background: #dff0d8;
     border-color: #d6e9c6;
 }
+
 .manage-controls.manage-google-key.valid-key p {
     color: #468847;
 }
@@ -395,9 +416,11 @@ ul.tagit input[type="text"] {
 .manage-controls.manage-google-key.loading {
     width: 265px
 }
+
 .spinner.spinner-left {
-    float:left;
+    float: left;
 }
+
 #save_api_key {
     float: left;
 }
@@ -405,6 +428,7 @@ ul.tagit input[type="text"] {
 .key-feedback {
     margin-bottom: 0;
 }
+
 .key-feedback span {
     display: block;
 }

@@ -1,20 +1,20 @@
-/* Mashup */ 
+/* Mashup */
 .pgmm img,
-/* Mashup - Twenty Ten / Eleven */ 
+    /* Mashup - Twenty Ten / Eleven */
 .entry-content .pgmm img,
 .comment-content .pgmm img,
 .widget .pgmm img,
-/* Mashup - Colorway */
+    /* Mashup - Colorway */
 .content .pgmm img,
-/* Map */ 
+    /* Map */
 .pgm img,
-/* Map - Twenty Ten / Eleven */ 
+    /* Map - Twenty Ten / Eleven */
 .entry-content .pgm img,
 .comment-content .pgm img,
 .widget .pgm img,
-/* Map - Colorway */
+    /* Map - Colorway */
 .content .pgm img {
-	background-color: transparent;
+    background-color: transparent;
 
-	max-width: none;
+    max-width: none;
 }

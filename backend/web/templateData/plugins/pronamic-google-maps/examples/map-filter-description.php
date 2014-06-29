@@ -3,12 +3,13 @@
 /**
  * Filter snippet
  */
-function prefix_pronamic_google_maps_item_description( $description ) {
-	global $post;
+function prefix_pronamic_google_maps_item_description($description)
+{
+    global $post;
 
-	$description = get_post_meta( $post->ID, '_pronamic_google_maps_address', true );
+    $description = get_post_meta($post->ID, '_pronamic_google_maps_address', true);
 
-	return $description;
+    return $description;
 }
 
-add_filter( 'pronamic_google_maps_item_description', 'prefix_pronamic_google_maps_item_description' );
+add_filter('pronamic_google_maps_item_description', 'prefix_pronamic_google_maps_item_description');

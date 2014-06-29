@@ -1,196 +1,196 @@
 /**
  * Title: Pronamic Google Maps
- * Description: 
+ * Description:
  * Copyright: Copyright (c) 2005 - 2011
  * Company: Pronamic
  * @author Remco Tolsma
  * @version 1.0
  */
-(function($) {
-	var methods = {
-		/**
-		 * Build map
-		 * 
-		 * @param s an jQuery selector
-		 */
-		buildMap: function(s) {
-			var element = $(s);
+(function ($) {
+    var methods = {
+        /**
+         * Build map
+         *
+         * @param s an jQuery selector
+         */
+        buildMap: function (s) {
+            var element = $(s);
 
-			var info = $.parseJSON(element.find('input[name="pgm-info"]').val());
+            var info = $.parseJSON(element.find('input[name="pgm-info"]').val());
 
-			var canvas = element.find(".canvas").get(0);
+            var canvas = element.find(".canvas").get(0);
 
-			if(canvas) {
-				// Location
-				var location =  new google.maps.LatLng(info.latitude, info.longitude);
+            if (canvas) {
+                // Location
+                var location = new google.maps.LatLng(info.latitude, info.longitude);
 
-				// Map options
-				var mapOptions = $.extend({
-						center: location 
-					} , 
-					info.mapOptions
-				);
+                // Map options
+                var mapOptions = $.extend({
+                        center: location
+                    },
+                    info.mapOptions
+                );
 
-				var map = new google.maps.Map(canvas, mapOptions);
+                var map = new google.maps.Map(canvas, mapOptions);
 
-				// Marker options
-				var markerOptions = $.extend({
-						position: location , 
-						map: map 
-					} , 
-					info.markerOptions
-				);
+                // Marker options
+                var markerOptions = $.extend({
+                        position: location,
+                        map: map
+                    },
+                    info.markerOptions
+                );
 
-				var marker = new google.maps.Marker(markerOptions);
+                var marker = new google.maps.Marker(markerOptions);
 
-				element.data("google-maps", map);
-				element.data("google-maps-marker", marker);
-			
-				var infoWindow = new google.maps.InfoWindow({content: info.description});
+                element.data("google-maps", map);
+                element.data("google-maps-marker", marker);
 
-				google.maps.event.addListener(marker, "click", function() {
-					infoWindow.open(map, marker);
-				});
+                var infoWindow = new google.maps.InfoWindow({content: info.description});
 
-				// Trigger ready event
-				element.trigger("pronamic-google-maps-ready", map);
-			}
-		} , 
+                google.maps.event.addListener(marker, "click", function () {
+                    infoWindow.open(map, marker);
+                });
 
-		//////////////////////////////////////////////////
+                // Trigger ready event
+                element.trigger("pronamic-google-maps-ready", map);
+            }
+        },
 
-		/**
-		 * Build mashup
-		 * 
-		 * @param s an jQuery selector
-		 */
-		buildMashup: function(s) { 
-			var element = $(s);
+        //////////////////////////////////////////////////
 
-			var list = element.find("ul");
+        /**
+         * Build mashup
+         *
+         * @param s an jQuery selector
+         */
+        buildMashup: function (s) {
+            var element = $(s);
 
-			var mashupInfo = $.parseJSON(element.find('input[name="pgmm-info"]').val());
+            var list = element.find("ul");
 
-			var canvas = element.find(".canvas").get(0);
+            var mashupInfo = $.parseJSON(element.find('input[name="pgmm-info"]').val());
 
-			if(canvas) {
-				if(mashupInfo.hideList) {
-					list.hide();
-				}
-				
-				var center = new google.maps.LatLng(mashupInfo.center.latitude, mashupInfo.center.longitude);
-				if(google.loader.ClientLocation) {
-					center = new google.maps.LatLng(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
-				}
+            var canvas = element.find(".canvas").get(0);
 
-				// Map options
-				var mapOptions = $.extend({
-						center: center 
-					} , 
-					mashupInfo.mapOptions
-				);
+            if (canvas) {
+                if (mashupInfo.hideList) {
+                    list.hide();
+                }
 
-				var map = new google.maps.Map(canvas, mapOptions);
+                var center = new google.maps.LatLng(mashupInfo.center.latitude, mashupInfo.center.longitude);
+                if (google.loader.ClientLocation) {
+                    center = new google.maps.LatLng(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
+                }
 
-				// MarkerClustererPlus options
-				var markerClusterer = false;
-				if(mashupInfo.markerClustererOptions) {
-					var markerClusterer = new MarkerClusterer(map, [], mashupInfo.markerClustererOptions);
-				}
-				
-				// Associated the Google Maps with the element so other developers can easily retrieve the Google Maps object
-				element.data("google-maps", map);
+                // Map options
+                var mapOptions = $.extend({
+                        center: center
+                    },
+                    mashupInfo.mapOptions
+                );
 
-				// Create one info window where the details from the posts will be displayed in
-				var infoWindow = new google.maps.InfoWindow();
-				
-				// Create an bounds object so we can fit the map to show all posts
-				var bounds = new google.maps.LatLngBounds();
+                var map = new google.maps.Map(canvas, mapOptions);
 
-				$.each(mashupInfo.markers, function(i, info) {
-					var location =  new google.maps.LatLng(info.lat, info.lng);
+                // MarkerClustererPlus options
+                var markerClusterer = false;
+                if (mashupInfo.markerClustererOptions) {
+                    var markerClusterer = new MarkerClusterer(map, [], mashupInfo.markerClustererOptions);
+                }
 
-					var markerOptions = $.extend({
-							position: location 
-						} , 
-						info.options
-					);
+                // Associated the Google Maps with the element so other developers can easily retrieve the Google Maps object
+                element.data("google-maps", map);
 
-					var marker = new google.maps.Marker(markerOptions);
+                // Create one info window where the details from the posts will be displayed in
+                var infoWindow = new google.maps.InfoWindow();
 
-					google.maps.event.addListener(marker, "click", function() {
-						infoWindow.setContent(info.description);
-						infoWindow.open(map, marker);
+                // Create an bounds object so we can fit the map to show all posts
+                var bounds = new google.maps.LatLngBounds();
 
-						element.trigger("pronamic-google-maps-infowindow-open", infoWindow);
-					});
+                $.each(mashupInfo.markers, function (i, info) {
+                    var location = new google.maps.LatLng(info.lat, info.lng);
 
-					if(markerClusterer) {
-						markerClusterer.addMarker(marker, false);
-					} else {
-						marker.setMap(map);
-					}
+                    var markerOptions = $.extend({
+                            position: location
+                        },
+                        info.options
+                    );
 
-					// Extends the bounds object with this location so we can fit the map to show all posts
-					bounds.extend(location);
-				});
+                    var marker = new google.maps.Marker(markerOptions);
 
-				if(markerClusterer) {
-					markerClusterer.repaint();
-				}
+                    google.maps.event.addListener(marker, "click", function () {
+                        infoWindow.setContent(info.description);
+                        infoWindow.open(map, marker);
 
-				if(mashupInfo.fitBounds) {
-					map.fitBounds(bounds);
-				}
+                        element.trigger("pronamic-google-maps-infowindow-open", infoWindow);
+                    });
 
-				// Trigger ready event
-				element.trigger("pronamic-google-maps-ready", map);
-			}
-		}
-	};
+                    if (markerClusterer) {
+                        markerClusterer.addMarker(marker, false);
+                    } else {
+                        marker.setMap(map);
+                    }
 
-	//////////////////////////////////////////////////
+                    // Extends the bounds object with this location so we can fit the map to show all posts
+                    bounds.extend(location);
+                });
 
-	/**
-	 * The Pronamic Google Maps jQuery plugin function
-	 */
-	$.fn.pronamicGoogleMaps = function() {
-		return this.each(function() {
-			methods.buildMap(this);
-		});
-	};
+                if (markerClusterer) {
+                    markerClusterer.repaint();
+                }
 
-	//////////////////////////////////////////////////
+                if (mashupInfo.fitBounds) {
+                    map.fitBounds(bounds);
+                }
 
-	/**
-	 * The Pronamic Google Maps mashup jQuery plugin function
-	 */
-	$.fn.pronamicGoogleMapsMashup = function() {
-		return this.each(function() {
-			methods.buildMashup(this);
-		});
-	};
-	
-	//////////////////////////////////////////////////
+                // Trigger ready event
+                element.trigger("pronamic-google-maps-ready", map);
+            }
+        }
+    };
 
-	/**
-	 * Initialize
-	 */
-	var initialize = function() {
-		google.maps.visualRefresh = pronamic_google_maps_settings.visualRefresh;
+    //////////////////////////////////////////////////
 
-		$( '.pgm' ).pronamicGoogleMaps();
-		
-		$( '.pgmm' ).pronamicGoogleMapsMashup();
-	};
+    /**
+     * The Pronamic Google Maps jQuery plugin function
+     */
+    $.fn.pronamicGoogleMaps = function () {
+        return this.each(function () {
+            methods.buildMap(this);
+        });
+    };
 
-	/**
-	 * Ready
-	 */
-	$( document ).ready( function() {
-		google.load( 'maps', '3',  {
-			callback: initialize, 
-			other_params: pronamic_google_maps_settings.other_params
-		} );
-	} );
-} )( jQuery );
+    //////////////////////////////////////////////////
+
+    /**
+     * The Pronamic Google Maps mashup jQuery plugin function
+     */
+    $.fn.pronamicGoogleMapsMashup = function () {
+        return this.each(function () {
+            methods.buildMashup(this);
+        });
+    };
+
+    //////////////////////////////////////////////////
+
+    /**
+     * Initialize
+     */
+    var initialize = function () {
+        google.maps.visualRefresh = pronamic_google_maps_settings.visualRefresh;
+
+        $('.pgm').pronamicGoogleMaps();
+
+        $('.pgmm').pronamicGoogleMapsMashup();
+    };
+
+    /**
+     * Ready
+     */
+    $(document).ready(function () {
+        google.load('maps', '3', {
+            callback: initialize,
+            other_params: pronamic_google_maps_settings.other_params
+        });
+    });
+})(jQuery);
