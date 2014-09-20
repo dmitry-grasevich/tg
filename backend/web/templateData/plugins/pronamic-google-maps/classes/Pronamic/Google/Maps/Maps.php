@@ -131,7 +131,7 @@ class Pronamic_Google_Maps_Maps
         }
 
         // Plugins URL
-        $url = PLUGINS . '/pronamic-google-maps/';
+        $url = THEMEROOT . '/plugins/pronamic-google-maps/';
         self::$pluginsUrl = trailingslashit(apply_filters('google_maps_plugins_url', $url));
 
         self::$pluginsPath = trailingslashit(apply_filters('google_maps_plugins_path', GOOGLE_MAPS_PATH));

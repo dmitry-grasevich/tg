@@ -37,6 +37,11 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],
+        'request' => [
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
+            'cookieValidationKey' => 'tgcookiesecretkey',
+        ],
     ],
     'params' => $params,
 ];
