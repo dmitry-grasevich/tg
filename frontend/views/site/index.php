@@ -18,7 +18,9 @@ $this->title = 'WordPress Template Generator';
         foreach ($categories as $category) {
             $templates = $category->templates;
             if (!empty($templates)) {
-                \yii\helpers\VarDumper::dump($templates, 10, true);
+                foreach ($templates as $template) {
+                    echo $category->name . ' : ' . $template->name . '<br />';
+                }
             }
         }
 
