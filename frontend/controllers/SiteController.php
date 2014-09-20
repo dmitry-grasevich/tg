@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\TemplateCategory;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -67,7 +68,10 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $categories = TemplateCategory::findAll(['is_basic' => 0, 'is_visible' => 1]);
+        return $this->render('index', [
+            'categories' => $categories
+        ]);
     }
 
     public function actionLogin()

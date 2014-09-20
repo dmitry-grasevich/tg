@@ -11,6 +11,7 @@ use common\models\Library;
  * @property integer $id
  * @property string $name
  * @property integer $is_basic
+ * @property integer $is_visible  show or not this category items on frontend
  *
  * @property Template[] $templates
  */
@@ -31,7 +32,7 @@ class TemplateCategory extends Library
     {
         return [
             [['name'], 'required'],
-            [['is_basic'], 'integer'],
+            [['is_basic', 'is_visible'], 'integer'],
             [['name'], 'string', 'max' => 255]
         ];
     }
@@ -44,7 +45,8 @@ class TemplateCategory extends Library
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'is_basic' => Yii::t('app', 'Is Basic'),
+            'is_basic' => Yii::t('app', 'Basic Category'),
+            'is_visible' => Yii::t('app', 'Visible on Frontend'),
         ];
     }
 

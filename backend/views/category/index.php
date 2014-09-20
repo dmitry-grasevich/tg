@@ -29,6 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'is_basic',
                 'vAlign' => 'middle',
             ],
+            [
+                'class' => 'kartik\grid\BooleanColumn',
+                'attribute' => 'is_visible',
+                'vAlign' => 'middle',
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
