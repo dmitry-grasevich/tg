@@ -64,7 +64,7 @@ class Template extends Library
             [['category_id', 'name'], 'required'],
             [['category_id'], 'integer'],
             [['code', 'filename'], 'string'],
-            [['img'], 'file', 'types' => 'jpg,jpeg,gif,png'],
+            [['img'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
             [['name', 'filename', 'directory', 'img'], 'string', 'max' => 255]
         ];
     }
@@ -361,9 +361,9 @@ class Template extends Library
         }
     }
 
-    public function afterSave($insert)
+    public function afterSave($insert, $changedAttributes)
     {
-        parent::afterSave($insert);
+        parent::afterSave($insert, $changedAttributes);
 
         if ($post = ArrayHelper::getValue($_POST, 'Template')) {
             foreach ($this->relations as $relation => $class) {

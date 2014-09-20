@@ -13,7 +13,7 @@ class ImageFile extends Model
     {
         return [
             [['img'], 'safe'],
-            [['img'], 'file', 'types' => 'jpg'],
+            [['img'], 'file', 'extensions' => 'jpg'],
         ];
     }
 }

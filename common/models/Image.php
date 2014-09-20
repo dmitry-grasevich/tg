@@ -33,7 +33,7 @@ class Image extends Library
     {
         return [
             [['name'], 'required'],
-            [['filename'], 'file', 'types' => 'jpg,jpeg,gif,png'],
+            [['filename'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
             [['name', 'filename', 'directory'], 'string', 'max' => 255]
         ];
     }
