@@ -1,91 +1,209 @@
-html,
-body {
-    height: 100%;
-}
-
-.wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
-}
-
-.wrap > .container {
-    padding: 70px 15px 20px;
-}
-
-.footer {
-    height: 60px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-}
-
-.jumbotron {
-    text-align: center;
-    background-color: transparent;
-}
-
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-}
-
-.not-set {
-    color: #c55;
-    font-style: italic;
-}
-
-/* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@font-face {
     font-weight: normal;
-    line-height: 1;
-    padding-left: 5px;
+    font-style: normal;
+    font-family: 'codropsicons';
+    src:url('../fonts/codropsicons/codropsicons.eot');
+    src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/codropsicons/codropsicons.woff') format('woff'),
+    url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
+    url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
 }
 
-a.asc:after {
-    content: /*"\e113"*/ "\e151";
+body {
+    background: #34495e;
+    color: #fff;
+    font-weight: 300;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
 }
 
-a.desc:after {
-    content: /*"\e114"*/ "\e152";
+a {
+    text-decoration: none;
+    color: #f7f7f7;
+    outline: none;
 }
 
-.sort-numerical a.asc:after {
-    content: "\e153";
+a:hover, a:focus {
+    color: #fff;
+    outline: none;
 }
 
-.sort-numerical a.desc:after {
-    content: "\e154";
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: " ";
 }
 
-.sort-ordinal a.asc:after {
-    content: "\e155";
+.clearfix:after {
+    clear: both;
 }
 
-.sort-ordinal a.desc:after {
-    content: "\e156";
+.codrops-header,
+.codrops-top {
+    font-family: 'Lato', Arial, sans-serif;
 }
 
-.grid-view th {
-    white-space: nowrap;
+.codrops-header {
+    margin: 0 auto;
+    padding: 2em;
+    background: rgba(0,0,0,0.01);
+    text-align: center;
 }
 
-.hint-block {
+.codrops-header h1 {
+    margin: 0;
+    font-weight: 300;
+    font-size: 2.625em;
+    line-height: 1.3;
+}
+
+.codrops-header span {
     display: block;
-    margin-top: 5px;
-    color: #999;
+    padding: 0 0 0.6em 0.1em;
+    font-size: 60%;
+    opacity: 0.7;
 }
 
-.error-summary {
-    color: #a94442;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
+/* To Navigation Style */
+.codrops-top {
+    width: 100%;
+    background: #91cfa1;
+    background: rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    font-size: 0.69em;
+    line-height: 2.2;
+}
+
+.codrops-top a {
+    display: inline-block;
+    padding: 0 1em;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+}
+
+.codrops-top a:hover {
+    background: rgba(255,255,255,0.95);
+    color: #333;
+}
+
+.codrops-top span.right {
+    float: right;
+}
+
+.codrops-top span.right a {
+    display: block;
+    float: left;
+}
+
+.codrops-icon:before {
+    margin: 0 4px;
+    text-transform: none;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-family: 'codropsicons';
+    line-height: 1;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.codrops-icon-drop:before {
+    content: "\e001";
+}
+
+.codrops-icon-prev:before {
+    content: "\e004";
+}
+
+/* Demo Buttons Style */
+.codrops-demos {
+    padding-top: 1em;
+    font-size: 1.1em;
+}
+
+.codrops-demos a {
+    display: block;
+    float: left;
+    clear: both;
+    margin: 0.5em 0.5em 0.5em 1.9em;
+    padding: 1em 1.1em;
+    width: 280px;
+    outline: none;
+    color: #fff;
+    background: #336ca6;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.codrops-demos a:hover,
+.codrops-demos a.current-demo,
+.codrops-demos a.current-demo:hover {
+    opacity: 0.6;
+}
+
+.content {
+    padding: 4em 2em;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.block {
+    float: left;
+    padding: 1em 3em;
+}
+
+.block-40 {
+    width: 40%;
+}
+
+.block-60 {
+    width: 60%;
+}
+
+.block p {
+    margin: 0;
+    padding: 0 1em 0.6em;
+    font-size: 1.8em;
+    line-height: 1.5;
+}
+
+.info {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 3em;
+    clear: both;
+    padding-top: 3em;
+    color: rgba(255,255,255,0.5);
+}
+
+.info a {
+    font-weight: 700;
+    font-size: 0.9em;
+}
+
+.info a:hover {
+    color: #336ca6;
+}
+
+@media screen and (max-width: 69em) {
+    .block {
+        float: none;
+        width: 100% !important;
+        padding: 1em;
+    }
+}
+
+@media screen and (max-width: 25em) {
+
+    body {
+        font-size: 80%;
+    }
+
+    .codrops-icon span {
+        display: none;
+    }
+
 }

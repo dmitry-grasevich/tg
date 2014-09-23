@@ -8,6 +8,7 @@
 namespace frontend\assets;
 
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -18,12 +19,22 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/normalize.css',
         'css/site.css',
+        'css/component.css',
     ];
     public $js = [
+        'js/modernizr.custom.js',
+        'js/classie.js',
+        'js/mlpushmenu.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+//        'yii\web\YiiAsset',
+//        'yii\bootstrap\BootstrapAsset',
     ];
+
+    public function init() {
+        $this->jsOptions['position'] = View::POS_END;
+        parent::init();
+    }
 }
