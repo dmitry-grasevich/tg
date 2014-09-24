@@ -70,7 +70,7 @@ class Css extends Library
      */
     public function getParentName()
     {
-        return $this->parent->name;
+        return empty($this->parent) ? '' : $this->parent->name;
     }
 
     /**
