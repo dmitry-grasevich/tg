@@ -65,7 +65,9 @@ class Template extends Library
             [['category_id'], 'integer'],
             [['code', 'filename'], 'string'],
             [['img'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
-            [['name', 'filename', 'directory', 'img'], 'string', 'max' => 255]
+            [['name', 'filename', 'directory', 'img'], 'string', 'max' => 255],
+            // relations
+            [['parents', 'children',  'css', 'js', 'images', 'fonts', 'functions', 'plugins'], 'safe'],
         ];
     }
 
@@ -351,8 +353,11 @@ class Template extends Library
             // TODO: create thumbnail image; check for an image with the same name existing
             $img = UploadedFile::getInstance($this, 'img');
             if (!empty($img)) {
-                $img->saveAs($dir . '/' . $img->name);
-                $this->img = $img->name;
+                if ($img->saveAs($dir . '/' . $img->name)) {
+                    $this->img = $img->name;
+                } else {
+                    return false;
+                }
             }
 
             return true;
@@ -365,11 +370,12 @@ class Template extends Library
     {
         parent::afterSave($insert, $changedAttributes);
 
-        if ($post = ArrayHelper::getValue($_POST, 'Template')) {
-            foreach ($this->relations as $relation => $class) {
-                if (isset($post[$relation])) {
-                    $related = $class::findAll($post[$relation]);
-                    $this->saveRelated($relation, $related);
+        $relatedRecords = $this->getRelatedRecords();
+        foreach ($relatedRecords as $model => $data) {
+            $this->unlinkAll($model, true);
+            if (!empty($data)) {
+                foreach ($data as $relation) {
+                    $this->link($model, $relation);
                 }
             }
         }
