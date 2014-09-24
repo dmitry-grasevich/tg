@@ -83,6 +83,8 @@ html, body, .container, .scroller {
 	height: 0;
 	content: '';
 	opacity: 0;
+
+
 }
 
 .mp-pusher::after,
@@ -91,13 +93,15 @@ html, body, .container, .scroller {
 	-webkit-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
 	-moz-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
 	transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+
+
 }
 
 .mp-level::after {
 	z-index: -1;
 }
 
-.mp-pusher.mp-pushed::after,
+/*.mp-pusher.mp-pushed::after,*/
 .mp-level.mp-level-overlay::after {
 	width: 100%;
 	height: 100%;
@@ -105,6 +109,8 @@ html, body, .container, .scroller {
 	-webkit-transition: opacity 0.3s;
 	-moz-transition: opacity 0.3s;
 	transition: opacity 0.3s;
+
+
 }
 
 .mp-level.mp-level-overlay {
