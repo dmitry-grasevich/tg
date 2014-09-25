@@ -36,17 +36,6 @@ use yii\web\UploadedFile;
  */
 class Template extends Library
 {
-    protected $relations = [
-        'parents' => '\common\models\Template',
-        'children' => '\common\models\Template',
-        'css' => '\common\models\Css',
-        'js' => '\common\models\Js',
-        'images' => '\common\models\Image',
-        'fonts' => '\common\models\Font',
-        'functions' => '\common\models\Functions',
-        'plugins' => '\common\models\Plugin',
-    ];
-
     /**
      * @inheritdoc
      */
@@ -162,6 +151,15 @@ class Template extends Library
     }
 
     /**
+     * @param array $css
+     */
+    public function setCss($css)
+    {
+        $css = empty($css) ? [] : Css::findAll($css);
+        $this->populateRelation('css', $css);
+    }
+
+    /**
      * @return string
      */
     public function getCssName()
@@ -183,6 +181,15 @@ class Template extends Library
     {
         return $this->hasMany(Js::className(), ['id' => 'js_id'])
             ->viaTable('template_js', ['template_id' => 'id']);
+    }
+
+    /**
+     * @param array $js
+     */
+    public function setJs($js)
+    {
+        $js = empty($js) ? [] : Js::findAll($js);
+        $this->populateRelation('js', $js);
     }
 
     /**
@@ -210,6 +217,15 @@ class Template extends Library
     }
 
     /**
+     * @param array $images
+     */
+    public function setImages($images)
+    {
+        $images = empty($images) ? [] : Image::findAll($images);
+        $this->populateRelation('images', $images);
+    }
+
+    /**
      * @return string
      */
     public function getImageName()
@@ -231,6 +247,15 @@ class Template extends Library
     {
         return $this->hasMany(Font::className(), ['id' => 'font_id'])
             ->viaTable('template_font', ['template_id' => 'id']);
+    }
+
+    /**
+     * @param array $fonts
+     */
+    public function setFonts($fonts)
+    {
+        $fonts = empty($fonts) ? [] : Font::findAll($fonts);
+        $this->populateRelation('fonts', $fonts);
     }
 
     /**
@@ -258,6 +283,15 @@ class Template extends Library
     }
 
     /**
+     * @param array $plugins
+     */
+    public function setPlugins($plugins)
+    {
+        $plugins = empty($plugins) ? [] : Plugin::findAll($plugins);
+        $this->populateRelation('plugins', $plugins);
+    }
+
+    /**
      * @return string
      */
     public function getPluginName()
@@ -279,6 +313,15 @@ class Template extends Library
     {
         return $this->hasMany(Functions::className(), ['id' => 'functions_id'])
             ->viaTable('template_functions', ['template_id' => 'id']);
+    }
+
+    /**
+     * @param array $functions
+     */
+    public function setFunctions($functions)
+    {
+        $functions = empty($functions) ? [] : Functions::findAll($functions);
+        $this->populateRelation('functions', $functions);
     }
 
     /**
@@ -306,6 +349,15 @@ class Template extends Library
     }
 
     /**
+     * @param array $children
+     */
+    public function setChildren($children)
+    {
+        $children = empty($children) ? [] : Template::findAll($children);
+        $this->populateRelation('children', $children);
+    }
+
+    /**
      * @return string
      */
     public function getChildrenName()
@@ -329,6 +381,14 @@ class Template extends Library
             ->viaTable('related_template', ['child_id' => 'id']);
     }
 
+    /**
+     * @param array $parents
+     */
+    public function setParents($parents)
+    {
+        $parents = empty($parents) ? [] : Template::findAll($parents);
+        $this->populateRelation('parents', $parents);
+    }
 
     /**
      * @return string
