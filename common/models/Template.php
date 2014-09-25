@@ -146,8 +146,7 @@ class Template extends Library
      */
     public function getCss()
     {
-        return $this->hasMany(Css::className(), ['id' => 'css_id'])
-            ->viaTable('template_css', ['template_id' => 'id']);
+        return $this->hasMany(Css::className(), ['id' => 'css_id'])->viaTable('template_css', ['template_id' => 'id']);
     }
 
     /**
@@ -166,9 +165,8 @@ class Template extends Library
     {
         if (!empty($this->css)) {
             $names = [];
-            foreach ($this->css as $css) {
+            foreach ($this->css as $css)
                 $names[] = Html::a($css->name, ['/css/view', 'id' => $css->id]);
-            }
             return implode(', ', $names);
         }
         return '';
@@ -179,8 +177,7 @@ class Template extends Library
      */
     public function getJs()
     {
-        return $this->hasMany(Js::className(), ['id' => 'js_id'])
-            ->viaTable('template_js', ['template_id' => 'id']);
+        return $this->hasMany(Js::className(), ['id' => 'js_id'])->viaTable('template_js', ['template_id' => 'id']);
     }
 
     /**
@@ -199,9 +196,8 @@ class Template extends Library
     {
         if (!empty($this->js)) {
             $names = [];
-            foreach ($this->js as $js) {
+            foreach ($this->js as $js)
                 $names[] = Html::a($js->name, ['/js/view', 'id' => $js->id]);
-            }
             return implode(', ', $names);
         }
         return '';
@@ -212,8 +208,7 @@ class Template extends Library
      */
     public function getImages()
     {
-        return $this->hasMany(Image::className(), ['id' => 'image_id'])
-            ->viaTable('template_image', ['template_id' => 'id']);
+        return $this->hasMany(Image::className(), ['id' => 'image_id'])->viaTable('template_image', ['template_id' => 'id']);
     }
 
     /**
@@ -232,9 +227,8 @@ class Template extends Library
     {
         if (!empty($this->images)) {
             $names = [];
-            foreach ($this->images as $image) {
+            foreach ($this->images as $image)
                 $names[] = Html::a($image->name, ['/image/view', 'id' => $image->id]);
-            }
             return implode(', ', $names);
         }
         return '';
@@ -245,8 +239,7 @@ class Template extends Library
      */
     public function getFonts()
     {
-        return $this->hasMany(Font::className(), ['id' => 'font_id'])
-            ->viaTable('template_font', ['template_id' => 'id']);
+        return $this->hasMany(Font::className(), ['id' => 'font_id'])->viaTable('template_font', ['template_id' => 'id']);
     }
 
     /**
@@ -265,9 +258,8 @@ class Template extends Library
     {
         if (!empty($this->fonts)) {
             $names = [];
-            foreach ($this->fonts as $font) {
+            foreach ($this->fonts as $font)
                 $names[] = Html::a($font->name, ['/font/view', 'id' => $font->id]);
-            }
             return implode(', ', $names);
         }
         return '';
@@ -278,8 +270,7 @@ class Template extends Library
      */
     public function getPlugins()
     {
-        return $this->hasMany(Plugin::className(), ['id' => 'plugin_id'])
-            ->viaTable('template_plugin', ['template_id' => 'id']);
+        return $this->hasMany(Plugin::className(), ['id' => 'plugin_id'])->viaTable('template_plugin', ['template_id' => 'id']);
     }
 
     /**
@@ -298,9 +289,8 @@ class Template extends Library
     {
         if (!empty($this->plugins)) {
             $names = [];
-            foreach ($this->plugins as $plugin) {
+            foreach ($this->plugins as $plugin)
                 $names[] = Html::a($plugin->name, ['/plugin/view', 'id' => $plugin->id]);
-            }
             return implode(', ', $names);
         }
         return '';
@@ -311,8 +301,7 @@ class Template extends Library
      */
     public function getFunctions()
     {
-        return $this->hasMany(Functions::className(), ['id' => 'functions_id'])
-            ->viaTable('template_functions', ['template_id' => 'id']);
+        return $this->hasMany(Functions::className(), ['id' => 'functions_id'])->viaTable('template_functions', ['template_id' => 'id']);
     }
 
     /**
@@ -331,9 +320,8 @@ class Template extends Library
     {
         if (!empty($this->functions)) {
             $names = [];
-            foreach ($this->functions as $function) {
+            foreach ($this->functions as $function)
                 $names[] = Html::a($function->name, ['/functions/view', 'id' => $function->id]);
-            }
             return implode(', ', $names);
         }
         return '';
@@ -344,8 +332,7 @@ class Template extends Library
      */
     public function getChildren()
     {
-        return $this->hasMany(Template::className(), ['id' => 'child_id'])
-            ->viaTable('related_template', ['parent_id' => 'id']);
+        return $this->hasMany(Template::className(), ['id' => 'child_id'])->viaTable('related_template', ['parent_id' => 'id']);
     }
 
     /**
@@ -364,9 +351,8 @@ class Template extends Library
     {
         if (!empty($this->children)) {
             $names = [];
-            foreach ($this->children as $child) {
+            foreach ($this->children as $child)
                 $names[] = Html::a($child->name, ['/template/view', 'id' => $child->id]);
-            }
             return implode(', ', $names);
         }
         return '';
@@ -377,8 +363,7 @@ class Template extends Library
      */
     public function getParents()
     {
-        return $this->hasMany(Template::className(), ['id' => 'parent_id'])
-            ->viaTable('related_template', ['child_id' => 'id']);
+        return $this->hasMany(Template::className(), ['id' => 'parent_id'])->viaTable('related_template', ['child_id' => 'id']);
     }
 
     /**
@@ -397,9 +382,8 @@ class Template extends Library
     {
         if (!empty($this->parents)) {
             $names = [];
-            foreach ($this->parents as $parent) {
+            foreach ($this->parents as $parent)
                 $names[] = Html::a($parent->name, ['/template/view', 'id' => $parent->id]);
-            }
             return implode(', ', $names);
         }
         return '';
