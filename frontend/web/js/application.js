@@ -41,8 +41,8 @@ String.prototype.repeat = function(num) {
     // Tooltips
     $("[data-toggle=tooltip]").tooltip("show");
 
-    // Tags Input
-    $(".tagsinput").tagsInput();
+//    // Tags Input
+//    $(".tagsinput").tagsInput();
 
     // jQuery UI Sliders
     var $slider = $("#slider");

@@ -23,15 +23,21 @@ class AppAsset extends AssetBundle
 //        'css/site.css',
 //        'css/component.css',
 //        'css/spectrum.css',
+        'css/flat-ui.css',
         'css/chosen.css',
+        'css/style.css',
     ];
     public $js = [
 //        'js/modernizr.custom.js',
 //        'js/classie.js',
 //        'js/mlpushmenu.js',
+        'js/flatui-checkbox.js',
+        'js/flatui-fileinput.js',
+        'js/flatui-radio.js',
         'js/jquery.zoomer.js',
         'js/chosen.jquery.js',
         'js/application.js',
+        'elements.json',
         'js/builder.js',
     ];
     public $depends = [
@@ -39,10 +45,13 @@ class AppAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'yii\jui\JuiAsset',
-        'frontend\assets\BootflatAsset',
+//        'frontend\assets\BootflatAsset',
         'frontend\assets\SpectrumAsset',
         'frontend\assets\TouchPunchAsset',
         'frontend\assets\PlaceholderAsset',
+//        'frontend\assets\TagsInputAsset',
+        'frontend\assets\BootstrapSwitchAsset',
+        'frontend\assets\BootstrapSelectAsset',
     ];
 
     public function init() {

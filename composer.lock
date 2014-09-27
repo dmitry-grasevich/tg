@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "41c6fc6c578efde5bad8ba8f2321fb42",
+    "hash": "85abfa8ad51752345e88a99038bfa9bd",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -96,6 +96,86 @@
                 "responsive",
                 "web"
             ]
+        },
+        {
+            "name": "bower-asset/bootstrap-select",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silviomoreto/bootstrap-select.git",
+                "reference": "eb9cf1e7118e19b26b598b5212b04dc2f2242ea0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silviomoreto/bootstrap-select/zipball/eb9cf1e7118e19b26b598b5212b04dc2f2242ea0",
+                "reference": "eb9cf1e7118e19b26b598b5212b04dc2f2242ea0",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.8"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "less/bootstrap-select.less",
+                    "dist/css/bootstrap-select.css",
+                    "dist/js/bootstrap-select.js"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "keywords": [
+                "bootstrap",
+                "form",
+                "replacement",
+                "select"
+            ]
+        },
+        {
+            "name": "bower-asset/bootstrap-switch",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nostalgiaz/bootstrap-switch.git",
+                "reference": "72d9be0319f93213503feed8c79f366f3f5d0427"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nostalgiaz/bootstrap-switch/zipball/72d9be0319f93213503feed8c79f366f3f5d0427",
+                "reference": "72d9be0319f93213503feed8c79f366f3f5d0427",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.9.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "dist/js/bootstrap-switch.js",
+                    "dist/css/bootstrap3/bootstrap-switch.css"
+                ],
+                "bower-asset-ignore": [
+                    "docs",
+                    "test",
+                    "CNAME",
+                    "coffeelint.json",
+                    "composer.json",
+                    "CONTRIBUTING.md",
+                    "gulpfile.coffee",
+                    "gulpfile.js",
+                    "index.html",
+                    "package.json"
+                ]
+            },
+            "description": "Turn checkboxes and radio buttons in toggle switches."
         },
         {
             "name": "bower-asset/jquery",
@@ -1526,12 +1606,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "78a83ec13e5d6aa1476a743ecb7bae4c64767350"
+                "reference": "3fbb441e297dd25bd0f8d46a5b32606ed7543007"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/78a83ec13e5d6aa1476a743ecb7bae4c64767350",
-                "reference": "78a83ec13e5d6aa1476a743ecb7bae4c64767350",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/3fbb441e297dd25bd0f8d46a5b32606ed7543007",
+                "reference": "3fbb441e297dd25bd0f8d46a5b32606ed7543007",
                 "shasum": ""
             },
             "require": {
@@ -1606,7 +1686,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-09-26 20:35:15"
+            "time": "2014-09-27 16:57:43"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -2105,7 +2185,11 @@
         "warrence/yii2-kartikgii": 20,
         "yiisoft/yii2-jui": 20,
         "bootflat/bootflat": 20,
-        "bower-asset/spectrum": 20
+        "bower-asset/spectrum": 20,
+        "bower-asset/jquery-ui-touch-punch-improved": 20,
+        "bower-asset/jquery-placeholder": 20,
+        "bower-asset/bootstrap-switch": 20,
+        "bower-asset/bootstrap-select": 20
     },
     "prefer-stable": false,
     "platform": {

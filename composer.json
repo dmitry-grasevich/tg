@@ -25,8 +25,10 @@
         "yiisoft/yii2-jui": "~2.0@dev",
         "bootflat/bootflat": "dev-master",
         "bower-asset/spectrum": "dev-master",
-        "bower-asset/jquery-ui-touch-punch-improved": "*",
-        "bower-asset/jquery-placeholder": "*"
+        "bower-asset/jquery-ui-touch-punch-improved": "dev-master",
+        "bower-asset/jquery-placeholder": "dev-master",
+        "bower-asset/bootstrap-switch": "dev-master",
+        "bower-asset/bootstrap-select": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
