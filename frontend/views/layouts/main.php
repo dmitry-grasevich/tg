@@ -20,6 +20,12 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
     <?php $this->beginBody() ?>
@@ -28,9 +34,9 @@ AppAsset::register($this);
 
     <?php $this->endBody() ?>
 
-    <script>
+    <!--script>
         new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
-    </script>
+    </script-->
 </body>
 </html>
 <?php $this->endPage() ?>

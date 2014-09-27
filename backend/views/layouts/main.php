@@ -33,26 +33,28 @@ AppAsset::register($this);
             ],
         ]);
 
-            $menuItems = [
-                [
-                    'label' => 'Components',
-                    'items' => [
-                        ['label' => 'Categories', 'url' => ['/category']],
-                        ['label' => 'Templates', 'url' => ['/template']],
-                        ['label' => 'Css', 'url' => ['/css/index']],
-                        ['label' => 'Js', 'url' => ['/js']],
-                        ['label' => 'Images', 'url' => ['/image']],
-                        ['label' => 'Fonts', 'url' => ['/font']],
-                        ['label' => 'Functions', 'url' => ['/functions']],
-                        ['label' => 'Plugins', 'url' => ['/plugin']],
+            if (!Yii::$app->user->isGuest) {
+                $menuItems = [
+                    [
+                        'label' => 'Components',
+                        'items' => [
+                            ['label' => 'Categories', 'url' => ['/category']],
+                            ['label' => 'Templates', 'url' => ['/template']],
+                            ['label' => 'Css', 'url' => ['/css/index']],
+                            ['label' => 'Js', 'url' => ['/js']],
+                            ['label' => 'Images', 'url' => ['/image']],
+                            ['label' => 'Fonts', 'url' => ['/font']],
+                            ['label' => 'Functions', 'url' => ['/functions']],
+                            ['label' => 'Plugins', 'url' => ['/plugin']],
+                        ],
                     ],
-                ],
-            ];
+                ];
 
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-left'],
-                'items' => $menuItems,
-            ]);
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav navbar-left'],
+                    'items' => $menuItems,
+                ]);
+            }
 
             if (Yii::$app->user->isGuest) {
                 $menuItems = [['label' => 'Login', 'url' => ['/site/login']]];
