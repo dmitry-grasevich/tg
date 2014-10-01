@@ -240,7 +240,7 @@
                 }
             }
         }
-    }
+    };
 
     // add to global namespace
     window.mlPushMenu = mlPushMenu;

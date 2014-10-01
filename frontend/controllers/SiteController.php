@@ -68,8 +68,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $categories = [];//TemplateCategory::findAll(['is_basic' => 0, 'is_visible' => 1]);
-        return $this->render('index', [
+        $categories = TemplateCategory::getSample();//TemplateCategory::findAll(['is_basic' => 0, 'is_visible' => 1]);
+//        return $this->render('index', [
+        return $this->render('index-codrop-menu', [
             'categories' => $categories
         ]);
     }

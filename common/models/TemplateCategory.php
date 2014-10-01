@@ -57,4 +57,85 @@ class TemplateCategory extends Library
     {
         return $this->hasMany(Template::className(), ['category_id' => 'id']);
     }
+
+    public static function getSample()
+    {
+        return
+            [
+                'Headers' => [
+                    'id' => 1,
+                    'items' => [
+                        [ 'id' => 1, 'thumbnail' => 'header1.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'header2.png' ],
+                        [ 'id' => 3, 'thumbnail' => 'header3.png' ],
+                        [ 'id' => 4, 'thumbnail' => 'header4.png' ],
+                        [ 'id' => 5, 'thumbnail' => 'header5.png' ],
+                        [ 'id' => 6, 'thumbnail' => 'header6.png' ],
+                        [ 'id' => 7, 'thumbnail' => 'header7.png' ],
+                    ],
+                ],
+                'Content Sections' => [
+                    'id' => 2,
+                    'items' => [
+                        [ 'id' => 1, 'thumbnail' => 'content_section1.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'content_section2.png' ],
+                        [ 'id' => 3, 'thumbnail' => 'content_section3.png' ],
+                        [ 'id' => 4, 'thumbnail' => 'content_section4.png' ],
+                        [ 'id' => 5, 'thumbnail' => 'content_section5.png' ],
+                        [ 'id' => 6, 'thumbnail' => 'content_section6.png' ],
+                        [ 'id' => 7, 'thumbnail' => 'content_section7.png' ],
+                        [ 'id' => 8, 'thumbnail' => 'content_section8.png' ],
+                    ],
+                ],
+                'Dividers' => [
+                    'id' => 3,
+                    'items' => [
+                        [ 'id' => 1, 'thumbnail' => 'divider1.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'divider2.png' ],
+                        [ 'id' => 3, 'thumbnail' => 'divider3.png' ],
+                        [ 'id' => 4, 'thumbnail' => 'divider4.png' ],
+                        [ 'id' => 5, 'thumbnail' => 'divider5.png' ],
+                    ],
+                ],
+                'Portfolios' => [
+                    'id' => 4,
+                    'items' => [
+                        [ 'id' => 1, 'thumbnail' => 'portfolio1.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'portfolio2.png' ],
+                        [ 'id' => 3, 'thumbnail' => 'portfolio3.png' ],
+                    ],
+                ],
+                'Team' => [
+                    'id' => 5,
+                    'items' => [
+                        [ 'id' => 1, 'thumbnail' => 'team1.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'team2.png' ],
+                        [ 'id' => 3, 'thumbnail' => 'team3.png' ],
+                    ],
+                ],
+                'Pricing Tables' => [
+                    'id' => 6,
+                    'items' => [
+                        [ 'id' => 1, 'thumbnail' => 'pricing_table1.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'pricing_table2.png' ],
+                        [ 'id' => 3, 'thumbnail' => 'pricing_table3.png' ],
+                    ],
+                ],
+                'Contact' => [
+                    'id' => 7,
+                    'items' => [
+                        [ 'id' => 1, 'thumbnail' => 'contact1.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'contact2.png' ],
+                    ],
+                ],
+                'Footers' => [
+                    'id' => 7,
+                    'items' => [
+                        [ 'id' => 1, 'thumbnail' => 'footer1.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'footer2.png' ],
+                        [ 'id' => 2, 'thumbnail' => 'footer3.png' ],
+                    ],
+                ],
+            ];
+    }
 }

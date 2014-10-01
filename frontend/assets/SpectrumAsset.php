@@ -11,11 +11,11 @@ class SpectrumAsset extends AssetBundle
         'spectrum.css',
     ];
     public $js = [
-        'spectrum.js',
+//        'spectrum.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
+//        'yii\web\YiiAsset',
+//        'yii\bootstrap\BootstrapAsset',
+//        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }
