@@ -725,3 +725,14 @@ li.element {
 }
 
 /* end modals */
+
+.draggable-li {
+    height: 100px;
+    width: 300px;
+    background: #F9FAFA;
+    box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    line-height: 100px;
+    font-size: 28px;
+    color: #16A085;
+}
