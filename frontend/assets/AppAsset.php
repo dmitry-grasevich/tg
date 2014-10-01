@@ -23,7 +23,6 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/icons.css',
         'css/component.css',
-//        'css/spectrum.css',
 
 //        'css/flat-ui.css',
 //        'css/chosen.css',
@@ -33,6 +32,7 @@ class AppAsset extends AssetBundle
         'js/modernizr.custom.js',
         'js/classie.js',
         'js/mlpushmenu.js',
+        'js/wpt.builder.js',
 
 //        'js/flatui-checkbox.js',
 //        'js/flatui-fileinput.js',
@@ -44,15 +44,15 @@ class AppAsset extends AssetBundle
 //        'js/builder.js',
     ];
     public $depends = [
-//        'yii\web\YiiAsset',
+        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',
 //        'yii\bootstrap\BootstrapPluginAsset',
-//        'yii\jui\JuiAsset',
-///        'frontend\assets\BootflatAsset',
+        'yii\jui\JuiAsset',
+//        'frontend\assets\BootflatAsset',
         'frontend\assets\SpectrumAsset',
-//        'frontend\assets\TouchPunchAsset',
+        'frontend\assets\TouchPunchAsset',
 //        'frontend\assets\PlaceholderAsset',
-///        'frontend\assets\TagsInputAsset',
+//        'frontend\assets\TagsInputAsset',
 //        'frontend\assets\BootstrapSwitchAsset',
 //        'frontend\assets\BootstrapSelectAsset',
     ];

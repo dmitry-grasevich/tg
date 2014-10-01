@@ -773,9 +773,6 @@ $(function () {
         'search_contains': true
     });
 
-    //detect mode
-    var _mode = window.location.protocol == 'file:' ? "local" : "server";
-
     //check if formData is supported
     if (!window.FormData) {
         //not supported, hide file upload

@@ -22,7 +22,7 @@ $this->title = 'WordPress Template Generator';
                             <a class="mp-back" href="#">back</a>
                             <ul>
                                 <?php foreach ($category['items'] as $item): ?>
-                                    <li><a href="#"><img src="elements/images/thumbs/<?= $item['thumbnail'] ?>" width="294px" /></a></li>
+                                    <li class="menu-item"><a href="#"><img src="elements/images/thumbs/<?= $item['thumbnail'] ?>" width="294px" /></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
