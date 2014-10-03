@@ -233,6 +233,10 @@ a:hover, a:focus {
     padding: 0;
 }
 
+#sortable .menu-item img {
+    vertical-align: top;
+}
+
 .drop-hover {
     border: 2px dashed #95A5A6;
     height: 150px;
