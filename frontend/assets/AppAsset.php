@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/icons.css',
         'css/component.css',
+//        'css/less_style.less',
 
 //        'css/flat-ui.css',
 //        'css/chosen.css',

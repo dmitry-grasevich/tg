@@ -42,7 +42,9 @@ $this->title = 'WordPress Template Generator';
                 <i class="dot dot3"></i>
                 <input type="text" placeholder="Enter name for your theme" />
             </div>
-            <div class="canvas"></div>
+            <div class="canvas">
+                <ul id="sortable"></ul>
+            </div>
         </div>
 
 

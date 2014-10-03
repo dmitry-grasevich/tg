@@ -218,3 +218,23 @@ a:hover, a:focus {
 .draggable-li img {
     vertical-align: top;
 }
+
+#sortable {
+    list-style: none;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    height: 100%;
+    min-height: 400px;
+}
+
+#sortable li {
+    padding: 0;
+}
+
+.drop-hover {
+    border: 2px dashed #95A5A6;
+    height: 150px;
+    background: #ECF0F1;
+}

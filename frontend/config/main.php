@@ -37,6 +37,12 @@ return [
             'enableCsrfValidation' => true,
             'cookieValidationKey' => 'tgcookiesecretkey',
         ],
+        'assetManager' => array(
+            'converter' => array(
+                'class' => 'nizsheanez\assetConverter\Converter',
+                'force' => false, // true : If you want convert your sass each time without time dependency
+            )
+        ),
     ],
     'params' => $params,
 ];

@@ -28,7 +28,8 @@
         "bower-asset/jquery-ui-touch-punch-improved": "dev-master",
         "bower-asset/jquery-placeholder": "dev-master",
         "bower-asset/bootstrap-switch": "dev-master",
-        "bower-asset/bootstrap-select": "dev-master"
+        "bower-asset/bootstrap-select": "dev-master",
+        "nizsheanez/yii2-asset-converter": "1.*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
