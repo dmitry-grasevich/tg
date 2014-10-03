@@ -12,11 +12,11 @@ $this->title = 'WordPress Template Generator';
         <!-- mp-menu -->
         <nav id="mp-menu" class="mp-menu">
             <div class="mp-level">
-                <h2 class="icon icon-world">All Categories</h2>
+                <h2>Select a Category</h2>
                 <ul>
                     <?php foreach ($categories as $catName => $category): ?>
                     <li class="icon icon-arrow-left">
-                        <a class="icon icon-display" href="#"><?= $catName ?></a>
+                        <a href="#"><?= $catName ?></a>
                         <div class="mp-level">
                             <h2 class="icon icon-display"><?= $catName ?></h2>
                             <a class="mp-back" href="#">back</a>
@@ -33,15 +33,18 @@ $this->title = 'WordPress Template Generator';
         </nav>
         <!-- /mp-menu -->
 
-        <div class="scroller"><!-- this is for emulating position fixed of the nav -->
-            <div class="scroller-inner">
-                <div class="content clearfix">
-                    <div class="block clearfix">
-                        <p><a href="#" id="trigger" class="menu-trigger"></a></p>
-                    </div>
-                </div>
-            </div><!-- /scroller-inner -->
-        </div><!-- /scroller -->
+        <a id="trigger" class="icon-burger" href="#"><i></i></a>
+
+        <div class="project-container">
+            <div class="browser-header">
+                <i class="dot"></i>
+                <i class="dot dot2"></i>
+                <i class="dot dot3"></i>
+                <input type="text" placeholder="Enter name for your theme" />
+            </div>
+            <div class="canvas"></div>
+        </div>
+
 
     </div><!-- /pusher -->
 </div><!-- /container -->

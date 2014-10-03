@@ -77,7 +77,7 @@
             // cover: the open levels will be on top of any previous open level
             type: 'overlap', // overlap || cover
             // space between each overlaped level
-            levelSpacing: 40,
+            levelSpacing: 0,
             // classname for the element (if any) that when clicked closes the current level
             backClass: 'mp-back'
         },
@@ -246,3 +246,9 @@
     window.mlPushMenu = mlPushMenu;
 
 })(window);
+
+
+
+$('.icon-burger').click(function() {
+    $(this).toggleClass('active');
+});
