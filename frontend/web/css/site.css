@@ -214,3 +214,7 @@ a:hover, a:focus {
     background: #F9FAFA;
     box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.1);
 }
+
+.draggable-li img {
+    vertical-align: top;
+}
