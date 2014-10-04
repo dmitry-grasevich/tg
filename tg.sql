@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.0
+-- version 4.2.8
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jun 23, 2014 at 10:07 PM
--- Server version: 5.6.17
--- PHP Version: 5.4.28
+-- Хост: localhost
+-- Время создания: Окт 04 2014 г., 17:01
+-- Версия сервера: 5.6.20
+-- Версия PHP: 5.4.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `tg`
+-- База данных: `tg`
 --
+CREATE DATABASE IF NOT EXISTS `tg` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `tg`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `css`
+-- Структура таблицы `css`
 --
 
 DROP TABLE IF EXISTS `css`;
@@ -34,10 +36,10 @@ CREATE TABLE IF NOT EXISTS `css` (
   `filename` varchar(255) DEFAULT NULL,
   `directory` varchar(255) DEFAULT '',
   `parent_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `css`
+-- Дамп данных таблицы `css`
 --
 
 INSERT INTO `css` (`id`, `name`, `code`, `filename`, `directory`, `parent_id`) VALUES
@@ -50,7 +52,7 @@ INSERT INTO `css` (`id`, `name`, `code`, `filename`, `directory`, `parent_id`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `font`
+-- Структура таблицы `font`
 --
 
 DROP TABLE IF EXISTS `font`;
@@ -59,10 +61,10 @@ CREATE TABLE IF NOT EXISTS `font` (
   `name` varchar(255) NOT NULL,
   `filename` varchar(255) DEFAULT NULL,
   `directory` varchar(255) DEFAULT ''
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `font`
+-- Дамп данных таблицы `font`
 --
 
 INSERT INTO `font` (`id`, `name`, `filename`, `directory`) VALUES
@@ -82,7 +84,7 @@ INSERT INTO `font` (`id`, `name`, `filename`, `directory`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `functions`
+-- Структура таблицы `functions`
 --
 
 DROP TABLE IF EXISTS `functions`;
@@ -91,22 +93,23 @@ CREATE TABLE IF NOT EXISTS `functions` (
   `name` varchar(255) NOT NULL,
   `code` text,
   `parent_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `functions`
+-- Дамп данных таблицы `functions`
 --
 
 INSERT INTO `functions` (`id`, `name`, `code`, `parent_id`) VALUES
 (2, 'Main Menu', '/***********************************************************************************************/\r\n/* Add Menus */\r\n/***********************************************************************************************/\r\nfunction register_tg_menus() {\r\n	register_nav_menus(array(\r\n		''main-menu'' => ''Main Menu'',\r\n	));\r\n}\r\n\r\nadd_action(''init'', ''register_tg_menus'');\r\n\r\n', 6),
 (3, 'Section1 : header background image', '/***********************************************************************************************/\r\n/* Header Customization */\r\n/***********************************************************************************************/\r\n$args = array(\r\n	''default-image'' => get_template_directory_uri() . ''/images/bg-home-v1.jpg'',\r\n	''uploads''       => true,\r\n);\r\nadd_theme_support( ''custom-header'', $args );\r\n\r\n\r\n', 6),
 (4, 'Google Font: Lato', '/**\r\n * Enqueue Google fonts style to admin screen for custom header display.\r\n */\r\nfunction tg_admin_fonts() {\r\n	wp_enqueue_style( ''tg-lato'', tg_font_url(), array(), null );\r\n}\r\nadd_action( ''admin_print_scripts-appearance_page_custom-header'', ''tg_admin_fonts'' );', NULL),
-(5, 'Section1 : header settings', '/***********************************************************************************************/\r\n/* Adds the header settings and controls to the theme customizer */\r\n/***********************************************************************************************/\r\nadd_action(''customize_register'', ''tg_header_customizer'');\r\n\r\nfunction tg_header_customizer($wp_customize) {\r\n    $wp_customize->add_section(''tg_header'', array(\r\n        ''title'' => __(''Header Settings'', ''template-generator''),\r\n        ''description'' => __(''This is a header settings section.'', ''template-generator''),\r\n        ''priority'' => 35,\r\n    ));\r\n\r\n    $wp_customize->add_setting(''description_textbox'', array(\r\n        ''default'' => ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'',\r\n    ));\r\n\r\n    $wp_customize->add_control(''description_textbox'', array(\r\n        ''label'' => __(''Description text'', ''template-generator''),\r\n        ''section'' => ''tg_header'',\r\n        ''type'' => ''text'',\r\n    ));\r\n}', 6);
+(5, 'Section1 : header settings', '/***********************************************************************************************/\r\n/* Adds the header settings and controls to the theme customizer */\r\n/***********************************************************************************************/\r\nadd_action(''customize_register'', ''tg_header_customizer'');\r\n\r\nfunction tg_header_customizer($wp_customize) {\r\n    $wp_customize->add_section(''tg_header'', array(\r\n        ''title'' => __(''Header Settings'', ''template-generator''),\r\n        ''description'' => __(''This is a header settings section.'', ''template-generator''),\r\n        ''priority'' => 35,\r\n    ));\r\n\r\n    $wp_customize->add_setting(''description_textbox'', array(\r\n        ''default'' => ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'',\r\n    ));\r\n\r\n    $wp_customize->add_control(''description_textbox'', array(\r\n        ''label'' => __(''Description text'', ''template-generator''),\r\n        ''section'' => ''tg_header'',\r\n        ''type'' => ''text'',\r\n    ));\r\n}', 6),
+(6, 'Contact #1 functions', 'function tg_load_google_maps() {\r\n	if (!class_exists(''Pronamic_Google_Maps_Maps'')) {\r\n		include_once(THEMEPATH . ''plugins/pronamic-google-maps/pronamic-google-maps.php'');\r\n	}\r\n}\r\nadd_action(''after_setup_theme'', ''tg_load_google_maps'');\r\n', 6);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `image`
+-- Структура таблицы `image`
 --
 
 DROP TABLE IF EXISTS `image`;
@@ -115,10 +118,10 @@ CREATE TABLE IF NOT EXISTS `image` (
   `name` varchar(255) NOT NULL,
   `filename` varchar(255) DEFAULT NULL,
   `directory` varchar(255) DEFAULT ''
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `image`
+-- Дамп данных таблицы `image`
 --
 
 INSERT INTO `image` (`id`, `name`, `filename`, `directory`) VALUES
@@ -130,7 +133,7 @@ INSERT INTO `image` (`id`, `name`, `filename`, `directory`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `js`
+-- Структура таблицы `js`
 --
 
 DROP TABLE IF EXISTS `js`;
@@ -140,10 +143,10 @@ CREATE TABLE IF NOT EXISTS `js` (
   `code` text,
   `filename` varchar(255) DEFAULT NULL,
   `directory` varchar(255) DEFAULT ''
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `js`
+-- Дамп данных таблицы `js`
 --
 
 INSERT INTO `js` (`id`, `name`, `code`, `filename`, `directory`) VALUES
@@ -157,7 +160,7 @@ INSERT INTO `js` (`id`, `name`, `code`, `filename`, `directory`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migration`
+-- Структура таблицы `migration`
 --
 
 DROP TABLE IF EXISTS `migration`;
@@ -167,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `migration` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `migration`
+-- Дамп данных таблицы `migration`
 --
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
@@ -180,12 +183,13 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m140609_170546_fonts_create', 1402333619),
 ('m140614_112912_functions_parent_add', 1402745736),
 ('m140614_115239_css_parent_add', 1402746803),
-('m140615_143232_plugins_create', 1402845873);
+('m140615_143232_plugins_create', 1402845873),
+('m140920_170629_template_category_is_visible_add', 1411233012);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plugin`
+-- Структура таблицы `plugin`
 --
 
 DROP TABLE IF EXISTS `plugin`;
@@ -193,10 +197,10 @@ CREATE TABLE IF NOT EXISTS `plugin` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `directory` varchar(255) DEFAULT ''
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `plugin`
+-- Дамп данных таблицы `plugin`
 --
 
 INSERT INTO `plugin` (`id`, `name`, `directory`) VALUES
@@ -206,7 +210,7 @@ INSERT INTO `plugin` (`id`, `name`, `directory`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `related_template`
+-- Структура таблицы `related_template`
 --
 
 DROP TABLE IF EXISTS `related_template`;
@@ -214,22 +218,22 @@ CREATE TABLE IF NOT EXISTS `related_template` (
 `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `child_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `related_template`
+-- Дамп данных таблицы `related_template`
 --
 
 INSERT INTO `related_template` (`id`, `parent_id`, `child_id`) VALUES
 (30, 3, 16),
 (47, 2, 4),
 (48, 2, 5),
-(65, 2, 17);
+(66, 2, 17);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `template`
+-- Структура таблицы `template`
 --
 
 DROP TABLE IF EXISTS `template`;
@@ -241,53 +245,54 @@ CREATE TABLE IF NOT EXISTS `template` (
   `directory` varchar(255) DEFAULT '',
   `img` varchar(255) DEFAULT NULL,
   `code` text
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `template`
+-- Дамп данных таблицы `template`
 --
 
 INSERT INTO `template` (`id`, `category_id`, `name`, `filename`, `directory`, `img`, `code`) VALUES
-(1, 1, 'Common Index', 'index.php', '', '', '<?php get_header(); ?>\r\n   some content\r\n<?php get_footer(); ?>'),
+(1, 1, 'Common Index', 'index.php', '', '', '<?php get_header(); ?>\r\n    <?php if (have_posts()) : while(have_posts()) : the_post(); ?>\r\n        <?php get_template_part(''content'', get_post_format()); ?>\r\n     <?php endwhile; else : ?>\r\n        <article id="post-<?php the_ID(); ?>" <?php post_class(''no-posts''); ?>>\r\n            <h1><?php _e(''No posts were found.'', ''adaptive-framework''); ?></h1>\r\n        </article>\r\n    <?php endif; ?>\r\n<?php get_footer(); ?>'),
 (2, 1, 'Common Header', 'header.php', '', '', '<!DOCTYPE html>\r\n<!--[if IE 8]> <html <?php language_attributes(); ?> class="ie8"> <![endif]-->\r\n<!--[if !IE]><!--> <html <?php language_attributes(); ?>> <!--<![endif]-->\r\n<head>\r\n    <meta charset="<?php bloginfo("charset"); ?>">\r\n    <title><?php wp_title("|", true, "right"); ?><?php bloginfo("name"); ?></title>\r\n    <meta name="description" content="<?php bloginfo("description"); ?>">\r\n    <meta name="author" content="Template Generator Team">\r\n\r\n    <!-- Mobile Specific Meta -->\r\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\r\n\r\n    <!-- Stylesheets -->\r\n    <link rel="stylesheet" href="<?php bloginfo("stylesheet_url"); ?>" />\r\n   \r\n      <!-- google web fonts -->\r\n        <link href=''http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700'' rel=''stylesheet'' type=''text/css''>\r\n        <link href=''http://fonts.googleapis.com/css?family=Pacifico'' rel=''stylesheet'' type=''text/css''>\r\n\r\n    <!-- Pingbacks -->\r\n    <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />\r\n\r\n    <!--[if lt IE 9]>\r\n        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\r\n    <![endif]-->\r\n\r\n<?php wp_head(); ?>\r\n</head>\r\n<body <?php body_class(); ?>>'),
 (3, 1, 'Common Footer', 'footer.php', '', '', '    <?php wp_footer(); ?>\r\n    </body>\r\n</html>'),
-(4, 2, 'Header 1', '', '', '', '    <!-- HEADER -->\r\n    <header class="main-header section-content align-center">\r\n        <a href="<?php echo home_url(); ?>" class="logo"><img src="<?php print IMAGES; ?>/logo.png" alt="<?php bloginfo(''name''); ?>" /></a>\r\n        \r\n        <nav class="main-nav">\r\n            <?php \r\n            wp_nav_menu(array(\r\n                ''theme_location'' => ''main-menu'',\r\n                ''container'' => '''',\r\n                ''menu_class'' => ''inline''\r\n            ));\r\n            ?>\r\n        </nav>\r\n    </header>'),
+(4, 2, 'Header 1', '', '', 'header1.png', '    <!-- HEADER -->\r\n    <header class="main-header section-content align-center">\r\n        <a href="<?php echo home_url(); ?>" class="logo"><img src="<?php print IMAGES; ?>/logo.png" alt="<?php bloginfo(''name''); ?>" /></a>\r\n        \r\n        <nav class="main-nav">\r\n            <?php \r\n            wp_nav_menu(array(\r\n                ''theme_location'' => ''main-menu'',\r\n                ''container'' => '''',\r\n                ''menu_class'' => ''inline''\r\n            ));\r\n            ?>\r\n        </nav>\r\n    </header>'),
 (5, 2, 'Header 2', '', '', '', '<h1>Header #2</h1>'),
-(6, 1, 'Common Functions', 'functions.php', '', '', '<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) { die(); }\r\n\r\n/***********************************************************************************************/\r\n/* 	Define Constants */\r\n/***********************************************************************************************/\r\ndefine(''THEMEROOT'', get_stylesheet_directory_uri());\r\ndefine(''IMAGES'', THEMEROOT . ''/images'');\r\n\r\n\r\n\r\n'),
+(6, 1, 'Common Functions', 'functions.php', '', '', '<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) { die(); }\r\n\r\n/***********************************************************************************************/\r\n/* 	Define Constants */\r\n/***********************************************************************************************/\r\ndefine(''THEMEROOT'', get_stylesheet_directory_uri());\r\ndefine(''IMAGES'', THEMEROOT . ''/images'');\r\ndefine(''THEMEPATH'', trailingslashit(TEMPLATEPATH));\r\n\r\n\r\n\r\n'),
 (15, 1, 'Common Styles', 'style.css', '', '', '/*\r\nTheme Name: Template Generator\r\nTheme URI: http://www.template-generator.com\r\nAuthor: Template Generator Team\r\nAuthor URI:\r\nDescription: Theme for Wordpress.\r\nVersion: 1.0\r\nLicense: GNU General Public License v2 or later\r\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\r\nTags: black, brown, orange, tan, white, yellow, light, one-page\r\n*/\r\n@import url(''bootstrap/css/bootstrap.min.css''); \r\n'),
-(16, 4, 'Footer 1', '', '', '', '	<!-- QUOTE AREA -->\r\n	<section>\r\n		<div class="quote-container section-content align-center">\r\n			<h3>Need a quote?</h3>\r\n			\r\n			<p>Please use the form inside the contact page. Make sure you include some personal information as well as your project description and available budget.</p>\r\n			<p><a href="<?php echo home_url(); ?>/contact">Get a free quote &rarr;</a></p>\r\n		</div> <!-- end quote-container -->\r\n	</section>\r\n	\r\n		\r\n	\r\n	<!-- FOOTER -->\r\n	<footer class="main-footer section-content align-center" id="contact-info">\r\n		<h3>Just wanna say hi?</h3>\r\n		\r\n		<p>You can call me, email me directly or connect with me through my social networks.</p>\r\n		<p>(+40) 744111222 <br> <a href="mailto:hello@adipurdila.com">hello@adipurdila.com</a></p>\r\n		\r\n		<ul class="social-icons inline">\r\n			<li><a href="#" class="icon-twitter"></a></li>\r\n			<li><a href="#" class="icon-facebook"></a></li>\r\n			<li><a href="#" class="icon-dribbble"></a></li>\r\n		</ul>\r\n		\r\n		<hr />\r\n		\r\n		<p>&copy; Copyright <?php echo date(''Y''); ?> <?php echo bloginfo(''name''); ?>. Portfolio theme by Adi Purdila.</p>\r\n	</footer>'),
-(17, 2, 'Section 1', '', '', '', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo"><a href="<?php echo home_url(); ?>"><?php  bloginfo(''name''); ?></a></h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description"><?php echo get_theme_mod( ''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'' ); ?></p>\r\n                <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>'),
+(16, 4, 'Footer 1', '', '', 'footer1.png', '	<!-- QUOTE AREA -->\r\n	<section>\r\n		<div class="quote-container section-content align-center">\r\n			<h3>Need a quote?</h3>\r\n			\r\n			<p>Please use the form inside the contact page. Make sure you include some personal information as well as your project description and available budget.</p>\r\n			<p><a href="<?php echo home_url(); ?>/contact">Get a free quote &rarr;</a></p>\r\n		</div> <!-- end quote-container -->\r\n	</section>\r\n	\r\n		\r\n	\r\n	<!-- FOOTER -->\r\n	<footer class="main-footer section-content align-center" id="contact-info">\r\n		<h3>Just wanna say hi?</h3>\r\n		\r\n		<p>You can call me, email me directly or connect with me through my social networks.</p>\r\n		<p>(+40) 744111222 <br> <a href="mailto:hello@adipurdila.com">hello@adipurdila.com</a></p>\r\n		\r\n		<ul class="social-icons inline">\r\n			<li><a href="#" class="icon-twitter"></a></li>\r\n			<li><a href="#" class="icon-facebook"></a></li>\r\n			<li><a href="#" class="icon-dribbble"></a></li>\r\n		</ul>\r\n		\r\n		<hr />\r\n		\r\n		<p>&copy; Copyright <?php echo date(''Y''); ?> <?php echo bloginfo(''name''); ?>. Portfolio theme by Adi Purdila.</p>\r\n	</footer>'),
+(17, 2, 'Section 1', '', '', '13213.jpg', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo"><a href="<?php echo home_url(); ?>"><?php  bloginfo(''name''); ?></a></h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description"><?php echo get_theme_mod( ''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'' ); ?></p>\r\n                <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>'),
 (18, 6, 'Contact #1', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `template_category`
+-- Структура таблицы `template_category`
 --
 
 DROP TABLE IF EXISTS `template_category`;
 CREATE TABLE IF NOT EXISTS `template_category` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `is_basic` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `is_basic` tinyint(1) DEFAULT '0',
+  `is_visible` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `template_category`
+-- Дамп данных таблицы `template_category`
 --
 
-INSERT INTO `template_category` (`id`, `name`, `is_basic`) VALUES
-(1, 'Common Files', 1),
-(2, 'Headers', 0),
-(3, 'Functions', 0),
-(4, 'Footers', 0),
-(5, 'Fonts', 0),
-(6, 'Contact', 0);
+INSERT INTO `template_category` (`id`, `name`, `is_basic`, `is_visible`) VALUES
+(1, 'Common Files', 1, 0),
+(2, 'Headers', 0, 1),
+(3, 'Functions', 0, 0),
+(4, 'Footers', 0, 1),
+(5, 'Fonts', 0, 0),
+(6, 'Contact', 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `template_css`
+-- Структура таблицы `template_css`
 --
 
 DROP TABLE IF EXISTS `template_css`;
@@ -295,20 +300,20 @@ CREATE TABLE IF NOT EXISTS `template_css` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `css_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `template_css`
+-- Дамп данных таблицы `template_css`
 --
 
 INSERT INTO `template_css` (`id`, `template_id`, `css_id`) VALUES
 (9, 2, 2),
-(23, 17, 3);
+(24, 17, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `template_font`
+-- Структура таблицы `template_font`
 --
 
 DROP TABLE IF EXISTS `template_font`;
@@ -316,22 +321,22 @@ CREATE TABLE IF NOT EXISTS `template_font` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `font_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `template_font`
+-- Дамп данных таблицы `template_font`
 --
 
 INSERT INTO `template_font` (`id`, `template_id`, `font_id`) VALUES
-(31, 17, 5),
-(32, 17, 6),
-(33, 17, 7),
-(34, 17, 8);
+(35, 17, 5),
+(36, 17, 6),
+(37, 17, 7),
+(38, 17, 8);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `template_functions`
+-- Структура таблицы `template_functions`
 --
 
 DROP TABLE IF EXISTS `template_functions`;
@@ -339,21 +344,22 @@ CREATE TABLE IF NOT EXISTS `template_functions` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `functions_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `template_functions`
+-- Дамп данных таблицы `template_functions`
 --
 
 INSERT INTO `template_functions` (`id`, `template_id`, `functions_id`) VALUES
-(21, 17, 2),
-(22, 17, 3),
-(23, 17, 5);
+(24, 18, 6),
+(25, 17, 2),
+(26, 17, 3),
+(27, 17, 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `template_image`
+-- Структура таблицы `template_image`
 --
 
 DROP TABLE IF EXISTS `template_image`;
@@ -361,20 +367,20 @@ CREATE TABLE IF NOT EXISTS `template_image` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `image_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `template_image`
+-- Дамп данных таблицы `template_image`
 --
 
 INSERT INTO `template_image` (`id`, `template_id`, `image_id`) VALUES
 (1, 4, 1),
-(27, 17, 4);
+(28, 17, 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `template_js`
+-- Структура таблицы `template_js`
 --
 
 DROP TABLE IF EXISTS `template_js`;
@@ -382,10 +388,10 @@ CREATE TABLE IF NOT EXISTS `template_js` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `js_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `template_js`
+-- Дамп данных таблицы `template_js`
 --
 
 INSERT INTO `template_js` (`id`, `template_id`, `js_id`) VALUES
@@ -395,7 +401,7 @@ INSERT INTO `template_js` (`id`, `template_id`, `js_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `template_plugin`
+-- Структура таблицы `template_plugin`
 --
 
 DROP TABLE IF EXISTS `template_plugin`;
@@ -403,20 +409,20 @@ CREATE TABLE IF NOT EXISTS `template_plugin` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `plugin_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `template_plugin`
+-- Дамп данных таблицы `template_plugin`
 --
 
 INSERT INTO `template_plugin` (`id`, `template_id`, `plugin_id`) VALUES
-(1, 1, 1),
-(2, 18, 2);
+(3, 1, 1),
+(4, 18, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Структура таблицы `user`
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -431,271 +437,271 @@ CREATE TABLE IF NOT EXISTS `user` (
   `status` smallint(6) NOT NULL DEFAULT '10',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Дамп данных таблицы `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `role`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'Yz6GqSbNpE5veOeuIA0YZA7heobLAdM7', '$2y$13$1YGkkW6FLGpEzVxPhW984uhh0NnX/OyoCBDRiztLnGFGOtnr6xXw2', NULL, 'admin@gnail.com', 10, 10, 1401621203, 1401621203);
 
 --
--- Indexes for dumped tables
+-- Индексы сохранённых таблиц
 --
 
 --
--- Indexes for table `css`
+-- Индексы таблицы `css`
 --
 ALTER TABLE `css`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_css_parent` (`parent_id`);
 
 --
--- Indexes for table `font`
+-- Индексы таблицы `font`
 --
 ALTER TABLE `font`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `functions`
+-- Индексы таблицы `functions`
 --
 ALTER TABLE `functions`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_functions_parent` (`parent_id`);
 
 --
--- Indexes for table `image`
+-- Индексы таблицы `image`
 --
 ALTER TABLE `image`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `js`
+-- Индексы таблицы `js`
 --
 ALTER TABLE `js`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migration`
+-- Индексы таблицы `migration`
 --
 ALTER TABLE `migration`
  ADD PRIMARY KEY (`version`);
 
 --
--- Indexes for table `plugin`
+-- Индексы таблицы `plugin`
 --
 ALTER TABLE `plugin`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `related_template`
+-- Индексы таблицы `related_template`
 --
 ALTER TABLE `related_template`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_related_template_parent` (`parent_id`), ADD KEY `fk_related_template_child` (`child_id`);
 
 --
--- Indexes for table `template`
+-- Индексы таблицы `template`
 --
 ALTER TABLE `template`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_template_category` (`category_id`);
 
 --
--- Indexes for table `template_category`
+-- Индексы таблицы `template_category`
 --
 ALTER TABLE `template_category`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `template_css`
+-- Индексы таблицы `template_css`
 --
 ALTER TABLE `template_css`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_css_template` (`template_id`), ADD KEY `fk_template_css_css` (`css_id`);
 
 --
--- Indexes for table `template_font`
+-- Индексы таблицы `template_font`
 --
 ALTER TABLE `template_font`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_font_template` (`template_id`), ADD KEY `fk_template_font_font` (`font_id`);
 
 --
--- Indexes for table `template_functions`
+-- Индексы таблицы `template_functions`
 --
 ALTER TABLE `template_functions`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_functions_template` (`template_id`), ADD KEY `fk_template_functions_functions` (`functions_id`);
 
 --
--- Indexes for table `template_image`
+-- Индексы таблицы `template_image`
 --
 ALTER TABLE `template_image`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_image_template` (`template_id`), ADD KEY `fk_template_image_image` (`image_id`);
 
 --
--- Indexes for table `template_js`
+-- Индексы таблицы `template_js`
 --
 ALTER TABLE `template_js`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_js_template` (`template_id`), ADD KEY `fk_template_js_js` (`js_id`);
 
 --
--- Indexes for table `template_plugin`
+-- Индексы таблицы `template_plugin`
 --
 ALTER TABLE `template_plugin`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_plugin_template` (`template_id`), ADD KEY `fk_template_plugin_plugin` (`plugin_id`);
 
 --
--- Indexes for table `user`
+-- Индексы таблицы `user`
 --
 ALTER TABLE `user`
  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT for table `css`
+-- AUTO_INCREMENT для таблицы `css`
 --
 ALTER TABLE `css`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `font`
+-- AUTO_INCREMENT для таблицы `font`
 --
 ALTER TABLE `font`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
--- AUTO_INCREMENT for table `functions`
+-- AUTO_INCREMENT для таблицы `functions`
 --
 ALTER TABLE `functions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `image`
+-- AUTO_INCREMENT для таблицы `image`
 --
 ALTER TABLE `image`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `js`
+-- AUTO_INCREMENT для таблицы `js`
 --
 ALTER TABLE `js`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `plugin`
+-- AUTO_INCREMENT для таблицы `plugin`
 --
 ALTER TABLE `plugin`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `related_template`
+-- AUTO_INCREMENT для таблицы `related_template`
 --
 ALTER TABLE `related_template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=66;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
 --
--- AUTO_INCREMENT for table `template`
+-- AUTO_INCREMENT для таблицы `template`
 --
 ALTER TABLE `template`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
--- AUTO_INCREMENT for table `template_category`
+-- AUTO_INCREMENT для таблицы `template_category`
 --
 ALTER TABLE `template_category`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `template_css`
+-- AUTO_INCREMENT для таблицы `template_css`
 --
 ALTER TABLE `template_css`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
--- AUTO_INCREMENT for table `template_font`
+-- AUTO_INCREMENT для таблицы `template_font`
 --
 ALTER TABLE `template_font`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 --
--- AUTO_INCREMENT for table `template_functions`
+-- AUTO_INCREMENT для таблицы `template_functions`
 --
 ALTER TABLE `template_functions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
---
--- AUTO_INCREMENT for table `template_image`
---
-ALTER TABLE `template_image`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
--- AUTO_INCREMENT for table `template_js`
+-- AUTO_INCREMENT для таблицы `template_image`
+--
+ALTER TABLE `template_image`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT для таблицы `template_js`
 --
 ALTER TABLE `template_js`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `template_plugin`
+-- AUTO_INCREMENT для таблицы `template_plugin`
 --
 ALTER TABLE `template_plugin`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- Constraints for dumped tables
+-- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Constraints for table `css`
+-- Ограничения внешнего ключа таблицы `css`
 --
 ALTER TABLE `css`
 ADD CONSTRAINT `fk_css_parent` FOREIGN KEY (`parent_id`) REFERENCES `template` (`id`);
 
 --
--- Constraints for table `functions`
+-- Ограничения внешнего ключа таблицы `functions`
 --
 ALTER TABLE `functions`
 ADD CONSTRAINT `fk_functions_parent` FOREIGN KEY (`parent_id`) REFERENCES `template` (`id`);
 
 --
--- Constraints for table `related_template`
+-- Ограничения внешнего ключа таблицы `related_template`
 --
 ALTER TABLE `related_template`
 ADD CONSTRAINT `fk_related_template_child` FOREIGN KEY (`child_id`) REFERENCES `template` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `fk_related_template_parent` FOREIGN KEY (`parent_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `template`
+-- Ограничения внешнего ключа таблицы `template`
 --
 ALTER TABLE `template`
 ADD CONSTRAINT `fk_template_template_category` FOREIGN KEY (`category_id`) REFERENCES `template_category` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `template_css`
+-- Ограничения внешнего ключа таблицы `template_css`
 --
 ALTER TABLE `template_css`
 ADD CONSTRAINT `fk_template_css_css` FOREIGN KEY (`css_id`) REFERENCES `css` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `fk_template_css_template` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `template_font`
+-- Ограничения внешнего ключа таблицы `template_font`
 --
 ALTER TABLE `template_font`
 ADD CONSTRAINT `fk_template_font_font` FOREIGN KEY (`font_id`) REFERENCES `font` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `fk_template_font_template` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `template_functions`
+-- Ограничения внешнего ключа таблицы `template_functions`
 --
 ALTER TABLE `template_functions`
 ADD CONSTRAINT `fk_template_functions_functions` FOREIGN KEY (`functions_id`) REFERENCES `functions` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `fk_template_functions_template` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `template_image`
+-- Ограничения внешнего ключа таблицы `template_image`
 --
 ALTER TABLE `template_image`
 ADD CONSTRAINT `fk_template_image_image` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `fk_template_image_template` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `template_js`
+-- Ограничения внешнего ключа таблицы `template_js`
 --
 ALTER TABLE `template_js`
 ADD CONSTRAINT `fk_template_js_js` FOREIGN KEY (`js_id`) REFERENCES `js` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `fk_template_js_template` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `template_plugin`
+-- Ограничения внешнего ключа таблицы `template_plugin`
 --
 ALTER TABLE `template_plugin`
 ADD CONSTRAINT `fk_template_plugin_plugin` FOREIGN KEY (`plugin_id`) REFERENCES `plugin` (`id`) ON DELETE CASCADE,
