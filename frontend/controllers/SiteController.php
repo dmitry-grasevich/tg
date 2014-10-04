@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Template;
 use common\models\TemplateCategory;
 use Yii;
 use common\models\LoginForm;
@@ -69,8 +70,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $categories = TemplateCategory::getSample();//TemplateCategory::findAll(['is_basic' => 0, 'is_visible' => 1]);
-//        return $this->render('index', [
-        return $this->render('index', ['categories' => $categories]);
+        $t = \Yii::$app->request->get('t');
+        $selected = empty($t) ? null : Template::getSelected($t);
+        return $this->render('index', ['categories' => $categories, 'selected' => $selected]);
     }
 
     public function actionLogin()

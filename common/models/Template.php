@@ -424,4 +424,31 @@ class Template extends Library
             }
         }
     }
+
+    /**
+     * @param $t
+     * @return array
+     */
+    public static function getSelected($t)
+    {
+        $result = [];
+        $templates = [];
+        $ts = explode('-', $t);
+        foreach (self::find()->innerJoinWith([
+            'category' => function($query) {
+                $query->where(['template_category.is_basic' => 0, 'template_category.is_visible' => 1]);
+            }
+        ])->where(['template.id' => $ts])->each() as $template) {
+            if (in_array($template->id, $ts)) {
+                $templates[$template->id] = $template;
+            }
+        }
+
+        foreach ($ts as $selectedId) {
+            if (array_key_exists($selectedId, $templates)) {
+                $result[] = $templates[$selectedId];
+            }
+        }
+        return $result;
+    }
 }

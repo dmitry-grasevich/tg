@@ -33,14 +33,10 @@ var initSortable = function(el) {
                 templateId = img.data('id'),
                 fullSrc = img.data('fullimg');
             ui.item.find('a').parent().html($('<img src="' + fullSrc + '" width="1200px" data-fullimg="' + fullSrc + '" data-id="' + templateId + '" />'));
+        },
+        stop: function() {
             updateHistory();
         }
-        //stop: function () {
-        //
-        //},
-        //over: function () {
-        //
-        //}
     });
 };
 

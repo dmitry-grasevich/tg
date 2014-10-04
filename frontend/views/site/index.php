@@ -1,7 +1,9 @@
 <?php
 /**
- * @var $this yii\web\View
- * @var $categories array
+ * @var $this           yii\web\View
+ * @var $categories     array
+ * @var $selected       array|null
+ * @var $s              common\models\Template
  */
 $this->title = 'WordPress Template Generator';
 ?>
@@ -45,7 +47,15 @@ $this->title = 'WordPress Template Generator';
                 <input type="text" placeholder="Enter name for your theme" />
             </div>
             <div class="canvas">
-                <ul id="sortable"></ul>
+                <ul id="sortable">
+                    <?php if (!empty($selected)): ?>
+                        <?php foreach ($selected as $s): ?>
+                        <li class="menu-item">
+                            <img src="elements/images/full/<?= $s->img ?>" width="1200px" data-fullimg="elements/images/full/<?= $s->img ?>" data-id="<?= $s->id ?>">
+                        </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </ul>
             </div>
         </div>
 
