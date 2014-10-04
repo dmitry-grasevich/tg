@@ -29,6 +29,7 @@
         "bower-asset/jquery-placeholder": "dev-master",
         "bower-asset/bootstrap-switch": "dev-master",
         "bower-asset/bootstrap-select": "dev-master",
+        "bower-asset/perfect-scrollbar": "*",
         "nizsheanez/yii2-asset-converter": "1.*"
     },
     "require-dev": {

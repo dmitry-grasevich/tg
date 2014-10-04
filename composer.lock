@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7e463a8ba5587a60072f6fa4606bee3c",
+    "hash": "9506dfea29e62f7e1052353c915617df",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -355,6 +355,42 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/perfect-scrollbar",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/noraesae/perfect-scrollbar.git",
+                "reference": "f231110f2160c050d1c58d89bc4cfcb2a917b692"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/noraesae/perfect-scrollbar/zipball/f231110f2160c050d1c58d89bc4cfcb2a917b692",
+                "reference": "f231110f2160c050d1c58d89bc4cfcb2a917b692",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.10"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "src/perfect-scrollbar.css",
+                    "src/perfect-scrollbar.js"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Tiny but perfect jQuery scrollbar plugin"
         },
         {
             "name": "bower-asset/punycode",
@@ -1674,12 +1710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "9359e595d8649804946c039ac6ff6916948a5320"
+                "reference": "74d3dd246fa8abcdee7bd97d1e238bc5991a2446"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/9359e595d8649804946c039ac6ff6916948a5320",
-                "reference": "9359e595d8649804946c039ac6ff6916948a5320",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/74d3dd246fa8abcdee7bd97d1e238bc5991a2446",
+                "reference": "74d3dd246fa8abcdee7bd97d1e238bc5991a2446",
                 "shasum": ""
             },
             "require": {
@@ -1718,7 +1754,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2014-09-26 11:48:15"
+            "time": "2014-10-04 05:53:52"
         },
         {
             "name": "warrence/yii2-kartikgii",
@@ -1766,12 +1802,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "1227c9275f9f9dd7362283d5fc7af3cda504b1d2"
+                "reference": "b5f2e0c51f28aee5f0dbab03b7f34095b1353f89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/1227c9275f9f9dd7362283d5fc7af3cda504b1d2",
-                "reference": "1227c9275f9f9dd7362283d5fc7af3cda504b1d2",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b5f2e0c51f28aee5f0dbab03b7f34095b1353f89",
+                "reference": "b5f2e0c51f28aee5f0dbab03b7f34095b1353f89",
                 "shasum": ""
             },
             "require": {
@@ -1846,7 +1882,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-10-03 17:39:04"
+            "time": "2014-10-04 10:22:34"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
