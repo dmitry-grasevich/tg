@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9506dfea29e62f7e1052353c915617df",
+    "hash": "f89630cb3a8f5ca074b8683fae207892",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -176,6 +176,22 @@
                 ]
             },
             "description": "Turn checkboxes and radio buttons in toggle switches."
+        },
+        {
+            "name": "bower-asset/history.js",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/browserstate/history.js.git",
+                "reference": "14968aa3cf2a27335f71d26386de0a5c4073835d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/browserstate/history.js/zipball/14968aa3cf2a27335f71d26386de0a5c4073835d",
+                "reference": "14968aa3cf2a27335f71d26386de0a5c4073835d",
+                "shasum": ""
+            },
+            "type": "bower-asset-library"
         },
         {
             "name": "bower-asset/jquery",

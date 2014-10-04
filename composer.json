@@ -30,6 +30,7 @@
         "bower-asset/bootstrap-switch": "dev-master",
         "bower-asset/bootstrap-select": "dev-master",
         "bower-asset/perfect-scrollbar": "*",
+        "bower-asset/history.js": "*",
         "nizsheanez/yii2-asset-converter": "1.*"
     },
     "require-dev": {

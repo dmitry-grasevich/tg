@@ -23,7 +23,7 @@ $this->title = 'WordPress Template Generator';
                             <div class="items-list">
                                 <ul>
                                     <?php foreach ($category['items'] as $item): ?>
-                                        <li class="menu-item"><a href="#"><img src="elements/images/thumbs/<?= $item['thumbnail'] ?>" width="294px" /></a></li>
+                                        <li class="menu-item"><a href="#"><img src="elements/images/thumbs/<?= $item['img'] ?>" width="294px" data-id="<?= $item['id'] ?>" /></a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>

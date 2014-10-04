@@ -53,6 +53,7 @@ class AppAsset extends AssetBundle
         'frontend\assets\SpectrumAsset',
         'frontend\assets\TouchPunchAsset',
         'frontend\assets\PerfectScrollbarAsset',
+        'frontend\assets\HistoryAsset',
 //        'frontend\assets\PlaceholderAsset',
 //        'frontend\assets\TagsInputAsset',
 //        'frontend\assets\BootstrapSwitchAsset',
