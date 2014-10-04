@@ -70,9 +70,7 @@ class SiteController extends Controller
     {
         $categories = TemplateCategory::getSample();//TemplateCategory::findAll(['is_basic' => 0, 'is_visible' => 1]);
 //        return $this->render('index', [
-        return $this->render('index-codrop-menu', [
-            'categories' => $categories
-        ]);
+        return $this->render('index', ['categories' => $categories]);
     }
 
     public function actionLogin()

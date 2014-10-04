@@ -39,4 +39,15 @@ function makeSortable(el) {
 $(function () {
     makeDraggable('#sortable');
     makeSortable($('#sortable'));
+    $('.items-list').perfectScrollbar({
+        suppressScrollX: true
+    });
+    $('.project-container').perfectScrollbar({
+        suppressScrollX: true
+    });
+
+    $(window).resize(function() {
+        $('.items-list').perfectScrollbar('update');
+        $('.project-container').perfectScrollbar('update');
+    });
 });

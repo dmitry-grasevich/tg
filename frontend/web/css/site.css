@@ -242,3 +242,9 @@ a:hover, a:focus {
     height: 150px;
     background: #ECF0F1;
 }
+
+.items-list {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
