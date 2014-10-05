@@ -82,9 +82,10 @@ var blockList = function() {
 };
 
 var updateHistory = function() {
-    var ids = blockList();
-    var url = ids.join('-');
-    History.pushState(null, null, '?t=' + url);
+    var ids = blockList(),
+        url = ids.join('-'),
+        t = url != '' ? '?t=' + url : '?';
+    History.pushState(null, 'WordPress Template Generator', t);
 };
 
 $(function () {

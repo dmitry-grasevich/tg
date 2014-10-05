@@ -35,7 +35,7 @@ AppAsset::register($this);
     <?php $this->endBody() ?>
 
     <script>
-        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+        new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'), { type: 'cover' });
     </script>
 </body>
 </html>
