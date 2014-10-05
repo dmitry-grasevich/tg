@@ -231,7 +231,10 @@
         _toggleLevels: function () {
             for (var i = 0, len = this.levels.length; i < len; ++i) {
                 var levelEl = this.levels[i];
-                if (levelEl.getAttribute('data-level') >= this.level + 1) {
+                //if (levelEl.getAttribute('data-level') >= this.level + 1) {
+                if ((this.level == 0 && levelEl.getAttribute('data-level') == 1) ||
+                    (this.level > 0 && levelEl.getAttribute('data-level') >= this.level + 1))
+                { // CHANGE: close only first level
                     classie.remove(levelEl, 'mp-level-open');
                     classie.remove(levelEl, 'mp-level-overlay');
                 }
