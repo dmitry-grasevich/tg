@@ -50,7 +50,7 @@ $this->title = 'WordPress Template Generator';
                 <ul id="sortable">
                     <?php if (!empty($selected)): ?>
                         <?php foreach ($selected as $s): ?>
-                        <li class="menu-item">
+                        <li>
                             <img src="elements/images/full/<?= $s->img ?>" width="1200px" data-fullimg="elements/images/full/<?= $s->img ?>" data-id="<?= $s->id ?>">
                         </li>
                         <?php endforeach; ?>

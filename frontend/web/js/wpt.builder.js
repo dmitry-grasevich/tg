@@ -1,16 +1,18 @@
+var thumbWidth = 294,
+    fullWidth = 1200;
+
 var initDraggable = function(sortable_id) {
     $('.menu-item').each(function () {
         var self = $(this);
         $(this).draggable({
-            helper: function () {
+            helper: function (ev) {
                 var img = self.find('img'),
                     imgSrc = img.attr('src'),
                     templateId = img.data('id'),
-                    fullSrc = imgSrc.replace('thumbs', 'full');
-                return $('<div class="draggable-li" style="width: 294px;">' +
-                    '<img src="' + imgSrc + '" width="294px" data-fullimg="' + fullSrc + '" data-id="' + templateId + '" />' +
-                    '</div>'
-                );
+                    fullSrc = imgSrc.replace('thumbs', 'full'),
+                    dragWidth = img.parent().is('li') ? fullWidth : thumbWidth;
+                return $('<div class="draggable-li" style="width: ' + dragWidth + 'px;" />')
+                    .append($('<img src="' + imgSrc + '" width="' + dragWidth + 'px" data-fullimg="' + fullSrc + '" data-id="' + templateId + '" />'));
             },
             revert: 'invalid',
             appendTo: 'body',
@@ -26,18 +28,19 @@ var initDraggable = function(sortable_id) {
 
 var initSortable = function(el) {
     el.sortable({
-        //revert: true,
+        revert: true,
         placeholder: "drop-hover",
         beforeStop: function (event, ui) {
             var img = ui.helper.find('img'),
                 templateId = img.data('id'),
                 fullSrc = img.data('fullimg');
-            ui.item.find('a').parent().html($('<img src="' + fullSrc + '" width="1200px" data-fullimg="' + fullSrc + '" data-id="' + templateId + '" />'));
+            ui.item.find('a').parent().html($('<img src="' + fullSrc + '" width="' + fullWidth + 'px" data-fullimg="' + fullSrc + '" data-id="' + templateId + '" />'));
         },
         stop: function() {
-            updateHistory();
+           updateHistory();
         }
     });
+    el.disableSelection();
 };
 
 var initScrollbars = function() {
@@ -60,7 +63,7 @@ var updateHistory = function() {
 };
 
 $(function () {
-    initDraggable('#sortable');
     initSortable($('#sortable'));
+    initDraggable('#sortable');
     initScrollbars();
 });

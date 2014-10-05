@@ -65,9 +65,9 @@ class TemplateCategory extends Library
                 'Headers' => [
                     'id' => 1,
                     'items' => [
-                        [ 'id' => 1, 'img' => 'header1.png' ],
-                        [ 'id' => 2, 'img' => 'header2.png' ],
-                        [ 'id' => 3, 'img' => 'header3.png' ],
+                        [ 'id' => 4, 'img' => 'header1.png' ],
+                        [ 'id' => 5, 'img' => 'header2.png' ],
+                        [ 'id' => 1, 'img' => 'header3.png' ],
                         [ 'id' => 4, 'img' => 'header4.png' ],
                         [ 'id' => 5, 'img' => 'header5.png' ],
                         [ 'id' => 6, 'img' => 'header6.png' ],
