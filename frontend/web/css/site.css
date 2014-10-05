@@ -248,3 +248,20 @@ a:hover, a:focus {
     height: 100%;
     overflow: hidden;
 }
+
+.trash {
+    width: 150px;
+    height: 100%;
+    float: left;
+    background: url("../images/trash.png") 50% 50% rgba(255, 0, 0, 0.3) no-repeat;
+    visibility: hidden;
+}
+
+.trash.ui-state-hover {
+    visibility: visible;
+    border: none;
+}
+
+.trash.ui-state-active {
+    background-color: rgba(255, 0, 0, 0.6);
+}

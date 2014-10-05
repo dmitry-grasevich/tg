@@ -8,10 +8,8 @@
 $this->title = 'WordPress Template Generator';
 ?>
 <div class="container">
-    <!-- Push Wrapper -->
     <div class="mp-pusher" id="mp-pusher">
 
-        <!-- mp-menu -->
         <nav id="mp-menu" class="mp-menu">
             <div class="mp-level">
                 <h2>Select a Category</h2>
@@ -35,7 +33,10 @@ $this->title = 'WordPress Template Generator';
                 </ul>
             </div>
         </nav>
-        <!-- /mp-menu -->
+
+        <div id="droppable" class="trash">
+
+        </div>
 
         <a id="trigger" class="icon-burger" href="#"><i></i></a>
 
@@ -60,5 +61,5 @@ $this->title = 'WordPress Template Generator';
         </div>
 
 
-    </div><!-- /pusher -->
-</div><!-- /container -->
+    </div>
+</div>
