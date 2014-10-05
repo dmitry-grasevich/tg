@@ -65,10 +65,10 @@ var dropBlock = function(el) {
 
 var initScrollbars = function() {
     $('.items-list').perfectScrollbar({ suppressScrollX: true });
-    $('.project-container').perfectScrollbar({ suppressScrollX: true });
+    $('#main_container').perfectScrollbar({ suppressScrollX: true });
     $(window).resize(function() {
         $('.items-list').perfectScrollbar('update');
-        $('.project-container').perfectScrollbar('update');
+        $('#main_container').perfectScrollbar('update');
     });
 };
 

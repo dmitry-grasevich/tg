@@ -7,7 +7,7 @@
  */
 $this->title = 'WordPress Template Generator';
 ?>
-<div class="container">
+<div class="container" id="main_container">
     <div class="mp-pusher" id="mp-pusher">
 
         <nav id="mp-menu" class="mp-menu">
@@ -34,9 +34,7 @@ $this->title = 'WordPress Template Generator';
             </div>
         </nav>
 
-        <div id="droppable" class="trash">
-
-        </div>
+        <div id="droppable" class="trash"></div>
 
         <a id="trigger" class="icon-burger" href="#"><i></i></a>
 
