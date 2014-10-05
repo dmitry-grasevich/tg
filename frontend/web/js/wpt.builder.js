@@ -72,12 +72,17 @@ var initScrollbars = function() {
     });
 };
 
-var updateHistory = function() {
+var blockList = function() {
     var templates = $('#sortable').find('img'),
         ids = [];
     for (var i = 0; i < templates.length; i++) {
         ids.push($(templates[i]).data('id'));
     }
+    return ids;
+};
+
+var updateHistory = function() {
+    var ids = blockList();
     var url = ids.join('-');
     History.pushState(null, null, '?t=' + url);
 };
@@ -87,4 +92,22 @@ $(function () {
     initDraggable('#sortable');
     initDroppable($('#droppable'));
     initScrollbars();
+
+    $('#generateBtn').click(function (e) {
+        e.preventDefault();
+        var themeName = $('#theme_name').val();
+        if (themeName == '') {
+            alert('Please enter your Theme Name');
+            return false;
+        }
+        var ids = blockList();
+        if (ids.length == 0) {
+            alert('Your template has no blocks! Why? Please add one or more.');
+            return false;
+        }
+
+        $.post('/template', { name: themeName, blocks: ids.join(',') }, function (res) {
+            console.log(res);
+        });
+    });
 });

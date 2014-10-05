@@ -43,7 +43,7 @@ $this->title = 'WordPress Template Generator';
                 <i class="dot"></i>
                 <i class="dot dot2"></i>
                 <i class="dot dot3"></i>
-                <input type="text" placeholder="Enter name for your theme" />
+                <input type="text" placeholder="Enter name for your theme" id="theme_name" />
             </div>
             <div class="canvas">
                 <ul id="sortable">
@@ -56,8 +56,11 @@ $this->title = 'WordPress Template Generator';
                     <?php endif; ?>
                 </ul>
             </div>
-        </div>
 
+            <div class="button-container text-center">
+                <button id="generateBtn">Get Template!</button>
+            </div>
+        </div>
 
     </div>
 </div>
