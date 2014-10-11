@@ -405,7 +405,32 @@ html, body, .container, .scroller, .project-container {
 }
 
 
+/*
+    scrollbars styles
+*/
 /* fix scrollbar bug */
 .project-container .ps-scrollbar-y-rail {
     top: 0 !important;
 }
+.ps-container .ps-scrollbar-y-rail {
+    width: 6px;
+    border-radius: 3px;
+    opacity: 0;
+    right: 2px !important;
+}
+.ps-container .ps-scrollbar-y-rail:hover,
+.ps-container .ps-scrollbar-y-rail.hover {
+    background: rgba(0,0,0, .2);
+    opacity: 1;
+}
+
+.ps-container .ps-scrollbar-y {
+    background: rgba(255,255,255, .4);
+    width: 6px;
+    border-radius: 3px;
+}
+.ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
+.ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
+    background: rgba(255,255,255, .6);
+}
+

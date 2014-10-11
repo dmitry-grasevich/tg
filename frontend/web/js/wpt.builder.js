@@ -64,7 +64,6 @@ var dropBlock = function(el) {
 };
 
 
-
 function getScrollableHeight() {
     var boxOffset = $('.items-list').offset().top;
     var viewportHeight = $(window).height();
@@ -76,9 +75,8 @@ function getScrollableHeight() {
 getScrollableHeight();
 
 $(window).resize(function() {
-    getScrollableHeight();
+    getScrollableHeight('update');
 });
-
 
 
 var initScrollbars = function() {
