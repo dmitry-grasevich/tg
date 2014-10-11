@@ -63,12 +63,30 @@ var dropBlock = function(el) {
     updateHistory();
 };
 
+
+
+function getScrollableHeight() {
+    var boxOffset = $('.items-list').offset().top;
+    var viewportHeight = $(window).height();
+    var elementHeight = viewportHeight - boxOffset;
+
+    $('.items-list').css('height', elementHeight);
+}
+
+getScrollableHeight();
+
+$(window).resize(function() {
+    getScrollableHeight();
+});
+
+
+
 var initScrollbars = function() {
     $('.items-list').perfectScrollbar({ suppressScrollX: true });
-    $('#main_container').perfectScrollbar({ suppressScrollX: true });
+    $('.project-container').perfectScrollbar({ suppressScrollX: true });
     $(window).resize(function() {
         $('.items-list').perfectScrollbar('update');
-        $('#main_container').perfectScrollbar('update');
+        $('.project-container').perfectScrollbar('update');
     });
 };
 

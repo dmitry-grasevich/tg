@@ -89,17 +89,20 @@ a:hover, a:focus {
 }
 
 .items-list {
-    position: relative;
-    height: 100%;
     overflow: hidden;
+    position: relative;
+    height: 100px;
 }
 
 .trash {
-    width: 150px;
-    height: 100%;
-    float: left;
+    width: 340px;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    top: 0;
     background: url("../images/trash.png") 50% 50% rgba(255, 0, 0, 0.3) no-repeat;
     visibility: hidden;
+    z-index: 1000;
 }
 
 .trash.ui-state-hover {

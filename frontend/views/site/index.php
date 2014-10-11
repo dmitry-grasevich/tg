@@ -18,7 +18,7 @@ $this->title = 'WordPress Template Generator';
                     <li class="icon icon-arrow-left">
                         <a href="#"><?= $catName ?></a>
                         <div class="mp-level">
-                            <h2 class="icon icon-display"><?= $catName ?></h2>
+                            <h2><?= $catName ?></h2>
                             <a class="mp-back" href="#">back</a>
                             <div class="items-list">
                                 <ul>
