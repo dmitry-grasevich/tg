@@ -39,26 +39,28 @@ $this->title = 'WordPress Template Generator';
         <a id="trigger" class="icon-burger" href="#"><i></i></a>
 
         <div class="project-container">
-            <div class="browser-header">
-                <i class="dot"></i>
-                <i class="dot dot2"></i>
-                <i class="dot dot3"></i>
-                <input type="text" placeholder="Enter name for your theme" id="theme_name" />
-            </div>
-            <div class="canvas">
-                <ul id="sortable">
-                    <?php if (!empty($selected)): ?>
-                        <?php foreach ($selected as $s): ?>
-                        <li>
-                            <img src="elements/images/full/<?= $s->img ?>" width="1200px" data-fullimg="elements/images/full/<?= $s->img ?>" data-id="<?= $s->id ?>">
-                        </li>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </ul>
+            <div class="browser">
+                <div class="browser-header">
+                    <i class="dot"></i>
+                    <i class="dot dot2"></i>
+                    <i class="dot dot3"></i>
+                    <input type="text" placeholder="Enter name for your theme" id="theme_name" />
+                </div>
+                <div class="canvas">
+                    <ul id="sortable">
+                        <?php if (!empty($selected)): ?>
+                            <?php foreach ($selected as $s): ?>
+                            <li>
+                                <img src="elements/images/full/<?= $s->img ?>" width="1200" data-fullimg="elements/images/full/<?= $s->img ?>" data-id="<?= $s->id ?>">
+                            </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
+                </div>
             </div>
 
             <div class="button-container text-center">
-                <button id="generateBtn">Get Template!</button>
+                <button id="generateBtn" class="btn btn-action">Get Theme</button>
             </div>
         </div>
 
