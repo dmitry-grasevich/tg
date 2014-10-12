@@ -1,4 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
+/*
 @font-face {
     font-weight: normal;
     font-style: normal;
@@ -9,12 +11,13 @@
     url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
     url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
 }
+*/
 
 body {
     background: #34495e;
     color: #fff;
     font-weight: 300;
-    font-family: 'Lato', Calibri, Arial, sans-serif;
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -95,14 +98,26 @@ a:hover, a:focus {
 }
 
 .trash {
-    width: 340px;
-    height: 40px;
-    position: absolute;
+    width: 70px;
+    height: 100%;
+    position: fixed;
     left: 0;
     top: 0;
-    background: url("../images/trash.png") 50% 50% rgba(255, 0, 0, 0.3) no-repeat;
+    background: rgba(255, 0, 0, 0.3);
     visibility: hidden;
     z-index: 1000;
+}
+.trash:before {
+    content: '\f014';
+    position: absolute;
+    font-family: 'FontAwesome';
+    top: 50%;
+    left: 50%;
+    font-size: 4em;
+    color: rgba(255, 255, 255, .6);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .trash.ui-state-hover {
@@ -113,9 +128,13 @@ a:hover, a:focus {
 .trash.ui-state-active {
     background-color: rgba(255, 0, 0, 0.6);
 }
-
+.trash.ui-state-active:before {
+    color: rgba(255, 255, 255, 1);
+}
 .text-center {
     text-align: center;
 }
+
+
 
 

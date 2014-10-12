@@ -9,10 +9,6 @@ html, body, .container, .scroller, .project-container {
     height: 100%;
 }
 
-.scroller {
-   /*overflow-y: scroll;*/
-}
-
 .scroller,
 .scroller-inner {
     position: relative;
@@ -21,7 +17,7 @@ html, body, .container, .scroller, .project-container {
 .container {
     position: relative;
     overflow: hidden;
-    background: #34495e;
+    background: #2C3E50;
 }
 
 .mp-pusher {
@@ -151,7 +147,7 @@ html, body, .container, .scroller, .project-container {
 
 .mp-menu h2 {
     margin: 0;
-    padding: 20px;
+    padding: 24px 12px;
     color: rgba(0, 0, 0, 0.4);
     font-weight: 300;
     font-size: 24px;
@@ -242,9 +238,9 @@ html, body, .container, .scroller, .project-container {
 }
 
 .mp-back::after {
-    font-family: 'linecons';
+    font-family: 'FontAwesome';
     position: absolute;
-    content: "\e037";
+    content: "\f138";
     right: 10px;
     font-size: 1.3em;
     color: rgba(0, 0, 0, 0.3);
@@ -444,9 +440,8 @@ html, body, .container, .scroller, .project-container {
     background: #45C1A2;
     color: #fff;
     text-transform: uppercase;
-    font: 400 18px/18px arial;
+    font: 400 22px/24px 'PT Sans', Helvetica, Arial, sans-serif;
     padding: 16px 32px;
-
     margin-bottom: 40px;
 }
 
