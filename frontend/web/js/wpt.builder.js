@@ -18,7 +18,7 @@ var initDraggable = function(sortable_id) {
             appendTo: 'body',
             connectToSortable: sortable_id,
             stop: function () {
-                $('.draggable-li').remove();
+              //  $('.draggable-li').remove();
             },
             start: function () {
             }
@@ -35,7 +35,7 @@ var initSortable = function(el) {
             var img = ui.helper.find('img'),
                 templateId = img.data('id'),
                 fullSrc = img.data('fullimg');
-            ui.item.find('a').parent().html($('<img src="' + fullSrc + '" width="' + fullWidth + 'px" data-fullimg="' + fullSrc + '" data-id="' + templateId + '" />'));
+            ui.item.removeAttr('style').html($('<img src="' + fullSrc + '" width="' + fullWidth + 'px" data-fullimg="' + fullSrc + '" data-id="' + templateId + '" />'));
             ui.item.addClass('ui-sortable-handle');
         },
         stop: function() {
@@ -101,6 +101,7 @@ var updateHistory = function() {
     var ids = blockList(),
         url = ids.join('-'),
         t = url != '' ? '?t=' + url : '?';
+
     History.pushState(null, 'WordPress Template Generator', t);
 };
 
