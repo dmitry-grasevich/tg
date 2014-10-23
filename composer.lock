@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/silviomoreto/bootstrap-select.git",
-                "reference": "eb9cf1e7118e19b26b598b5212b04dc2f2242ea0"
+                "reference": "445e3708ecb57fcd200dcf380058f71615b6e437"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silviomoreto/bootstrap-select/zipball/eb9cf1e7118e19b26b598b5212b04dc2f2242ea0",
-                "reference": "eb9cf1e7118e19b26b598b5212b04dc2f2242ea0",
+                "url": "https://api.github.com/repos/silviomoreto/bootstrap-select/zipball/445e3708ecb57fcd200dcf380058f71615b6e437",
+                "reference": "445e3708ecb57fcd200dcf380058f71615b6e437",
                 "shasum": ""
             },
             "require": {
@@ -255,8 +255,7 @@
                 "bower-asset-main": [
                     "jquery.placeholder.js"
                 ]
-            },
-            "time": "2014-04-01 13:15:46"
+            }
         },
         {
             "name": "bower-asset/jquery-ui",
@@ -317,8 +316,7 @@
                 "jquery-ui",
                 "mobile",
                 "touch"
-            ],
-            "time": "2013-11-18 14:33:37"
+            ]
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -470,8 +468,7 @@
                     "README.md",
                     "test/"
                 ]
-            },
-            "time": "2014-09-03 03:01:28"
+            }
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -1431,12 +1428,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "5dfc6ff4a8384402d7805f4b705e3fd191a00caf"
+                "reference": "4f9b2f62872a9c647f9cebc4e2fdaedbd6e5c119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5dfc6ff4a8384402d7805f4b705e3fd191a00caf",
-                "reference": "5dfc6ff4a8384402d7805f4b705e3fd191a00caf",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/4f9b2f62872a9c647f9cebc4e2fdaedbd6e5c119",
+                "reference": "4f9b2f62872a9c647f9cebc4e2fdaedbd6e5c119",
                 "shasum": ""
             },
             "require": {
@@ -1511,7 +1508,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-10-22 15:58:06"
+            "time": "2014-10-24 08:01:53"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

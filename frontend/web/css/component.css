@@ -423,8 +423,7 @@ html, body, .container, .scroller, .project-container {
     background: rgba(0,0,0, .2);
     opacity: 1;
 }
-
-.ps-container .ps-scrollbar-y {
+.ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
     background: rgba(255,255,255, .4);
     width: 6px;
     border-radius: 3px;
