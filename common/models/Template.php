@@ -18,6 +18,7 @@ use yii\web\UploadedFile;
  * @property string $directory
  * @property string $img
  * @property string $code
+ * @property integer $is_visible  show or not this template on frontend
  *
  * @property TemplateCategory $category
  * @property TemplateCss[] $templateCss
@@ -50,7 +51,7 @@ class Template extends Library
     {
         return [
             [['category_id', 'name'], 'required'],
-            [['category_id'], 'integer'],
+            [['category_id', 'is_visible'], 'integer'],
             [['code', 'filename'], 'string'],
             [['img'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
             [['name', 'filename', 'directory', 'img'], 'string', 'max' => 255],
@@ -87,6 +88,7 @@ class Template extends Library
             'FunctionsName' => Yii::t('app', 'Functions'),
             'parentsName' => Yii::t('app', 'Parents'),
             'childrenName' => Yii::t('app', 'Children'),
+            'is_visible' => Yii::t('app', 'Visible on Frontend'),
         ];
     }
 
