@@ -27,6 +27,7 @@
         "kartik-v/yii2-editable": "dev-master",
         "kartik-v/yii2-checkbox-x": "dev-master",
         "kartik-v/yii2-grid": "dev-master",
+        "kartik-v/yii2-detail-view": "dev-master",
         "yiisoft/yii2-jui": "dev-master",
         "bootflat/bootflat": "dev-master",
         "bower-asset/spectrum": "dev-master",
