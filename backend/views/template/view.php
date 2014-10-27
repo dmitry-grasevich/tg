@@ -1,13 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use kartik\detail\DetailView;
 use kartik\datecontrol\DateControl;
-use common\models\TemplateCategory;
-use yii\helpers\ArrayHelper;
-use common\models\Css;
-use common\models\Js;
-use common\models\Functions;
 
 /**
  * @var yii\web\View $this

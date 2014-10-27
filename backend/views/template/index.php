@@ -22,7 +22,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
+            [
+                'attribute' => 'id',
+                'width' => '25px',
+            ],
+            [
+                'header' => ' ',
+                'class' => 'kartik\grid\BooleanColumn',
+                'attribute' => 'is_visible',
+                'width' => '25px',
+                'vAlign' => 'top',
+            ],
             'categoryName',
             'name',
             'filename',
