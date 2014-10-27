@@ -26,7 +26,7 @@ $this->title = 'WordPress Template Generator';
                                 <div class="items-list">
                                     <ul>
                                         <?php /** @var Template $template */ ?>
-                                        <?php foreach ($category->templates as $template): ?>
+                                        <?php foreach ($category->visibleTemplates as $template): ?>
                                             <li class="menu-item">
                                                 <a href="#">
                                                     <img src="elements/images/thumbs/<?= $template->img ?>" width="294px" data-id="<?= $template->id ?>" />

@@ -3,7 +3,6 @@
 namespace common\models;
 
 use Yii;
-use common\models\Library;
 
 /**
  * This is the model class for table "template_category".
@@ -56,6 +55,14 @@ class TemplateCategory extends Library
     public function getTemplates()
     {
         return $this->hasMany(Template::className(), ['category_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVisibleTemplates()
+    {
+        return $this->hasMany(Template::className(), ['category_id' => 'id'])->where(['template.is_visible' => 1]);
     }
 
     /**
