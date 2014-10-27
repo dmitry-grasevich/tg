@@ -1,11 +1,10 @@
-<?php
-use common\models\Template;
 
+<?php
 /**
- * @var yii\web\View                        $this
- * @var common\models\TemplateCategory[]    $categories
- * @var array|null                          $selected
- * @var common\models\Template              $s
+ * @var $this           yii\web\View
+ * @var $categories     array
+ * @var $selected       array|null
+ * @var $s              common\models\Template
  */
 $this->title = 'WordPress Template Generator';
 ?>
@@ -16,21 +15,16 @@ $this->title = 'WordPress Template Generator';
             <div class="mp-level">
                 <h2>Select a Category</h2>
                 <ul>
-                    <?php foreach ($categories as $category): ?>
+                    <?php foreach ($categories as $catName => $category): ?>
                         <li class="icon icon-arrow-left">
-                            <a href="#"><?= $category->name ?></a>
+                            <a href="#"><?= $catName ?></a>
                             <div class="mp-level">
-                                <h2><?= $category->name ?></h2>
+                                <h2><?= $catName ?></h2>
                                 <a class="mp-back" href="#">back</a>
                                 <div class="items-list">
                                     <ul>
-                                        <?php /** @var Template $template */ ?>
-                                        <?php foreach ($category->templates as $template): ?>
-                                            <li class="menu-item">
-                                                <a href="#">
-                                                    <img src="elements/images/thumbs/<?= $template->img ?>" width="294px" data-id="<?= $template->id ?>" />
-                                                </a>
-                                            </li>
+                                        <?php foreach ($category['items'] as $item): ?>
+                                            <li class="menu-item"><a href="#"><img src="elements/images/thumbs/<?= $item['img'] ?>" width="294px" data-id="<?= $item['id'] ?>" /></a></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 </div>
