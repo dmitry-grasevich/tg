@@ -33,6 +33,20 @@ DetailView::widget([
     ],
     'attributes' => [
         [
+            'attribute' => 'is_visible',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_SWITCH,
+            'value' => $model->is_visible ? 'Yes' : 'No',
+            'widgetOptions' => [
+                'pluginOptions' => [
+                    'onText' => '<i class="glyphicon glyphicon-ok"></i>',
+                    'offText' => '<i class="glyphicon glyphicon-remove"></i>',
+                    'onColor' => 'success',
+                    'offColor' => 'danger',
+                ],
+            ],
+        ],
+        [
             'attribute' => 'category_id',
             'format' => 'raw',
             'type' => DetailView::INPUT_SELECT2,
