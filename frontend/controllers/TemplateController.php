@@ -10,7 +10,7 @@ class TemplateController extends Controller
     public function actionIndex()
     {
         $q = \Yii::$app->request->post();
-//        TemplateGenerator::create($q);
+        TemplateGenerator::create($q);
 //        return $this->render('index');
         var_dump($q);
         return;

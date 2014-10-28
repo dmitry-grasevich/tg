@@ -7,6 +7,9 @@ use Yii;
 
 class TemplateGenerator
 {
+    /**
+     * @param $q - query
+     */
     public static function create($q)
     {
         $data = [
@@ -22,30 +25,41 @@ class TemplateGenerator
         $commonTemplates = Template::find()->innerJoinWith('category')
             ->where(['template_category.is_basic' => 1])->all();
 
+        /** 1. Select common templates */
         foreach ($commonTemplates as $template) {
+            /** 2. Processing each common template */
             self::prepareData($template, $data);
         }
 
         $selectedIds = explode(',', $q);
+        /** 3. Processing all selected entity for WP template */
         foreach ($selectedIds as $id) {
             $selectedTemplate = Template::findOne(intval($id));
             self::prepareData($selectedTemplate, $data);
         }
 
+        /** 4. Create ZIP from the prepared data */
         self::createZip($data);
     }
 
+    /**
+     * @param $template
+     * @param $data
+     */
     public static function prepareData($template, &$data)
     {
         if (empty($template)) return;
 
         if (count($template->parents)) {
+            /** If template has parent then it is a part of this template */
+            /** 1. Collect all templates as parent -> children */
             foreach ($template->parents as $parent) {
                 if (!isset($data['templates'][$parent->id][$template->id])) {
                     $data['templates'][$parent->id][$template->id] = $template;
                 }
             }
         } else {
+            /** Otherwise this is single file */
             if (!isset($data['templates']['file'][$template->id])) {
                 $data['templates']['file'][$template->id] = $template; // single file
             }
@@ -53,10 +67,13 @@ class TemplateGenerator
         if (count($template->css)) {
             foreach ($template->css as $css) {
                 if (!empty($css->parent)) {
+                    /** If css has parent then it is a part of this css file */
+                    /** 2. Collect all css as parent -> children */
                     if (!isset($data['css'][$css->parent->id][$css->id])) {
                         $data['css'][$css->parent->id][$css->id] = $css;
                     }
                 } else {
+                    /** Otherwise this is single file */
                     if (!isset($data['css']['file'][$css->id])) {
                         $data['css']['file'][$css->id] = $css;
                     }
@@ -65,6 +82,7 @@ class TemplateGenerator
         }
         if (count($template->js)) {
             foreach ($template->js as $js) {
+                /** 3. Each js it's a single file */
                 if (!isset($data['js'][$js->id])) {
                     $data['js'][$js->id] = $js;
                 }
@@ -72,6 +90,7 @@ class TemplateGenerator
         }
         if (count($template->images)) {
             foreach ($template->images as $image) {
+                /** 4. Each image it's a single file */
                 if (!isset($data['images'][$image->id])) {
                     $data['images'][$image->id] = $image;
                 }
@@ -79,6 +98,7 @@ class TemplateGenerator
         }
         if (count($template->fonts)) {
             foreach ($template->fonts as $font) {
+                /** 5. Each font it's a single file */
                 if (!isset($data['fonts'][$font->id])) {
                     $data['fonts'][$font->id] = $font;
                 }
@@ -86,6 +106,7 @@ class TemplateGenerator
         }
         if (count($template->plugins)) {
             foreach ($template->plugins as $plugin) {
+                /** 6. Collect plugins */
                 if (!isset($data['plugins'][$plugin->id])) {
                     $data['plugins'][$plugin->id] = $plugin;
                 }
@@ -94,10 +115,13 @@ class TemplateGenerator
         if (count($template->functions)) {
             foreach ($template->functions as $function) {
                 if (!empty($function->parent)) {
+                    /** If function has parent then it is a part of this function */
+                    /** 7. Collect all functions as parent -> children */
                     if (!isset($data['functions'][$function->parent->id][$function->id])) {
                         $data['functions'][$function->parent->id][$function->id] = $function;
                     }
                 } else {
+                    /** Otherwise this is single file */
                     if (!isset($data['functions']['file'][$function->id])) {
                         $data['functions']['file'][$function->id] = $function;
                     }
@@ -106,6 +130,9 @@ class TemplateGenerator
         }
     }
 
+    /**
+     * @param $data
+     */
     public static function createZip($data)
     {
         $file = tempnam("tmp", uniqid('zip'));
