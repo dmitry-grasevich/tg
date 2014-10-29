@@ -33,6 +33,7 @@ class AppAsset extends AssetBundle
         'js/modernizr.custom.js',
         'js/classie.js',
         'js/mlpushmenu.js',
+        'js/jquery.fileDownload.js',
         'js/wpt.builder.js',
 
 //        'js/flatui-checkbox.js',

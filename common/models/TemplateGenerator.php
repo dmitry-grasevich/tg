@@ -31,7 +31,7 @@ class TemplateGenerator
             self::prepareData($template, $data);
         }
 
-        $selectedIds = explode(',', $q);
+        $selectedIds = explode(',', $q['blocks']);
         /** 3. Processing all selected entity for WP template */
         foreach ($selectedIds as $id) {
             $selectedTemplate = Template::findOne(intval($id));
@@ -212,6 +212,8 @@ class TemplateGenerator
 
         // Close and send to users
         $zip->close();
+        header('Set-Cookie: fileDownload=true; path=/');
+        header('Cache-Control: max-age=60, must-revalidate');
         header('Content-Type: application/zip');
         header('Content-Length: ' . filesize($file));
         header('Content-Disposition: attachment; filename="template.zip"');

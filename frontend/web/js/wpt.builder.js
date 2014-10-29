@@ -124,8 +124,13 @@ $(function () {
             return false;
         }
 
-        $.post('/template', { name: themeName, blocks: ids.join(',') }, function (res) {
-            console.log(res);
+        $.fileDownload('/template?name=' + themeName + '&blocks=' + ids.join(','), {
+            successCallback: function (url) {
+                // success
+            },
+            failCallback: function (html, url) {
+                // error
+            }
         });
     });
 });

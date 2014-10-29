@@ -13,16 +13,16 @@ class ZipArchiveTg extends \ZipArchive
     {
         $rc = false;
 
-        # If $dirname is a directory
+        // If $dirname is a directory
         if (is_dir($dirname)) {
 
-            # Save current working directory
+            // Save current working directory
             $working_directory = getcwd();
 
-            # Switch to passed directory
+            // Switch to passed directory
             chdir($dirname);
 
-            # Get basename of passed directory
+            // Get basename of passed directory
             $basename = $basedir . basename($dirname);
 
             if ($startdir) {
@@ -30,7 +30,7 @@ class ZipArchiveTg extends \ZipArchive
                 $basename = $startdir . '/' . $basename;
             }
 
-            # Add empty directory with the name of the passed directory
+            // Add empty directory with the name of the passed directory
             if ($adddir) {
                 $rc = $this->addEmptyDir($basename);
                 $basename = $basename . '/';
@@ -38,21 +38,21 @@ class ZipArchiveTg extends \ZipArchive
                 $basename = null;
             }
 
-            # Get all files in the directory
+            // Get all files in the directory
             $files = glob('*');
 
-            # Loop through files
+            // Loop through files
             foreach ($files as $f) {
-                # If file is directory
+                // If file is directory
                 if (is_dir($f)) {
-                    # Call recursiveAdd
+                    // Call recursiveAdd
                     $this->recursiveAddDir($f, $basename);
                 } else {
                     $rc = $this->addFile($f, $basename . $f);
                 }
             }
 
-            # Switch back to current working directory
+            // Switch back to current working directory
             chdir($working_directory);
 
             $rc = true;
