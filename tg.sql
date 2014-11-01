@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 27 2014 г., 20:21
+-- Время создания: Ноя 01 2014 г., 13:12
 -- Версия сервера: 5.6.20
 -- Версия PHP: 5.4.32
 
@@ -23,10 +23,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `category`
+--
+
+CREATE TABLE IF NOT EXISTS `category` (
+`id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `is_basic` tinyint(1) DEFAULT '0',
+  `is_visible` tinyint(1) DEFAULT '0',
+  `alias` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `is_basic`, `is_visible`, `alias`) VALUES
+(1, 'Common Files', 1, 0, 'common'),
+(2, 'Headers', 0, 1, 'header'),
+(3, 'Functions', 0, 0, 'function'),
+(4, 'Footers', 0, 1, 'footer'),
+(5, 'Fonts', 0, 0, 'font'),
+(6, 'Contact', 0, 1, 'contact');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `css`
 --
 
-DROP TABLE IF EXISTS `css`;
 CREATE TABLE IF NOT EXISTS `css` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -62,7 +87,6 @@ INSERT INTO `css` (`id`, `name`, `code`, `filename`, `directory`, `parent_id`) V
 -- Структура таблицы `font`
 --
 
-DROP TABLE IF EXISTS `font`;
 CREATE TABLE IF NOT EXISTS `font` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -99,7 +123,6 @@ INSERT INTO `font` (`id`, `name`, `filename`, `directory`) VALUES
 -- Структура таблицы `functions`
 --
 
-DROP TABLE IF EXISTS `functions`;
 CREATE TABLE IF NOT EXISTS `functions` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -124,7 +147,6 @@ INSERT INTO `functions` (`id`, `name`, `code`, `parent_id`) VALUES
 -- Структура таблицы `image`
 --
 
-DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -148,7 +170,6 @@ INSERT INTO `image` (`id`, `name`, `filename`, `directory`) VALUES
 -- Структура таблицы `js`
 --
 
-DROP TABLE IF EXISTS `js`;
 CREATE TABLE IF NOT EXISTS `js` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -179,7 +200,6 @@ INSERT INTO `js` (`id`, `name`, `code`, `filename`, `directory`) VALUES
 -- Структура таблицы `migration`
 --
 
-DROP TABLE IF EXISTS `migration`;
 CREATE TABLE IF NOT EXISTS `migration` (
   `version` varchar(180) NOT NULL,
   `apply_time` int(11) DEFAULT NULL
@@ -201,7 +221,9 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m140614_115239_css_parent_add', 1402746803),
 ('m140615_143232_plugins_create', 1402845873),
 ('m140920_170629_template_category_is_visible_add', 1411233012),
-('m141027_194628_template_visible_add', 1414439283);
+('m141027_194628_template_visible_add', 1414439283),
+('m141101_091530_template_category_alias_add', 1414833417),
+('m141101_114607_rename_template_category_to_category', 1414842448);
 
 -- --------------------------------------------------------
 
@@ -209,7 +231,6 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- Структура таблицы `plugin`
 --
 
-DROP TABLE IF EXISTS `plugin`;
 CREATE TABLE IF NOT EXISTS `plugin` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -230,21 +251,20 @@ INSERT INTO `plugin` (`id`, `name`, `directory`) VALUES
 -- Структура таблицы `related_template`
 --
 
-DROP TABLE IF EXISTS `related_template`;
 CREATE TABLE IF NOT EXISTS `related_template` (
 `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `child_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `related_template`
 --
 
 INSERT INTO `related_template` (`id`, `parent_id`, `child_id`) VALUES
-(78, 2, 17),
-(82, 2, 19),
-(83, 3, 16);
+(102, 2, 17),
+(103, 2, 19),
+(104, 3, 16);
 
 -- --------------------------------------------------------
 
@@ -252,7 +272,6 @@ INSERT INTO `related_template` (`id`, `parent_id`, `child_id`) VALUES
 -- Структура таблицы `template`
 --
 
-DROP TABLE IF EXISTS `template`;
 CREATE TABLE IF NOT EXISTS `template` (
 `id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -275,35 +294,9 @@ INSERT INTO `template` (`id`, `category_id`, `name`, `filename`, `directory`, `i
 (6, 1, 'Common Functions', 'functions.php', '', '', '<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) { die(); }\r\n\r\n/***********************************************************************************************/\r\n/* 	Define Constants */\r\n/***********************************************************************************************/\r\ndefine(''THEMEROOT'', get_stylesheet_directory_uri());\r\ndefine(''IMAGES'', THEMEROOT . ''/images'');\r\ndefine(''THEMEPATH'', trailingslashit(TEMPLATEPATH));\r\n\r\n\r\n\r\n', 1),
 (15, 1, 'Common Styles', 'style.css', '', '', '/*\r\nTheme Name: Template Generator\r\nTheme URI: http://www.template-generator.com\r\nAuthor: Template Generator Team\r\nAuthor URI:\r\nDescription: Theme for Wordpress.\r\nVersion: 1.0\r\nLicense: GNU General Public License v2 or later\r\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\r\nTags: black, brown, orange, tan, white, yellow, light, one-page\r\n*/\r\n\r\n@font-face {\r\n  font-family: ''fontello'';\r\n  src: url("../fonts/fontello.eot?80707783");\r\n  src: url("../fonts/fontello.eot?80707783#iefix") format("embedded-opentype"), url("../fonts/fontello.woff?80707783") format("woff"), url("../fonts/fontello.ttf?80707783") format("truetype"), url("../fonts/fontello.svg?80707783#fontello") format("svg");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n/**************************************************************************/\r\n/* TYPOGRAPHY */\r\n/**************************************************************************/\r\n/* line 5, ../scss/typography.scss */\r\nbody {\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  color: #333333;\r\n  font-size: 16px;\r\n}\r\n\r\n/* line 11, ../scss/typography.scss */\r\np {\r\n  font-size: 1em;\r\n  line-height: 1.5em;\r\n  margin: 1.5em 0 0 0;\r\n}\r\n\r\n/* line 17, ../scss/typography.scss */\r\nh1 {\r\n  font-size: 4.5000em;\r\n  /* 72px */\r\n  line-height: 1.0000em;\r\n  /* 72px */\r\n  margin-top: 0.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 24, ../scss/typography.scss */\r\nh2 {\r\n  font-size: 3.7500em;\r\n  /* 60px */\r\n  line-height: 1.2000em;\r\n  /* 72px */\r\n  margin-top: 0.4000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 31, ../scss/typography.scss */\r\nh3 {\r\n  font-size: 3.0000em;\r\n  /* 48px */\r\n  line-height: 1.0000em;\r\n  /* 48px */\r\n  margin-top: 0.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 38, ../scss/typography.scss */\r\nh4 {\r\n  font-size: 2.2500em;\r\n  /* 36px */\r\n  line-height: 1.3333em;\r\n  /* 48px */\r\n  margin-top: 0.6667em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 45, ../scss/typography.scss */\r\nh5 {\r\n  font-size: 1.8750em;\r\n  /* 30px */\r\n  line-height: 1.6000em;\r\n  /* 48px */\r\n  margin-top: 0.8000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 52, ../scss/typography.scss */\r\nh6 {\r\n  font-size: 1.5em;\r\n  /* 24px */\r\n  line-height: 1em;\r\n  /* 24px */\r\n  margin-top: 1em;\r\n  margin-bottom: 0;\r\n}\r\n\r\n/* line 59, ../scss/typography.scss */\r\n.class-for-18px {\r\n  font-size: 1.1250em;\r\n  /* 18px */\r\n  line-height: 1.3333em;\r\n  /* 24px */\r\n  margin-top: 1.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 65, ../scss/typography.scss */\r\n.class-for-16px {\r\n  font-size: 1.0000em;\r\n  /* 16px */\r\n  line-height: 1.5000em;\r\n  /* 24px */\r\n  margin-top: 1.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 71, ../scss/typography.scss */\r\n.class-for-14px {\r\n  font-size: 0.8750em;\r\n  /* 14px */\r\n  line-height: 1.7143em;\r\n  /* 24px */\r\n  margin-top: 1.7143em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 79, ../scss/typography.scss */\r\n.uppercase {\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.05em;\r\n}\r\n\r\n/**************************************************************************/\r\n/* General */\r\n/**************************************************************************/\r\n/* line 5, ../scss/general.scss */\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n}\r\n\r\n/* line 9, ../scss/general.scss */\r\n.amp {\r\n  font-family: "Pacifico", Georgia, serif;\r\n  font-style: italic;\r\n  font-weight: 400;\r\n}\r\n\r\n/* line 15, ../scss/general.scss */\r\nimg {\r\n  max-width: 100%;\r\n}\r\n\r\n/* helpers for text-align */\r\n/* line 20, ../scss/general.scss */\r\n.text-right {\r\n  text-align: right;\r\n}\r\n\r\n/* line 24, ../scss/general.scss */\r\n.text-center {\r\n  text-align: center;\r\n}\r\n\r\n/* vertical-align for elements */\r\n/* line 29, ../scss/general.scss */\r\n.vertical {\r\n  position: absolute;\r\n  top: 50%;\r\n  -webkit-transform: translateY(-50%);\r\n  -ms-transform: translateY(-50%);\r\n  transform: translateY(-50%);\r\n}\r\n\r\n/* buttons */\r\n/* line 35, ../scss/general.scss */\r\n.btn {\r\n  -webkit-transition: all 300ms ease;\r\n  -moz-transition: all 300ms ease;\r\n  -ms-transition: all 300ms ease;\r\n  -o-transition: all 300ms ease;\r\n  transition: all 300ms ease;\r\n}\r\n\r\n/* line 38, ../scss/general.scss */\r\n.btn-cta {\r\n  background: transparent;\r\n  border: 2px solid #FFF;\r\n  color: #FFF;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 48, ../scss/general.scss */\r\n.btn-cta:hover {\r\n  color: #fff;\r\n}\r\n\r\n/* line 52, ../scss/general.scss */\r\n.btn-red {\r\n  background: #b8312f;\r\n  color: #fff;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 61, ../scss/general.scss */\r\n.btn-red:hover {\r\n  color: #fff;\r\n  background: #cb3735;\r\n}\r\n', 1),
 (16, 4, 'Footer 1', '', '', 'footer1.png', '	<!-- QUOTE AREA -->\r\n	<section>\r\n		<div class="quote-container section-content align-center">\r\n			<h3>Need a quote?</h3>\r\n			\r\n			<p>Please use the form inside the contact page. Make sure you include some personal information as well as your project description and available budget.</p>\r\n			<p><a href="<?php echo home_url(); ?>/contact">Get a free quote &rarr;</a></p>\r\n		</div> <!-- end quote-container -->\r\n	</section>\r\n	\r\n		\r\n	\r\n	<!-- FOOTER -->\r\n	<footer class="main-footer section-content align-center" id="contact-info">\r\n		<h3>Just wanna say hi?</h3>\r\n		\r\n		<p>You can call me, email me directly or connect with me through my social networks.</p>\r\n		<p>(+40) 744111222 <br> <a href="mailto:hello@adipurdila.com">hello@adipurdila.com</a></p>\r\n		\r\n		<ul class="social-icons inline">\r\n			<li><a href="#" class="icon-twitter"></a></li>\r\n			<li><a href="#" class="icon-facebook"></a></li>\r\n			<li><a href="#" class="icon-dribbble"></a></li>\r\n		</ul>\r\n		\r\n		<hr />\r\n		\r\n		<p>&copy; Copyright <?php echo date(''Y''); ?> <?php echo bloginfo(''name''); ?>. Portfolio theme by Adi Purdila.</p>\r\n	</footer>', 1),
-(17, 2, 'Section 1', '', '', '13213.jpg', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo"><a href="<?php echo home_url(); ?>"><?php  bloginfo(''name''); ?></a></h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description"><?php echo get_theme_mod( ''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'' ); ?></p>\r\n                <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>', 0),
+(17, 2, 'Section 1', '', '', 'header1.png', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo"><a href="<?php echo home_url(); ?>"><?php  bloginfo(''name''); ?></a></h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description"><?php echo get_theme_mod( ''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'' ); ?></p>\r\n                <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>', 1),
 (18, 6, 'Contact #1', '', '', 'header4.png', '', 1),
-(19, 2, 'Header BW', '', '', 'bg-home-v1.jpg', '        <!-- section 1 -->\r\n        <section class="screen home-v1">\r\n\r\n            <header class="hdr-v1">\r\n                <div class="container">\r\n                    <div class="row">\r\n                        <div class="col-md-3">\r\n                            <h1 class="logo"><a href="#">frameOne</a></h1>\r\n                        </div>\r\n                        <div class="col-md-9">\r\n                            <nav class="prim-nav">\r\n                                <ul>\r\n                                    <li><a href="#about"><span data-hover="About">About</span></a></li>\r\n                                    <li><a href="#team"><span data-hover="Team">Team</span></a></li>\r\n                                    <li><a href="#contact"><span data-hover="Contact">Contact</span></a></li>\r\n                                    <li><a href="#application"><span data-hover="Application">Application</span></a></li>\r\n                                </ul>\r\n                            </nav>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </header>\r\n\r\n            <div class="container">\r\n                <div class="row">\r\n                    <div class="col-md-8 vertical">\r\n                        <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                        <p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n                        <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- end section 1 -->\r\n', 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `template_category`
---
-
-DROP TABLE IF EXISTS `template_category`;
-CREATE TABLE IF NOT EXISTS `template_category` (
-`id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `is_basic` tinyint(1) DEFAULT '0',
-  `is_visible` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `template_category`
---
-
-INSERT INTO `template_category` (`id`, `name`, `is_basic`, `is_visible`) VALUES
-(1, 'Common Files', 1, 0),
-(2, 'Headers', 0, 1),
-(3, 'Functions', 0, 0),
-(4, 'Footers', 0, 1),
-(5, 'Fonts', 0, 0),
-(6, 'Contact', 0, 1);
+(19, 2, 'Header BW', '', '', 'bg-home-v1.jpg', '        <!-- section 1 -->\r\n        <section class="screen home-v1">\r\n\r\n            <header class="hdr-v1">\r\n                <div class="container">\r\n                    <div class="row">\r\n                        <div class="col-md-3">\r\n                            <h1 class="logo"><a href="#">frameOne</a></h1>\r\n                        </div>\r\n                        <div class="col-md-9">\r\n                            <nav class="prim-nav">\r\n                                <ul>\r\n                                    <li><a href="#about"><span data-hover="About">About</span></a></li>\r\n                                    <li><a href="#team"><span data-hover="Team">Team</span></a></li>\r\n                                    <li><a href="#contact"><span data-hover="Contact">Contact</span></a></li>\r\n                                    <li><a href="#application"><span data-hover="Application">Application</span></a></li>\r\n                                </ul>\r\n                            </nav>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </header>\r\n\r\n            <div class="container">\r\n                <div class="row">\r\n                    <div class="col-md-8 vertical">\r\n                        <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                        <p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n                        <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- end section 1 -->\r\n', 0);
 
 -- --------------------------------------------------------
 
@@ -311,21 +304,21 @@ INSERT INTO `template_category` (`id`, `name`, `is_basic`, `is_visible`) VALUES
 -- Структура таблицы `template_css`
 --
 
-DROP TABLE IF EXISTS `template_css`;
 CREATE TABLE IF NOT EXISTS `template_css` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `css_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_css`
 --
 
 INSERT INTO `template_css` (`id`, `template_id`, `css_id`) VALUES
-(24, 17, 3),
 (30, 2, 5),
-(31, 19, 8);
+(61, 17, 1),
+(62, 17, 3),
+(63, 19, 8);
 
 -- --------------------------------------------------------
 
@@ -333,26 +326,25 @@ INSERT INTO `template_css` (`id`, `template_id`, `css_id`) VALUES
 -- Структура таблицы `template_font`
 --
 
-DROP TABLE IF EXISTS `template_font`;
 CREATE TABLE IF NOT EXISTS `template_font` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `font_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_font`
 --
 
 INSERT INTO `template_font` (`id`, `template_id`, `font_id`) VALUES
-(35, 17, 5),
-(36, 17, 6),
-(37, 17, 7),
-(38, 17, 8),
 (43, 15, 5),
 (44, 15, 6),
 (45, 15, 7),
-(46, 15, 8);
+(46, 15, 8),
+(119, 17, 5),
+(120, 17, 6),
+(121, 17, 7),
+(122, 17, 8);
 
 -- --------------------------------------------------------
 
@@ -360,22 +352,21 @@ INSERT INTO `template_font` (`id`, `template_id`, `font_id`) VALUES
 -- Структура таблицы `template_functions`
 --
 
-DROP TABLE IF EXISTS `template_functions`;
 CREATE TABLE IF NOT EXISTS `template_functions` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `functions_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_functions`
 --
 
 INSERT INTO `template_functions` (`id`, `template_id`, `functions_id`) VALUES
-(25, 17, 2),
-(26, 17, 3),
-(27, 17, 5),
-(29, 18, 6);
+(84, 17, 2),
+(85, 17, 3),
+(86, 17, 5),
+(87, 18, 6);
 
 -- --------------------------------------------------------
 
@@ -383,20 +374,19 @@ INSERT INTO `template_functions` (`id`, `template_id`, `functions_id`) VALUES
 -- Структура таблицы `template_image`
 --
 
-DROP TABLE IF EXISTS `template_image`;
 CREATE TABLE IF NOT EXISTS `template_image` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `image_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_image`
 --
 
 INSERT INTO `template_image` (`id`, `template_id`, `image_id`) VALUES
-(28, 17, 4),
-(33, 19, 4);
+(52, 17, 4),
+(53, 19, 4);
 
 -- --------------------------------------------------------
 
@@ -404,7 +394,6 @@ INSERT INTO `template_image` (`id`, `template_id`, `image_id`) VALUES
 -- Структура таблицы `template_js`
 --
 
-DROP TABLE IF EXISTS `template_js`;
 CREATE TABLE IF NOT EXISTS `template_js` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
@@ -424,12 +413,11 @@ INSERT INTO `template_js` (`id`, `template_id`, `js_id`) VALUES
 -- Структура таблицы `template_plugin`
 --
 
-DROP TABLE IF EXISTS `template_plugin`;
 CREATE TABLE IF NOT EXISTS `template_plugin` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `plugin_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_plugin`
@@ -437,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `template_plugin` (
 
 INSERT INTO `template_plugin` (`id`, `template_id`, `plugin_id`) VALUES
 (5, 1, 1),
-(7, 18, 2);
+(8, 18, 2);
 
 -- --------------------------------------------------------
 
@@ -445,7 +433,6 @@ INSERT INTO `template_plugin` (`id`, `template_id`, `plugin_id`) VALUES
 -- Структура таблицы `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
 `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -469,6 +456,12 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `category`
+--
+ALTER TABLE `category`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `css`
@@ -525,12 +518,6 @@ ALTER TABLE `template`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_template_category` (`category_id`);
 
 --
--- Индексы таблицы `template_category`
---
-ALTER TABLE `template_category`
- ADD PRIMARY KEY (`id`);
-
---
 -- Индексы таблицы `template_css`
 --
 ALTER TABLE `template_css`
@@ -577,6 +564,11 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `category`
+--
+ALTER TABLE `category`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT для таблицы `css`
 --
 ALTER TABLE `css`
@@ -610,37 +602,32 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT для таблицы `related_template`
 --
 ALTER TABLE `related_template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=84;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT для таблицы `template`
 --
 ALTER TABLE `template`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
--- AUTO_INCREMENT для таблицы `template_category`
---
-ALTER TABLE `template_category`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
 -- AUTO_INCREMENT для таблицы `template_css`
 --
 ALTER TABLE `template_css`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
 --
 -- AUTO_INCREMENT для таблицы `template_font`
 --
 ALTER TABLE `template_font`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=123;
 --
 -- AUTO_INCREMENT для таблицы `template_functions`
 --
 ALTER TABLE `template_functions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
 --
 -- AUTO_INCREMENT для таблицы `template_image`
 --
 ALTER TABLE `template_image`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT для таблицы `template_js`
 --
@@ -650,7 +637,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT для таблицы `template_plugin`
 --
 ALTER TABLE `template_plugin`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT для таблицы `user`
 --
@@ -683,7 +670,7 @@ ADD CONSTRAINT `fk_related_template_parent` FOREIGN KEY (`parent_id`) REFERENCES
 -- Ограничения внешнего ключа таблицы `template`
 --
 ALTER TABLE `template`
-ADD CONSTRAINT `fk_template_template_category` FOREIGN KEY (`category_id`) REFERENCES `template_category` (`id`) ON DELETE CASCADE;
+ADD CONSTRAINT `fk_template_template_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `template_css`
