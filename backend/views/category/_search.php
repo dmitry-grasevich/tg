@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var common\models\search\TemplateCategory $model
+ * @var common\models\search\Category $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'name') ?>
+
+    <?= $form->field($model, 'alias') ?>
 
     <?= $form->field($model, 'is_basic') ?>
 

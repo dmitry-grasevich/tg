@@ -3,21 +3,21 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\TemplateCategory;
-use common\models\search\TemplateCategory as TemplateCategorySearch;
+use common\models\Category;
+use common\models\search\Category as CategorySearch;
 
 /**
- * CategoryController implements the CRUD actions for TemplateCategory model.
+ * CategoryController implements the CRUD actions for Category model.
  */
 class CategoryController extends BaseController
 {
     protected function setModel()
     {
-        $this->_model = new TemplateCategory;
+        $this->_model = new Category;
     }
 
     protected function setSearchModel()
     {
-        $this->_searchModel = new TemplateCategorySearch;
+        $this->_searchModel = new CategorySearch;
     }
 }

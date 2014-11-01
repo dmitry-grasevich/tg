@@ -1,7 +1,7 @@
 <?php
 /**
  * @var yii\web\View $this
- * @var common\models\TemplateCategory $model
+ * @var common\models\Category $model
  */
 
 $this->title = Yii::t('app', 'Create {modelClass}', [

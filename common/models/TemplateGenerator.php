@@ -23,7 +23,7 @@ class TemplateGenerator
         ];
 
         $commonTemplates = Template::find()->innerJoinWith('category')
-            ->where(['template_category.is_basic' => 1])->all();
+            ->where(['category.is_basic' => 1])->all();
 
         /** 1. Select common templates */
         foreach ($commonTemplates as $template) {

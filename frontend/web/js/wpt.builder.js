@@ -9,7 +9,7 @@ var initDraggable = function(sortable_id) {
                 var img = self.find('img'),
                     imgSrc = img.attr('src'),
                     templateId = img.data('id'),
-                    fullSrc = imgSrc.replace('thumbs', 'full'),
+                    fullSrc = imgSrc.replace('thumbs/', ''),
                     dragWidth = img.parent().is('li') ? fullWidth : thumbWidth;
                 return $('<div class="draggable-li" style="width: ' + dragWidth + 'px;" />')
                     .append($('<img src="' + imgSrc + '" width="' + dragWidth + 'px" data-fullimg="' + fullSrc + '" data-id="' + templateId + '" />'));

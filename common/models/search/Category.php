@@ -5,18 +5,18 @@ namespace common\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\TemplateCategory as TemplateCategoryModel;
+use common\models\Category as CategoryModel;
 
 /**
- * TemplateCategory represents the model behind the search form about `common\models\TemplateCategory`.
+ * Category represents the model behind the search form about `common\models\Category`.
  */
-class TemplateCategory extends TemplateCategoryModel
+class Category extends CategoryModel
 {
     public function rules()
     {
         return [
             [['id', 'is_basic'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'alias'], 'safe'],
         ];
     }
 
@@ -28,7 +28,7 @@ class TemplateCategory extends TemplateCategoryModel
 
     public function search($params)
     {
-        $query = TemplateCategoryModel::find();
+        $query = CategoryModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -43,7 +43,8 @@ class TemplateCategory extends TemplateCategoryModel
             'is_basic' => $this->is_basic,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'category.name', $this->name])
+            ->andFilterWhere(['like', 'category.alias', $this->alias]);
 
         return $dataProvider;
     }

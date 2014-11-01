@@ -19,6 +19,7 @@
         "yiisoft/yii2-bootstrap": "dev-master",
         "yiisoft/yii2-swiftmailer": "dev-master",
         "yiisoft/yii2-composer": "dev-master",
+        "yiisoft/yii2-imagine": "dev-master",
 
         "codeless/ziparchiveex": "v1.0.1",
         "kartik-v/yii2-money": "dev-master",

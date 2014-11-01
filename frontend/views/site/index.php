@@ -1,11 +1,8 @@
 <?php
-use common\models\Template;
-use common\models\TemplateCategory;
-
 /**
- * @var yii\web\View                        $this
- * @var common\models\TemplateCategory[]    $categories
- * @var common\models\Template[]            $selected
+ * @var yii\web\View                $this
+ * @var common\models\Category[]    $categories
+ * @var common\models\Template[]    $selected
  */
 $this->title = 'WordPress Template Generator';
 ?>
@@ -16,7 +13,7 @@ $this->title = 'WordPress Template Generator';
             <div class="mp-level">
                 <h2>Select a Category</h2>
                 <ul>
-                    <?php /** @var TemplateCategory $category */ ?>
+                    <?php /** @var common\models\Category $category */ ?>
                     <?php foreach ($categories as $category): ?>
                         <li class="icon icon-arrow-left">
                             <a href="#"><?= $category->name ?></a>
@@ -25,11 +22,11 @@ $this->title = 'WordPress Template Generator';
                                 <a class="mp-back" href="#">back</a>
                                 <div class="items-list">
                                     <ul>
-                                        <?php /** @var Template $template */ ?>
+                                        <?php /** @var common\models\Template $template */ ?>
                                         <?php foreach ($category->visibleTemplates as $template): ?>
                                             <li class="menu-item">
                                                 <a href="#">
-                                                    <img src="elements/images/thumbs/<?= $template->img ?>" width="294px" data-id="<?= $template->id ?>" />
+                                                    <img src="images/elements/<?= $category->alias ?>/thumbs/<?= $template->img ?>" width="294px" data-id="<?= $template->id ?>" />
                                                 </a>
                                             </li>
                                         <?php endforeach; ?>
@@ -57,10 +54,10 @@ $this->title = 'WordPress Template Generator';
                 <div class="canvas">
                     <ul id="sortable">
                         <?php if (!empty($selected)): ?>
-                            <?php /** @var common\models\Template $s */ ?>
-                            <?php foreach ($selected as $s): ?>
+                            <?php /** @var common\models\Template $t */ ?>
+                            <?php foreach ($selected as $t): ?>
                                 <li>
-                                    <img src="elements/images/full/<?= $s->img ?>" width="1200" data-fullimg="elements/images/full/<?= $s->img ?>" data-id="<?= $s->id ?>">
+                                    <img src="images/elements/<?= $t->category->alias ?>/<?= $t->img ?>" width="1200" data-fullimg="images/elements/<?= $t->category->alias ?>/<?= $t->img ?>" data-id="<?= $s->id ?>">
                                 </li>
                             <?php endforeach; ?>
                         <?php endif; ?>

@@ -2,9 +2,11 @@
 
 namespace common\models;
 
+use common\helpers\ImageTg;
 use Yii;
-use kartik\helpers\Html;
+use yii\helpers\Html;
 use yii\helpers\FileHelper;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 
 
@@ -20,7 +22,7 @@ use yii\web\UploadedFile;
  * @property string $code
  * @property integer $is_visible  show or not this template on frontend
  *
- * @property TemplateCategory $category
+ * @property Category $category
  * @property TemplateCss[] $templateCss
  * @property TemplateJs[] $templateJs
  * @property TemplateImage[] $templateImages
@@ -71,7 +73,7 @@ class Template extends Library
             'name' => Yii::t('app', 'Name'),
             'filename' => Yii::t('app', 'Filename'),
             'directory' => Yii::t('app', 'Dir'),
-            'img' => Yii::t('app', 'Img'),
+            'img' => Yii::t('app', 'Preview Image'),
             'code' => Yii::t('app', 'Code'),
             'categoryName' => Yii::t('app', 'Category'),
             'css' => Yii::t('app', 'Css'),
@@ -97,7 +99,7 @@ class Template extends Library
      */
     public function getCategory()
     {
-        return $this->hasOne(TemplateCategory::className(), ['id' => 'category_id']);
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
     /**
@@ -393,18 +395,26 @@ class Template extends Library
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $dir = Yii::getAlias('@webroot/images');
-            FileHelper::createDirectory($dir);
-            // TODO: create thumbnail image; check for an image with the same name existing
             $img = UploadedFile::getInstance($this, 'img');
             if (!empty($img)) {
-                if ($img->saveAs($dir . '/' . $img->name)) {
-                    $this->img = $img->name;
-                } else {
+                $backendDir = Yii::getAlias('@webroot/images');
+                $frontendFullImagesDir = Yii::getAlias('@frontend/web/images/elements/' . $this->category->alias . '/');
+                $frontendThumbsImagesDir = Yii::getAlias('@frontend/web/images/elements/' . $this->category->alias . '/thumbs');
+                FileHelper::createDirectory($backendDir);
+                FileHelper::createDirectory($frontendFullImagesDir);
+                FileHelper::createDirectory($frontendThumbsImagesDir);
+
+                if (!$img->saveAs($backendDir . '/' . $img->name)) {
                     return false;
                 }
+                ImageTg::thumbnail($backendDir . '/' . $img->name, $frontendFullImagesDir . '/' . $img->name,
+                    1200, 2000, ['quality' => 80]);
+                ImageTg::thumbnail($backendDir . '/' . $img->name, $frontendThumbsImagesDir . '/' . $img->name,
+                    272, 500, ['quality' => 80]);
+                $this->img = $img->name;
+            } elseif (!$this->getIsNewRecord()) {
+                $this->img = $this->getOldAttribute('img');
             }
-
             return true;
         } else {
             return false;
@@ -417,6 +427,7 @@ class Template extends Library
 
         $relatedRecords = $this->getRelatedRecords();
         foreach ($relatedRecords as $model => $data) {
+            if (!is_array($data)) continue;
             $this->unlinkAll($model, true);
             if (!empty($data)) {
                 foreach ($data as $relation) {
@@ -437,7 +448,7 @@ class Template extends Library
         $ts = explode('-', $t);
         foreach (self::find()->innerJoinWith([
             'category' => function($query) {
-                $query->where(['template_category.is_basic' => 0, 'template_category.is_visible' => 1]);
+                $query->where(['category.is_basic' => 0, 'category.is_visible' => 1]);
             }
         ])->where(['template.id' => $ts])->each() as $template) {
             if (in_array($template->id, $ts)) {

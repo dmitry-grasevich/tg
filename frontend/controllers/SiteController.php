@@ -2,7 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Template;
-use common\models\TemplateCategory;
+use common\models\Category;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -70,8 +70,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-//        $categories = TemplateCategory::getSample();//TemplateCategory::findAll(['is_basic' => 0, 'is_visible' => 1]);
-        $categories = TemplateCategory::findAll(['is_basic' => 0, 'is_visible' => 1]);
+        $categories = Category::findAll(['is_basic' => 0, 'is_visible' => 1]);
         $t = \Yii::$app->request->get('t');
         $selected = empty($t) ? null : Template::getSelected($t);
         return $this->render('index', ['categories' => $categories, 'selected' => $selected]);

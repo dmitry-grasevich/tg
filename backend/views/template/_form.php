@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\detail\DetailView;
-use common\models\TemplateCategory;
+use common\models\Category;
 use common\models\Css;
 use common\models\Js;
 use common\models\Image;
@@ -36,7 +36,8 @@ DetailView::widget([
             'attribute' => 'is_visible',
             'format' => 'raw',
             'type' => DetailView::INPUT_SWITCH,
-            'value' => $model->is_visible ? 'Yes' : 'No',
+            'value' => $model->is_visible ? '<i class="glyphicon glyphicon-ok text-success"></i>' :
+                '<i class="glyphicon glyphicon-remove text-danger"></i>',
             'widgetOptions' => [
                 'pluginOptions' => [
                     'onText' => '<i class="glyphicon glyphicon-ok"></i>',
@@ -52,7 +53,7 @@ DetailView::widget([
             'type' => DetailView::INPUT_SELECT2,
             'value' => $model->category ? $model->category->name : '',
             'widgetOptions' => [
-                'data' => TemplateCategory::listAll(),
+                'data' => Category::listAll(),
                 'options' => ['placeholder' => 'Select Category ...'],
                 'pluginOptions' => ['allowClear' => false],
             ],

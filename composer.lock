@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "53110d233d62a4309c4e8ff8b37e965f",
+    "hash": "05713f6f7a52372a57bb24f1ce3b76eb",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -374,16 +374,16 @@
         },
         {
             "name": "bower-asset/perfect-scrollbar",
-            "version": "0.5.5",
+            "version": "0.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/noraesae/perfect-scrollbar.git",
-                "reference": "7cf8303b306799b3ddb1f38a6d3a252f77f768da"
+                "reference": "17fd46a07d8f247c8de15769ccc17b05f7c959b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/noraesae/perfect-scrollbar/zipball/7cf8303b306799b3ddb1f38a6d3a252f77f768da",
-                "reference": "7cf8303b306799b3ddb1f38a6d3a252f77f768da",
+                "url": "https://api.github.com/repos/noraesae/perfect-scrollbar/zipball/17fd46a07d8f247c8de15769ccc17b05f7c959b3",
+                "reference": "17fd46a07d8f247c8de15769ccc17b05f7c959b3",
                 "shasum": ""
             },
             "require": {
@@ -677,6 +677,58 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "imagine/imagine",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avalanche123/Imagine.git",
+                "reference": "f64ec666baaa800edcbf237db41121a569230709"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/f64ec666baaa800edcbf237db41121a569230709",
+                "reference": "f64ec666baaa800edcbf237db41121a569230709",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "sami/sami": "dev-master"
+            },
+            "suggest": {
+                "ext-gd": "to use the GD implementation",
+                "ext-gmagick": "to use the Gmagick implementation",
+                "ext-imagick": "to use the Imagick implementation"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Imagine": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bulat Shakirzyanov",
+                    "email": "mallluhuct@gmail.com",
+                    "homepage": "http://avalanche123.com"
+                }
+            ],
+            "description": "Image processing for PHP 5.3",
+            "homepage": "http://imagine.readthedocs.org/",
+            "keywords": [
+                "drawing",
+                "graphics",
+                "image manipulation",
+                "image processing"
+            ],
+            "time": "2013-07-10 17:25:36"
         },
         {
             "name": "kartik-v/bootstrap-checkbox-x",
@@ -999,12 +1051,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-editable.git",
-                "reference": "8c777a27ebbfa105e3c19325c71085afa250f55e"
+                "reference": "3304f18ffac52d18da209be014b19011cb4cbb0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-editable/zipball/8c777a27ebbfa105e3c19325c71085afa250f55e",
-                "reference": "8c777a27ebbfa105e3c19325c71085afa250f55e",
+                "url": "https://api.github.com/repos/kartik-v/yii2-editable/zipball/3304f18ffac52d18da209be014b19011cb4cbb0e",
+                "reference": "3304f18ffac52d18da209be014b19011cb4cbb0e",
                 "shasum": ""
             },
             "require": {
@@ -1039,7 +1091,7 @@
                 "popover-x",
                 "widget"
             ],
-            "time": "2014-10-22 15:36:02"
+            "time": "2014-10-30 10:38:37"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -1047,12 +1099,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "29d59159fd5c407e7c3280850d7e80caf11d1491"
+                "reference": "8f9f25eb43f5151e443234b7abd829821cd3f0eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/29d59159fd5c407e7c3280850d7e80caf11d1491",
-                "reference": "29d59159fd5c407e7c3280850d7e80caf11d1491",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/8f9f25eb43f5151e443234b7abd829821cd3f0eb",
+                "reference": "8f9f25eb43f5151e443234b7abd829821cd3f0eb",
                 "shasum": ""
             },
             "require": {
@@ -1087,7 +1139,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-10-24 15:49:07"
+            "time": "2014-10-29 08:18:11"
         },
         {
             "name": "kartik-v/yii2-helpers",
@@ -1528,12 +1580,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "983c5f43bcab2aa36af674ace29c00fa50e13f80"
+                "reference": "eb16c84d7071ae5335c4ede859cf20ef4f3a0d8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/983c5f43bcab2aa36af674ace29c00fa50e13f80",
-                "reference": "983c5f43bcab2aa36af674ace29c00fa50e13f80",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/eb16c84d7071ae5335c4ede859cf20ef4f3a0d8a",
+                "reference": "eb16c84d7071ae5335c4ede859cf20ef4f3a0d8a",
                 "shasum": ""
             },
             "require": {
@@ -1608,7 +1660,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-10-27 01:03:03"
+            "time": "2014-10-31 22:00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -1699,6 +1751,54 @@
             "keywords": [
                 "composer",
                 "extension installer",
+                "yii2"
+            ],
+            "time": "2014-10-12 20:44:45"
+        },
+        {
+            "name": "yiisoft/yii2-imagine",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-imagine.git",
+                "reference": "39ac3cc712d64be214a8053735e898fa26fac290"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-imagine/zipball/39ac3cc712d64be214a8053735e898fa26fac290",
+                "reference": "39ac3cc712d64be214a8053735e898fa26fac290",
+                "shasum": ""
+            },
+            "require": {
+                "imagine/imagine": "0.5.*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\imagine\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "amigo.cobos@gmail.com"
+                }
+            ],
+            "description": "The Imagine integration for the Yii framework",
+            "keywords": [
+                "helper",
+                "image",
+                "imagine",
                 "yii2"
             ],
             "time": "2014-10-12 20:44:45"
@@ -2106,6 +2206,7 @@
         "yiisoft/yii2-bootstrap": 20,
         "yiisoft/yii2-swiftmailer": 20,
         "yiisoft/yii2-composer": 20,
+        "yiisoft/yii2-imagine": 20,
         "kartik-v/yii2-money": 20,
         "kartik-v/bootstrap-popover-x": 20,
         "kartik-v/yii2-popover-x": 20,

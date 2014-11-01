@@ -48,8 +48,8 @@ class Template extends TemplateModel
                 'filename',
                 'directory',
                 'categoryName' => [
-                    'asc' => ['template_category.name' => SORT_ASC],
-                    'desc' => ['template_category.name' => SORT_DESC],
+                    'asc' => ['category.name' => SORT_ASC],
+                    'desc' => ['category.name' => SORT_DESC],
                     'label' => 'Category'
                 ]
             ]
@@ -57,7 +57,7 @@ class Template extends TemplateModel
 
         if (!($this->load($params) && $this->validate())) {
             /**
-             * The following line will allow eager loading with template_category data
+             * The following line will allow eager loading with category data
              * to enable sorting by country on initial loading of the grid.
              */
             $query->joinWith(['category']);
@@ -77,7 +77,7 @@ class Template extends TemplateModel
 
         // filter by category name
         $query->joinWith(['category' => function ($q) {
-            $q->where('template_category.name LIKE "%' . $this->categoryName . '%"');
+            $q->where('category.name LIKE "%' . $this->categoryName . '%"');
         }]);
 
         return $dataProvider;
