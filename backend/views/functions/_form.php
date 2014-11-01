@@ -2,6 +2,7 @@
 
 use kartik\detail\DetailView;
 use common\models\Template;
+use \yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
@@ -35,10 +36,13 @@ DetailView::widget([
         'name',
         [
             'attribute' => 'code',
-            'format' => 'ntext',
-            'value' => $model->code,
+            'format' => 'raw',
+            'value' => '<pre class="scroll"><code class="php">' . Html::encode($model->code) . '</code></pre>',
             'type' => DetailView::INPUT_TEXTAREA,
-            'options' => ['rows' => 15]
+            'options' => [
+                'rows' => 15,
+                'class' => 'text-monospace'
+            ]
         ],
     ],
     'deleteOptions' => [

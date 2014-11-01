@@ -18,8 +18,7 @@ use common\models\Plugin;
  */
 ?>
 
-<?=
-DetailView::widget([
+<?= DetailView::widget([
     'model' => $model,
     'formOptions' => [
         'options' => ['enctype' => 'multipart/form-data']
@@ -78,10 +77,13 @@ DetailView::widget([
         ],
         [
             'attribute' => 'code',
-            'format' => 'ntext',
-            'value' => $model->code,
+            'format' => 'raw',
+            'value' => '<pre class="scroll"><code class="html">' . Html::encode($model->code) . '</code></pre>',
             'type' => DetailView::INPUT_TEXTAREA,
-            'options' => ['rows' => 15]
+            'options' => [
+                'rows' => 15,
+                'class' => 'text-monospace'
+            ]
         ],
         [
             'attribute' => 'parents',

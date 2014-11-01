@@ -25,7 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'filename',
             'directory',
-
+            [
+                'header' => 'Image',
+                'attribute' => 'filename',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return !empty($model->filename) ?
+                        Html::img('@web' . Yii::$app->params['template']['alias']['images'] . '/' . $model->filename, ['style' => 'max-width: 400px;']) : false;
+                }
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [

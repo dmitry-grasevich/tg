@@ -8,6 +8,7 @@
 namespace backend\assets;
 
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -19,11 +20,22 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/bootstrap.min.css',
+        'css/highlight.styles/rainbow.css',
+//        'css/highlight.styles/obsidian.css',
+//        'css/highlight.styles/googlecode.css',
         'css/site.css',
     ];
-    public $js = [];
+    public $js = [
+        'scripts/highlight.pack.js',
+    ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'frontend\assets\PerfectScrollbarAsset',
     ];
+
+    public function init() {
+        $this->jsOptions['position'] = View::POS_END;
+        parent::init();
+    }
 }

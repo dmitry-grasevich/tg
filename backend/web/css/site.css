@@ -89,3 +89,19 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+pre.scroll {
+    overflow: hidden;
+    max-height: 400px;
+    position: relative;
+}
+
+pre code {
+    font-size: 90%;
+}
+
+textarea.text-monospace {
+    font-size: 90%;
+    font-family: monospace, serif;
+    width: 100%;
+}

@@ -35,21 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'categoryName',
             'name',
-            'filename',
-            'directory',
             [
-                'attribute' => 'CssName',
+                'header' => 'Preview Image',
+                'attribute' => 'img',
                 'format' => 'raw',
+                'value' => function($model) {
+                    return !empty($model->img) ? Html::img('/images/' . $model->img, ['style' => 'max-width: 400px;']) : false;
+                }
             ],
-            [
-                'attribute' => 'JsName',
-                'format' => 'raw',
-            ],
-            [
-                'attribute' => 'FunctionsName',
-                'format' => 'raw',
-            ],
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
