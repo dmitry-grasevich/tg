@@ -10,12 +10,16 @@ use backend\actions\UpdateAction;
 use backend\actions\DeleteAction;
 use backend\actions\ViewAction;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 
 abstract class BaseController extends Controller implements BaseControllerInterface
 {
     protected $_model;
     protected $_searchModel;
 
+    /**
+     * Init models
+     */
     public function init()
     {
         $this->setModel();
@@ -37,6 +41,15 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

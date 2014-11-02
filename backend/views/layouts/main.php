@@ -3,7 +3,6 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this \yii\web\View */
@@ -29,32 +28,9 @@ AppAsset::register($this);
             'brandLabel' => 'Template Generator',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar-inverse navbar-fixed-top',
+                'class' => 'navbar-inverse navbar-fixed-top clearfix',
             ],
         ]);
-
-            if (!Yii::$app->user->isGuest) {
-                $menuItems = [
-                    [
-                        'label' => 'Components',
-                        'items' => [
-                            ['label' => 'Categories', 'url' => ['/category']],
-                            ['label' => 'Templates', 'url' => ['/template']],
-                            ['label' => 'Css', 'url' => ['/css/index']],
-                            ['label' => 'Js', 'url' => ['/js']],
-                            ['label' => 'Images', 'url' => ['/image']],
-                            ['label' => 'Fonts', 'url' => ['/font']],
-                            ['label' => 'Functions', 'url' => ['/functions']],
-                            ['label' => 'Plugins', 'url' => ['/plugin']],
-                        ],
-                    ],
-                ];
-
-                echo Nav::widget([
-                    'options' => ['class' => 'navbar-nav navbar-left'],
-                    'items' => $menuItems,
-                ]);
-            }
 
             if (Yii::$app->user->isGuest) {
                 $menuItems = [['label' => 'Login', 'url' => ['/site/login']]];
@@ -72,17 +48,18 @@ AppAsset::register($this);
         NavBar::end();
         ?>
 
-        <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
+        <div class="container-fluid page-container">
+            <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
+            <div class="row">
+                <div class="col-md-2"><?= $this->render('menu') ?></div>
+                <div class="col-md-10"><?= $content ?></div>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
-        <div class="container">
-        <p class="pull-left">&copy; Template Generator <?= date('Y') ?></p>
+        <div class="container-fluid">
+        <p class="text-center">&copy; Template Generator <?= date('Y') ?></p>
         </div>
     </footer>
 
