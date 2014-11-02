@@ -102,6 +102,7 @@ var updateHistory = function() {
         url = ids.join('-'),
         t = url != '' ? '?t=' + url : '?';
 
+    $('#generateBtn').css('display', (ids.length > 0 ? 'inline-block' : 'none'));
     History.pushState(null, 'WordPress Template Generator', t);
 };
 

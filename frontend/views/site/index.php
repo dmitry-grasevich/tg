@@ -66,7 +66,7 @@ $this->title = 'WordPress Template Generator';
             </div>
 
             <div class="button-container text-center">
-                <button id="generateBtn" class="btn btn-action">Get Theme</button>
+                <button id="generateBtn" class="btn btn-action" style="display: <?= empty($selected) ? 'none' : 'inline-block' ?>">Get Theme</button>
             </div>
         </div>
 
