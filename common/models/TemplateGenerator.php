@@ -39,7 +39,7 @@ class TemplateGenerator
         }
 
         /** 4. Create ZIP from the prepared data */
-        self::createZip($data);
+        self::createZip($data, $q['name']);
     }
 
     /**
@@ -131,9 +131,10 @@ class TemplateGenerator
     }
 
     /**
-     * @param $data
+     * @param array $data
+     * @param string $templateName
      */
-    public static function createZip($data)
+    public static function createZip($data, $templateName)
     {
         $file = tempnam("tmp", uniqid('zip'));
         $zip = new ZipArchiveTg();
@@ -183,6 +184,9 @@ class TemplateGenerator
 
         foreach ($data['templates']['file'] as $id => $template) {
             $path = $template->directory != '' ? $template->directory . '/' . $template->filename : $template->filename;
+            if ($template->filename == 'style.css') {
+                $template->code = str_replace('Theme Name: Template Generator', "Theme Name: $templateName by Template Generator", $template->code);
+            }
             $zip->addFromString($path, $template->code);
         }
 
