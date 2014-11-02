@@ -21,19 +21,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'name',
             'directory',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'update' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['plugin/view', 'id' => $model->id, 'edit' => 't']), [
-                                'title' => Yii::t('yii', 'Edit'),
-                            ]);
-                        }
-
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['plugin/view', 'id' => $model->id, 'edit' => 't']), [
+                            'title' => Yii::t('yii', 'Edit'),
+                        ]);
+                    }
                 ],
             ],
         ],

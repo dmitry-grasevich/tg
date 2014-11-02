@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Css $searchModel
  */
 
-$this->title = Yii::t('app', 'Css');
+$this->title = Yii::t('app', 'Styles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="css-index">
@@ -21,12 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'parentName',
             'name',
+            'parentName',
             'filename',
             'directory',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
@@ -35,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'title' => Yii::t('yii', 'Edit'),
                             ]);
                         }
-
                 ],
             ],
         ],
@@ -47,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add Css', ['create'], ['class' => 'btn btn-success']), 'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add CSS', ['create'], ['class' => 'btn btn-success']), 'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]);

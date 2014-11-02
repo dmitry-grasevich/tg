@@ -21,8 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'name',
             'alias',
             [
@@ -40,10 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'update' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                                Yii::$app->urlManager->createUrl(['category/view', 'id' => $model->id, 'edit' => 't']),
-                                ['title' => Yii::t('yii', 'Edit')]);
-                        }
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
+                            Yii::$app->urlManager->createUrl(['category/view', 'id' => $model->id, 'edit' => 't']),
+                            ['title' => Yii::t('yii', 'Edit')]);
+                    }
                 ],
             ],
         ],

@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Js $searchModel
  */
 
-$this->title = Yii::t('app', 'Js');
+$this->title = Yii::t('app', 'Scripts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="js-index">
@@ -21,20 +21,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'name',
             'filename',
             'directory',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'update' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['js/view', 'id' => $model->id, 'edit' => 't']),
-                                ['title' => Yii::t('yii', 'Edit'),]
-                            );
-                        }
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['js/view', 'id' => $model->id, 'edit' => 't']),
+                            ['title' => Yii::t('yii', 'Edit'),]
+                        );
+                    }
                 ],
             ],
         ],

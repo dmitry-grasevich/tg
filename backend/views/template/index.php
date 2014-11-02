@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'width' => '25px',
                 'vAlign' => 'top',
             ],
-            'categoryName',
             'name',
+            'categoryName',
             [
                 'header' => 'Preview Image',
                 'attribute' => 'img',

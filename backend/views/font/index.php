@@ -21,20 +21,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
             'name',
             'filename',
             'directory',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'update' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['font/view', 'id' => $model->id, 'edit' => 't']), [
-                                'title' => Yii::t('yii', 'Edit'),
-                            ]);
-                        }
-
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['font/view', 'id' => $model->id, 'edit' => 't']), [
+                            'title' => Yii::t('yii', 'Edit'),
+                        ]);
+                    }
                 ],
             ],
         ],
@@ -42,7 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'hover' => true,
         'condensed' => true,
         'floatHeader' => true,
-
 
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
