@@ -34,7 +34,7 @@ use common\models\Plugin;
         [
             'attribute' => 'is_visible',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SWITCH,
+            'type' => '\kartik\widgets\SwitchInput',
             'value' => $model->is_visible ? '<i class="glyphicon glyphicon-ok text-success"></i>' :
                 '<i class="glyphicon glyphicon-remove text-danger"></i>',
             'widgetOptions' => [
@@ -49,7 +49,7 @@ use common\models\Plugin;
         [
             'attribute' => 'category_id',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => '\kartik\widgets\Select2',
             'value' => $model->category ? $model->category->name : '',
             'widgetOptions' => [
                 'data' => Category::listAll(),
@@ -63,7 +63,7 @@ use common\models\Plugin;
         [
             'attribute' => 'img',
             'format' => 'raw',
-            'type' => DetailView::INPUT_FILEINPUT,
+            'type' => '\kartik\file\FileInput',
             'value' => $model->img ? Html::img(Yii::getAlias('@web/images') . '/' . $model->img, ['class'=>'file-preview-image']) : false,
             'widgetOptions' => [
                 'options' => ['accept' => 'image/*'],
