@@ -6,7 +6,6 @@ use kartik\detail\DetailView;
 /**
  * @var yii\web\View $this
  * @var common\models\Plugin $model
- * @var yii\widgets\ActiveForm $form
  */
 ?>
 
@@ -26,10 +25,11 @@ DetailView::widget([
     'attributes' => [
         'name',
         [
+            'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'filename',
             'format' => 'raw',
-            'type' => DetailView::INPUT_FILEINPUT,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_FILEINPUT,
                 'pluginOptions' => [
                     'showUpload' => false,
                     'initialPreview' => false,

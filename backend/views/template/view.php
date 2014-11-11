@@ -1,8 +1,4 @@
 <?php
-
-use kartik\detail\DetailView;
-use kartik\datecontrol\DateControl;
-
 /**
  * @var yii\web\View $this
  * @var common\models\Template $model

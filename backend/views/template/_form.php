@@ -14,7 +14,6 @@ use common\models\Plugin;
 /**
  * @var yii\web\View $this
  * @var common\models\Template $model
- * @var yii\widgets\ActiveForm $form
  */
 ?>
 
@@ -32,12 +31,13 @@ use common\models\Plugin;
     ],
     'attributes' => [
         [
+            'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'is_visible',
             'format' => 'raw',
-            'type' => '\kartik\widgets\SwitchInput',
             'value' => $model->is_visible ? '<i class="glyphicon glyphicon-ok text-success"></i>' :
                 '<i class="glyphicon glyphicon-remove text-danger"></i>',
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SWITCH,
                 'pluginOptions' => [
                     'onText' => '<i class="glyphicon glyphicon-ok"></i>',
                     'offText' => '<i class="glyphicon glyphicon-remove"></i>',
@@ -47,11 +47,12 @@ use common\models\Plugin;
             ],
         ],
         [
+            'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'category_id',
             'format' => 'raw',
-            'type' => '\kartik\widgets\Select2',
             'value' => $model->category ? $model->category->name : '',
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Category::listAll(),
                 'options' => ['placeholder' => 'Select Category ...'],
                 'pluginOptions' => ['allowClear' => false],
@@ -61,11 +62,12 @@ use common\models\Plugin;
         'filename',
         'directory',
         [
+            'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'img',
             'format' => 'raw',
-            'type' => '\kartik\file\FileInput',
             'value' => $model->img ? Html::img(Yii::getAlias('@web/images') . '/' . $model->img, ['class'=>'file-preview-image']) : false,
             'widgetOptions' => [
+                'class' => '\kartik\widgets\FileInput',
                 'options' => ['accept' => 'image/*'],
                 'pluginOptions' => [
                     'showUpload' => false,
@@ -88,9 +90,10 @@ use common\models\Plugin;
         [
             'attribute' => 'parents',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => DetailView::INPUT_WIDGET,
             'value' => $model->parentsName,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Template::listAll($model->id),
                 'options' => [
                     'placeholder' => 'Select Parents ...',
@@ -102,9 +105,10 @@ use common\models\Plugin;
         [
             'attribute' => 'children',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => DetailView::INPUT_WIDGET,
             'value' => $model->childrenName,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Template::listAll($model->id),
                 'options' => [
                     'placeholder' => 'Select Children ...',
@@ -116,9 +120,10 @@ use common\models\Plugin;
         [
             'attribute' => 'css',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => DetailView::INPUT_WIDGET,
             'value' => $model->CssName,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Css::listAll(),
                 'options' => [
                     'placeholder' => 'Select Css ...',
@@ -130,9 +135,10 @@ use common\models\Plugin;
         [
             'attribute' => 'js',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => DetailView::INPUT_WIDGET,
             'value' => $model->JsName,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Js::listAll(),
                 'options' => [
                     'placeholder' => 'Select Js ...',
@@ -144,9 +150,10 @@ use common\models\Plugin;
         [
             'attribute' => 'images',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => DetailView::INPUT_WIDGET,
             'value' => $model->ImageName,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Image::listAll(),
                 'options' => [
                     'placeholder' => 'Select Images ...',
@@ -158,9 +165,10 @@ use common\models\Plugin;
         [
             'attribute' => 'fonts',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => DetailView::INPUT_WIDGET,
             'value' => $model->FontName,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Font::listAll(),
                 'options' => [
                     'placeholder' => 'Select Fonts ...',
@@ -172,9 +180,10 @@ use common\models\Plugin;
         [
             'attribute' => 'functions',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => DetailView::INPUT_WIDGET,
             'value' => $model->FunctionsName,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Functions::listAll(),
                 'options' => [
                     'placeholder' => 'Select Functions ...',
@@ -186,9 +195,10 @@ use common\models\Plugin;
         [
             'attribute' => 'plugins',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
+            'type' => DetailView::INPUT_WIDGET,
             'value' => $model->PluginName,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Plugin::listAll(),
                 'options' => [
                     'placeholder' => 'Select Plugins ...',

@@ -5,7 +5,6 @@ use kartik\detail\DetailView;
 /**
  * @var yii\web\View $this
  * @var common\models\Category $model
- * @var yii\widgets\ActiveForm $form
  */
 ?>
 
@@ -23,12 +22,13 @@ DetailView::widget([
         'name',
         'alias',
         [
+            'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'is_basic',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SWITCH,
             'value' => $model->is_basic ? '<i class="glyphicon glyphicon-ok text-success"></i>' :
                 '<i class="glyphicon glyphicon-remove text-danger"></i>',
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SWITCH,
                 'pluginOptions' => [
                     'onText' => '<i class="glyphicon glyphicon-ok"></i>',
                     'offText' => '<i class="glyphicon glyphicon-remove"></i>',
@@ -38,12 +38,13 @@ DetailView::widget([
             ],
         ],
         [
+            'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'is_visible',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SWITCH,
             'value' => $model->is_visible ? '<i class="glyphicon glyphicon-ok text-success"></i>' :
                 '<i class="glyphicon glyphicon-remove text-danger"></i>',
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SWITCH,
                 'pluginOptions' => [
                     'onText' => '<i class="glyphicon glyphicon-ok"></i>',
                     'offText' => '<i class="glyphicon glyphicon-remove"></i>',

@@ -6,7 +6,6 @@ use kartik\detail\DetailView;
 /**
  * @var yii\web\View $this
  * @var common\models\Image $model
- * @var yii\widgets\ActiveForm $form
  */
 
 $imagesAlias = '@web' . Yii::$app->params['template']['alias']['images'];
@@ -28,11 +27,12 @@ DetailView::widget([
     'attributes' => [
         'name',
         [
+            'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'filename',
             'format' => 'raw',
-            'type' => DetailView::INPUT_FILEINPUT,
             'value' => $model->filename ? Html::img(Yii::getAlias($imagesAlias) . '/' . $model->filename, ['class' => 'file-preview-image']) : false,
             'widgetOptions' => [
+                'class' => DetailView::INPUT_FILEINPUT,
                 'options' => ['accept' => 'image/*'],
                 'pluginOptions' => [
                     'showUpload' => false,

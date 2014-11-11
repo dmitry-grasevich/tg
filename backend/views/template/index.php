@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'header' => ' ',
-                'class' => 'kartik\grid\BooleanColumn',
+                'class' => '\kartik\grid\BooleanColumn',
                 'attribute' => 'is_visible',
                 'width' => '25px',
                 'vAlign' => 'top',

@@ -7,7 +7,6 @@ use common\models\Template;
 /**
  * @var yii\web\View $this
  * @var common\models\Css $model
- * @var yii\widgets\ActiveForm $form
  */
 ?>
 
@@ -23,11 +22,12 @@ DetailView::widget([
     ],
     'attributes' => [
         [
+            'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'parent_id',
             'format' => 'raw',
-            'type' => DetailView::INPUT_SELECT2,
             'value' => $model->parent ? $model->parent->name : '',
             'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
                 'data' => Template::listAll(),
                 'options' => ['placeholder' => 'Select Parent Css'],
                 'pluginOptions' => ['allowClear' => false],
