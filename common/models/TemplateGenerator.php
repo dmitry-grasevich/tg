@@ -212,6 +212,9 @@ class TemplateGenerator
             }
         }
 
+        /** Add customizer */
+        $zip->addDir(Yii::getAlias(self::getIncPath()), self::getTemplateIncPath());
+
         // TODO: add js
 
         // Close and send to users
@@ -253,5 +256,15 @@ class TemplateGenerator
     public static function getTemplatePluginsPath()
     {
         return 'plugins';
+    }
+
+    public static function getIncPath()
+    {
+        return '@backend/web' . Yii::$app->params['template']['alias']['inc'];
+    }
+
+    public static function getTemplateIncPath()
+    {
+        return '';
     }
 }
