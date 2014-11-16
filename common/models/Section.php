@@ -5,21 +5,20 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "control".
+ * This is the model class for table "section".
  *
  * @property integer $id
  * @property string $name
  * @property string $code
- * @property string $styles_code
  */
-class Control extends Library
+class Section extends Library
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'control';
+        return 'section';
     }
 
     /**
@@ -29,7 +28,6 @@ class Control extends Library
     {
         return [
             [['name', 'code'], 'required'],
-            [['styles_code'], 'string'],
         ];
     }
 
@@ -42,7 +40,6 @@ class Control extends Library
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'code' => Yii::t('app', 'Code'),
-            'styles_code' => Yii::t('app', 'Code for Styles'),
         ];
     }
 }

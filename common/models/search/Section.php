@@ -5,18 +5,18 @@ namespace common\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Control as ControlModel;
+use common\models\Section as SectionModel;
 
 /**
- * Css represents the model behind the search form about `common\models\Control`.
+ * Css represents the model behind the search form about `common\models\Section`.
  */
-class Control extends ControlModel
+class Section extends SectionModel
 {
     public function rules()
     {
         return [
             [['id'], 'integer'],
-            [['code', 'name', 'styles_code'], 'safe'],
+            [['code', 'name'], 'safe'],
         ];
     }
 
@@ -28,7 +28,7 @@ class Control extends ControlModel
 
     public function search($params)
     {
-        $query = ControlModel::find();
+        $query = SectionModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -51,8 +51,7 @@ class Control extends ControlModel
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'styles_code', $this->styles_code]);
+            ->andFilterWhere(['like', 'code', $this->code]);
 
         return $dataProvider;
     }

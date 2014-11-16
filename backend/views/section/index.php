@@ -6,13 +6,13 @@ use kartik\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var common\models\search\Control $searchModel
+ * @var common\models\search\Section $searchModel
  */
 
-$this->title = Yii::t('app', 'Controls');
+$this->title = Yii::t('app', 'Sections');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="control-index">
+<div class="section-index">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -26,17 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'attribute' => 'styles_code',
-                'format' => 'raw',
-                'value' => function($model) {
-                    return empty($model->styles_code) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->styles_code) . '</code></pre>';
-                }
-            ],
-            [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'update' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['control/view', 'id' => $model->id, 'edit' => 't']), [
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['section/view', 'id' => $model->id, 'edit' => 't']), [
                                 'title' => Yii::t('yii', 'Edit'),
                             ]);
                         }
@@ -53,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add Control', ['create'], ['class' => 'btn btn-success']), 'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add Section', ['create'], ['class' => 'btn btn-success']), 'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]) ?>

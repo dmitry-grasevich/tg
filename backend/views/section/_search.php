@@ -5,12 +5,12 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var common\models\search\Control $model
+ * @var common\models\search\Section $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
 
-<div class="control-search">
+<div class="section-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -22,8 +22,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name') ?>
 
     <?= $form->field($model, 'code') ?>
-
-    <?= $form->field($model, 'styles_code') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

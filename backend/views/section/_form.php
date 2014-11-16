@@ -5,7 +5,7 @@ use kartik\detail\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var common\models\Control $model
+ * @var common\models\Section $model
  */
 ?>
 
@@ -25,16 +25,6 @@ DetailView::widget([
             'attribute' => 'code',
             'format' => 'raw',
             'value' => empty($model->code) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->code) . '</code></pre>',
-            'type' => DetailView::INPUT_TEXTAREA,
-            'options' => [
-                'rows' => 15,
-                'class' => 'text-monospace'
-            ]
-        ],
-        [
-            'attribute' => 'styles_code',
-            'format' => 'raw',
-            'value' => empty($model->styles_code) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->styles_code) . '</code></pre>',
             'type' => DetailView::INPUT_TEXTAREA,
             'options' => [
                 'rows' => 15,

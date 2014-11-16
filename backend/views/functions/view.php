@@ -17,4 +17,4 @@ $js = <<<JS
 hljs.initHighlightingOnLoad();
 $('pre.scroll').perfectScrollbar({ suppressScrollX: true });
 JS;
-$this->registerJs($js, \yii\web\View::POS_READY, 'template-view-script');
+$this->registerJs($js, \yii\web\View::POS_READY, 'functions-view-script');
