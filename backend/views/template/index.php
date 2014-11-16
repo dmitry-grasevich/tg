@@ -36,6 +36,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'categoryName',
             [
+                'header' => 'Elements',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return $model->elementsName;
+                }
+            ],
+            [
                 'header' => 'Preview Image',
                 'attribute' => 'img',
                 'format' => 'raw',
