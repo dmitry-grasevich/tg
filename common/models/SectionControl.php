@@ -11,6 +11,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $section_id
  * @property integer $control_id
+ * @property integer $priority
  *
  * @property Section $section
  * @property Control $control
@@ -32,7 +33,7 @@ class SectionControl extends ActiveRecord
     {
         return [
             [['section_id', 'control_id'], 'required'],
-            [['section_id', 'control_id'], 'integer']
+            [['section_id', 'control_id', 'priority'], 'integer']
         ];
     }
 
@@ -45,6 +46,7 @@ class SectionControl extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'section_id' => Yii::t('app', 'Section ID'),
             'control_id' => Yii::t('app', 'Control ID'),
+            'priority' => Yii::t('app', 'Priority'),
         ];
     }
 
