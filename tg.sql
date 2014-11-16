@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 01 2014 г., 13:12
+-- Время создания: Ноя 16 2014 г., 19:54
 -- Версия сервера: 5.6.20
 -- Версия PHP: 5.4.32
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Структура таблицы `category`
 --
 
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -49,9 +50,34 @@ INSERT INTO `category` (`id`, `name`, `is_basic`, `is_visible`, `alias`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `control`
+--
+
+DROP TABLE IF EXISTS `control`;
+CREATE TABLE IF NOT EXISTS `control` (
+`id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT '',
+  `code` text,
+  `styles_code` text,
+  `mods_code` text
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `control`
+--
+
+INSERT INTO `control` (`id`, `name`, `code`, `styles_code`, `mods_code`) VALUES
+(1, 'Google Font Selector', '    $options[''{{id}}''] = array(\r\n        ''id'' => ''{{id}}'',\r\n        ''label'' => __(''{{label}}'', ''template-generator''),\r\n        ''section'' => ''{{section}}'',\r\n        ''type'' => ''select'',\r\n        ''choices'' => customizer_library_get_font_choices(),\r\n        ''priority'' => ''{{priority}}'',\r\n        ''default'' => ''{{default}}'',\r\n    );', '        $setting = ''{{id}}'';\r\n        $mod = get_theme_mod($setting, customizer_library_get_default($setting));\r\n        $stack = customizer_library_get_font_stack($mod);\r\n\r\n        if ($mod != customizer_library_get_default($setting)) {\r\n            Customizer_Library_Styles()->add(array(\r\n                ''selectors'' => array(''{{selectors}}''),\r\n                ''declarations'' => array(''font-family'' => $stack)\r\n            ));\r\n        }\r\n\r\n', NULL),
+(2, 'Color', '    $options[''{{id}}''] = array(\r\n        ''id'' => ''{{id}}'',\r\n        ''label'' => __(''{{label}}'', ''template-generator''),\r\n        ''section'' => ''{{section}}'',\r\n        ''type'' => ''color'',\r\n        ''priority'' => ''{{priority}}'',\r\n        ''default'' => ''{{default}}'',\r\n    );', '        $setting = ''{{id}}'';\r\n        $mod = get_theme_mod($setting, customizer_library_get_default($setting));\r\n\r\n        if ($mod !== customizer_library_get_default($setting)) {\r\n            $color = sanitize_hex_color($mod);\r\n            Customizer_Library_Styles()->add(array(\r\n                ''selectors'' => array(''{{selectors}}''),\r\n                ''declarations'' => array(''color'' => $color)\r\n            ));\r\n        }\r\n\r\n', NULL),
+(3, 'Text', '    $options[''{{id}}''] = array(\r\n        ''id'' => ''{{id}}'',\r\n        ''label'' => __(''{{label}}'', ''template-generator''),\r\n        ''section'' => ''{{section}}'',\r\n        ''type'' => ''text'',\r\n        ''priority'' => ''{{priority}}'',\r\n        ''default'' => ''{{default}}'',\r\n    );', '', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `css`
 --
 
+DROP TABLE IF EXISTS `css`;
 CREATE TABLE IF NOT EXISTS `css` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -59,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `css` (
   `filename` varchar(255) DEFAULT NULL,
   `directory` varchar(255) DEFAULT '',
   `parent_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `css`
@@ -79,7 +105,32 @@ INSERT INTO `css` (`id`, `name`, `code`, `filename`, `directory`, `parent_id`) V
 (6, 'font-awesome.4.2.0.css', '/*!\r\n *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome\r\n *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)\r\n */\r\n/* FONT PATH\r\n * -------------------------- */\r\n@font-face {\r\n  font-family: ''FontAwesome'';\r\n  src: url(''../fonts/fontawesome-webfont.eot?v=4.2.0'');\r\n  src: url(''../fonts/fontawesome-webfont.eot?#iefix&v=4.2.0'') format(''embedded-opentype''), url(''../fonts/fontawesome-webfont.woff?v=4.2.0'') format(''woff''), url(''../fonts/fontawesome-webfont.ttf?v=4.2.0'') format(''truetype''), url(''../fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular'') format(''svg'');\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n.fa {\r\n  display: inline-block;\r\n  font: normal normal normal 14px/1 FontAwesome;\r\n  font-size: inherit;\r\n  text-rendering: auto;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n}\r\n/* makes the font 33% larger relative to the icon container */\r\n.fa-lg {\r\n  font-size: 1.33333333em;\r\n  line-height: 0.75em;\r\n  vertical-align: -15%;\r\n}\r\n.fa-2x {\r\n  font-size: 2em;\r\n}\r\n.fa-3x {\r\n  font-size: 3em;\r\n}\r\n.fa-4x {\r\n  font-size: 4em;\r\n}\r\n.fa-5x {\r\n  font-size: 5em;\r\n}\r\n.fa-fw {\r\n  width: 1.28571429em;\r\n  text-align: center;\r\n}\r\n.fa-ul {\r\n  padding-left: 0;\r\n  margin-left: 2.14285714em;\r\n  list-style-type: none;\r\n}\r\n.fa-ul > li {\r\n  position: relative;\r\n}\r\n.fa-li {\r\n  position: absolute;\r\n  left: -2.14285714em;\r\n  width: 2.14285714em;\r\n  top: 0.14285714em;\r\n  text-align: center;\r\n}\r\n.fa-li.fa-lg {\r\n  left: -1.85714286em;\r\n}\r\n.fa-border {\r\n  padding: .2em .25em .15em;\r\n  border: solid 0.08em #eeeeee;\r\n  border-radius: .1em;\r\n}\r\n.pull-right {\r\n  float: right;\r\n}\r\n.pull-left {\r\n  float: left;\r\n}\r\n.fa.pull-left {\r\n  margin-right: .3em;\r\n}\r\n.fa.pull-right {\r\n  margin-left: .3em;\r\n}\r\n.fa-spin {\r\n  -webkit-animation: fa-spin 2s infinite linear;\r\n  animation: fa-spin 2s infinite linear;\r\n}\r\n@-webkit-keyframes fa-spin {\r\n  0% {\r\n    -webkit-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n  100% {\r\n    -webkit-transform: rotate(359deg);\r\n    transform: rotate(359deg);\r\n  }\r\n}\r\n@keyframes fa-spin {\r\n  0% {\r\n    -webkit-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n  100% {\r\n    -webkit-transform: rotate(359deg);\r\n    transform: rotate(359deg);\r\n  }\r\n}\r\n.fa-rotate-90 {\r\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);\r\n  -webkit-transform: rotate(90deg);\r\n  -ms-transform: rotate(90deg);\r\n  transform: rotate(90deg);\r\n}\r\n.fa-rotate-180 {\r\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);\r\n  -webkit-transform: rotate(180deg);\r\n  -ms-transform: rotate(180deg);\r\n  transform: rotate(180deg);\r\n}\r\n.fa-rotate-270 {\r\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);\r\n  -webkit-transform: rotate(270deg);\r\n  -ms-transform: rotate(270deg);\r\n  transform: rotate(270deg);\r\n}\r\n.fa-flip-horizontal {\r\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);\r\n  -webkit-transform: scale(-1, 1);\r\n  -ms-transform: scale(-1, 1);\r\n  transform: scale(-1, 1);\r\n}\r\n.fa-flip-vertical {\r\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);\r\n  -webkit-transform: scale(1, -1);\r\n  -ms-transform: scale(1, -1);\r\n  transform: scale(1, -1);\r\n}\r\n:root .fa-rotate-90,\r\n:root .fa-rotate-180,\r\n:root .fa-rotate-270,\r\n:root .fa-flip-horizontal,\r\n:root .fa-flip-vertical {\r\n  filter: none;\r\n}\r\n.fa-stack {\r\n  position: relative;\r\n  display: inline-block;\r\n  width: 2em;\r\n  height: 2em;\r\n  line-height: 2em;\r\n  vertical-align: middle;\r\n}\r\n.fa-stack-1x,\r\n.fa-stack-2x {\r\n  position: absolute;\r\n  left: 0;\r\n  width: 100%;\r\n  text-align: center;\r\n}\r\n.fa-stack-1x {\r\n  line-height: inherit;\r\n}\r\n.fa-stack-2x {\r\n  font-size: 2em;\r\n}\r\n.fa-inverse {\r\n  color: #ffffff;\r\n}\r\n/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen\r\n   readers do not read off random characters that represent icons */\r\n.fa-glass:before {\r\n  content: "\\f000";\r\n}\r\n.fa-music:before {\r\n  content: "\\f001";\r\n}\r\n.fa-search:before {\r\n  content: "\\f002";\r\n}\r\n.fa-envelope-o:before {\r\n  content: "\\f003";\r\n}\r\n.fa-heart:before {\r\n  content: "\\f004";\r\n}\r\n.fa-star:before {\r\n  content: "\\f005";\r\n}\r\n.fa-star-o:before {\r\n  content: "\\f006";\r\n}\r\n.fa-user:before {\r\n  content: "\\f007";\r\n}\r\n.fa-film:before {\r\n  content: "\\f008";\r\n}\r\n.fa-th-large:before {\r\n  content: "\\f009";\r\n}\r\n.fa-th:before {\r\n  content: "\\f00a";\r\n}\r\n.fa-th-list:before {\r\n  content: "\\f00b";\r\n}\r\n.fa-check:before {\r\n  content: "\\f00c";\r\n}\r\n.fa-remove:before,\r\n.fa-close:before,\r\n.fa-times:before {\r\n  content: "\\f00d";\r\n}\r\n.fa-search-plus:before {\r\n  content: "\\f00e";\r\n}\r\n.fa-search-minus:before {\r\n  content: "\\f010";\r\n}\r\n.fa-power-off:before {\r\n  content: "\\f011";\r\n}\r\n.fa-signal:before {\r\n  content: "\\f012";\r\n}\r\n.fa-gear:before,\r\n.fa-cog:before {\r\n  content: "\\f013";\r\n}\r\n.fa-trash-o:before {\r\n  content: "\\f014";\r\n}\r\n.fa-home:before {\r\n  content: "\\f015";\r\n}\r\n.fa-file-o:before {\r\n  content: "\\f016";\r\n}\r\n.fa-clock-o:before {\r\n  content: "\\f017";\r\n}\r\n.fa-road:before {\r\n  content: "\\f018";\r\n}\r\n.fa-download:before {\r\n  content: "\\f019";\r\n}\r\n.fa-arrow-circle-o-down:before {\r\n  content: "\\f01a";\r\n}\r\n.fa-arrow-circle-o-up:before {\r\n  content: "\\f01b";\r\n}\r\n.fa-inbox:before {\r\n  content: "\\f01c";\r\n}\r\n.fa-play-circle-o:before {\r\n  content: "\\f01d";\r\n}\r\n.fa-rotate-right:before,\r\n.fa-repeat:before {\r\n  content: "\\f01e";\r\n}\r\n.fa-refresh:before {\r\n  content: "\\f021";\r\n}\r\n.fa-list-alt:before {\r\n  content: "\\f022";\r\n}\r\n.fa-lock:before {\r\n  content: "\\f023";\r\n}\r\n.fa-flag:before {\r\n  content: "\\f024";\r\n}\r\n.fa-headphones:before {\r\n  content: "\\f025";\r\n}\r\n.fa-volume-off:before {\r\n  content: "\\f026";\r\n}\r\n.fa-volume-down:before {\r\n  content: "\\f027";\r\n}\r\n.fa-volume-up:before {\r\n  content: "\\f028";\r\n}\r\n.fa-qrcode:before {\r\n  content: "\\f029";\r\n}\r\n.fa-barcode:before {\r\n  content: "\\f02a";\r\n}\r\n.fa-tag:before {\r\n  content: "\\f02b";\r\n}\r\n.fa-tags:before {\r\n  content: "\\f02c";\r\n}\r\n.fa-book:before {\r\n  content: "\\f02d";\r\n}\r\n.fa-bookmark:before {\r\n  content: "\\f02e";\r\n}\r\n.fa-print:before {\r\n  content: "\\f02f";\r\n}\r\n.fa-camera:before {\r\n  content: "\\f030";\r\n}\r\n.fa-font:before {\r\n  content: "\\f031";\r\n}\r\n.fa-bold:before {\r\n  content: "\\f032";\r\n}\r\n.fa-italic:before {\r\n  content: "\\f033";\r\n}\r\n.fa-text-height:before {\r\n  content: "\\f034";\r\n}\r\n.fa-text-width:before {\r\n  content: "\\f035";\r\n}\r\n.fa-align-left:before {\r\n  content: "\\f036";\r\n}\r\n.fa-align-center:before {\r\n  content: "\\f037";\r\n}\r\n.fa-align-right:before {\r\n  content: "\\f038";\r\n}\r\n.fa-align-justify:before {\r\n  content: "\\f039";\r\n}\r\n.fa-list:before {\r\n  content: "\\f03a";\r\n}\r\n.fa-dedent:before,\r\n.fa-outdent:before {\r\n  content: "\\f03b";\r\n}\r\n.fa-indent:before {\r\n  content: "\\f03c";\r\n}\r\n.fa-video-camera:before {\r\n  content: "\\f03d";\r\n}\r\n.fa-photo:before,\r\n.fa-image:before,\r\n.fa-picture-o:before {\r\n  content: "\\f03e";\r\n}\r\n.fa-pencil:before {\r\n  content: "\\f040";\r\n}\r\n.fa-map-marker:before {\r\n  content: "\\f041";\r\n}\r\n.fa-adjust:before {\r\n  content: "\\f042";\r\n}\r\n.fa-tint:before {\r\n  content: "\\f043";\r\n}\r\n.fa-edit:before,\r\n.fa-pencil-square-o:before {\r\n  content: "\\f044";\r\n}\r\n.fa-share-square-o:before {\r\n  content: "\\f045";\r\n}\r\n.fa-check-square-o:before {\r\n  content: "\\f046";\r\n}\r\n.fa-arrows:before {\r\n  content: "\\f047";\r\n}\r\n.fa-step-backward:before {\r\n  content: "\\f048";\r\n}\r\n.fa-fast-backward:before {\r\n  content: "\\f049";\r\n}\r\n.fa-backward:before {\r\n  content: "\\f04a";\r\n}\r\n.fa-play:before {\r\n  content: "\\f04b";\r\n}\r\n.fa-pause:before {\r\n  content: "\\f04c";\r\n}\r\n.fa-stop:before {\r\n  content: "\\f04d";\r\n}\r\n.fa-forward:before {\r\n  content: "\\f04e";\r\n}\r\n.fa-fast-forward:before {\r\n  content: "\\f050";\r\n}\r\n.fa-step-forward:before {\r\n  content: "\\f051";\r\n}\r\n.fa-eject:before {\r\n  content: "\\f052";\r\n}\r\n.fa-chevron-left:before {\r\n  content: "\\f053";\r\n}\r\n.fa-chevron-right:before {\r\n  content: "\\f054";\r\n}\r\n.fa-plus-circle:before {\r\n  content: "\\f055";\r\n}\r\n.fa-minus-circle:before {\r\n  content: "\\f056";\r\n}\r\n.fa-times-circle:before {\r\n  content: "\\f057";\r\n}\r\n.fa-check-circle:before {\r\n  content: "\\f058";\r\n}\r\n.fa-question-circle:before {\r\n  content: "\\f059";\r\n}\r\n.fa-info-circle:before {\r\n  content: "\\f05a";\r\n}\r\n.fa-crosshairs:before {\r\n  content: "\\f05b";\r\n}\r\n.fa-times-circle-o:before {\r\n  content: "\\f05c";\r\n}\r\n.fa-check-circle-o:before {\r\n  content: "\\f05d";\r\n}\r\n.fa-ban:before {\r\n  content: "\\f05e";\r\n}\r\n.fa-arrow-left:before {\r\n  content: "\\f060";\r\n}\r\n.fa-arrow-right:before {\r\n  content: "\\f061";\r\n}\r\n.fa-arrow-up:before {\r\n  content: "\\f062";\r\n}\r\n.fa-arrow-down:before {\r\n  content: "\\f063";\r\n}\r\n.fa-mail-forward:before,\r\n.fa-share:before {\r\n  content: "\\f064";\r\n}\r\n.fa-expand:before {\r\n  content: "\\f065";\r\n}\r\n.fa-compress:before {\r\n  content: "\\f066";\r\n}\r\n.fa-plus:before {\r\n  content: "\\f067";\r\n}\r\n.fa-minus:before {\r\n  content: "\\f068";\r\n}\r\n.fa-asterisk:before {\r\n  content: "\\f069";\r\n}\r\n.fa-exclamation-circle:before {\r\n  content: "\\f06a";\r\n}\r\n.fa-gift:before {\r\n  content: "\\f06b";\r\n}\r\n.fa-leaf:before {\r\n  content: "\\f06c";\r\n}\r\n.fa-fire:before {\r\n  content: "\\f06d";\r\n}\r\n.fa-eye:before {\r\n  content: "\\f06e";\r\n}\r\n.fa-eye-slash:before {\r\n  content: "\\f070";\r\n}\r\n.fa-warning:before,\r\n.fa-exclamation-triangle:before {\r\n  content: "\\f071";\r\n}\r\n.fa-plane:before {\r\n  content: "\\f072";\r\n}\r\n.fa-calendar:before {\r\n  content: "\\f073";\r\n}\r\n.fa-random:before {\r\n  content: "\\f074";\r\n}\r\n.fa-comment:before {\r\n  content: "\\f075";\r\n}\r\n.fa-magnet:before {\r\n  content: "\\f076";\r\n}\r\n.fa-chevron-up:before {\r\n  content: "\\f077";\r\n}\r\n.fa-chevron-down:before {\r\n  content: "\\f078";\r\n}\r\n.fa-retweet:before {\r\n  content: "\\f079";\r\n}\r\n.fa-shopping-cart:before {\r\n  content: "\\f07a";\r\n}\r\n.fa-folder:before {\r\n  content: "\\f07b";\r\n}\r\n.fa-folder-open:before {\r\n  content: "\\f07c";\r\n}\r\n.fa-arrows-v:before {\r\n  content: "\\f07d";\r\n}\r\n.fa-arrows-h:before {\r\n  content: "\\f07e";\r\n}\r\n.fa-bar-chart-o:before,\r\n.fa-bar-chart:before {\r\n  content: "\\f080";\r\n}\r\n.fa-twitter-square:before {\r\n  content: "\\f081";\r\n}\r\n.fa-facebook-square:before {\r\n  content: "\\f082";\r\n}\r\n.fa-camera-retro:before {\r\n  content: "\\f083";\r\n}\r\n.fa-key:before {\r\n  content: "\\f084";\r\n}\r\n.fa-gears:before,\r\n.fa-cogs:before {\r\n  content: "\\f085";\r\n}\r\n.fa-comments:before {\r\n  content: "\\f086";\r\n}\r\n.fa-thumbs-o-up:before {\r\n  content: "\\f087";\r\n}\r\n.fa-thumbs-o-down:before {\r\n  content: "\\f088";\r\n}\r\n.fa-star-half:before {\r\n  content: "\\f089";\r\n}\r\n.fa-heart-o:before {\r\n  content: "\\f08a";\r\n}\r\n.fa-sign-out:before {\r\n  content: "\\f08b";\r\n}\r\n.fa-linkedin-square:before {\r\n  content: "\\f08c";\r\n}\r\n.fa-thumb-tack:before {\r\n  content: "\\f08d";\r\n}\r\n.fa-external-link:before {\r\n  content: "\\f08e";\r\n}\r\n.fa-sign-in:before {\r\n  content: "\\f090";\r\n}\r\n.fa-trophy:before {\r\n  content: "\\f091";\r\n}\r\n.fa-github-square:before {\r\n  content: "\\f092";\r\n}\r\n.fa-upload:before {\r\n  content: "\\f093";\r\n}\r\n.fa-lemon-o:before {\r\n  content: "\\f094";\r\n}\r\n.fa-phone:before {\r\n  content: "\\f095";\r\n}\r\n.fa-square-o:before {\r\n  content: "\\f096";\r\n}\r\n.fa-bookmark-o:before {\r\n  content: "\\f097";\r\n}\r\n.fa-phone-square:before {\r\n  content: "\\f098";\r\n}\r\n.fa-twitter:before {\r\n  content: "\\f099";\r\n}\r\n.fa-facebook:before {\r\n  content: "\\f09a";\r\n}\r\n.fa-github:before {\r\n  content: "\\f09b";\r\n}\r\n.fa-unlock:before {\r\n  content: "\\f09c";\r\n}\r\n.fa-credit-card:before {\r\n  content: "\\f09d";\r\n}\r\n.fa-rss:before {\r\n  content: "\\f09e";\r\n}\r\n.fa-hdd-o:before {\r\n  content: "\\f0a0";\r\n}\r\n.fa-bullhorn:before {\r\n  content: "\\f0a1";\r\n}\r\n.fa-bell:before {\r\n  content: "\\f0f3";\r\n}\r\n.fa-certificate:before {\r\n  content: "\\f0a3";\r\n}\r\n.fa-hand-o-right:before {\r\n  content: "\\f0a4";\r\n}\r\n.fa-hand-o-left:before {\r\n  content: "\\f0a5";\r\n}\r\n.fa-hand-o-up:before {\r\n  content: "\\f0a6";\r\n}\r\n.fa-hand-o-down:before {\r\n  content: "\\f0a7";\r\n}\r\n.fa-arrow-circle-left:before {\r\n  content: "\\f0a8";\r\n}\r\n.fa-arrow-circle-right:before {\r\n  content: "\\f0a9";\r\n}\r\n.fa-arrow-circle-up:before {\r\n  content: "\\f0aa";\r\n}\r\n.fa-arrow-circle-down:before {\r\n  content: "\\f0ab";\r\n}\r\n.fa-globe:before {\r\n  content: "\\f0ac";\r\n}\r\n.fa-wrench:before {\r\n  content: "\\f0ad";\r\n}\r\n.fa-tasks:before {\r\n  content: "\\f0ae";\r\n}\r\n.fa-filter:before {\r\n  content: "\\f0b0";\r\n}\r\n.fa-briefcase:before {\r\n  content: "\\f0b1";\r\n}\r\n.fa-arrows-alt:before {\r\n  content: "\\f0b2";\r\n}\r\n.fa-group:before,\r\n.fa-users:before {\r\n  content: "\\f0c0";\r\n}\r\n.fa-chain:before,\r\n.fa-link:before {\r\n  content: "\\f0c1";\r\n}\r\n.fa-cloud:before {\r\n  content: "\\f0c2";\r\n}\r\n.fa-flask:before {\r\n  content: "\\f0c3";\r\n}\r\n.fa-cut:before,\r\n.fa-scissors:before {\r\n  content: "\\f0c4";\r\n}\r\n.fa-copy:before,\r\n.fa-files-o:before {\r\n  content: "\\f0c5";\r\n}\r\n.fa-paperclip:before {\r\n  content: "\\f0c6";\r\n}\r\n.fa-save:before,\r\n.fa-floppy-o:before {\r\n  content: "\\f0c7";\r\n}\r\n.fa-square:before {\r\n  content: "\\f0c8";\r\n}\r\n.fa-navicon:before,\r\n.fa-reorder:before,\r\n.fa-bars:before {\r\n  content: "\\f0c9";\r\n}\r\n.fa-list-ul:before {\r\n  content: "\\f0ca";\r\n}\r\n.fa-list-ol:before {\r\n  content: "\\f0cb";\r\n}\r\n.fa-strikethrough:before {\r\n  content: "\\f0cc";\r\n}\r\n.fa-underline:before {\r\n  content: "\\f0cd";\r\n}\r\n.fa-table:before {\r\n  content: "\\f0ce";\r\n}\r\n.fa-magic:before {\r\n  content: "\\f0d0";\r\n}\r\n.fa-truck:before {\r\n  content: "\\f0d1";\r\n}\r\n.fa-pinterest:before {\r\n  content: "\\f0d2";\r\n}\r\n.fa-pinterest-square:before {\r\n  content: "\\f0d3";\r\n}\r\n.fa-google-plus-square:before {\r\n  content: "\\f0d4";\r\n}\r\n.fa-google-plus:before {\r\n  content: "\\f0d5";\r\n}\r\n.fa-money:before {\r\n  content: "\\f0d6";\r\n}\r\n.fa-caret-down:before {\r\n  content: "\\f0d7";\r\n}\r\n.fa-caret-up:before {\r\n  content: "\\f0d8";\r\n}\r\n.fa-caret-left:before {\r\n  content: "\\f0d9";\r\n}\r\n.fa-caret-right:before {\r\n  content: "\\f0da";\r\n}\r\n.fa-columns:before {\r\n  content: "\\f0db";\r\n}\r\n.fa-unsorted:before,\r\n.fa-sort:before {\r\n  content: "\\f0dc";\r\n}\r\n.fa-sort-down:before,\r\n.fa-sort-desc:before {\r\n  content: "\\f0dd";\r\n}\r\n.fa-sort-up:before,\r\n.fa-sort-asc:before {\r\n  content: "\\f0de";\r\n}\r\n.fa-envelope:before {\r\n  content: "\\f0e0";\r\n}\r\n.fa-linkedin:before {\r\n  content: "\\f0e1";\r\n}\r\n.fa-rotate-left:before,\r\n.fa-undo:before {\r\n  content: "\\f0e2";\r\n}\r\n.fa-legal:before,\r\n.fa-gavel:before {\r\n  content: "\\f0e3";\r\n}\r\n.fa-dashboard:before,\r\n.fa-tachometer:before {\r\n  content: "\\f0e4";\r\n}\r\n.fa-comment-o:before {\r\n  content: "\\f0e5";\r\n}\r\n.fa-comments-o:before {\r\n  content: "\\f0e6";\r\n}\r\n.fa-flash:before,\r\n.fa-bolt:before {\r\n  content: "\\f0e7";\r\n}\r\n.fa-sitemap:before {\r\n  content: "\\f0e8";\r\n}\r\n.fa-umbrella:before {\r\n  content: "\\f0e9";\r\n}\r\n.fa-paste:before,\r\n.fa-clipboard:before {\r\n  content: "\\f0ea";\r\n}\r\n.fa-lightbulb-o:before {\r\n  content: "\\f0eb";\r\n}\r\n.fa-exchange:before {\r\n  content: "\\f0ec";\r\n}\r\n.fa-cloud-download:before {\r\n  content: "\\f0ed";\r\n}\r\n.fa-cloud-upload:before {\r\n  content: "\\f0ee";\r\n}\r\n.fa-user-md:before {\r\n  content: "\\f0f0";\r\n}\r\n.fa-stethoscope:before {\r\n  content: "\\f0f1";\r\n}\r\n.fa-suitcase:before {\r\n  content: "\\f0f2";\r\n}\r\n.fa-bell-o:before {\r\n  content: "\\f0a2";\r\n}\r\n.fa-coffee:before {\r\n  content: "\\f0f4";\r\n}\r\n.fa-cutlery:before {\r\n  content: "\\f0f5";\r\n}\r\n.fa-file-text-o:before {\r\n  content: "\\f0f6";\r\n}\r\n.fa-building-o:before {\r\n  content: "\\f0f7";\r\n}\r\n.fa-hospital-o:before {\r\n  content: "\\f0f8";\r\n}\r\n.fa-ambulance:before {\r\n  content: "\\f0f9";\r\n}\r\n.fa-medkit:before {\r\n  content: "\\f0fa";\r\n}\r\n.fa-fighter-jet:before {\r\n  content: "\\f0fb";\r\n}\r\n.fa-beer:before {\r\n  content: "\\f0fc";\r\n}\r\n.fa-h-square:before {\r\n  content: "\\f0fd";\r\n}\r\n.fa-plus-square:before {\r\n  content: "\\f0fe";\r\n}\r\n.fa-angle-double-left:before {\r\n  content: "\\f100";\r\n}\r\n.fa-angle-double-right:before {\r\n  content: "\\f101";\r\n}\r\n.fa-angle-double-up:before {\r\n  content: "\\f102";\r\n}\r\n.fa-angle-double-down:before {\r\n  content: "\\f103";\r\n}\r\n.fa-angle-left:before {\r\n  content: "\\f104";\r\n}\r\n.fa-angle-right:before {\r\n  content: "\\f105";\r\n}\r\n.fa-angle-up:before {\r\n  content: "\\f106";\r\n}\r\n.fa-angle-down:before {\r\n  content: "\\f107";\r\n}\r\n.fa-desktop:before {\r\n  content: "\\f108";\r\n}\r\n.fa-laptop:before {\r\n  content: "\\f109";\r\n}\r\n.fa-tablet:before {\r\n  content: "\\f10a";\r\n}\r\n.fa-mobile-phone:before,\r\n.fa-mobile:before {\r\n  content: "\\f10b";\r\n}\r\n.fa-circle-o:before {\r\n  content: "\\f10c";\r\n}\r\n.fa-quote-left:before {\r\n  content: "\\f10d";\r\n}\r\n.fa-quote-right:before {\r\n  content: "\\f10e";\r\n}\r\n.fa-spinner:before {\r\n  content: "\\f110";\r\n}\r\n.fa-circle:before {\r\n  content: "\\f111";\r\n}\r\n.fa-mail-reply:before,\r\n.fa-reply:before {\r\n  content: "\\f112";\r\n}\r\n.fa-github-alt:before {\r\n  content: "\\f113";\r\n}\r\n.fa-folder-o:before {\r\n  content: "\\f114";\r\n}\r\n.fa-folder-open-o:before {\r\n  content: "\\f115";\r\n}\r\n.fa-smile-o:before {\r\n  content: "\\f118";\r\n}\r\n.fa-frown-o:before {\r\n  content: "\\f119";\r\n}\r\n.fa-meh-o:before {\r\n  content: "\\f11a";\r\n}\r\n.fa-gamepad:before {\r\n  content: "\\f11b";\r\n}\r\n.fa-keyboard-o:before {\r\n  content: "\\f11c";\r\n}\r\n.fa-flag-o:before {\r\n  content: "\\f11d";\r\n}\r\n.fa-flag-checkered:before {\r\n  content: "\\f11e";\r\n}\r\n.fa-terminal:before {\r\n  content: "\\f120";\r\n}\r\n.fa-code:before {\r\n  content: "\\f121";\r\n}\r\n.fa-mail-reply-all:before,\r\n.fa-reply-all:before {\r\n  content: "\\f122";\r\n}\r\n.fa-star-half-empty:before,\r\n.fa-star-half-full:before,\r\n.fa-star-half-o:before {\r\n  content: "\\f123";\r\n}\r\n.fa-location-arrow:before {\r\n  content: "\\f124";\r\n}\r\n.fa-crop:before {\r\n  content: "\\f125";\r\n}\r\n.fa-code-fork:before {\r\n  content: "\\f126";\r\n}\r\n.fa-unlink:before,\r\n.fa-chain-broken:before {\r\n  content: "\\f127";\r\n}\r\n.fa-question:before {\r\n  content: "\\f128";\r\n}\r\n.fa-info:before {\r\n  content: "\\f129";\r\n}\r\n.fa-exclamation:before {\r\n  content: "\\f12a";\r\n}\r\n.fa-superscript:before {\r\n  content: "\\f12b";\r\n}\r\n.fa-subscript:before {\r\n  content: "\\f12c";\r\n}\r\n.fa-eraser:before {\r\n  content: "\\f12d";\r\n}\r\n.fa-puzzle-piece:before {\r\n  content: "\\f12e";\r\n}\r\n.fa-microphone:before {\r\n  content: "\\f130";\r\n}\r\n.fa-microphone-slash:before {\r\n  content: "\\f131";\r\n}\r\n.fa-shield:before {\r\n  content: "\\f132";\r\n}\r\n.fa-calendar-o:before {\r\n  content: "\\f133";\r\n}\r\n.fa-fire-extinguisher:before {\r\n  content: "\\f134";\r\n}\r\n.fa-rocket:before {\r\n  content: "\\f135";\r\n}\r\n.fa-maxcdn:before {\r\n  content: "\\f136";\r\n}\r\n.fa-chevron-circle-left:before {\r\n  content: "\\f137";\r\n}\r\n.fa-chevron-circle-right:before {\r\n  content: "\\f138";\r\n}\r\n.fa-chevron-circle-up:before {\r\n  content: "\\f139";\r\n}\r\n.fa-chevron-circle-down:before {\r\n  content: "\\f13a";\r\n}\r\n.fa-html5:before {\r\n  content: "\\f13b";\r\n}\r\n.fa-css3:before {\r\n  content: "\\f13c";\r\n}\r\n.fa-anchor:before {\r\n  content: "\\f13d";\r\n}\r\n.fa-unlock-alt:before {\r\n  content: "\\f13e";\r\n}\r\n.fa-bullseye:before {\r\n  content: "\\f140";\r\n}\r\n.fa-ellipsis-h:before {\r\n  content: "\\f141";\r\n}\r\n.fa-ellipsis-v:before {\r\n  content: "\\f142";\r\n}\r\n.fa-rss-square:before {\r\n  content: "\\f143";\r\n}\r\n.fa-play-circle:before {\r\n  content: "\\f144";\r\n}\r\n.fa-ticket:before {\r\n  content: "\\f145";\r\n}\r\n.fa-minus-square:before {\r\n  content: "\\f146";\r\n}\r\n.fa-minus-square-o:before {\r\n  content: "\\f147";\r\n}\r\n.fa-level-up:before {\r\n  content: "\\f148";\r\n}\r\n.fa-level-down:before {\r\n  content: "\\f149";\r\n}\r\n.fa-check-square:before {\r\n  content: "\\f14a";\r\n}\r\n.fa-pencil-square:before {\r\n  content: "\\f14b";\r\n}\r\n.fa-external-link-square:before {\r\n  content: "\\f14c";\r\n}\r\n.fa-share-square:before {\r\n  content: "\\f14d";\r\n}\r\n.fa-compass:before {\r\n  content: "\\f14e";\r\n}\r\n.fa-toggle-down:before,\r\n.fa-caret-square-o-down:before {\r\n  content: "\\f150";\r\n}\r\n.fa-toggle-up:before,\r\n.fa-caret-square-o-up:before {\r\n  content: "\\f151";\r\n}\r\n.fa-toggle-right:before,\r\n.fa-caret-square-o-right:before {\r\n  content: "\\f152";\r\n}\r\n.fa-euro:before,\r\n.fa-eur:before {\r\n  content: "\\f153";\r\n}\r\n.fa-gbp:before {\r\n  content: "\\f154";\r\n}\r\n.fa-dollar:before,\r\n.fa-usd:before {\r\n  content: "\\f155";\r\n}\r\n.fa-rupee:before,\r\n.fa-inr:before {\r\n  content: "\\f156";\r\n}\r\n.fa-cny:before,\r\n.fa-rmb:before,\r\n.fa-yen:before,\r\n.fa-jpy:before {\r\n  content: "\\f157";\r\n}\r\n.fa-ruble:before,\r\n.fa-rouble:before,\r\n.fa-rub:before {\r\n  content: "\\f158";\r\n}\r\n.fa-won:before,\r\n.fa-krw:before {\r\n  content: "\\f159";\r\n}\r\n.fa-bitcoin:before,\r\n.fa-btc:before {\r\n  content: "\\f15a";\r\n}\r\n.fa-file:before {\r\n  content: "\\f15b";\r\n}\r\n.fa-file-text:before {\r\n  content: "\\f15c";\r\n}\r\n.fa-sort-alpha-asc:before {\r\n  content: "\\f15d";\r\n}\r\n.fa-sort-alpha-desc:before {\r\n  content: "\\f15e";\r\n}\r\n.fa-sort-amount-asc:before {\r\n  content: "\\f160";\r\n}\r\n.fa-sort-amount-desc:before {\r\n  content: "\\f161";\r\n}\r\n.fa-sort-numeric-asc:before {\r\n  content: "\\f162";\r\n}\r\n.fa-sort-numeric-desc:before {\r\n  content: "\\f163";\r\n}\r\n.fa-thumbs-up:before {\r\n  content: "\\f164";\r\n}\r\n.fa-thumbs-down:before {\r\n  content: "\\f165";\r\n}\r\n.fa-youtube-square:before {\r\n  content: "\\f166";\r\n}\r\n.fa-youtube:before {\r\n  content: "\\f167";\r\n}\r\n.fa-xing:before {\r\n  content: "\\f168";\r\n}\r\n.fa-xing-square:before {\r\n  content: "\\f169";\r\n}\r\n.fa-youtube-play:before {\r\n  content: "\\f16a";\r\n}\r\n.fa-dropbox:before {\r\n  content: "\\f16b";\r\n}\r\n.fa-stack-overflow:before {\r\n  content: "\\f16c";\r\n}\r\n.fa-instagram:before {\r\n  content: "\\f16d";\r\n}\r\n.fa-flickr:before {\r\n  content: "\\f16e";\r\n}\r\n.fa-adn:before {\r\n  content: "\\f170";\r\n}\r\n.fa-bitbucket:before {\r\n  content: "\\f171";\r\n}\r\n.fa-bitbucket-square:before {\r\n  content: "\\f172";\r\n}\r\n.fa-tumblr:before {\r\n  content: "\\f173";\r\n}\r\n.fa-tumblr-square:before {\r\n  content: "\\f174";\r\n}\r\n.fa-long-arrow-down:before {\r\n  content: "\\f175";\r\n}\r\n.fa-long-arrow-up:before {\r\n  content: "\\f176";\r\n}\r\n.fa-long-arrow-left:before {\r\n  content: "\\f177";\r\n}\r\n.fa-long-arrow-right:before {\r\n  content: "\\f178";\r\n}\r\n.fa-apple:before {\r\n  content: "\\f179";\r\n}\r\n.fa-windows:before {\r\n  content: "\\f17a";\r\n}\r\n.fa-android:before {\r\n  content: "\\f17b";\r\n}\r\n.fa-linux:before {\r\n  content: "\\f17c";\r\n}\r\n.fa-dribbble:before {\r\n  content: "\\f17d";\r\n}\r\n.fa-skype:before {\r\n  content: "\\f17e";\r\n}\r\n.fa-foursquare:before {\r\n  content: "\\f180";\r\n}\r\n.fa-trello:before {\r\n  content: "\\f181";\r\n}\r\n.fa-female:before {\r\n  content: "\\f182";\r\n}\r\n.fa-male:before {\r\n  content: "\\f183";\r\n}\r\n.fa-gittip:before {\r\n  content: "\\f184";\r\n}\r\n.fa-sun-o:before {\r\n  content: "\\f185";\r\n}\r\n.fa-moon-o:before {\r\n  content: "\\f186";\r\n}\r\n.fa-archive:before {\r\n  content: "\\f187";\r\n}\r\n.fa-bug:before {\r\n  content: "\\f188";\r\n}\r\n.fa-vk:before {\r\n  content: "\\f189";\r\n}\r\n.fa-weibo:before {\r\n  content: "\\f18a";\r\n}\r\n.fa-renren:before {\r\n  content: "\\f18b";\r\n}\r\n.fa-pagelines:before {\r\n  content: "\\f18c";\r\n}\r\n.fa-stack-exchange:before {\r\n  content: "\\f18d";\r\n}\r\n.fa-arrow-circle-o-right:before {\r\n  content: "\\f18e";\r\n}\r\n.fa-arrow-circle-o-left:before {\r\n  content: "\\f190";\r\n}\r\n.fa-toggle-left:before,\r\n.fa-caret-square-o-left:before {\r\n  content: "\\f191";\r\n}\r\n.fa-dot-circle-o:before {\r\n  content: "\\f192";\r\n}\r\n.fa-wheelchair:before {\r\n  content: "\\f193";\r\n}\r\n.fa-vimeo-square:before {\r\n  content: "\\f194";\r\n}\r\n.fa-turkish-lira:before,\r\n.fa-try:before {\r\n  content: "\\f195";\r\n}\r\n.fa-plus-square-o:before {\r\n  content: "\\f196";\r\n}\r\n.fa-space-shuttle:before {\r\n  content: "\\f197";\r\n}\r\n.fa-slack:before {\r\n  content: "\\f198";\r\n}\r\n.fa-envelope-square:before {\r\n  content: "\\f199";\r\n}\r\n.fa-wordpress:before {\r\n  content: "\\f19a";\r\n}\r\n.fa-openid:before {\r\n  content: "\\f19b";\r\n}\r\n.fa-institution:before,\r\n.fa-bank:before,\r\n.fa-university:before {\r\n  content: "\\f19c";\r\n}\r\n.fa-mortar-board:before,\r\n.fa-graduation-cap:before {\r\n  content: "\\f19d";\r\n}\r\n.fa-yahoo:before {\r\n  content: "\\f19e";\r\n}\r\n.fa-google:before {\r\n  content: "\\f1a0";\r\n}\r\n.fa-reddit:before {\r\n  content: "\\f1a1";\r\n}\r\n.fa-reddit-square:before {\r\n  content: "\\f1a2";\r\n}\r\n.fa-stumbleupon-circle:before {\r\n  content: "\\f1a3";\r\n}\r\n.fa-stumbleupon:before {\r\n  content: "\\f1a4";\r\n}\r\n.fa-delicious:before {\r\n  content: "\\f1a5";\r\n}\r\n.fa-digg:before {\r\n  content: "\\f1a6";\r\n}\r\n.fa-pied-piper:before {\r\n  content: "\\f1a7";\r\n}\r\n.fa-pied-piper-alt:before {\r\n  content: "\\f1a8";\r\n}\r\n.fa-drupal:before {\r\n  content: "\\f1a9";\r\n}\r\n.fa-joomla:before {\r\n  content: "\\f1aa";\r\n}\r\n.fa-language:before {\r\n  content: "\\f1ab";\r\n}\r\n.fa-fax:before {\r\n  content: "\\f1ac";\r\n}\r\n.fa-building:before {\r\n  content: "\\f1ad";\r\n}\r\n.fa-child:before {\r\n  content: "\\f1ae";\r\n}\r\n.fa-paw:before {\r\n  content: "\\f1b0";\r\n}\r\n.fa-spoon:before {\r\n  content: "\\f1b1";\r\n}\r\n.fa-cube:before {\r\n  content: "\\f1b2";\r\n}\r\n.fa-cubes:before {\r\n  content: "\\f1b3";\r\n}\r\n.fa-behance:before {\r\n  content: "\\f1b4";\r\n}\r\n.fa-behance-square:before {\r\n  content: "\\f1b5";\r\n}\r\n.fa-steam:before {\r\n  content: "\\f1b6";\r\n}\r\n.fa-steam-square:before {\r\n  content: "\\f1b7";\r\n}\r\n.fa-recycle:before {\r\n  content: "\\f1b8";\r\n}\r\n.fa-automobile:before,\r\n.fa-car:before {\r\n  content: "\\f1b9";\r\n}\r\n.fa-cab:before,\r\n.fa-taxi:before {\r\n  content: "\\f1ba";\r\n}\r\n.fa-tree:before {\r\n  content: "\\f1bb";\r\n}\r\n.fa-spotify:before {\r\n  content: "\\f1bc";\r\n}\r\n.fa-deviantart:before {\r\n  content: "\\f1bd";\r\n}\r\n.fa-soundcloud:before {\r\n  content: "\\f1be";\r\n}\r\n.fa-database:before {\r\n  content: "\\f1c0";\r\n}\r\n.fa-file-pdf-o:before {\r\n  content: "\\f1c1";\r\n}\r\n.fa-file-word-o:before {\r\n  content: "\\f1c2";\r\n}\r\n.fa-file-excel-o:before {\r\n  content: "\\f1c3";\r\n}\r\n.fa-file-powerpoint-o:before {\r\n  content: "\\f1c4";\r\n}\r\n.fa-file-photo-o:before,\r\n.fa-file-picture-o:before,\r\n.fa-file-image-o:before {\r\n  content: "\\f1c5";\r\n}\r\n.fa-file-zip-o:before,\r\n.fa-file-archive-o:before {\r\n  content: "\\f1c6";\r\n}\r\n.fa-file-sound-o:before,\r\n.fa-file-audio-o:before {\r\n  content: "\\f1c7";\r\n}\r\n.fa-file-movie-o:before,\r\n.fa-file-video-o:before {\r\n  content: "\\f1c8";\r\n}\r\n.fa-file-code-o:before {\r\n  content: "\\f1c9";\r\n}\r\n.fa-vine:before {\r\n  content: "\\f1ca";\r\n}\r\n.fa-codepen:before {\r\n  content: "\\f1cb";\r\n}\r\n.fa-jsfiddle:before {\r\n  content: "\\f1cc";\r\n}\r\n.fa-life-bouy:before,\r\n.fa-life-buoy:before,\r\n.fa-life-saver:before,\r\n.fa-support:before,\r\n.fa-life-ring:before {\r\n  content: "\\f1cd";\r\n}\r\n.fa-circle-o-notch:before {\r\n  content: "\\f1ce";\r\n}\r\n.fa-ra:before,\r\n.fa-rebel:before {\r\n  content: "\\f1d0";\r\n}\r\n.fa-ge:before,\r\n.fa-empire:before {\r\n  content: "\\f1d1";\r\n}\r\n.fa-git-square:before {\r\n  content: "\\f1d2";\r\n}\r\n.fa-git:before {\r\n  content: "\\f1d3";\r\n}\r\n.fa-hacker-news:before {\r\n  content: "\\f1d4";\r\n}\r\n.fa-tencent-weibo:before {\r\n  content: "\\f1d5";\r\n}\r\n.fa-qq:before {\r\n  content: "\\f1d6";\r\n}\r\n.fa-wechat:before,\r\n.fa-weixin:before {\r\n  content: "\\f1d7";\r\n}\r\n.fa-send:before,\r\n.fa-paper-plane:before {\r\n  content: "\\f1d8";\r\n}\r\n.fa-send-o:before,\r\n.fa-paper-plane-o:before {\r\n  content: "\\f1d9";\r\n}\r\n.fa-history:before {\r\n  content: "\\f1da";\r\n}\r\n.fa-circle-thin:before {\r\n  content: "\\f1db";\r\n}\r\n.fa-header:before {\r\n  content: "\\f1dc";\r\n}\r\n.fa-paragraph:before {\r\n  content: "\\f1dd";\r\n}\r\n.fa-sliders:before {\r\n  content: "\\f1de";\r\n}\r\n.fa-share-alt:before {\r\n  content: "\\f1e0";\r\n}\r\n.fa-share-alt-square:before {\r\n  content: "\\f1e1";\r\n}\r\n.fa-bomb:before {\r\n  content: "\\f1e2";\r\n}\r\n.fa-soccer-ball-o:before,\r\n.fa-futbol-o:before {\r\n  content: "\\f1e3";\r\n}\r\n.fa-tty:before {\r\n  content: "\\f1e4";\r\n}\r\n.fa-binoculars:before {\r\n  content: "\\f1e5";\r\n}\r\n.fa-plug:before {\r\n  content: "\\f1e6";\r\n}\r\n.fa-slideshare:before {\r\n  content: "\\f1e7";\r\n}\r\n.fa-twitch:before {\r\n  content: "\\f1e8";\r\n}\r\n.fa-yelp:before {\r\n  content: "\\f1e9";\r\n}\r\n.fa-newspaper-o:before {\r\n  content: "\\f1ea";\r\n}\r\n.fa-wifi:before {\r\n  content: "\\f1eb";\r\n}\r\n.fa-calculator:before {\r\n  content: "\\f1ec";\r\n}\r\n.fa-paypal:before {\r\n  content: "\\f1ed";\r\n}\r\n.fa-google-wallet:before {\r\n  content: "\\f1ee";\r\n}\r\n.fa-cc-visa:before {\r\n  content: "\\f1f0";\r\n}\r\n.fa-cc-mastercard:before {\r\n  content: "\\f1f1";\r\n}\r\n.fa-cc-discover:before {\r\n  content: "\\f1f2";\r\n}\r\n.fa-cc-amex:before {\r\n  content: "\\f1f3";\r\n}\r\n.fa-cc-paypal:before {\r\n  content: "\\f1f4";\r\n}\r\n.fa-cc-stripe:before {\r\n  content: "\\f1f5";\r\n}\r\n.fa-bell-slash:before {\r\n  content: "\\f1f6";\r\n}\r\n.fa-bell-slash-o:before {\r\n  content: "\\f1f7";\r\n}\r\n.fa-trash:before {\r\n  content: "\\f1f8";\r\n}\r\n.fa-copyright:before {\r\n  content: "\\f1f9";\r\n}\r\n.fa-at:before {\r\n  content: "\\f1fa";\r\n}\r\n.fa-eyedropper:before {\r\n  content: "\\f1fb";\r\n}\r\n.fa-paint-brush:before {\r\n  content: "\\f1fc";\r\n}\r\n.fa-birthday-cake:before {\r\n  content: "\\f1fd";\r\n}\r\n.fa-area-chart:before {\r\n  content: "\\f1fe";\r\n}\r\n.fa-pie-chart:before {\r\n  content: "\\f200";\r\n}\r\n.fa-line-chart:before {\r\n  content: "\\f201";\r\n}\r\n.fa-lastfm:before {\r\n  content: "\\f202";\r\n}\r\n.fa-lastfm-square:before {\r\n  content: "\\f203";\r\n}\r\n.fa-toggle-off:before {\r\n  content: "\\f204";\r\n}\r\n.fa-toggle-on:before {\r\n  content: "\\f205";\r\n}\r\n.fa-bicycle:before {\r\n  content: "\\f206";\r\n}\r\n.fa-bus:before {\r\n  content: "\\f207";\r\n}\r\n.fa-ioxhost:before {\r\n  content: "\\f208";\r\n}\r\n.fa-angellist:before {\r\n  content: "\\f209";\r\n}\r\n.fa-cc:before {\r\n  content: "\\f20a";\r\n}\r\n.fa-shekel:before,\r\n.fa-sheqel:before,\r\n.fa-ils:before {\r\n  content: "\\f20b";\r\n}\r\n.fa-meanpath:before {\r\n  content: "\\f20c";\r\n}\r\n', 'font-awesome.css', '', NULL);
 INSERT INTO `css` (`id`, `name`, `code`, `filename`, `directory`, `parent_id`) VALUES
 (7, 'font-awesome.4.2.0.min.css', '/*!\r\n *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome\r\n *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)\r\n */@font-face{font-family:''FontAwesome'';src:url(''../fonts/fontawesome-webfont.eot?v=4.2.0'');src:url(''../fonts/fontawesome-webfont.eot?#iefix&v=4.2.0'') format(''embedded-opentype''),url(''../fonts/fontawesome-webfont.woff?v=4.2.0'') format(''woff''),url(''../fonts/fontawesome-webfont.ttf?v=4.2.0'') format(''truetype''),url(''../fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular'') format(''svg'');font-weight:normal;font-style:normal}.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.fa-lg{font-size:1.33333333em;line-height:.75em;vertical-align:-15%}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-fw{width:1.28571429em;text-align:center}.fa-ul{padding-left:0;margin-left:2.14285714em;list-style-type:none}.fa-ul>li{position:relative}.fa-li{position:absolute;left:-2.14285714em;width:2.14285714em;top:.14285714em;text-align:center}.fa-li.fa-lg{left:-1.85714286em}.fa-border{padding:.2em .25em .15em;border:solid .08em #eee;border-radius:.1em}.pull-right{float:right}.pull-left{float:left}.fa.pull-left{margin-right:.3em}.fa.pull-right{margin-left:.3em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}.fa-rotate-90{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1);-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);-webkit-transform:rotate(270deg);-ms-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);-webkit-transform:scale(-1, 1);-ms-transform:scale(-1, 1);transform:scale(-1, 1)}.fa-flip-vertical{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);-webkit-transform:scale(1, -1);-ms-transform:scale(1, -1);transform:scale(1, -1)}:root .fa-rotate-90,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-flip-horizontal,:root .fa-flip-vertical{filter:none}.fa-stack{position:relative;display:inline-block;width:2em;height:2em;line-height:2em;vertical-align:middle}.fa-stack-1x,.fa-stack-2x{position:absolute;left:0;width:100%;text-align:center}.fa-stack-1x{line-height:inherit}.fa-stack-2x{font-size:2em}.fa-inverse{color:#fff}.fa-glass:before{content:"\\f000"}.fa-music:before{content:"\\f001"}.fa-search:before{content:"\\f002"}.fa-envelope-o:before{content:"\\f003"}.fa-heart:before{content:"\\f004"}.fa-star:before{content:"\\f005"}.fa-star-o:before{content:"\\f006"}.fa-user:before{content:"\\f007"}.fa-film:before{content:"\\f008"}.fa-th-large:before{content:"\\f009"}.fa-th:before{content:"\\f00a"}.fa-th-list:before{content:"\\f00b"}.fa-check:before{content:"\\f00c"}.fa-remove:before,.fa-close:before,.fa-times:before{content:"\\f00d"}.fa-search-plus:before{content:"\\f00e"}.fa-search-minus:before{content:"\\f010"}.fa-power-off:before{content:"\\f011"}.fa-signal:before{content:"\\f012"}.fa-gear:before,.fa-cog:before{content:"\\f013"}.fa-trash-o:before{content:"\\f014"}.fa-home:before{content:"\\f015"}.fa-file-o:before{content:"\\f016"}.fa-clock-o:before{content:"\\f017"}.fa-road:before{content:"\\f018"}.fa-download:before{content:"\\f019"}.fa-arrow-circle-o-down:before{content:"\\f01a"}.fa-arrow-circle-o-up:before{content:"\\f01b"}.fa-inbox:before{content:"\\f01c"}.fa-play-circle-o:before{content:"\\f01d"}.fa-rotate-right:before,.fa-repeat:before{content:"\\f01e"}.fa-refresh:before{content:"\\f021"}.fa-list-alt:before{content:"\\f022"}.fa-lock:before{content:"\\f023"}.fa-flag:before{content:"\\f024"}.fa-headphones:before{content:"\\f025"}.fa-volume-off:before{content:"\\f026"}.fa-volume-down:before{content:"\\f027"}.fa-volume-up:before{content:"\\f028"}.fa-qrcode:before{content:"\\f029"}.fa-barcode:before{content:"\\f02a"}.fa-tag:before{content:"\\f02b"}.fa-tags:before{content:"\\f02c"}.fa-book:before{content:"\\f02d"}.fa-bookmark:before{content:"\\f02e"}.fa-print:before{content:"\\f02f"}.fa-camera:before{content:"\\f030"}.fa-font:before{content:"\\f031"}.fa-bold:before{content:"\\f032"}.fa-italic:before{content:"\\f033"}.fa-text-height:before{content:"\\f034"}.fa-text-width:before{content:"\\f035"}.fa-align-left:before{content:"\\f036"}.fa-align-center:before{content:"\\f037"}.fa-align-right:before{content:"\\f038"}.fa-align-justify:before{content:"\\f039"}.fa-list:before{content:"\\f03a"}.fa-dedent:before,.fa-outdent:before{content:"\\f03b"}.fa-indent:before{content:"\\f03c"}.fa-video-camera:before{content:"\\f03d"}.fa-photo:before,.fa-image:before,.fa-picture-o:before{content:"\\f03e"}.fa-pencil:before{content:"\\f040"}.fa-map-marker:before{content:"\\f041"}.fa-adjust:before{content:"\\f042"}.fa-tint:before{content:"\\f043"}.fa-edit:before,.fa-pencil-square-o:before{content:"\\f044"}.fa-share-square-o:before{content:"\\f045"}.fa-check-square-o:before{content:"\\f046"}.fa-arrows:before{content:"\\f047"}.fa-step-backward:before{content:"\\f048"}.fa-fast-backward:before{content:"\\f049"}.fa-backward:before{content:"\\f04a"}.fa-play:before{content:"\\f04b"}.fa-pause:before{content:"\\f04c"}.fa-stop:before{content:"\\f04d"}.fa-forward:before{content:"\\f04e"}.fa-fast-forward:before{content:"\\f050"}.fa-step-forward:before{content:"\\f051"}.fa-eject:before{content:"\\f052"}.fa-chevron-left:before{content:"\\f053"}.fa-chevron-right:before{content:"\\f054"}.fa-plus-circle:before{content:"\\f055"}.fa-minus-circle:before{content:"\\f056"}.fa-times-circle:before{content:"\\f057"}.fa-check-circle:before{content:"\\f058"}.fa-question-circle:before{content:"\\f059"}.fa-info-circle:before{content:"\\f05a"}.fa-crosshairs:before{content:"\\f05b"}.fa-times-circle-o:before{content:"\\f05c"}.fa-check-circle-o:before{content:"\\f05d"}.fa-ban:before{content:"\\f05e"}.fa-arrow-left:before{content:"\\f060"}.fa-arrow-right:before{content:"\\f061"}.fa-arrow-up:before{content:"\\f062"}.fa-arrow-down:before{content:"\\f063"}.fa-mail-forward:before,.fa-share:before{content:"\\f064"}.fa-expand:before{content:"\\f065"}.fa-compress:before{content:"\\f066"}.fa-plus:before{content:"\\f067"}.fa-minus:before{content:"\\f068"}.fa-asterisk:before{content:"\\f069"}.fa-exclamation-circle:before{content:"\\f06a"}.fa-gift:before{content:"\\f06b"}.fa-leaf:before{content:"\\f06c"}.fa-fire:before{content:"\\f06d"}.fa-eye:before{content:"\\f06e"}.fa-eye-slash:before{content:"\\f070"}.fa-warning:before,.fa-exclamation-triangle:before{content:"\\f071"}.fa-plane:before{content:"\\f072"}.fa-calendar:before{content:"\\f073"}.fa-random:before{content:"\\f074"}.fa-comment:before{content:"\\f075"}.fa-magnet:before{content:"\\f076"}.fa-chevron-up:before{content:"\\f077"}.fa-chevron-down:before{content:"\\f078"}.fa-retweet:before{content:"\\f079"}.fa-shopping-cart:before{content:"\\f07a"}.fa-folder:before{content:"\\f07b"}.fa-folder-open:before{content:"\\f07c"}.fa-arrows-v:before{content:"\\f07d"}.fa-arrows-h:before{content:"\\f07e"}.fa-bar-chart-o:before,.fa-bar-chart:before{content:"\\f080"}.fa-twitter-square:before{content:"\\f081"}.fa-facebook-square:before{content:"\\f082"}.fa-camera-retro:before{content:"\\f083"}.fa-key:before{content:"\\f084"}.fa-gears:before,.fa-cogs:before{content:"\\f085"}.fa-comments:before{content:"\\f086"}.fa-thumbs-o-up:before{content:"\\f087"}.fa-thumbs-o-down:before{content:"\\f088"}.fa-star-half:before{content:"\\f089"}.fa-heart-o:before{content:"\\f08a"}.fa-sign-out:before{content:"\\f08b"}.fa-linkedin-square:before{content:"\\f08c"}.fa-thumb-tack:before{content:"\\f08d"}.fa-external-link:before{content:"\\f08e"}.fa-sign-in:before{content:"\\f090"}.fa-trophy:before{content:"\\f091"}.fa-github-square:before{content:"\\f092"}.fa-upload:before{content:"\\f093"}.fa-lemon-o:before{content:"\\f094"}.fa-phone:before{content:"\\f095"}.fa-square-o:before{content:"\\f096"}.fa-bookmark-o:before{content:"\\f097"}.fa-phone-square:before{content:"\\f098"}.fa-twitter:before{content:"\\f099"}.fa-facebook:before{content:"\\f09a"}.fa-github:before{content:"\\f09b"}.fa-unlock:before{content:"\\f09c"}.fa-credit-card:before{content:"\\f09d"}.fa-rss:before{content:"\\f09e"}.fa-hdd-o:before{content:"\\f0a0"}.fa-bullhorn:before{content:"\\f0a1"}.fa-bell:before{content:"\\f0f3"}.fa-certificate:before{content:"\\f0a3"}.fa-hand-o-right:before{content:"\\f0a4"}.fa-hand-o-left:before{content:"\\f0a5"}.fa-hand-o-up:before{content:"\\f0a6"}.fa-hand-o-down:before{content:"\\f0a7"}.fa-arrow-circle-left:before{content:"\\f0a8"}.fa-arrow-circle-right:before{content:"\\f0a9"}.fa-arrow-circle-up:before{content:"\\f0aa"}.fa-arrow-circle-down:before{content:"\\f0ab"}.fa-globe:before{content:"\\f0ac"}.fa-wrench:before{content:"\\f0ad"}.fa-tasks:before{content:"\\f0ae"}.fa-filter:before{content:"\\f0b0"}.fa-briefcase:before{content:"\\f0b1"}.fa-arrows-alt:before{content:"\\f0b2"}.fa-group:before,.fa-users:before{content:"\\f0c0"}.fa-chain:before,.fa-link:before{content:"\\f0c1"}.fa-cloud:before{content:"\\f0c2"}.fa-flask:before{content:"\\f0c3"}.fa-cut:before,.fa-scissors:before{content:"\\f0c4"}.fa-copy:before,.fa-files-o:before{content:"\\f0c5"}.fa-paperclip:before{content:"\\f0c6"}.fa-save:before,.fa-floppy-o:before{content:"\\f0c7"}.fa-square:before{content:"\\f0c8"}.fa-navicon:before,.fa-reorder:before,.fa-bars:before{content:"\\f0c9"}.fa-list-ul:before{content:"\\f0ca"}.fa-list-ol:before{content:"\\f0cb"}.fa-strikethrough:before{content:"\\f0cc"}.fa-underline:before{content:"\\f0cd"}.fa-table:before{content:"\\f0ce"}.fa-magic:before{content:"\\f0d0"}.fa-truck:before{content:"\\f0d1"}.fa-pinterest:before{content:"\\f0d2"}.fa-pinterest-square:before{content:"\\f0d3"}.fa-google-plus-square:before{content:"\\f0d4"}.fa-google-plus:before{content:"\\f0d5"}.fa-money:before{content:"\\f0d6"}.fa-caret-down:before{content:"\\f0d7"}.fa-caret-up:before{content:"\\f0d8"}.fa-caret-left:before{content:"\\f0d9"}.fa-caret-right:before{content:"\\f0da"}.fa-columns:before{content:"\\f0db"}.fa-unsorted:before,.fa-sort:before{content:"\\f0dc"}.fa-sort-down:before,.fa-sort-desc:before{content:"\\f0dd"}.fa-sort-up:before,.fa-sort-asc:before{content:"\\f0de"}.fa-envelope:before{content:"\\f0e0"}.fa-linkedin:before{content:"\\f0e1"}.fa-rotate-left:before,.fa-undo:before{content:"\\f0e2"}.fa-legal:before,.fa-gavel:before{content:"\\f0e3"}.fa-dashboard:before,.fa-tachometer:before{content:"\\f0e4"}.fa-comment-o:before{content:"\\f0e5"}.fa-comments-o:before{content:"\\f0e6"}.fa-flash:before,.fa-bolt:before{content:"\\f0e7"}.fa-sitemap:before{content:"\\f0e8"}.fa-umbrella:before{content:"\\f0e9"}.fa-paste:before,.fa-clipboard:before{content:"\\f0ea"}.fa-lightbulb-o:before{content:"\\f0eb"}.fa-exchange:before{content:"\\f0ec"}.fa-cloud-download:before{content:"\\f0ed"}.fa-cloud-upload:before{content:"\\f0ee"}.fa-user-md:before{content:"\\f0f0"}.fa-stethoscope:before{content:"\\f0f1"}.fa-suitcase:before{content:"\\f0f2"}.fa-bell-o:before{content:"\\f0a2"}.fa-coffee:before{content:"\\f0f4"}.fa-cutlery:before{content:"\\f0f5"}.fa-file-text-o:before{content:"\\f0f6"}.fa-building-o:before{content:"\\f0f7"}.fa-hospital-o:before{content:"\\f0f8"}.fa-ambulance:before{content:"\\f0f9"}.fa-medkit:before{content:"\\f0fa"}.fa-fighter-jet:before{content:"\\f0fb"}.fa-beer:before{content:"\\f0fc"}.fa-h-square:before{content:"\\f0fd"}.fa-plus-square:before{content:"\\f0fe"}.fa-angle-double-left:before{content:"\\f100"}.fa-angle-double-right:before{content:"\\f101"}.fa-angle-double-up:before{content:"\\f102"}.fa-angle-double-down:before{content:"\\f103"}.fa-angle-left:before{content:"\\f104"}.fa-angle-right:before{content:"\\f105"}.fa-angle-up:before{content:"\\f106"}.fa-angle-down:before{content:"\\f107"}.fa-desktop:before{content:"\\f108"}.fa-laptop:before{content:"\\f109"}.fa-tablet:before{content:"\\f10a"}.fa-mobile-phone:before,.fa-mobile:before{content:"\\f10b"}.fa-circle-o:before{content:"\\f10c"}.fa-quote-left:before{content:"\\f10d"}.fa-quote-right:before{content:"\\f10e"}.fa-spinner:before{content:"\\f110"}.fa-circle:before{content:"\\f111"}.fa-mail-reply:before,.fa-reply:before{content:"\\f112"}.fa-github-alt:before{content:"\\f113"}.fa-folder-o:before{content:"\\f114"}.fa-folder-open-o:before{content:"\\f115"}.fa-smile-o:before{content:"\\f118"}.fa-frown-o:before{content:"\\f119"}.fa-meh-o:before{content:"\\f11a"}.fa-gamepad:before{content:"\\f11b"}.fa-keyboard-o:before{content:"\\f11c"}.fa-flag-o:before{content:"\\f11d"}.fa-flag-checkered:before{content:"\\f11e"}.fa-terminal:before{content:"\\f120"}.fa-code:before{content:"\\f121"}.fa-mail-reply-all:before,.fa-reply-all:before{content:"\\f122"}.fa-star-half-empty:before,.fa-star-half-full:before,.fa-star-half-o:before{content:"\\f123"}.fa-location-arrow:before{content:"\\f124"}.fa-crop:before{content:"\\f125"}.fa-code-fork:before{content:"\\f126"}.fa-unlink:before,.fa-chain-broken:before{content:"\\f127"}.fa-question:before{content:"\\f128"}.fa-info:before{content:"\\f129"}.fa-exclamation:before{content:"\\f12a"}.fa-superscript:before{content:"\\f12b"}.fa-subscript:before{content:"\\f12c"}.fa-eraser:before{content:"\\f12d"}.fa-puzzle-piece:before{content:"\\f12e"}.fa-microphone:before{content:"\\f130"}.fa-microphone-slash:before{content:"\\f131"}.fa-shield:before{content:"\\f132"}.fa-calendar-o:before{content:"\\f133"}.fa-fire-extinguisher:before{content:"\\f134"}.fa-rocket:before{content:"\\f135"}.fa-maxcdn:before{content:"\\f136"}.fa-chevron-circle-left:before{content:"\\f137"}.fa-chevron-circle-right:before{content:"\\f138"}.fa-chevron-circle-up:before{content:"\\f139"}.fa-chevron-circle-down:before{content:"\\f13a"}.fa-html5:before{content:"\\f13b"}.fa-css3:before{content:"\\f13c"}.fa-anchor:before{content:"\\f13d"}.fa-unlock-alt:before{content:"\\f13e"}.fa-bullseye:before{content:"\\f140"}.fa-ellipsis-h:before{content:"\\f141"}.fa-ellipsis-v:before{content:"\\f142"}.fa-rss-square:before{content:"\\f143"}.fa-play-circle:before{content:"\\f144"}.fa-ticket:before{content:"\\f145"}.fa-minus-square:before{content:"\\f146"}.fa-minus-square-o:before{content:"\\f147"}.fa-level-up:before{content:"\\f148"}.fa-level-down:before{content:"\\f149"}.fa-check-square:before{content:"\\f14a"}.fa-pencil-square:before{content:"\\f14b"}.fa-external-link-square:before{content:"\\f14c"}.fa-share-square:before{content:"\\f14d"}.fa-compass:before{content:"\\f14e"}.fa-toggle-down:before,.fa-caret-square-o-down:before{content:"\\f150"}.fa-toggle-up:before,.fa-caret-square-o-up:before{content:"\\f151"}.fa-toggle-right:before,.fa-caret-square-o-right:before{content:"\\f152"}.fa-euro:before,.fa-eur:before{content:"\\f153"}.fa-gbp:before{content:"\\f154"}.fa-dollar:before,.fa-usd:before{content:"\\f155"}.fa-rupee:before,.fa-inr:before{content:"\\f156"}.fa-cny:before,.fa-rmb:before,.fa-yen:before,.fa-jpy:before{content:"\\f157"}.fa-ruble:before,.fa-rouble:before,.fa-rub:before{content:"\\f158"}.fa-won:before,.fa-krw:before{content:"\\f159"}.fa-bitcoin:before,.fa-btc:before{content:"\\f15a"}.fa-file:before{content:"\\f15b"}.fa-file-text:before{content:"\\f15c"}.fa-sort-alpha-asc:before{content:"\\f15d"}.fa-sort-alpha-desc:before{content:"\\f15e"}.fa-sort-amount-asc:before{content:"\\f160"}.fa-sort-amount-desc:before{content:"\\f161"}.fa-sort-numeric-asc:before{content:"\\f162"}.fa-sort-numeric-desc:before{content:"\\f163"}.fa-thumbs-up:before{content:"\\f164"}.fa-thumbs-down:before{content:"\\f165"}.fa-youtube-square:before{content:"\\f166"}.fa-youtube:before{content:"\\f167"}.fa-xing:before{content:"\\f168"}.fa-xing-square:before{content:"\\f169"}.fa-youtube-play:before{content:"\\f16a"}.fa-dropbox:before{content:"\\f16b"}.fa-stack-overflow:before{content:"\\f16c"}.fa-instagram:before{content:"\\f16d"}.fa-flickr:before{content:"\\f16e"}.fa-adn:before{content:"\\f170"}.fa-bitbucket:before{content:"\\f171"}.fa-bitbucket-square:before{content:"\\f172"}.fa-tumblr:before{content:"\\f173"}.fa-tumblr-square:before{content:"\\f174"}.fa-long-arrow-down:before{content:"\\f175"}.fa-long-arrow-up:before{content:"\\f176"}.fa-long-arrow-left:before{content:"\\f177"}.fa-long-arrow-right:before{content:"\\f178"}.fa-apple:before{content:"\\f179"}.fa-windows:before{content:"\\f17a"}.fa-android:before{content:"\\f17b"}.fa-linux:before{content:"\\f17c"}.fa-dribbble:before{content:"\\f17d"}.fa-skype:before{content:"\\f17e"}.fa-foursquare:before{content:"\\f180"}.fa-trello:before{content:"\\f181"}.fa-female:before{content:"\\f182"}.fa-male:before{content:"\\f183"}.fa-gittip:before{content:"\\f184"}.fa-sun-o:before{content:"\\f185"}.fa-moon-o:before{content:"\\f186"}.fa-archive:before{content:"\\f187"}.fa-bug:before{content:"\\f188"}.fa-vk:before{content:"\\f189"}.fa-weibo:before{content:"\\f18a"}.fa-renren:before{content:"\\f18b"}.fa-pagelines:before{content:"\\f18c"}.fa-stack-exchange:before{content:"\\f18d"}.fa-arrow-circle-o-right:before{content:"\\f18e"}.fa-arrow-circle-o-left:before{content:"\\f190"}.fa-toggle-left:before,.fa-caret-square-o-left:before{content:"\\f191"}.fa-dot-circle-o:before{content:"\\f192"}.fa-wheelchair:before{content:"\\f193"}.fa-vimeo-square:before{content:"\\f194"}.fa-turkish-lira:before,.fa-try:before{content:"\\f195"}.fa-plus-square-o:before{content:"\\f196"}.fa-space-shuttle:before{content:"\\f197"}.fa-slack:before{content:"\\f198"}.fa-envelope-square:before{content:"\\f199"}.fa-wordpress:before{content:"\\f19a"}.fa-openid:before{content:"\\f19b"}.fa-institution:before,.fa-bank:before,.fa-university:before{content:"\\f19c"}.fa-mortar-board:before,.fa-graduation-cap:before{content:"\\f19d"}.fa-yahoo:before{content:"\\f19e"}.fa-google:before{content:"\\f1a0"}.fa-reddit:before{content:"\\f1a1"}.fa-reddit-square:before{content:"\\f1a2"}.fa-stumbleupon-circle:before{content:"\\f1a3"}.fa-stumbleupon:before{content:"\\f1a4"}.fa-delicious:before{content:"\\f1a5"}.fa-digg:before{content:"\\f1a6"}.fa-pied-piper:before{content:"\\f1a7"}.fa-pied-piper-alt:before{content:"\\f1a8"}.fa-drupal:before{content:"\\f1a9"}.fa-joomla:before{content:"\\f1aa"}.fa-language:before{content:"\\f1ab"}.fa-fax:before{content:"\\f1ac"}.fa-building:before{content:"\\f1ad"}.fa-child:before{content:"\\f1ae"}.fa-paw:before{content:"\\f1b0"}.fa-spoon:before{content:"\\f1b1"}.fa-cube:before{content:"\\f1b2"}.fa-cubes:before{content:"\\f1b3"}.fa-behance:before{content:"\\f1b4"}.fa-behance-square:before{content:"\\f1b5"}.fa-steam:before{content:"\\f1b6"}.fa-steam-square:before{content:"\\f1b7"}.fa-recycle:before{content:"\\f1b8"}.fa-automobile:before,.fa-car:before{content:"\\f1b9"}.fa-cab:before,.fa-taxi:before{content:"\\f1ba"}.fa-tree:before{content:"\\f1bb"}.fa-spotify:before{content:"\\f1bc"}.fa-deviantart:before{content:"\\f1bd"}.fa-soundcloud:before{content:"\\f1be"}.fa-database:before{content:"\\f1c0"}.fa-file-pdf-o:before{content:"\\f1c1"}.fa-file-word-o:before{content:"\\f1c2"}.fa-file-excel-o:before{content:"\\f1c3"}.fa-file-powerpoint-o:before{content:"\\f1c4"}.fa-file-photo-o:before,.fa-file-picture-o:before,.fa-file-image-o:before{content:"\\f1c5"}.fa-file-zip-o:before,.fa-file-archive-o:before{content:"\\f1c6"}.fa-file-sound-o:before,.fa-file-audio-o:before{content:"\\f1c7"}.fa-file-movie-o:before,.fa-file-video-o:before{content:"\\f1c8"}.fa-file-code-o:before{content:"\\f1c9"}.fa-vine:before{content:"\\f1ca"}.fa-codepen:before{content:"\\f1cb"}.fa-jsfiddle:before{content:"\\f1cc"}.fa-life-bouy:before,.fa-life-buoy:before,.fa-life-saver:before,.fa-support:before,.fa-life-ring:before{content:"\\f1cd"}.fa-circle-o-notch:before{content:"\\f1ce"}.fa-ra:before,.fa-rebel:before{content:"\\f1d0"}.fa-ge:before,.fa-empire:before{content:"\\f1d1"}.fa-git-square:before{content:"\\f1d2"}.fa-git:before{content:"\\f1d3"}.fa-hacker-news:before{content:"\\f1d4"}.fa-tencent-weibo:before{content:"\\f1d5"}.fa-qq:before{content:"\\f1d6"}.fa-wechat:before,.fa-weixin:before{content:"\\f1d7"}.fa-send:before,.fa-paper-plane:before{content:"\\f1d8"}.fa-send-o:before,.fa-paper-plane-o:before{content:"\\f1d9"}.fa-history:before{content:"\\f1da"}.fa-circle-thin:before{content:"\\f1db"}.fa-header:before{content:"\\f1dc"}.fa-paragraph:before{content:"\\f1dd"}.fa-sliders:before{content:"\\f1de"}.fa-share-alt:before{content:"\\f1e0"}.fa-share-alt-square:before{content:"\\f1e1"}.fa-bomb:before{content:"\\f1e2"}.fa-soccer-ball-o:before,.fa-futbol-o:before{content:"\\f1e3"}.fa-tty:before{content:"\\f1e4"}.fa-binoculars:before{content:"\\f1e5"}.fa-plug:before{content:"\\f1e6"}.fa-slideshare:before{content:"\\f1e7"}.fa-twitch:before{content:"\\f1e8"}.fa-yelp:before{content:"\\f1e9"}.fa-newspaper-o:before{content:"\\f1ea"}.fa-wifi:before{content:"\\f1eb"}.fa-calculator:before{content:"\\f1ec"}.fa-paypal:before{content:"\\f1ed"}.fa-google-wallet:before{content:"\\f1ee"}.fa-cc-visa:before{content:"\\f1f0"}.fa-cc-mastercard:before{content:"\\f1f1"}.fa-cc-discover:before{content:"\\f1f2"}.fa-cc-amex:before{content:"\\f1f3"}.fa-cc-paypal:before{content:"\\f1f4"}.fa-cc-stripe:before{content:"\\f1f5"}.fa-bell-slash:before{content:"\\f1f6"}.fa-bell-slash-o:before{content:"\\f1f7"}.fa-trash:before{content:"\\f1f8"}.fa-copyright:before{content:"\\f1f9"}.fa-at:before{content:"\\f1fa"}.fa-eyedropper:before{content:"\\f1fb"}.fa-paint-brush:before{content:"\\f1fc"}.fa-birthday-cake:before{content:"\\f1fd"}.fa-area-chart:before{content:"\\f1fe"}.fa-pie-chart:before{content:"\\f200"}.fa-line-chart:before{content:"\\f201"}.fa-lastfm:before{content:"\\f202"}.fa-lastfm-square:before{content:"\\f203"}.fa-toggle-off:before{content:"\\f204"}.fa-toggle-on:before{content:"\\f205"}.fa-bicycle:before{content:"\\f206"}.fa-bus:before{content:"\\f207"}.fa-ioxhost:before{content:"\\f208"}.fa-angellist:before{content:"\\f209"}.fa-cc:before{content:"\\f20a"}.fa-shekel:before,.fa-sheqel:before,.fa-ils:before{content:"\\f20b"}.fa-meanpath:before{content:"\\f20c"}', 'font-awesome.min.css', '', NULL),
-(8, 'Header BW', '/**************************************************************************/\r\n/* HEADER */\r\n/**************************************************************************/\r\n/* line 13, ../scss/layout.scss */\r\nheader a {\r\n  color: white;\r\n}\r\n/* line 16, ../scss/layout.scss */\r\nheader a:hover {\r\n  color: #e6e6e6;\r\n}\r\n/* line 22, ../scss/layout.scss */\r\nheader a:hover, header a:active, header a:focus {\r\n  text-decoration: none;\r\n}\r\n\r\n/* line 28, ../scss/layout.scss */\r\n.hdr-v1 {\r\n  position: absolute;\r\n  width: 100%;\r\n  left: 0;\r\n  top: 0;\r\n  padding-top: 40px;\r\n}\r\n/* line 35, ../scss/layout.scss */\r\n.hdr-v1 .logo {\r\n  font: italic 300 36px/44px "Pacifico", Georgia, serif;\r\n}\r\n/* line 38, ../scss/layout.scss */\r\n.hdr-v1 .prim-nav {\r\n  text-align: right;\r\n}\r\n\r\n/**************************************************************************/\r\n/* HOME SCREEN */\r\n/**************************************************************************/\r\n/* line 133, ../scss/layout.scss */\r\n.home-v1 {\r\n  background: #333333 url(../img/bg-home-v1.jpg) 50% 50% no-repeat;\r\n  background-size: cover;\r\n  position: relative;\r\n  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);\r\n}\r\n/* line 139, ../scss/layout.scss */\r\n.home-v1 h2 {\r\n  color: white;\r\n  font-weight: 300;\r\n}\r\n/* line 143, ../scss/layout.scss */\r\n.home-v1 p {\r\n  color: white;\r\n  font-size: 20px;\r\n}', '', '', 19);
+(8, 'Header BW', '/**************************************************************************/\r\n/* PAGE LAYOUT */\r\n/**************************************************************************/\r\n/* line 4, ../scss/layout.scss */\r\n.screen {\r\n  min-height: 100%;\r\n}\r\n\r\n/**************************************************************************/\r\n/* HEADER */\r\n/**************************************************************************/\r\n/* line 13, ../scss/layout.scss */\r\nheader a {\r\n  color: white;\r\n}\r\n/* line 16, ../scss/layout.scss */\r\nheader a:hover {\r\n  color: #e6e6e6;\r\n}\r\n/* line 22, ../scss/layout.scss */\r\nheader a:hover, header a:active, header a:focus {\r\n  text-decoration: none;\r\n}\r\n\r\n/* line 28, ../scss/layout.scss */\r\n.hdr-v1 {\r\n  position: absolute;\r\n  width: 100%;\r\n  left: 0;\r\n  top: 0;\r\n  padding-top: 40px;\r\n}\r\n/* line 35, ../scss/layout.scss */\r\n.hdr-v1 .logo {\r\n  font: italic 300 36px/44px "Pacifico", Georgia, serif;\r\n}\r\n/* line 38, ../scss/layout.scss */\r\n.hdr-v1 .prim-nav {\r\n  text-align: right;\r\n}\r\n\r\n/**************************************************************************/\r\n/* HOME SCREEN */\r\n/**************************************************************************/\r\n/* line 133, ../scss/layout.scss */\r\n.home-v1 {\r\n  background: #333333 url(../images/bg-home-v1.jpg) 50% 50% no-repeat;\r\n  background-size: cover;\r\n  position: relative;\r\n  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);\r\n}\r\n/* line 139, ../scss/layout.scss */\r\n.home-v1 h2 {\r\n  color: white;\r\n  font-weight: 300;\r\n}\r\n/* line 143, ../scss/layout.scss */\r\n.home-v1 p {\r\n  color: white;\r\n  font-size: 20px;\r\n}', '', '', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `element`
+--
+
+DROP TABLE IF EXISTS `element`;
+CREATE TABLE IF NOT EXISTS `element` (
+`id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `identificator` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT '',
+  `priority` int(11) DEFAULT '0',
+  `css_selector` varchar(255) DEFAULT ''
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `element`
+--
+
+INSERT INTO `element` (`id`, `name`, `section_id`, `identificator`, `description`, `priority`, `css_selector`) VALUES
+(1, 'Primary Text', 1, 'primary', '', 0, '.primary'),
+(2, 'Secondary Text', 1, 'secondary', '', 10, '.home-v1 p.secondary');
 
 -- --------------------------------------------------------
 
@@ -87,6 +138,7 @@ INSERT INTO `css` (`id`, `name`, `code`, `filename`, `directory`, `parent_id`) V
 -- Структура таблицы `font`
 --
 
+DROP TABLE IF EXISTS `font`;
 CREATE TABLE IF NOT EXISTS `font` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -123,6 +175,7 @@ INSERT INTO `font` (`id`, `name`, `filename`, `directory`) VALUES
 -- Структура таблицы `functions`
 --
 
+DROP TABLE IF EXISTS `functions`;
 CREATE TABLE IF NOT EXISTS `functions` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -135,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `functions` (
 --
 
 INSERT INTO `functions` (`id`, `name`, `code`, `parent_id`) VALUES
-(2, 'Main Menu', '/***********************************************************************************************/\r\n/* Add Menus */\r\n/***********************************************************************************************/\r\nfunction register_tg_menus() {\r\n	register_nav_menus(array(\r\n		''main-menu'' => ''Main Menu'',\r\n	));\r\n}\r\n\r\nadd_action(''init'', ''register_tg_menus'');\r\n\r\n', 6),
+(2, 'Main Menu', '/***********************************************************************************************/\r\n/* Add Menus */\r\n/***********************************************************************************************/\r\nfunction register_tg_menus() {\r\n    register_nav_menus(array(\r\n        ''main-menu'' => ''Main Menu'',\r\n    ));\r\n}\r\n\r\nadd_action(''init'', ''register_tg_menus'');\r\n\r\n', 6),
 (3, 'Section1 : header background image', '/***********************************************************************************************/\r\n/* Header Customization */\r\n/***********************************************************************************************/\r\n$args = array(\r\n	''default-image'' => get_template_directory_uri() . ''/images/bg-home-v1.jpg'',\r\n	''uploads''       => true,\r\n);\r\nadd_theme_support( ''custom-header'', $args );\r\n\r\n\r\n', 6),
 (4, 'Google Font: Lato', '/**\r\n * Enqueue Google fonts style to admin screen for custom header display.\r\n */\r\nfunction tg_admin_fonts() {\r\n	wp_enqueue_style( ''tg-lato'', tg_font_url(), array(), null );\r\n}\r\nadd_action( ''admin_print_scripts-appearance_page_custom-header'', ''tg_admin_fonts'' );', NULL),
 (5, 'Section1 : header settings', '/***********************************************************************************************/\r\n/* Adds the header settings and controls to the theme customizer */\r\n/***********************************************************************************************/\r\nadd_action(''customize_register'', ''tg_header_customizer'');\r\n\r\nfunction tg_header_customizer($wp_customize) {\r\n    $wp_customize->add_section(''tg_header'', array(\r\n        ''title'' => __(''Header Settings'', ''template-generator''),\r\n        ''description'' => __(''This is a header settings section.'', ''template-generator''),\r\n        ''priority'' => 35,\r\n    ));\r\n\r\n    $wp_customize->add_setting(''description_textbox'', array(\r\n        ''default'' => ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'',\r\n    ));\r\n\r\n    $wp_customize->add_control(''description_textbox'', array(\r\n        ''label'' => __(''Description text'', ''template-generator''),\r\n        ''section'' => ''tg_header'',\r\n        ''type'' => ''text'',\r\n    ));\r\n}', 6),
@@ -147,6 +200,7 @@ INSERT INTO `functions` (`id`, `name`, `code`, `parent_id`) VALUES
 -- Структура таблицы `image`
 --
 
+DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -170,6 +224,7 @@ INSERT INTO `image` (`id`, `name`, `filename`, `directory`) VALUES
 -- Структура таблицы `js`
 --
 
+DROP TABLE IF EXISTS `js`;
 CREATE TABLE IF NOT EXISTS `js` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -200,6 +255,7 @@ INSERT INTO `js` (`id`, `name`, `code`, `filename`, `directory`) VALUES
 -- Структура таблицы `migration`
 --
 
+DROP TABLE IF EXISTS `migration`;
 CREATE TABLE IF NOT EXISTS `migration` (
   `version` varchar(180) NOT NULL,
   `apply_time` int(11) DEFAULT NULL
@@ -223,7 +279,16 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m140920_170629_template_category_is_visible_add', 1411233012),
 ('m141027_194628_template_visible_add', 1414439283),
 ('m141101_091530_template_category_alias_add', 1414833417),
-('m141101_114607_rename_template_category_to_category', 1414842448);
+('m141101_114607_rename_template_category_to_category', 1414842448),
+('m141116_113555_control_create', 1416138796),
+('m141116_121814_section_create', 1416140805),
+('m141116_123616_control_style_code_add', 1416141427),
+('m141116_125001_control_mods_code_add', 1416149055),
+('m141116_141207_section_control_priority_add', 1416149055),
+('m141116_182413_template_section_create', 1416163339),
+('m141116_185438_element_create', 1416164287),
+('m141116_192946_template_element_identificator_add', 1416166273),
+('m141116_193841_element_fields_add', 1416166822);
 
 -- --------------------------------------------------------
 
@@ -231,6 +296,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- Структура таблицы `plugin`
 --
 
+DROP TABLE IF EXISTS `plugin`;
 CREATE TABLE IF NOT EXISTS `plugin` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -251,20 +317,64 @@ INSERT INTO `plugin` (`id`, `name`, `directory`) VALUES
 -- Структура таблицы `related_template`
 --
 
+DROP TABLE IF EXISTS `related_template`;
 CREATE TABLE IF NOT EXISTS `related_template` (
 `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `child_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `related_template`
 --
 
 INSERT INTO `related_template` (`id`, `parent_id`, `child_id`) VALUES
-(102, 2, 17),
-(103, 2, 19),
-(104, 3, 16);
+(104, 3, 16),
+(110, 2, 19),
+(112, 2, 17);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `section`
+--
+
+DROP TABLE IF EXISTS `section`;
+CREATE TABLE IF NOT EXISTS `section` (
+`id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `code` text
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `section`
+--
+
+INSERT INTO `section` (`id`, `name`, `code`) VALUES
+(1, 'Text', '    $sections[] = array(\r\n        ''id'' => ''{{section_id}}'',\r\n        ''title'' => __({{title}}, ''template-generator''),\r\n        ''priority'' => ''{{priority}}'',\r\n        ''panel'' => ''{{panel_id}}'',\r\n    );\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `section_control`
+--
+
+DROP TABLE IF EXISTS `section_control`;
+CREATE TABLE IF NOT EXISTS `section_control` (
+`id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `control_id` int(11) NOT NULL,
+  `priority` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `section_control`
+--
+
+INSERT INTO `section_control` (`id`, `section_id`, `control_id`, `priority`) VALUES
+(12, 1, 1, 20),
+(13, 1, 2, 30),
+(14, 1, 3, 10);
 
 -- --------------------------------------------------------
 
@@ -272,6 +382,7 @@ INSERT INTO `related_template` (`id`, `parent_id`, `child_id`) VALUES
 -- Структура таблицы `template`
 --
 
+DROP TABLE IF EXISTS `template`;
 CREATE TABLE IF NOT EXISTS `template` (
 `id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -280,23 +391,24 @@ CREATE TABLE IF NOT EXISTS `template` (
   `directory` varchar(255) DEFAULT '',
   `img` varchar(255) DEFAULT NULL,
   `code` text,
-  `is_visible` tinyint(1) DEFAULT '0'
+  `is_visible` tinyint(1) DEFAULT '0',
+  `identificator` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template`
 --
 
-INSERT INTO `template` (`id`, `category_id`, `name`, `filename`, `directory`, `img`, `code`, `is_visible`) VALUES
-(1, 1, 'Common Index', 'index.php', '', '', '<?php get_header(); ?>\r\n    <?php if (have_posts()) : while(have_posts()) : the_post(); ?>\r\n        <?php get_template_part(''content'', get_post_format()); ?>\r\n     <?php endwhile; else : ?>\r\n        <article id="post-<?php the_ID(); ?>" <?php post_class(''no-posts''); ?>>\r\n            <h1><?php _e(''No posts were found.'', ''adaptive-framework''); ?></h1>\r\n        </article>\r\n    <?php endif; ?>\r\n<?php get_footer(); ?>', 1),
-(2, 1, 'Common Header', 'header.php', '', '', '<!DOCTYPE html>\r\n<!--[if IE 8]> <html <?php language_attributes(); ?> class="ie8"> <![endif]-->\r\n<!--[if !IE]><!--> <html <?php language_attributes(); ?>> <!--<![endif]-->\r\n<head>\r\n    <meta charset="<?php bloginfo("charset"); ?>">\r\n    <title><?php wp_title("|", true, "right"); ?><?php bloginfo("name"); ?></title>\r\n    <meta name="description" content="<?php bloginfo("description"); ?>">\r\n    <meta name="author" content="Template Generator Team">\r\n\r\n    <!-- Mobile Specific Meta -->\r\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\r\n\r\n    <!-- Stylesheets -->\r\n    <link rel="stylesheet" href="<?php bloginfo("stylesheet_url"); ?>" />\r\n   \r\n      <!-- google web fonts -->\r\n        <link href=''http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700'' rel=''stylesheet'' type=''text/css''>\r\n        <link href=''http://fonts.googleapis.com/css?family=Pacifico'' rel=''stylesheet'' type=''text/css''>\r\n\r\n    <!-- Pingbacks -->\r\n    <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />\r\n\r\n    <!--[if lt IE 9]>\r\n        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\r\n    <![endif]-->\r\n\r\n<?php wp_head(); ?>\r\n</head>\r\n<body <?php body_class(); ?>>', 1),
-(3, 1, 'Common Footer', 'footer.php', '', '', '    <?php wp_footer(); ?>\r\n    </body>\r\n</html>', 1),
-(6, 1, 'Common Functions', 'functions.php', '', '', '<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) { die(); }\r\n\r\n/***********************************************************************************************/\r\n/* 	Define Constants */\r\n/***********************************************************************************************/\r\ndefine(''THEMEROOT'', get_stylesheet_directory_uri());\r\ndefine(''IMAGES'', THEMEROOT . ''/images'');\r\ndefine(''THEMEPATH'', trailingslashit(TEMPLATEPATH));\r\n\r\n\r\n\r\n', 1),
-(15, 1, 'Common Styles', 'style.css', '', '', '/*\r\nTheme Name: Template Generator\r\nTheme URI: http://www.template-generator.com\r\nAuthor: Template Generator Team\r\nAuthor URI:\r\nDescription: Theme for Wordpress.\r\nVersion: 1.0\r\nLicense: GNU General Public License v2 or later\r\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\r\nTags: black, brown, orange, tan, white, yellow, light, one-page\r\n*/\r\n\r\n@font-face {\r\n  font-family: ''fontello'';\r\n  src: url("../fonts/fontello.eot?80707783");\r\n  src: url("../fonts/fontello.eot?80707783#iefix") format("embedded-opentype"), url("../fonts/fontello.woff?80707783") format("woff"), url("../fonts/fontello.ttf?80707783") format("truetype"), url("../fonts/fontello.svg?80707783#fontello") format("svg");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n/**************************************************************************/\r\n/* TYPOGRAPHY */\r\n/**************************************************************************/\r\n/* line 5, ../scss/typography.scss */\r\nbody {\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  color: #333333;\r\n  font-size: 16px;\r\n}\r\n\r\n/* line 11, ../scss/typography.scss */\r\np {\r\n  font-size: 1em;\r\n  line-height: 1.5em;\r\n  margin: 1.5em 0 0 0;\r\n}\r\n\r\n/* line 17, ../scss/typography.scss */\r\nh1 {\r\n  font-size: 4.5000em;\r\n  /* 72px */\r\n  line-height: 1.0000em;\r\n  /* 72px */\r\n  margin-top: 0.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 24, ../scss/typography.scss */\r\nh2 {\r\n  font-size: 3.7500em;\r\n  /* 60px */\r\n  line-height: 1.2000em;\r\n  /* 72px */\r\n  margin-top: 0.4000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 31, ../scss/typography.scss */\r\nh3 {\r\n  font-size: 3.0000em;\r\n  /* 48px */\r\n  line-height: 1.0000em;\r\n  /* 48px */\r\n  margin-top: 0.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 38, ../scss/typography.scss */\r\nh4 {\r\n  font-size: 2.2500em;\r\n  /* 36px */\r\n  line-height: 1.3333em;\r\n  /* 48px */\r\n  margin-top: 0.6667em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 45, ../scss/typography.scss */\r\nh5 {\r\n  font-size: 1.8750em;\r\n  /* 30px */\r\n  line-height: 1.6000em;\r\n  /* 48px */\r\n  margin-top: 0.8000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 52, ../scss/typography.scss */\r\nh6 {\r\n  font-size: 1.5em;\r\n  /* 24px */\r\n  line-height: 1em;\r\n  /* 24px */\r\n  margin-top: 1em;\r\n  margin-bottom: 0;\r\n}\r\n\r\n/* line 59, ../scss/typography.scss */\r\n.class-for-18px {\r\n  font-size: 1.1250em;\r\n  /* 18px */\r\n  line-height: 1.3333em;\r\n  /* 24px */\r\n  margin-top: 1.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 65, ../scss/typography.scss */\r\n.class-for-16px {\r\n  font-size: 1.0000em;\r\n  /* 16px */\r\n  line-height: 1.5000em;\r\n  /* 24px */\r\n  margin-top: 1.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 71, ../scss/typography.scss */\r\n.class-for-14px {\r\n  font-size: 0.8750em;\r\n  /* 14px */\r\n  line-height: 1.7143em;\r\n  /* 24px */\r\n  margin-top: 1.7143em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 79, ../scss/typography.scss */\r\n.uppercase {\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.05em;\r\n}\r\n\r\n/**************************************************************************/\r\n/* General */\r\n/**************************************************************************/\r\n/* line 5, ../scss/general.scss */\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n}\r\n\r\n/* line 9, ../scss/general.scss */\r\n.amp {\r\n  font-family: "Pacifico", Georgia, serif;\r\n  font-style: italic;\r\n  font-weight: 400;\r\n}\r\n\r\n/* line 15, ../scss/general.scss */\r\nimg {\r\n  max-width: 100%;\r\n}\r\n\r\n/* helpers for text-align */\r\n/* line 20, ../scss/general.scss */\r\n.text-right {\r\n  text-align: right;\r\n}\r\n\r\n/* line 24, ../scss/general.scss */\r\n.text-center {\r\n  text-align: center;\r\n}\r\n\r\n/* vertical-align for elements */\r\n/* line 29, ../scss/general.scss */\r\n.vertical {\r\n  position: absolute;\r\n  top: 50%;\r\n  -webkit-transform: translateY(-50%);\r\n  -ms-transform: translateY(-50%);\r\n  transform: translateY(-50%);\r\n}\r\n\r\n/* buttons */\r\n/* line 35, ../scss/general.scss */\r\n.btn {\r\n  -webkit-transition: all 300ms ease;\r\n  -moz-transition: all 300ms ease;\r\n  -ms-transition: all 300ms ease;\r\n  -o-transition: all 300ms ease;\r\n  transition: all 300ms ease;\r\n}\r\n\r\n/* line 38, ../scss/general.scss */\r\n.btn-cta {\r\n  background: transparent;\r\n  border: 2px solid #FFF;\r\n  color: #FFF;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 48, ../scss/general.scss */\r\n.btn-cta:hover {\r\n  color: #fff;\r\n}\r\n\r\n/* line 52, ../scss/general.scss */\r\n.btn-red {\r\n  background: #b8312f;\r\n  color: #fff;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 61, ../scss/general.scss */\r\n.btn-red:hover {\r\n  color: #fff;\r\n  background: #cb3735;\r\n}\r\n', 1),
-(16, 4, 'Footer 1', '', '', 'footer1.png', '	<!-- QUOTE AREA -->\r\n	<section>\r\n		<div class="quote-container section-content align-center">\r\n			<h3>Need a quote?</h3>\r\n			\r\n			<p>Please use the form inside the contact page. Make sure you include some personal information as well as your project description and available budget.</p>\r\n			<p><a href="<?php echo home_url(); ?>/contact">Get a free quote &rarr;</a></p>\r\n		</div> <!-- end quote-container -->\r\n	</section>\r\n	\r\n		\r\n	\r\n	<!-- FOOTER -->\r\n	<footer class="main-footer section-content align-center" id="contact-info">\r\n		<h3>Just wanna say hi?</h3>\r\n		\r\n		<p>You can call me, email me directly or connect with me through my social networks.</p>\r\n		<p>(+40) 744111222 <br> <a href="mailto:hello@adipurdila.com">hello@adipurdila.com</a></p>\r\n		\r\n		<ul class="social-icons inline">\r\n			<li><a href="#" class="icon-twitter"></a></li>\r\n			<li><a href="#" class="icon-facebook"></a></li>\r\n			<li><a href="#" class="icon-dribbble"></a></li>\r\n		</ul>\r\n		\r\n		<hr />\r\n		\r\n		<p>&copy; Copyright <?php echo date(''Y''); ?> <?php echo bloginfo(''name''); ?>. Portfolio theme by Adi Purdila.</p>\r\n	</footer>', 1),
-(17, 2, 'Section 1', '', '', 'header1.png', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo"><a href="<?php echo home_url(); ?>"><?php  bloginfo(''name''); ?></a></h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description"><?php echo get_theme_mod( ''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'' ); ?></p>\r\n                <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>', 1),
-(18, 6, 'Contact #1', '', '', 'header4.png', '', 1),
-(19, 2, 'Header BW', '', '', 'bg-home-v1.jpg', '        <!-- section 1 -->\r\n        <section class="screen home-v1">\r\n\r\n            <header class="hdr-v1">\r\n                <div class="container">\r\n                    <div class="row">\r\n                        <div class="col-md-3">\r\n                            <h1 class="logo"><a href="#">frameOne</a></h1>\r\n                        </div>\r\n                        <div class="col-md-9">\r\n                            <nav class="prim-nav">\r\n                                <ul>\r\n                                    <li><a href="#about"><span data-hover="About">About</span></a></li>\r\n                                    <li><a href="#team"><span data-hover="Team">Team</span></a></li>\r\n                                    <li><a href="#contact"><span data-hover="Contact">Contact</span></a></li>\r\n                                    <li><a href="#application"><span data-hover="Application">Application</span></a></li>\r\n                                </ul>\r\n                            </nav>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </header>\r\n\r\n            <div class="container">\r\n                <div class="row">\r\n                    <div class="col-md-8 vertical">\r\n                        <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                        <p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n                        <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- end section 1 -->\r\n', 0);
+INSERT INTO `template` (`id`, `category_id`, `name`, `filename`, `directory`, `img`, `code`, `is_visible`, `identificator`) VALUES
+(1, 1, 'Common Index', 'index.php', '', '', '<?php get_header(); ?>\r\n    <?php if (have_posts()) : while(have_posts()) : the_post(); ?>\r\n        <?php get_template_part(''content'', get_post_format()); ?>\r\n     <?php endwhile; else : ?>\r\n        <article id="post-<?php the_ID(); ?>" <?php post_class(''no-posts''); ?>>\r\n            <h1><?php _e(''No posts were found.'', ''adaptive-framework''); ?></h1>\r\n        </article>\r\n    <?php endif; ?>\r\n<?php get_footer(); ?>', 1, NULL),
+(2, 1, 'Common Header', 'header.php', '', '', '<!DOCTYPE html>\r\n<!--[if IE 8]> <html <?php language_attributes(); ?> class="ie8"> <![endif]-->\r\n<!--[if !IE]><!--> <html <?php language_attributes(); ?>> <!--<![endif]-->\r\n<head>\r\n    <meta charset="<?php bloginfo("charset"); ?>">\r\n    <title><?php wp_title("|", true, "right"); ?><?php bloginfo("name"); ?></title>\r\n    <meta name="description" content="<?php bloginfo("description"); ?>">\r\n    <meta name="author" content="Template Generator Team">\r\n\r\n    <!-- Mobile Specific Meta -->\r\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\r\n\r\n    <!-- Stylesheets -->\r\n    <link rel="stylesheet" href="<?php bloginfo("stylesheet_url"); ?>" />\r\n   \r\n      <!-- google web fonts -->\r\n        <link href=''http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700'' rel=''stylesheet'' type=''text/css''>\r\n        <link href=''http://fonts.googleapis.com/css?family=Pacifico'' rel=''stylesheet'' type=''text/css''>\r\n\r\n    <!-- Pingbacks -->\r\n    <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />\r\n\r\n    <!--[if lt IE 9]>\r\n        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\r\n    <![endif]-->\r\n\r\n<?php wp_head(); ?>\r\n</head>\r\n<body <?php body_class(); ?>>', 1, NULL),
+(3, 1, 'Common Footer', 'footer.php', '', '', '    <?php wp_footer(); ?>\r\n    </body>\r\n</html>', 1, NULL),
+(6, 1, 'Common Functions', 'functions.php', '', '', '\r\n<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) { die(); }\r\n\r\n/***********************************************************************************************/\r\n/** Define Constants **/\r\n/***********************************************************************************************/\r\ndefine(''THEMEROOT'', get_stylesheet_directory_uri());\r\ndefine(''IMAGES'', THEMEROOT . ''/images'');\r\ndefine(''THEMEPATH'', trailingslashit(TEMPLATEPATH));\r\n\r\n/***********************************************************************************************/\r\n/** Include Styles **/\r\n/***********************************************************************************************/\r\nadd_action(''wp_enqueue_scripts'', ''register_tg_styles'');\r\nfunction register_tg_styles()\r\n{\r\n    wp_enqueue_style(''bootstrap'', get_template_directory_uri() . ''/bootstrap/css/bootstrap.min.css'');\r\n    wp_enqueue_style(''theme-css'', get_stylesheet_uri(), ''bootstrap'');\r\n}\r\n\r\n/***********************************************************************************************/\r\n/** Customizer **/\r\n/***********************************************************************************************/\r\nfunction demo_styles() {\r\n    wp_enqueue_style(''demo-style'', get_stylesheet_uri());\r\n}\r\nadd_action(''wp_enqueue_scripts'', ''demo_styles'');\r\n\r\n// Helper library for the theme customizer.\r\nrequire get_template_directory() . ''/inc/customizer-library/customizer-library.php'';\r\n\r\n// Define options for the theme customizer.\r\nrequire get_template_directory() . ''/inc/customizer-options.php'';\r\n\r\n// Output inline styles based on theme customizer selections.\r\nrequire get_template_directory() . ''/inc/styles.php'';\r\n\r\n// Additional filters and actions based on theme customizer selections.\r\nrequire get_template_directory() . ''/inc/mods.php'';\r\n', 1, NULL),
+(15, 1, 'Common Styles', 'style.css', '', '', '@charset "UTF-8";\r\n/*\r\nTheme Name: Template Generator\r\nTheme URI: http://www.template-generator.com\r\nAuthor: Template Generator Team\r\nAuthor URI:\r\nDescription: Theme for Wordpress.\r\nVersion: 1.0\r\nLicense: GNU General Public License v2 or later\r\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\r\nTags: black, brown, orange, tan, white, yellow, light, one-page\r\n*/\r\n\r\n@font-face {\r\n  font-family: ''fontello'';\r\n  src: url("../fonts/fontello.eot?80707783");\r\n  src: url("../fonts/fontello.eot?80707783#iefix") format("embedded-opentype"), url("../fonts/fontello.woff?80707783") format("woff"), url("../fonts/fontello.ttf?80707783") format("truetype"), url("../fonts/fontello.svg?80707783#fontello") format("svg");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n/**************************************************************************/\r\n/* TYPOGRAPHY */\r\n/**************************************************************************/\r\n/* line 5, ../scss/typography.scss */\r\nbody {\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  color: #333333;\r\n  font-size: 16px;\r\n}\r\n\r\n/* line 11, ../scss/typography.scss */\r\np {\r\n  font-size: 1em;\r\n  line-height: 1.5em;\r\n  margin: 1.5em 0 0 0;\r\n}\r\n\r\n/* line 17, ../scss/typography.scss */\r\nh1 {\r\n  font-size: 4.5000em;\r\n  /* 72px */\r\n  line-height: 1.0000em;\r\n  /* 72px */\r\n  margin-top: 0.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 24, ../scss/typography.scss */\r\nh2 {\r\n  font-size: 3.7500em;\r\n  /* 60px */\r\n  line-height: 1.2000em;\r\n  /* 72px */\r\n  margin-top: 0.4000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 31, ../scss/typography.scss */\r\nh3 {\r\n  font-size: 3.0000em;\r\n  /* 48px */\r\n  line-height: 1.0000em;\r\n  /* 48px */\r\n  margin-top: 0.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 38, ../scss/typography.scss */\r\nh4 {\r\n  font-size: 2.2500em;\r\n  /* 36px */\r\n  line-height: 1.3333em;\r\n  /* 48px */\r\n  margin-top: 0.6667em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 45, ../scss/typography.scss */\r\nh5 {\r\n  font-size: 1.8750em;\r\n  /* 30px */\r\n  line-height: 1.6000em;\r\n  /* 48px */\r\n  margin-top: 0.8000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 52, ../scss/typography.scss */\r\nh6 {\r\n  font-size: 1.5em;\r\n  /* 24px */\r\n  line-height: 1em;\r\n  /* 24px */\r\n  margin-top: 1em;\r\n  margin-bottom: 0;\r\n}\r\n\r\n/* line 59, ../scss/typography.scss */\r\n.class-for-18px {\r\n  font-size: 1.1250em;\r\n  /* 18px */\r\n  line-height: 1.3333em;\r\n  /* 24px */\r\n  margin-top: 1.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 65, ../scss/typography.scss */\r\n.class-for-16px {\r\n  font-size: 1.0000em;\r\n  /* 16px */\r\n  line-height: 1.5000em;\r\n  /* 24px */\r\n  margin-top: 1.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 71, ../scss/typography.scss */\r\n.class-for-14px {\r\n  font-size: 0.8750em;\r\n  /* 14px */\r\n  line-height: 1.7143em;\r\n  /* 24px */\r\n  margin-top: 1.7143em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 79, ../scss/typography.scss */\r\n.uppercase {\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.05em;\r\n}\r\n\r\n/**************************************************************************/\r\n/* General */\r\n/**************************************************************************/\r\n/* line 5, ../scss/general.scss */\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n}\r\n\r\n/* line 9, ../scss/general.scss */\r\n.amp {\r\n  font-family: "Pacifico", Georgia, serif;\r\n  font-style: italic;\r\n  font-weight: 400;\r\n}\r\n\r\n/* line 15, ../scss/general.scss */\r\nimg {\r\n  max-width: 100%;\r\n}\r\n\r\n/* helpers for text-align */\r\n/* line 20, ../scss/general.scss */\r\n.text-right {\r\n  text-align: right;\r\n}\r\n\r\n/* line 24, ../scss/general.scss */\r\n.text-center {\r\n  text-align: center;\r\n}\r\n\r\n/* vertical-align for elements */\r\n/* line 29, ../scss/general.scss */\r\n.vertical {\r\n  position: absolute;\r\n  top: 50%;\r\n  -webkit-transform: translateY(-50%);\r\n  -ms-transform: translateY(-50%);\r\n  transform: translateY(-50%);\r\n}\r\n\r\n/* buttons */\r\n/* line 35, ../scss/general.scss */\r\n.btn {\r\n  -webkit-transition: all 300ms ease;\r\n  -moz-transition: all 300ms ease;\r\n  -ms-transition: all 300ms ease;\r\n  -o-transition: all 300ms ease;\r\n  transition: all 300ms ease;\r\n}\r\n\r\n/* line 38, ../scss/general.scss */\r\n.btn-cta {\r\n  background: transparent;\r\n  border: 2px solid #FFF;\r\n  color: #FFF;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 48, ../scss/general.scss */\r\n.btn-cta:hover {\r\n  color: #fff;\r\n}\r\n\r\n/* line 52, ../scss/general.scss */\r\n.btn-red {\r\n  background: #b8312f;\r\n  color: #fff;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 61, ../scss/general.scss */\r\n.btn-red:hover {\r\n  color: #fff;\r\n  background: #cb3735;\r\n}\r\n', 1, NULL),
+(16, 4, 'Footer 1', '', '', 'footer1.png', '	<!-- QUOTE AREA -->\r\n	<section>\r\n		<div class="quote-container section-content align-center">\r\n			<h3>Need a quote?</h3>\r\n			\r\n			<p>Please use the form inside the contact page. Make sure you include some personal information as well as your project description and available budget.</p>\r\n			<p><a href="<?php echo home_url(); ?>/contact">Get a free quote &rarr;</a></p>\r\n		</div> <!-- end quote-container -->\r\n	</section>\r\n	\r\n		\r\n	\r\n	<!-- FOOTER -->\r\n	<footer class="main-footer section-content align-center" id="contact-info">\r\n		<h3>Just wanna say hi?</h3>\r\n		\r\n		<p>You can call me, email me directly or connect with me through my social networks.</p>\r\n		<p>(+40) 744111222 <br> <a href="mailto:hello@adipurdila.com">hello@adipurdila.com</a></p>\r\n		\r\n		<ul class="social-icons inline">\r\n			<li><a href="#" class="icon-twitter"></a></li>\r\n			<li><a href="#" class="icon-facebook"></a></li>\r\n			<li><a href="#" class="icon-dribbble"></a></li>\r\n		</ul>\r\n		\r\n		<hr />\r\n		\r\n		<p>&copy; Copyright <?php echo date(''Y''); ?> <?php echo bloginfo(''name''); ?>. Portfolio theme by Adi Purdila.</p>\r\n	</footer>', 1, NULL),
+(17, 2, 'Header 1', '', '', 'header1.png', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo">\r\n                        <a href="<?php echo home_url(); ?>" class="primary">\r\n                            <?php if (get_theme_mod(''logo'', false)): ?>\r\n                                <img src="<?php echo esc_url(get_theme_mod(''logo'')) ?>" alt="<?php bloginfo(''name''); ?>" />\r\n                            <?php else: ?>\r\n                                <?php bloginfo(''name''); ?>\r\n                            <?php endif; ?>\r\n                        </a>\r\n                    </h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro border">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description secondary">\r\n                    <?php echo get_theme_mod(''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'') ?>\r\n                </p>\r\n                <p>\r\n                    <a class="btn btn-lg btn-cta" href="#application">Get started</a>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>', 1, NULL),
+(18, 6, 'Contact #1', '', '', 'header4.png', '', 1, NULL),
+(19, 2, 'Header BW', '', '', 'bg-home-v1.jpg', '        <!-- section 1 -->\r\n        <section class="screen home-v1">\r\n\r\n            <header class="hdr-v1">\r\n                <div class="container">\r\n                    <div class="row">\r\n                        <div class="col-md-3">\r\n                            <h1 class="logo"><a href="#">frameOne</a></h1>\r\n                        </div>\r\n                        <div class="col-md-9">\r\n                            <nav class="prim-nav">\r\n                                <ul>\r\n                                    <li><a href="#about"><span data-hover="About">About</span></a></li>\r\n                                    <li><a href="#team"><span data-hover="Team">Team</span></a></li>\r\n                                    <li><a href="#contact"><span data-hover="Contact">Contact</span></a></li>\r\n                                    <li><a href="#application"><span data-hover="Application">Application</span></a></li>\r\n                                </ul>\r\n                            </nav>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </header>\r\n\r\n            <div class="container">\r\n                <div class="row">\r\n                    <div class="col-md-8 vertical">\r\n                        <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                        <p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n                        <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- end section 1 -->\r\n', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -304,11 +416,12 @@ INSERT INTO `template` (`id`, `category_id`, `name`, `filename`, `directory`, `i
 -- Структура таблицы `template_css`
 --
 
+DROP TABLE IF EXISTS `template_css`;
 CREATE TABLE IF NOT EXISTS `template_css` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `css_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_css`
@@ -316,9 +429,31 @@ CREATE TABLE IF NOT EXISTS `template_css` (
 
 INSERT INTO `template_css` (`id`, `template_id`, `css_id`) VALUES
 (30, 2, 5),
-(61, 17, 1),
-(62, 17, 3),
-(63, 19, 8);
+(77, 19, 8),
+(81, 17, 1),
+(82, 17, 3),
+(83, 17, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `template_element`
+--
+
+DROP TABLE IF EXISTS `template_element`;
+CREATE TABLE IF NOT EXISTS `template_element` (
+`id` int(11) NOT NULL,
+  `template_id` int(11) NOT NULL,
+  `element_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `template_element`
+--
+
+INSERT INTO `template_element` (`id`, `template_id`, `element_id`) VALUES
+(1, 17, 1),
+(2, 17, 2);
 
 -- --------------------------------------------------------
 
@@ -326,25 +461,27 @@ INSERT INTO `template_css` (`id`, `template_id`, `css_id`) VALUES
 -- Структура таблицы `template_font`
 --
 
+DROP TABLE IF EXISTS `template_font`;
 CREATE TABLE IF NOT EXISTS `template_font` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `font_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_font`
 --
 
 INSERT INTO `template_font` (`id`, `template_id`, `font_id`) VALUES
-(43, 15, 5),
-(44, 15, 6),
-(45, 15, 7),
-(46, 15, 8),
-(119, 17, 5),
-(120, 17, 6),
-(121, 17, 7),
-(122, 17, 8);
+(131, 15, 5),
+(132, 15, 6),
+(133, 15, 7),
+(134, 15, 8),
+(147, 19, 6),
+(152, 17, 5),
+(153, 17, 6),
+(154, 17, 7),
+(155, 17, 8);
 
 -- --------------------------------------------------------
 
@@ -352,21 +489,21 @@ INSERT INTO `template_font` (`id`, `template_id`, `font_id`) VALUES
 -- Структура таблицы `template_functions`
 --
 
+DROP TABLE IF EXISTS `template_functions`;
 CREATE TABLE IF NOT EXISTS `template_functions` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `functions_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_functions`
 --
 
 INSERT INTO `template_functions` (`id`, `template_id`, `functions_id`) VALUES
-(84, 17, 2),
-(85, 17, 3),
-(86, 17, 5),
-(87, 18, 6);
+(87, 18, 6),
+(105, 17, 2),
+(106, 17, 3);
 
 -- --------------------------------------------------------
 
@@ -374,19 +511,20 @@ INSERT INTO `template_functions` (`id`, `template_id`, `functions_id`) VALUES
 -- Структура таблицы `template_image`
 --
 
+DROP TABLE IF EXISTS `template_image`;
 CREATE TABLE IF NOT EXISTS `template_image` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `image_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_image`
 --
 
 INSERT INTO `template_image` (`id`, `template_id`, `image_id`) VALUES
-(52, 17, 4),
-(53, 19, 4);
+(59, 19, 4),
+(61, 17, 4);
 
 -- --------------------------------------------------------
 
@@ -394,6 +532,7 @@ INSERT INTO `template_image` (`id`, `template_id`, `image_id`) VALUES
 -- Структура таблицы `template_js`
 --
 
+DROP TABLE IF EXISTS `template_js`;
 CREATE TABLE IF NOT EXISTS `template_js` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
@@ -413,6 +552,7 @@ INSERT INTO `template_js` (`id`, `template_id`, `js_id`) VALUES
 -- Структура таблицы `template_plugin`
 --
 
+DROP TABLE IF EXISTS `template_plugin`;
 CREATE TABLE IF NOT EXISTS `template_plugin` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
@@ -433,6 +573,7 @@ INSERT INTO `template_plugin` (`id`, `template_id`, `plugin_id`) VALUES
 -- Структура таблицы `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
 `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -464,10 +605,22 @@ ALTER TABLE `category`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `control`
+--
+ALTER TABLE `control`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `css`
 --
 ALTER TABLE `css`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_css_parent` (`parent_id`);
+
+--
+-- Индексы таблицы `element`
+--
+ALTER TABLE `element`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `font`
@@ -512,6 +665,18 @@ ALTER TABLE `related_template`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_related_template_parent` (`parent_id`), ADD KEY `fk_related_template_child` (`child_id`);
 
 --
+-- Индексы таблицы `section`
+--
+ALTER TABLE `section`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `section_control`
+--
+ALTER TABLE `section_control`
+ ADD PRIMARY KEY (`id`), ADD KEY `fk_section_control_section` (`section_id`), ADD KEY `fk_section_control_control` (`control_id`);
+
+--
 -- Индексы таблицы `template`
 --
 ALTER TABLE `template`
@@ -522,6 +687,12 @@ ALTER TABLE `template`
 --
 ALTER TABLE `template_css`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_template_css_template` (`template_id`), ADD KEY `fk_template_css_css` (`css_id`);
+
+--
+-- Индексы таблицы `template_element`
+--
+ALTER TABLE `template_element`
+ ADD PRIMARY KEY (`id`), ADD KEY `fk_template_element_template` (`template_id`), ADD KEY `fk_template_element_element` (`element_id`);
 
 --
 -- Индексы таблицы `template_font`
@@ -569,10 +740,20 @@ ALTER TABLE `user`
 ALTER TABLE `category`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT для таблицы `control`
+--
+ALTER TABLE `control`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT для таблицы `css`
 --
 ALTER TABLE `css`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT для таблицы `element`
+--
+ALTER TABLE `element`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `font`
 --
@@ -602,7 +783,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT для таблицы `related_template`
 --
 ALTER TABLE `related_template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=105;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=113;
+--
+-- AUTO_INCREMENT для таблицы `section`
+--
+ALTER TABLE `section`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `section_control`
+--
+ALTER TABLE `section_control`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT для таблицы `template`
 --
@@ -612,22 +803,27 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 -- AUTO_INCREMENT для таблицы `template_css`
 --
 ALTER TABLE `template_css`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=84;
+--
+-- AUTO_INCREMENT для таблицы `template_element`
+--
+ALTER TABLE `template_element`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `template_font`
 --
 ALTER TABLE `template_font`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=123;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=156;
 --
 -- AUTO_INCREMENT для таблицы `template_functions`
 --
 ALTER TABLE `template_functions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=107;
 --
 -- AUTO_INCREMENT для таблицы `template_image`
 --
 ALTER TABLE `template_image`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=54;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT для таблицы `template_js`
 --
@@ -667,6 +863,13 @@ ADD CONSTRAINT `fk_related_template_child` FOREIGN KEY (`child_id`) REFERENCES `
 ADD CONSTRAINT `fk_related_template_parent` FOREIGN KEY (`parent_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
+-- Ограничения внешнего ключа таблицы `section_control`
+--
+ALTER TABLE `section_control`
+ADD CONSTRAINT `fk_section_control_control` FOREIGN KEY (`control_id`) REFERENCES `control` (`id`) ON DELETE CASCADE,
+ADD CONSTRAINT `fk_section_control_section` FOREIGN KEY (`section_id`) REFERENCES `section` (`id`) ON DELETE CASCADE;
+
+--
 -- Ограничения внешнего ключа таблицы `template`
 --
 ALTER TABLE `template`
@@ -678,6 +881,13 @@ ADD CONSTRAINT `fk_template_template_category` FOREIGN KEY (`category_id`) REFER
 ALTER TABLE `template_css`
 ADD CONSTRAINT `fk_template_css_css` FOREIGN KEY (`css_id`) REFERENCES `css` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `fk_template_css_template` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `template_element`
+--
+ALTER TABLE `template_element`
+ADD CONSTRAINT `fk_template_element_element` FOREIGN KEY (`element_id`) REFERENCES `element` (`id`) ON DELETE CASCADE,
+ADD CONSTRAINT `fk_template_element_template` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `template_font`
