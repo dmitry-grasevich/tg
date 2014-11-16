@@ -11,6 +11,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $template_id
  * @property integer $section_id
+ * @property integer $priority
  *
  * @property Section $section
  * @property Template $template
@@ -32,7 +33,7 @@ class TemplateSection extends ActiveRecord
     {
         return [
             [['template_id', 'section_id'], 'required'],
-            [['template_id', 'section_id'], 'integer']
+            [['template_id', 'section_id', 'priority'], 'integer']
         ];
     }
 
@@ -45,6 +46,7 @@ class TemplateSection extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'template_id' => Yii::t('app', 'Template ID'),
             'section_id' => Yii::t('app', 'Section ID'),
+            'priority' => Yii::t('app', 'Priority'),
         ];
     }
 
