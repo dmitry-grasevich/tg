@@ -53,6 +53,7 @@ class Template extends Library
     {
         return [
             [['category_id', 'name'], 'required'],
+            [['name'], 'unique'],
             [['category_id', 'is_visible'], 'integer'],
             [['code', 'filename'], 'string'],
             [['img'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],

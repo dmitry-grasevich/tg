@@ -37,25 +37,7 @@ function customizer_library_demo_options()
         'type' => 'image',
         'default' => '',
     );
-/*
-    // File Upload
-    $section = 'upload';
 
-    $sections[] = array(
-        'id' => $section,
-        'title' => __('File Upload Example', 'demo'),
-        'priority' => '30',
-        'description' => __('Example section description.', 'demo')
-    );
-
-    $options['upload'] = array(
-        'id' => 'upload',
-        'label' => __('upload', 'demo'),
-        'section' => $section,
-        'type' => 'upload',
-        'default' => '',
-    );
-*/
     // Colors
     $section = 'colors';
 
@@ -116,63 +98,7 @@ function customizer_library_demo_options()
         'choices' => $font_choices,
         'default' => 'Merriweather'
     );
-/*
-    // More Examples
-    $section = 'examples';
 
-    $sections[] = array(
-        'id' => $section,
-        'title' => __('More Examples', 'demo'),
-        'priority' => '90'
-    );
-
-    $options['example-text'] = array(
-        'id' => 'example-text',
-        'label' => __('Example Text Input', 'demo'),
-        'section' => $section,
-        'type' => 'text',
-    );
-
-    $options['example-checkbox'] = array(
-        'id' => 'example-checkbox',
-        'label' => __('Example Checkbox', 'demo'),
-        'section' => $section,
-        'type' => 'checkbox',
-        'default' => 0,
-    );
-
-    $choices = array(
-        'choice-1' => 'Choice One',
-        'choice-2' => 'Choice Two',
-        'choice-3' => 'Choice Three'
-    );
-
-    $options['example-select'] = array(
-        'id' => 'example-select',
-        'label' => __('Example Select', 'demo'),
-        'section' => $section,
-        'type' => 'select',
-        'choices' => $choices,
-        'default' => 'choice-1'
-    );
-
-    $options['example-radio'] = array(
-        'id' => 'example-radio',
-        'label' => __('Example Radio', 'demo'),
-        'section' => $section,
-        'type' => 'radio',
-        'choices' => $choices,
-        'default' => 'choice-1'
-    );
-
-    $options['example-textarea'] = array(
-        'id' => 'example-textarea',
-        'label' => __('Example Textarea', 'demo'),
-        'section' => $section,
-        'type' => 'textarea',
-        'default' => __('Example textarea text.', 'demo'),
-    );
-*/
     // Adds the sections to the $options array
     $options['sections'] = $sections;
 
