@@ -52,6 +52,11 @@ use yii\bootstrap\Nav;
                 'active' => $this->context->id == 'plugin',
             ],
             [
+                'label' => 'Elements',
+                'url' => ['/element'],
+                'active' => $this->context->id == 'element',
+            ],
+            [
                 'label' => 'Sections',
                 'url' => ['/section'],
                 'active' => $this->context->id == 'section',

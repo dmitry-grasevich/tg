@@ -6,24 +6,23 @@ use Yii;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "template_section".
+ * This is the model class for table "template_element".
  *
  * @property integer $id
  * @property integer $template_id
- * @property integer $section_id
- * @property integer $priority
+ * @property integer $element_id
  *
- * @property Section $section
+ * @property Element $element
  * @property Template $template
  */
-class TemplateSection extends ActiveRecord
+class TemplateElement extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'template_section';
+        return 'template_element';
     }
 
     /**
@@ -32,8 +31,8 @@ class TemplateSection extends ActiveRecord
     public function rules()
     {
         return [
-            [['template_id', 'section_id'], 'required'],
-            [['template_id', 'section_id', 'priority'], 'integer']
+            [['template_id', 'element_id'], 'required'],
+            [['template_id', 'element_id'], 'integer'],
         ];
     }
 
@@ -45,17 +44,16 @@ class TemplateSection extends ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'template_id' => Yii::t('app', 'Template ID'),
-            'section_id' => Yii::t('app', 'Section ID'),
-            'priority' => Yii::t('app', 'Priority'),
+            'element_id' => Yii::t('app', 'Element ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSection()
+    public function getElement()
     {
-        return $this->hasOne(Section::className(), ['id' => 'section_id']);
+        return $this->hasOne(Element::className(), ['id' => 'element_id']);
     }
 
     /**

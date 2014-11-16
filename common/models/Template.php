@@ -21,12 +21,14 @@ use yii\web\UploadedFile;
  * @property string $img
  * @property string $code
  * @property integer $is_visible  show or not this template on frontend
+ * @property string $identificator
  *
  * @property Category $category
  * @property TemplateCss[] $templateCss
  * @property TemplateJs[] $templateJs
  * @property TemplateImage[] $templateImages
  * @property TemplateFunctions[] $templateFunctions
+ * @property TemplateElement[] $templateElements
  * @property Css[] $css
  * @property Js[] $js
  * @property Image[] $images
@@ -35,6 +37,7 @@ use yii\web\UploadedFile;
  * @property Functions[] $functions
  * @property Template[] $children
  * @property Template[] $parents
+ * @property Element[] $elements
  */
 class Template extends Library
 {
@@ -53,13 +56,13 @@ class Template extends Library
     {
         return [
             [['category_id', 'name'], 'required'],
-            [['name'], 'unique'],
+            [['name', 'identificator'], 'unique'],
             [['category_id', 'is_visible'], 'integer'],
-            [['code', 'filename'], 'string'],
+            [['code', 'filename', 'identificator'], 'string'],
             [['img'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
             [['name', 'filename', 'directory', 'img'], 'string', 'max' => 255],
             // relations
-            [['parents', 'children',  'css', 'js', 'images', 'fonts', 'functions', 'plugins'], 'safe'],
+            [['parents', 'children',  'css', 'js', 'images', 'fonts', 'functions', 'plugins', 'elements'], 'safe'],
         ];
     }
 
@@ -77,10 +80,12 @@ class Template extends Library
             'img' => Yii::t('app', 'Preview Image'),
             'code' => Yii::t('app', 'Code'),
             'categoryName' => Yii::t('app', 'Category'),
-            'css' => Yii::t('app', 'Css'),
-            'CssName' => Yii::t('app', 'Css'),
-            'js' => Yii::t('app', 'Js'),
-            'JsName' => Yii::t('app', 'Js'),
+            'css' => Yii::t('app', 'CSS'),
+            'CssName' => Yii::t('app', 'CSS'),
+            'js' => Yii::t('app', 'JS'),
+            'JsName' => Yii::t('app', 'JS'),
+            'elements' => Yii::t('app', 'Elements'),
+            'ElementsName' => Yii::t('app', 'Elements'),
             'image' => Yii::t('app', 'Images'),
             'ImageName' => Yii::t('app', 'Images'),
             'font' => Yii::t('app', 'Fonts'),
@@ -92,6 +97,7 @@ class Template extends Library
             'parentsName' => Yii::t('app', 'Parents'),
             'childrenName' => Yii::t('app', 'Children'),
             'is_visible' => Yii::t('app', 'Visible on Frontend'),
+            'identificator' => Yii::t('app', 'Identificator'),
         ];
     }
 
@@ -388,6 +394,37 @@ class Template extends Library
             $names = [];
             foreach ($this->parents as $parent)
                 $names[] = Html::a($parent->name, ['/template/view', 'id' => $parent->id]);
+            return implode(', ', $names);
+        }
+        return '';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getElements()
+    {
+        return $this->hasMany(Element::className(), ['id' => 'element_id'])->viaTable('template_element', ['template_id' => 'id']);
+    }
+
+    /**
+     * @param array $elements
+     */
+    public function setElements($elements)
+    {
+        $elements = empty($elements) ? [] : Element::findAll($elements);
+        $this->populateRelation('elements', $elements);
+    }
+
+    /**
+     * @return string
+     */
+    public function getElementsName()
+    {
+        if (!empty($this->elements)) {
+            $names = [];
+            foreach ($this->elements as $element)
+                $names[] = Html::a($element->name, ['/element/view', 'id' => $element->id]);
             return implode(', ', $names);
         }
         return '';

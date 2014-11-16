@@ -17,6 +17,7 @@ class m141116_182413_template_section_create extends Migration
             'template_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'section_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'priority' => Schema::TYPE_INTEGER . ' DEFAULT "0"',
+            'css_selector' => Schema::TYPE_STRING . ' DEFAULT ""',
         ], $tableOptions);
 
         $this->addForeignKey('fk_template_section_template', '{{%template_section}}', 'template_id', '{{%template}}', 'id', 'cascade');

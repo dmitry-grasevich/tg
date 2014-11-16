@@ -5,18 +5,18 @@ namespace common\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Section as SectionModel;
+use common\models\Element as ElementModel;
 
 /**
- * Section represents the model behind the search form about `common\models\Section`.
+ * Element represents the model behind the search form about `common\models\Element`.
  */
-class Section extends SectionModel
+class Element extends ElementModel
 {
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['code', 'name'], 'safe'],
+            [['id', 'section_id'], 'integer'],
+            [['name', 'description'], 'safe'],
         ];
     }
 
@@ -28,7 +28,7 @@ class Section extends SectionModel
 
     public function search($params)
     {
-        $query = SectionModel::find();
+        $query = ElementModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -43,15 +43,17 @@ class Section extends SectionModel
             'attributes' => [
                 'id',
                 'name',
+                'section_id',
             ]
         ]);
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'section_id' => $this->section_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'code', $this->code]);
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

@@ -10,6 +10,7 @@ use common\models\Font;
 use common\models\Functions;
 use common\models\Template;
 use common\models\Plugin;
+use \common\models\Element;
 
 /**
  * @var yii\web\View $this
@@ -202,6 +203,21 @@ use common\models\Plugin;
                 'data' => Plugin::listAll(),
                 'options' => [
                     'placeholder' => 'Select Plugins ...',
+                    'multiple' => true,
+                ],
+                'pluginOptions' => ['allowClear' => true],
+            ],
+        ],
+        [
+            'attribute' => 'elements',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_WIDGET,
+            'value' => $model->elementsName,
+            'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
+                'data' => Element::listAll(),
+                'options' => [
+                    'placeholder' => 'Select Elements ...',
                     'multiple' => true,
                 ],
                 'pluginOptions' => ['allowClear' => true],
