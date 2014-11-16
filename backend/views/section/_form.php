@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\detail\DetailView;
+use \common\models\Control;
 
 /**
  * @var yii\web\View $this
@@ -30,6 +31,21 @@ DetailView::widget([
                 'rows' => 15,
                 'class' => 'text-monospace'
             ]
+        ],
+        [
+            'attribute' => 'controls',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_WIDGET,
+            'value' => $model->controlsName,
+            'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
+                'data' => Control::listAll(),
+                'options' => [
+                    'placeholder' => 'Select Controls ...',
+                    'multiple' => true,
+                ],
+                'pluginOptions' => ['allowClear' => true],
+            ],
         ],
     ],
     'deleteOptions' => [

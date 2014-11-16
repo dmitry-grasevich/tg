@@ -80,7 +80,7 @@ use common\models\Plugin;
         [
             'attribute' => 'code',
             'format' => 'raw',
-            'value' => '<pre class="scroll"><code>' . Html::encode($model->code) . '</code></pre>',
+            'value' => empty($model->code) ? '' : '<pre class="scroll"><code>' . Html::encode($model->code) . '</code></pre>',
             'type' => DetailView::INPUT_TEXTAREA,
             'options' => [
                 'rows' => 15,
