@@ -14,10 +14,7 @@ $this->title = Yii::t('app', 'Functions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="functions-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?php Pjax::begin();
-    echo GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -39,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'condensed' => true,
         'floatHeader' => true,
         'export' => false,
+        'pjax' => true,
 
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
@@ -46,7 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add Functions', ['create'], ['class' => 'btn btn-success']), 'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
-    ]);
-    Pjax::end(); ?>
+    ]) ?>
 
 </div>
