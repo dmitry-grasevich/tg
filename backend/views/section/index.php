@@ -19,6 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'name',
             [
+                'header' => 'Controls',
+                'format' => 'raw',
+                'value' => function($model) {
+                    /** @var common\models\Section $model */
+                    return $model->controlsName;
+                }
+            ],
+            [
                 'attribute' => 'code',
                 'format' => 'raw',
                 'value' => function($model) {

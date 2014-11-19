@@ -55,7 +55,7 @@ class Section extends Library
      */
     public function getSectionControls()
     {
-        return $this->hasMany(SectionControl::className(), ['section_id' => 'id']);
+        return $this->hasMany(SectionControl::className(), ['section_id' => 'id'])->orderBy('priority');
     }
 
     /**
@@ -63,7 +63,7 @@ class Section extends Library
      */
     public function getControls()
     {
-        return $this->hasMany(Control::className(), ['id' => 'control_id'])->viaTable('section_control', ['section_id' => 'id']);
+        return $this->hasMany(Control::className(), ['id' => 'control_id'])->via('sectionControls');
     }
 
     /**
