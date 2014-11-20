@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 16 2014 г., 19:54
+-- Время создания: Ноя 20 2014 г., 21:05
 -- Версия сервера: 5.6.20
 -- Версия PHP: 5.4.32
 
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `css` (
   `filename` varchar(255) DEFAULT NULL,
   `directory` varchar(255) DEFAULT '',
   `parent_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `css`
@@ -288,7 +288,8 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m141116_182413_template_section_create', 1416163339),
 ('m141116_185438_element_create', 1416164287),
 ('m141116_192946_template_element_identificator_add', 1416166273),
-('m141116_193841_element_fields_add', 1416166822);
+('m141116_193841_element_fields_add', 1416166822),
+('m141120_203146_section_control_default_add', 1416515567);
 
 -- --------------------------------------------------------
 
@@ -364,17 +365,18 @@ CREATE TABLE IF NOT EXISTS `section_control` (
 `id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL,
   `control_id` int(11) NOT NULL,
-  `priority` int(11) DEFAULT NULL
+  `priority` int(11) DEFAULT NULL,
+  `default` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `section_control`
 --
 
-INSERT INTO `section_control` (`id`, `section_id`, `control_id`, `priority`) VALUES
-(12, 1, 1, 20),
-(13, 1, 2, 30),
-(14, 1, 3, 10);
+INSERT INTO `section_control` (`id`, `section_id`, `control_id`, `priority`, `default`) VALUES
+(12, 1, 1, 20, 'ABeeZee'),
+(13, 1, 2, 30, '#ff00ff'),
+(14, 1, 3, 10, 'My Text');
 
 -- --------------------------------------------------------
 
@@ -748,7 +750,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT для таблицы `css`
 --
 ALTER TABLE `css`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT для таблицы `element`
 --
