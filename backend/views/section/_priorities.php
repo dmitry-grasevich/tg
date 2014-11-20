@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use \kartik\form\ActiveForm;
 use \common\models\SectionControl;
 use \kartik\widgets\TouchSpin;
@@ -10,7 +9,7 @@ use \kartik\widgets\TouchSpin;
  * @var common\models\Section $section
  */
 $form = ActiveForm::begin([
-    'id' => 'section-subform',
+    'id' => 'priorities-form',
     'type' => ActiveForm::TYPE_HORIZONTAL,
 ]);
 
@@ -21,6 +20,7 @@ $form = ActiveForm::begin([
         <div class="pull-right">
             <span class="kv-buttons-2">
                 <button type="submit" class="btn btn-xs btn-info kv-btn-save" title="Save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+            </span>
         </div>
         Priorities
     </div>

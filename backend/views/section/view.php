@@ -15,7 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php if (!empty($model->controls) && count($model->controls)): ?>
     <div class="section-view">
-        <?= $this->render('_subform', ['section' => $model]) ?>
+        <?= $this->render('_priorities', ['section' => $model]) ?>
+    </div>
+
+    <div class="section-view">
+        <?= $this->render('_default', ['section' => $model]) ?>
     </div>
 <?php endif; ?>
     <?php

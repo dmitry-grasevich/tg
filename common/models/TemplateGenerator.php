@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\helpers\ZipArchiveTg;
 use Yii;
+use yii\helpers\VarDumper;
 
 class TemplateGenerator
 {
@@ -26,6 +27,7 @@ class TemplateGenerator
             ->where(['category.is_basic' => 1])->all();
 
         /** 1. Select common templates */
+        /** @var Template[] $commonTemplates */
         foreach ($commonTemplates as $template) {
             /** 2. Processing each common template */
             self::prepareData($template, $data);
@@ -43,8 +45,8 @@ class TemplateGenerator
     }
 
     /**
-     * @param $template
-     * @param $data
+     * @param Template $template
+     * @param array $data
      */
     public static function prepareData($template, &$data)
     {
@@ -128,6 +130,16 @@ class TemplateGenerator
                 }
             }
         }
+        if (count($template->elements)) {
+            $block = [
+                'title' => $template->name,
+                'id' => 'tg_template_' . md5($template->name),
+            ];
+            foreach ($template->elements as $element) {
+                $block['elements'][] = $element;
+            }
+            $data['customize'][] = $block;
+        }
     }
 
     /**
@@ -136,6 +148,7 @@ class TemplateGenerator
      */
     public static function createZip($data, $templateName)
     {
+        var_dump($data['customize']); exit;
         $file = tempnam("tmp", uniqid('zip'));
         $zip = new ZipArchiveTg();
         $zip->open($file, \ZipArchive::OVERWRITE);

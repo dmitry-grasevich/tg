@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\VarDumper;
 
@@ -82,9 +83,13 @@ class Section extends Library
     {
         if (!empty($this->controls)) {
             $names = [];
-            foreach ($this->controls as $control)
-                $names[] = Html::a($control->name, ['/control/view', 'id' => $control->id]);
-            return implode(', ', $names);
+            $sectionControls = $this->getSectionControls()->all();
+            foreach ($sectionControls as $sc) {
+                /** @var SectionControl $sc */
+                $n = $sc->control->name . ' (' . $sc->default . ')';
+                $names[] = Html::a($n, ['/control/view', 'id' => $sc->control_id]);
+            }
+            return implode(',<br /> ', $names);
         }
         return '';
     }
