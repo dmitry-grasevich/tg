@@ -40,7 +40,17 @@ class TemplateGenerator
             self::prepareData($selectedTemplate, $data);
         }
 
-        /** 4. Create ZIP from the prepared data */
+        /** 4. Prepare customizer */
+        if (!empty($data['customize']) && count($data['customize'])) {
+            $counter = 1; $panels = '<?php';
+            foreach ($data['customize'] as $panel) {
+                $panels .= "\n" . self::addCustomizerPanel($panel, $counter++);
+            }
+            $panels .= self::addCustomizerOverrideStyles();
+            $data['panels'] = $panels;
+        }
+
+        /** 5. Create ZIP from the prepared data */
         self::createZip($data, $q['name']);
     }
 
@@ -148,7 +158,6 @@ class TemplateGenerator
      */
     public static function createZip($data, $templateName)
     {
-        var_dump($data['customize']); exit;
         $file = tempnam("tmp", uniqid('zip'));
         $zip = new ZipArchiveTg();
         $zip->open($file, \ZipArchive::OVERWRITE);
@@ -225,8 +234,11 @@ class TemplateGenerator
             }
         }
 
-        /** Add customizer */
-        $zip->addDir(Yii::getAlias(self::getIncPath()), self::getTemplateIncPath());
+        if (isset($data['panels'])) {
+            /** Add customizer */
+            $zip->addDir(Yii::getAlias(self::getIncPath()), self::getTemplateIncPath());
+            $zip->addFromString('inc/customize.php', $data['panels']);
+        }
 
         // TODO: add js
 
@@ -279,5 +291,100 @@ class TemplateGenerator
     public static function getTemplateIncPath()
     {
         return '';
+    }
+
+    /**
+     * Add panel to the Theme Customizer
+     *
+     * @param array $panel
+     * @param $priority
+     *
+     * @return string
+     */
+    public static function addCustomizerPanel($panel = [], $priority)
+    {
+        $function = "\n" . 'add_action("customize_register", "' . $panel['id'] . '_customizer' . '");
+';
+        $function .= '/**
+ * @param WP_Customize_Manager $wp_customize
+ */
+function ' . $panel['id'] . '_customizer($wp_customize) {
+    $wp_customize->add_panel("' . $panel['id'] . '", array(
+      "priority"       => ' . $priority . ',
+      "capability"     => "edit_theme_options",
+      "theme_supports" => "",
+      "title"          => "' . $panel['title'] . '",
+    ));
+}
+';
+        if (isset($panel['elements']) && count($panel['elements'])) {
+            $function .= self::addCustomizerSections($panel['id'], $panel['elements']);
+        }
+
+        return $function;
+    }
+
+    /**
+     * Add elements to the Panel of Theme Customizer
+     *
+     * @param string                    $panelId
+     * @param \common\models\Element[]  $elements
+     *
+     * @return string
+     */
+    public static function addCustomizerSections($panelId, $elements)
+    {
+        $function = "\n\n" . 'add_action("init", "' . $panelId . '_options");
+';
+        $function .= 'function ' . $panelId . '_options()
+{
+    $options = array();
+    $sections = array();
+
+';
+        foreach ($elements as $element) {
+            $function .= $element->getSectionCode($panelId);
+        }
+
+        $function .= '
+    $options["sections"] = $sections;
+
+    $customizer_library = Customizer_Library::Instance();
+    $customizer_library->add_options($options);
+}
+';
+        /** Add Mods */
+        foreach ($elements as $element) {
+            $function .= $element->getModCode($panelId);
+        }
+
+        /** Add Styles */
+        foreach ($elements as $element) {
+            $function .= $element->getStyleCode($panelId);
+        }
+
+        return $function;
+    }
+
+    public static function addCustomizerOverrideStyles()
+    {
+        $function = "\n\n" . 'add_action("wp_head", "customizer_styles", 11);
+';
+        $function .= 'if (!function_exists("customizer_library_demo_styles")) :
+    function customizer_styles()
+    {
+        do_action("customizer_library_styles");
+
+        // Echo the rules
+        $css = Customizer_Library_Styles()->build();
+
+        if (!empty($css)) {
+            echo "\n' . "<!-- Begin Custom CSS -->" . '\n<style type=\"text/css\" id=\"demo-custom-css\">\n";
+            echo $css;
+            echo "\n</style>\n' . '<!-- End Custom CSS -->' . '\n";
+        }
+    }
+endif;';
+        return $function;
     }
 }

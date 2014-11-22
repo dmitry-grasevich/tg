@@ -37,7 +37,7 @@ $form = ActiveForm::begin([
                         <div class="kv-form-attribute">
                             <?php
                             $sectionControl = SectionControl::findOne(['section_id' => $section->id, 'control_id' => $control->id]);
-                            if ($control->name == 'Google Font Selector') {
+                            if ($control->name == 'Font') {
                                 echo Typeahead::widget([
                                     'name' => "Default[{$sectionControl->id}]",
                                     'value' => $sectionControl->default,

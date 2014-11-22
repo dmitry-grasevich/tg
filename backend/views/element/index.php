@@ -18,8 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'name',
+            'identificator',
             'description',
-            'sectionName',
+            [
+                'header' => 'Section',
+                'attribute' => 'sectionName',
+            ],
+            'css_selector',
             'priority',
             [
                 'class' => 'yii\grid\ActionColumn',
