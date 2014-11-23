@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ca51e86d6f10b5a48a1162d7ac86c583",
+    "hash": "f903b14fa65e1caa289edf375aa1e7ad",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -141,16 +141,16 @@
         },
         {
             "name": "bower-asset/bootstrap-switch",
-            "version": "v3.2.1",
+            "version": "v3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nostalgiaz/bootstrap-switch.git",
-                "reference": "5920b51563366861a1affdd350c0828d34f8e43f"
+                "reference": "df5918a8e47d25c582d1d961a343db66848ee8ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nostalgiaz/bootstrap-switch/zipball/5920b51563366861a1affdd350c0828d34f8e43f",
-                "reference": "5920b51563366861a1affdd350c0828d34f8e43f",
+                "url": "https://api.github.com/repos/nostalgiaz/bootstrap-switch/zipball/df5918a8e47d25c582d1d961a343db66848ee8ec",
+                "reference": "df5918a8e47d25c582d1d961a343db66848ee8ec",
                 "shasum": ""
             },
             "require": {
@@ -325,16 +325,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.38",
+            "version": "3.1.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "464cddbdea65411896468f40321e68abcc75a34c"
+                "reference": "b8f06eef3ccf9b8009607f30d47f66133670afc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/464cddbdea65411896468f40321e68abcc75a34c",
-                "reference": "464cddbdea65411896468f40321e68abcc75a34c",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/b8f06eef3ccf9b8009607f30d47f66133670afc2",
+                "reference": "b8f06eef3ccf9b8009607f30d47f66133670afc2",
                 "shasum": ""
             },
             "require": {
@@ -441,16 +441,16 @@
         },
         {
             "name": "bower-asset/spectrum",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bgrins/spectrum.git",
-                "reference": "ed52c1cb69178e74f05e77d2d59974d7673b6737"
+                "reference": "2402d4234ea138ce65f1f7b1d203ca13d8aabf68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bgrins/spectrum/zipball/ed52c1cb69178e74f05e77d2d59974d7673b6737",
-                "reference": "ed52c1cb69178e74f05e77d2d59974d7673b6737",
+                "url": "https://api.github.com/repos/bgrins/spectrum/zipball/2402d4234ea138ce65f1f7b1d203ca13d8aabf68",
+                "reference": "2402d4234ea138ce65f1f7b1d203ca13d8aabf68",
                 "shasum": ""
             },
             "require": {
@@ -778,16 +778,16 @@
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
-            "version": "v2.7.0",
+            "version": "v2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "cec132d48af36785b866dd6f102b133e6750c9ca"
+                "reference": "6483dc80d90bdfcca54b89eaa13f72d92e073efb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/cec132d48af36785b866dd6f102b133e6750c9ca",
-                "reference": "cec132d48af36785b866dd6f102b133e6750c9ca",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/6483dc80d90bdfcca54b89eaa13f72d92e073efb",
+                "reference": "6483dc80d90bdfcca54b89eaa13f72d92e073efb",
                 "shasum": ""
             },
             "type": "library",
@@ -819,7 +819,7 @@
                 "preview",
                 "upload"
             ],
-            "time": "2014-11-08 07:51:58"
+            "time": "2014-11-23 11:00:15"
         },
         {
             "name": "kartik-v/bootstrap-popover-x",
@@ -867,16 +867,16 @@
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
-            "version": "v3.2.0",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "96a92e7781bba947fce9974e570299595eeb6cdd"
+                "reference": "15831b357e4fde3b631db10195abdfa37f954c00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/96a92e7781bba947fce9974e570299595eeb6cdd",
-                "reference": "96a92e7781bba947fce9974e570299595eeb6cdd",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/15831b357e4fde3b631db10195abdfa37f954c00",
+                "reference": "15831b357e4fde3b631db10195abdfa37f954c00",
                 "shasum": ""
             },
             "type": "library",
@@ -904,7 +904,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2014-11-08 07:59:20"
+            "time": "2014-11-17 05:15:35"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -998,16 +998,16 @@
         },
         {
             "name": "kartik-v/yii2-detail-view",
-            "version": "v1.3.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "07b5840f95291d8bf0c5c79cd782c2867cb4c550"
+                "reference": "79dd1d46f4b8de809734971498c92ac49187f8a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/07b5840f95291d8bf0c5c79cd782c2867cb4c550",
-                "reference": "07b5840f95291d8bf0c5c79cd782c2867cb4c550",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/79dd1d46f4b8de809734971498c92ac49187f8a2",
+                "reference": "79dd1d46f4b8de809734971498c92ac49187f8a2",
                 "shasum": ""
             },
             "require": {
@@ -1042,25 +1042,25 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-11-10 14:04:10"
+            "time": "2014-11-22 14:45:40"
         },
         {
             "name": "kartik-v/yii2-editable",
-            "version": "v1.4.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-editable.git",
-                "reference": "3304f18ffac52d18da209be014b19011cb4cbb0e"
+                "reference": "29ef26d5670997e18711963745b3b78094fa249f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-editable/zipball/3304f18ffac52d18da209be014b19011cb4cbb0e",
-                "reference": "3304f18ffac52d18da209be014b19011cb4cbb0e",
+                "url": "https://api.github.com/repos/kartik-v/yii2-editable/zipball/29ef26d5670997e18711963745b3b78094fa249f",
+                "reference": "29ef26d5670997e18711963745b3b78094fa249f",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-popover-x": "*",
-                "kartik-v/yii2-widgets": "*"
+                "kartik-v/yii2-krajee-base": "*",
+                "kartik-v/yii2-popover-x": "*"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -1090,20 +1090,20 @@
                 "popover-x",
                 "widget"
             ],
-            "time": "2014-10-30 10:38:37"
+            "time": "2014-11-22 11:49:12"
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v2.4.0",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "e2b54320f1abc83997f8f14d037aa8e32e16a17c"
+                "reference": "9eddf20e7c9942e6d0e0b807625b1894f9745ce6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/e2b54320f1abc83997f8f14d037aa8e32e16a17c",
-                "reference": "e2b54320f1abc83997f8f14d037aa8e32e16a17c",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/9eddf20e7c9942e6d0e0b807625b1894f9745ce6",
+                "reference": "9eddf20e7c9942e6d0e0b807625b1894f9745ce6",
                 "shasum": ""
             },
             "require": {
@@ -1134,7 +1134,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-11-10 16:07:09"
+            "time": "2014-11-21 21:13:43"
         },
         {
             "name": "kartik-v/yii2-helpers",
@@ -1184,20 +1184,20 @@
         },
         {
             "name": "kartik-v/yii2-krajee-base",
-            "version": "v1.0.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "a5acb4bd3f50b06d8c12b085607499d5b3c6436f"
+                "reference": "a0283d6b63b982180aaab1b93a27d5df6521d14f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/a5acb4bd3f50b06d8c12b085607499d5b3c6436f",
-                "reference": "a5acb4bd3f50b06d8c12b085607499d5b3c6436f",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/a0283d6b63b982180aaab1b93a27d5df6521d14f",
+                "reference": "a0283d6b63b982180aaab1b93a27d5df6521d14f",
                 "shasum": ""
             },
             "require": {
-                "yiisoft/yii2-bootstrap": "*"
+                "yiisoft/yii2-bootstrap": "@dev"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -1226,7 +1226,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-11-09 19:23:12"
+            "time": "2014-11-21 20:58:05"
         },
         {
             "name": "kartik-v/yii2-money",
@@ -1328,16 +1328,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-activeform",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-activeform.git",
-                "reference": "f8aec611ee6bb4e7622f5a801fabded7abe0ac44"
+                "reference": "ea34ba6d8354ccd1ff7b3642e1701163fd97fcea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/f8aec611ee6bb4e7622f5a801fabded7abe0ac44",
-                "reference": "f8aec611ee6bb4e7622f5a801fabded7abe0ac44",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/ea34ba6d8354ccd1ff7b3642e1701163fd97fcea",
+                "reference": "ea34ba6d8354ccd1ff7b3642e1701163fd97fcea",
                 "shasum": ""
             },
             "require": {
@@ -1371,7 +1371,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-11-09 17:44:03"
+            "time": "2014-11-17 18:18:33"
         },
         {
             "name": "kartik-v/yii2-widget-affix",
@@ -2113,16 +2113,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-touchspin",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-touchspin.git",
-                "reference": "409b023e54a6600bfe42e9bc1faff2b46bb51629"
+                "reference": "6c73a63e2c7c8e210354dd4eaacdc921e2dc09f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-touchspin/zipball/409b023e54a6600bfe42e9bc1faff2b46bb51629",
-                "reference": "409b023e54a6600bfe42e9bc1faff2b46bb51629",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-touchspin/zipball/6c73a63e2c7c8e210354dd4eaacdc921e2dc09f8",
+                "reference": "6c73a63e2c7c8e210354dd4eaacdc921e2dc09f8",
                 "shasum": ""
             },
             "require": {
@@ -2159,7 +2159,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-11-08 20:28:18"
+            "time": "2014-11-16 05:33:58"
         },
         {
             "name": "kartik-v/yii2-widget-typeahead",
@@ -3096,6 +3096,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-widget-fileinput": 20,
+        "kartik-v/yii2-detail-view": 20,
         "richthegeek/phpsass": 20
     },
     "prefer-stable": false,
