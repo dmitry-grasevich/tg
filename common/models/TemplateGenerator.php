@@ -370,7 +370,7 @@ function ' . $panel['id'] . '_customizer($wp_customize) {
     {
         $function = "\n\n" . 'add_action("wp_head", "customizer_styles", 11);
 ';
-        $function .= 'if (!function_exists("customizer_library_demo_styles")) :
+        $function .= 'if (!function_exists("customizer_styles")) :
     function customizer_styles()
     {
         do_action("customizer_library_styles");
@@ -379,7 +379,7 @@ function ' . $panel['id'] . '_customizer($wp_customize) {
         $css = Customizer_Library_Styles()->build();
 
         if (!empty($css)) {
-            echo "\n' . "<!-- Begin Custom CSS -->" . '\n<style type=\"text/css\" id=\"demo-custom-css\">\n";
+            echo "\n' . "<!-- Begin Custom CSS -->" . '\n<style type=\"text/css\" id=\"custom-css\">\n";
             echo $css;
             echo "\n</style>\n' . '<!-- End Custom CSS -->' . '\n";
         }
