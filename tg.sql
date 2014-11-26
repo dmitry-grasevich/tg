@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 22 2014 г., 18:28
+-- Время создания: Ноя 26 2014 г., 19:31
 -- Версия сервера: 5.6.20
 -- Версия PHP: 5.4.32
 
@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `related_template` (
 `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `child_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `related_template`
@@ -332,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `related_template` (
 INSERT INTO `related_template` (`id`, `parent_id`, `child_id`) VALUES
 (104, 3, 16),
 (110, 2, 19),
-(112, 2, 17);
+(113, 2, 17);
 
 -- --------------------------------------------------------
 
@@ -367,16 +367,15 @@ CREATE TABLE IF NOT EXISTS `section_control` (
   `control_id` int(11) NOT NULL,
   `priority` int(11) DEFAULT NULL,
   `default` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `section_control`
 --
 
 INSERT INTO `section_control` (`id`, `section_id`, `control_id`, `priority`, `default`) VALUES
-(18, 1, 1, 20, 'Monoton'),
-(19, 1, 2, 10, '#ffffff'),
-(20, 1, 3, 30, 'Default Text');
+(21, 1, 2, 10, '#ffffff'),
+(22, 1, 3, 20, 'default text');
 
 -- --------------------------------------------------------
 
@@ -395,7 +394,7 @@ CREATE TABLE IF NOT EXISTS `template` (
   `code` text,
   `is_visible` tinyint(1) DEFAULT '0',
   `identificator` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template`
@@ -405,12 +404,13 @@ INSERT INTO `template` (`id`, `category_id`, `name`, `filename`, `directory`, `i
 (1, 1, 'Common Index', 'index.php', '', '', '<?php get_header(); ?>\r\n    <?php if (have_posts()) : while(have_posts()) : the_post(); ?>\r\n        <?php get_template_part(''content'', get_post_format()); ?>\r\n     <?php endwhile; else : ?>\r\n        <article id="post-<?php the_ID(); ?>" <?php post_class(''no-posts''); ?>>\r\n            <h1><?php _e(''No posts were found.'', ''adaptive-framework''); ?></h1>\r\n        </article>\r\n    <?php endif; ?>\r\n<?php get_footer(); ?>', 1, NULL),
 (2, 1, 'Common Header', 'header.php', '', '', '<!DOCTYPE html>\r\n<!--[if IE 8]> <html <?php language_attributes(); ?> class="ie8"> <![endif]-->\r\n<!--[if !IE]><!--> <html <?php language_attributes(); ?>> <!--<![endif]-->\r\n<head>\r\n    <meta charset="<?php bloginfo("charset"); ?>">\r\n    <title><?php wp_title("|", true, "right"); ?><?php bloginfo("name"); ?></title>\r\n    <meta name="description" content="<?php bloginfo("description"); ?>">\r\n    <meta name="author" content="Template Generator Team">\r\n\r\n    <!-- Mobile Specific Meta -->\r\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\r\n\r\n    <!-- Stylesheets -->\r\n    <link rel="stylesheet" href="<?php bloginfo("stylesheet_url"); ?>" />\r\n   \r\n      <!-- google web fonts -->\r\n        <link href=''http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700'' rel=''stylesheet'' type=''text/css''>\r\n        <link href=''http://fonts.googleapis.com/css?family=Pacifico'' rel=''stylesheet'' type=''text/css''>\r\n\r\n    <!-- Pingbacks -->\r\n    <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />\r\n\r\n    <!--[if lt IE 9]>\r\n        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\r\n    <![endif]-->\r\n\r\n<?php wp_head(); ?>\r\n</head>\r\n<body <?php body_class(); ?>>', 1, NULL),
 (3, 1, 'Common Footer', 'footer.php', '', '', '    <?php wp_footer(); ?>\r\n    </body>\r\n</html>', 1, NULL),
-(6, 1, 'Common Functions', 'functions.php', '', '', '<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) { die(); }\r\n\r\n/***********************************************************************************************/\r\n/** Define Constants **/\r\n/***********************************************************************************************/\r\ndefine(''THEMEROOT'', get_stylesheet_directory_uri());\r\ndefine(''IMAGES'', THEMEROOT . ''/images'');\r\ndefine(''THEMEPATH'', trailingslashit(TEMPLATEPATH));\r\n\r\n/***********************************************************************************************/\r\n/** Include Styles **/\r\n/***********************************************************************************************/\r\nadd_action(''wp_enqueue_scripts'', ''register_tg_styles'');\r\nfunction register_tg_styles()\r\n{\r\n    wp_enqueue_style(''bootstrap'', get_template_directory_uri() . ''/bootstrap/css/bootstrap.min.css'');\r\n    wp_enqueue_style(''theme-css'', get_stylesheet_uri(), ''bootstrap'');\r\n}\r\n\r\n/***********************************************************************************************/\r\n/** Customizer **/\r\n/***********************************************************************************************/\r\nfunction demo_styles() {\r\n    wp_enqueue_style(''demo-style'', get_stylesheet_uri());\r\n}\r\nadd_action(''wp_enqueue_scripts'', ''demo_styles'');\r\n\r\n// Helper library for the theme customizer.\r\nrequire get_template_directory() . ''/inc/customizer-library/customizer-library.php'';\r\n\r\n// Define options for the theme customizer.\r\nrequire get_template_directory() . ''/inc/customize.php'';\r\n', 1, NULL),
+(6, 1, 'Common Functions', 'functions.php', '', '', '<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) { die(); }\r\n\r\n/***********************************************************************************************/\r\n/** Define Constants **/\r\n/***********************************************************************************************/\r\ndefine(''THEMEROOT'', get_stylesheet_directory_uri());\r\ndefine(''IMAGES'', THEMEROOT . ''/images'');\r\ndefine(''THEMEPATH'', trailingslashit(TEMPLATEPATH));\r\n\r\n/***********************************************************************************************/\r\n/** Include Styles **/\r\n/***********************************************************************************************/\r\nadd_action(''wp_enqueue_scripts'', ''register_tg_styles'');\r\nfunction register_tg_styles()\r\n{\r\n    wp_enqueue_style(''bootstrap'', get_template_directory_uri() . ''/bootstrap/css/bootstrap.min.css'');\r\n    wp_enqueue_style(''theme-css'', get_stylesheet_uri(), ''bootstrap'');\r\n}\r\n\r\n/***********************************************************************************************/\r\n/** Customizer **/\r\n/***********************************************************************************************/\r\nfunction demo_styles() {\r\n    wp_enqueue_style(''demo-style'', get_stylesheet_uri());\r\n}\r\nadd_action(''wp_enqueue_scripts'', ''demo_styles'');\r\n\r\n// Helper library for the theme customizer.\r\nrequire get_template_directory() . ''/inc/customizer-library/customizer-library.php'';\r\n\r\n// Define options for the theme customizer.\r\nrequire get_template_directory() . ''/inc/customize.php'';\r\n\r\n// General Options\r\nadd_action("init", "tg_template_general_options");\r\nfunction tg_template_general_options()\r\n{\r\n    $options = array();\r\n    $sections = array();\r\n\r\n    $sections[] = array(\r\n        ''id'' => ''typography_section'',\r\n        ''title'' => __(''Typography'', ''template-generator''),\r\n        ''description'' => __('''', ''template-generator''),\r\n        ''priority'' => ''0'',\r\n    );\r\n\r\n    $options[''headers-font''] = array(\r\n        ''id'' => ''headers-font'',\r\n        ''label'' => __(''Headers Font'', ''template-generator''),\r\n        ''section'' => ''typography_section'',\r\n        ''type'' => ''select'',\r\n        ''choices'' => customizer_library_get_font_choices(),\r\n        ''priority'' => ''10'',\r\n        ''default'' => ''Pacifico'',\r\n    );\r\n    \r\n    $options[''general-font''] = array(\r\n        ''id'' => ''general-font'',\r\n        ''label'' => __(''General Font'', ''template-generator''),\r\n        ''section'' => ''typography_section'',\r\n        ''type'' => ''select'',\r\n        ''choices'' => customizer_library_get_font_choices(),\r\n        ''priority'' => ''20'',\r\n        ''default'' => ''Lato'',\r\n    );\r\n    \r\n    $customizer_library = Customizer_Library::Instance();\r\n    $opt = $customizer_library->get_options();\r\n    if (!empty($opt) && isset($opt[''sections''])) {\r\n        $options = array_merge($opt, $options);\r\n        $options[''sections''] = array_merge($opt[''sections''], $sections);\r\n    } else {\r\n        $options["sections"] = $sections;\r\n    }\r\n\r\n    $customizer_library->set_options($options);\r\n}\r\n\r\nadd_action("wp_enqueue_scripts", "tg_template_general_fonts");\r\nfunction tg_template_general_fonts()\r\n{\r\n    $fonts = array(\r\n        get_theme_mod("headers-font", customizer_library_get_default("headers-font")),\r\n        get_theme_mod("general-font", customizer_library_get_default("general-font")),\r\n    );\r\n\r\n    $font_uri = customizer_library_get_google_font_uri($fonts);\r\n\r\n    // Load Google Fonts\r\n    wp_enqueue_style("tg_template_general_fonts", $font_uri, array(), null, "screen");\r\n}\r\n\r\nadd_action("customizer_library_styles", "tg_template_general_styles");\r\nfunction tg_template_general_styles()\r\n{\r\n        $setting = ''headers-font'';\r\n        $mod = get_theme_mod($setting, customizer_library_get_default($setting));\r\n        $stack = customizer_library_get_font_stack($mod);\r\n\r\n        if ($mod != customizer_library_get_default($setting)) {\r\n            Customizer_Library_Styles()->add(array(\r\n                ''selectors'' => array(''.header-font''),\r\n                ''declarations'' => array(''font-family'' => $stack)\r\n            ));\r\n        }\r\n\r\n        $setting = ''general-font'';\r\n        $mod = get_theme_mod($setting, customizer_library_get_default($setting));\r\n        $stack = customizer_library_get_font_stack($mod);\r\n\r\n        if ($mod != customizer_library_get_default($setting)) {\r\n            Customizer_Library_Styles()->add(array(\r\n                ''selectors'' => array(''body''),\r\n                ''declarations'' => array(''font-family'' => $stack)\r\n            ));\r\n        }\r\n}\r\n\r\n', 1, NULL),
 (15, 1, 'Common Styles', 'style.css', '', '', '@charset "UTF-8";\r\n/*\r\nTheme Name: Template Generator\r\nTheme URI: http://www.template-generator.com\r\nAuthor: Template Generator Team\r\nAuthor URI:\r\nDescription: Theme for Wordpress.\r\nVersion: 1.0\r\nLicense: GNU General Public License v2 or later\r\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\r\nTags: black, brown, orange, tan, white, yellow, light, one-page\r\n*/\r\n\r\n@font-face {\r\n  font-family: ''fontello'';\r\n  src: url("../fonts/fontello.eot?80707783");\r\n  src: url("../fonts/fontello.eot?80707783#iefix") format("embedded-opentype"), url("../fonts/fontello.woff?80707783") format("woff"), url("../fonts/fontello.ttf?80707783") format("truetype"), url("../fonts/fontello.svg?80707783#fontello") format("svg");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n/**************************************************************************/\r\n/* TYPOGRAPHY */\r\n/**************************************************************************/\r\n/* line 5, ../scss/typography.scss */\r\nbody {\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  color: #333333;\r\n  font-size: 16px;\r\n}\r\n\r\n/* line 11, ../scss/typography.scss */\r\np {\r\n  font-size: 1em;\r\n  line-height: 1.5em;\r\n  margin: 1.5em 0 0 0;\r\n}\r\n\r\n/* line 17, ../scss/typography.scss */\r\nh1 {\r\n  font-size: 4.5000em;\r\n  /* 72px */\r\n  line-height: 1.0000em;\r\n  /* 72px */\r\n  margin-top: 0.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 24, ../scss/typography.scss */\r\nh2 {\r\n  font-size: 3.7500em;\r\n  /* 60px */\r\n  line-height: 1.2000em;\r\n  /* 72px */\r\n  margin-top: 0.4000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 31, ../scss/typography.scss */\r\nh3 {\r\n  font-size: 3.0000em;\r\n  /* 48px */\r\n  line-height: 1.0000em;\r\n  /* 48px */\r\n  margin-top: 0.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 38, ../scss/typography.scss */\r\nh4 {\r\n  font-size: 2.2500em;\r\n  /* 36px */\r\n  line-height: 1.3333em;\r\n  /* 48px */\r\n  margin-top: 0.6667em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 45, ../scss/typography.scss */\r\nh5 {\r\n  font-size: 1.8750em;\r\n  /* 30px */\r\n  line-height: 1.6000em;\r\n  /* 48px */\r\n  margin-top: 0.8000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 52, ../scss/typography.scss */\r\nh6 {\r\n  font-size: 1.5em;\r\n  /* 24px */\r\n  line-height: 1em;\r\n  /* 24px */\r\n  margin-top: 1em;\r\n  margin-bottom: 0;\r\n}\r\n\r\n/* line 59, ../scss/typography.scss */\r\n.class-for-18px {\r\n  font-size: 1.1250em;\r\n  /* 18px */\r\n  line-height: 1.3333em;\r\n  /* 24px */\r\n  margin-top: 1.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 65, ../scss/typography.scss */\r\n.class-for-16px {\r\n  font-size: 1.0000em;\r\n  /* 16px */\r\n  line-height: 1.5000em;\r\n  /* 24px */\r\n  margin-top: 1.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 71, ../scss/typography.scss */\r\n.class-for-14px {\r\n  font-size: 0.8750em;\r\n  /* 14px */\r\n  line-height: 1.7143em;\r\n  /* 24px */\r\n  margin-top: 1.7143em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 79, ../scss/typography.scss */\r\n.uppercase {\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.05em;\r\n}\r\n\r\n/**************************************************************************/\r\n/* General */\r\n/**************************************************************************/\r\n/* line 5, ../scss/general.scss */\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n}\r\n\r\n/* line 9, ../scss/general.scss */\r\n.amp {\r\n  font-family: "Pacifico", Georgia, serif;\r\n  font-style: italic;\r\n  font-weight: 400;\r\n}\r\n\r\n/* line 15, ../scss/general.scss */\r\nimg {\r\n  max-width: 100%;\r\n}\r\n\r\n/* helpers for text-align */\r\n/* line 20, ../scss/general.scss */\r\n.text-right {\r\n  text-align: right;\r\n}\r\n\r\n/* line 24, ../scss/general.scss */\r\n.text-center {\r\n  text-align: center;\r\n}\r\n\r\n/* vertical-align for elements */\r\n/* line 29, ../scss/general.scss */\r\n.vertical {\r\n  position: absolute;\r\n  top: 50%;\r\n  -webkit-transform: translateY(-50%);\r\n  -ms-transform: translateY(-50%);\r\n  transform: translateY(-50%);\r\n}\r\n\r\n/* buttons */\r\n/* line 35, ../scss/general.scss */\r\n.btn {\r\n  -webkit-transition: all 300ms ease;\r\n  -moz-transition: all 300ms ease;\r\n  -ms-transition: all 300ms ease;\r\n  -o-transition: all 300ms ease;\r\n  transition: all 300ms ease;\r\n}\r\n\r\n/* line 38, ../scss/general.scss */\r\n.btn-cta {\r\n  background: transparent;\r\n  border: 2px solid #FFF;\r\n  color: #FFF;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 48, ../scss/general.scss */\r\n.btn-cta:hover {\r\n  color: #fff;\r\n}\r\n\r\n/* line 52, ../scss/general.scss */\r\n.btn-red {\r\n  background: #b8312f;\r\n  color: #fff;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 61, ../scss/general.scss */\r\n.btn-red:hover {\r\n  color: #fff;\r\n  background: #cb3735;\r\n}\r\n', 1, NULL),
 (16, 4, 'Footer 1', '', '', 'footer1.png', '	<!-- QUOTE AREA -->\r\n	<section>\r\n		<div class="quote-container section-content align-center">\r\n			<h3>Need a quote?</h3>\r\n			\r\n			<p>Please use the form inside the contact page. Make sure you include some personal information as well as your project description and available budget.</p>\r\n			<p><a href="<?php echo home_url(); ?>/contact">Get a free quote &rarr;</a></p>\r\n		</div> <!-- end quote-container -->\r\n	</section>\r\n	\r\n		\r\n	\r\n	<!-- FOOTER -->\r\n	<footer class="main-footer section-content align-center" id="contact-info">\r\n		<h3>Just wanna say hi?</h3>\r\n		\r\n		<p>You can call me, email me directly or connect with me through my social networks.</p>\r\n		<p>(+40) 744111222 <br> <a href="mailto:hello@adipurdila.com">hello@adipurdila.com</a></p>\r\n		\r\n		<ul class="social-icons inline">\r\n			<li><a href="#" class="icon-twitter"></a></li>\r\n			<li><a href="#" class="icon-facebook"></a></li>\r\n			<li><a href="#" class="icon-dribbble"></a></li>\r\n		</ul>\r\n		\r\n		<hr />\r\n		\r\n		<p>&copy; Copyright <?php echo date(''Y''); ?> <?php echo bloginfo(''name''); ?>. Portfolio theme by Adi Purdila.</p>\r\n	</footer>', 1, NULL),
-(17, 2, 'Header 1', '', '', 'header1.png', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo">\r\n                        <a href="<?php echo home_url(); ?>" class="primary">\r\n                            <?php if (get_theme_mod(''logo'', false)): ?>\r\n                                <img src="<?php echo esc_url(get_theme_mod(''logo'')) ?>" alt="<?php bloginfo(''name''); ?>" />\r\n                            <?php else: ?>\r\n                                <?php bloginfo(''name''); ?>\r\n                            <?php endif; ?>\r\n                        </a>\r\n                    </h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro border">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description secondary">\r\n                    <?php echo get_theme_mod(''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'') ?>\r\n                </p>\r\n                <p>\r\n                    <a class="btn btn-lg btn-cta" href="#application">Get started</a>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>', 1, NULL),
+(17, 2, 'Header 1', '', '', 'header1.png', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo header-font">\r\n                        <a href="<?php echo home_url(); ?>" class="primary">\r\n                            <?php if (get_theme_mod(''logo'', false)): ?>\r\n                                <img src="<?php echo esc_url(get_theme_mod(''logo'')) ?>" alt="<?php bloginfo(''name''); ?>" />\r\n                            <?php else: ?>\r\n                                <?php bloginfo(''name''); ?>\r\n                            <?php endif; ?>\r\n                        </a>\r\n                    </h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro border header-font">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description secondary">\r\n                    <?php echo get_theme_mod(''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'') ?>\r\n                </p>\r\n                <p>\r\n                    <a class="btn btn-lg btn-cta" href="#application">Get started</a>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>', 1, NULL),
 (18, 6, 'Contact #1', '', '', 'header4.png', '', 1, NULL),
-(19, 2, 'Header BW', '', '', 'bg-home-v1.jpg', '        <!-- section 1 -->\r\n        <section class="screen home-v1">\r\n\r\n            <header class="hdr-v1">\r\n                <div class="container">\r\n                    <div class="row">\r\n                        <div class="col-md-3">\r\n                            <h1 class="logo"><a href="#">frameOne</a></h1>\r\n                        </div>\r\n                        <div class="col-md-9">\r\n                            <nav class="prim-nav">\r\n                                <ul>\r\n                                    <li><a href="#about"><span data-hover="About">About</span></a></li>\r\n                                    <li><a href="#team"><span data-hover="Team">Team</span></a></li>\r\n                                    <li><a href="#contact"><span data-hover="Contact">Contact</span></a></li>\r\n                                    <li><a href="#application"><span data-hover="Application">Application</span></a></li>\r\n                                </ul>\r\n                            </nav>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </header>\r\n\r\n            <div class="container">\r\n                <div class="row">\r\n                    <div class="col-md-8 vertical">\r\n                        <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                        <p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n                        <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- end section 1 -->\r\n', 0, NULL);
+(19, 2, 'Header BW', '', '', 'bg-home-v1.jpg', '        <!-- section 1 -->\r\n        <section class="screen home-v1">\r\n\r\n            <header class="hdr-v1">\r\n                <div class="container">\r\n                    <div class="row">\r\n                        <div class="col-md-3">\r\n                            <h1 class="logo"><a href="#">frameOne</a></h1>\r\n                        </div>\r\n                        <div class="col-md-9">\r\n                            <nav class="prim-nav">\r\n                                <ul>\r\n                                    <li><a href="#about"><span data-hover="About">About</span></a></li>\r\n                                    <li><a href="#team"><span data-hover="Team">Team</span></a></li>\r\n                                    <li><a href="#contact"><span data-hover="Contact">Contact</span></a></li>\r\n                                    <li><a href="#application"><span data-hover="Application">Application</span></a></li>\r\n                                </ul>\r\n                            </nav>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </header>\r\n\r\n            <div class="container">\r\n                <div class="row">\r\n                    <div class="col-md-8 vertical">\r\n                        <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                        <p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n                        <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- end section 1 -->\r\n', 0, NULL),
+(20, 6, 'test', '', '', '', '', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -423,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `template_css` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `css_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_css`
@@ -432,9 +432,9 @@ CREATE TABLE IF NOT EXISTS `template_css` (
 INSERT INTO `template_css` (`id`, `template_id`, `css_id`) VALUES
 (30, 2, 5),
 (77, 19, 8),
-(81, 17, 1),
-(82, 17, 3),
-(83, 17, 8);
+(84, 17, 1),
+(85, 17, 3),
+(86, 17, 8);
 
 -- --------------------------------------------------------
 
@@ -447,15 +447,15 @@ CREATE TABLE IF NOT EXISTS `template_element` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `element_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_element`
 --
 
 INSERT INTO `template_element` (`id`, `template_id`, `element_id`) VALUES
-(1, 17, 1),
-(2, 17, 2);
+(3, 17, 1),
+(4, 17, 2);
 
 -- --------------------------------------------------------
 
@@ -468,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `template_font` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `font_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_font`
@@ -480,10 +480,10 @@ INSERT INTO `template_font` (`id`, `template_id`, `font_id`) VALUES
 (133, 15, 7),
 (134, 15, 8),
 (147, 19, 6),
-(152, 17, 5),
-(153, 17, 6),
-(154, 17, 7),
-(155, 17, 8);
+(156, 17, 5),
+(157, 17, 6),
+(158, 17, 7),
+(159, 17, 8);
 
 -- --------------------------------------------------------
 
@@ -496,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `template_functions` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `functions_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_functions`
@@ -504,8 +504,8 @@ CREATE TABLE IF NOT EXISTS `template_functions` (
 
 INSERT INTO `template_functions` (`id`, `template_id`, `functions_id`) VALUES
 (87, 18, 6),
-(105, 17, 2),
-(106, 17, 3);
+(107, 17, 2),
+(108, 17, 3);
 
 -- --------------------------------------------------------
 
@@ -518,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `template_image` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `image_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `template_image`
@@ -526,7 +526,7 @@ CREATE TABLE IF NOT EXISTS `template_image` (
 
 INSERT INTO `template_image` (`id`, `template_id`, `image_id`) VALUES
 (59, 19, 4),
-(61, 17, 4);
+(62, 17, 4);
 
 -- --------------------------------------------------------
 
@@ -785,7 +785,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT для таблицы `related_template`
 --
 ALTER TABLE `related_template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=113;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=114;
 --
 -- AUTO_INCREMENT для таблицы `section`
 --
@@ -795,37 +795,37 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT для таблицы `section_control`
 --
 ALTER TABLE `section_control`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT для таблицы `template`
 --
 ALTER TABLE `template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT для таблицы `template_css`
 --
 ALTER TABLE `template_css`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=84;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=87;
 --
 -- AUTO_INCREMENT для таблицы `template_element`
 --
 ALTER TABLE `template_element`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT для таблицы `template_font`
 --
 ALTER TABLE `template_font`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=156;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=160;
 --
 -- AUTO_INCREMENT для таблицы `template_functions`
 --
 ALTER TABLE `template_functions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=107;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=109;
 --
 -- AUTO_INCREMENT для таблицы `template_image`
 --
 ALTER TABLE `template_image`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT для таблицы `template_js`
 --
