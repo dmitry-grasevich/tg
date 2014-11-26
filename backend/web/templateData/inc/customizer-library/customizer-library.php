@@ -85,6 +85,11 @@ if (!class_exists('Customizer_Library')) :
             $this->options = array_merge($options, $this->options);
         }
 
+        public function set_options($options = array())
+        {
+            $this->options = $options;
+        }
+
         public function get_options()
         {
             return $this->options;
