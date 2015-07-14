@@ -57,7 +57,7 @@ $this->title = 'WordPress Template Generator';
                             <?php /** @var common\models\Template $t */ ?>
                             <?php foreach ($selected as $t): ?>
                                 <li>
-                                    <img src="images/elements/<?= $t->category->alias ?>/<?= $t->img ?>" width="1200" data-fullimg="images/elements/<?= $t->category->alias ?>/<?= $t->img ?>" data-id="<?= $s->id ?>">
+                                    <img src="images/elements/<?= $t->category->alias ?>/<?= $t->img ?>" width="1200" data-fullimg="images/elements/<?= $t->category->alias ?>/<?= $t->img ?>" data-id="<?= $t->id ?>">
                                 </li>
                             <?php endforeach; ?>
                         <?php endif; ?>

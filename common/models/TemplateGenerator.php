@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\helpers\ZipArchiveTg;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 
 class TemplateGenerator
@@ -33,11 +34,10 @@ class TemplateGenerator
             self::prepareData($template, $data);
         }
 
-        $selectedIds = explode(',', $q['blocks']);
-        /** 3. Processing all selected entity for WP template */
-        foreach ($selectedIds as $id) {
-            $selectedTemplate = Template::findOne(intval($id));
-            self::prepareData($selectedTemplate, $data);
+        /** 3. Processing all selected entities for WP template */
+        $blocks = array_map('trim', explode(',', $q['blocks']));
+        foreach (Template::findAll($blocks) as $block) {
+            self::prepareData($block, $data);
         }
 
         /** 4. Prepare customizer */
@@ -158,7 +158,7 @@ class TemplateGenerator
      */
     public static function createZip($data, $templateName)
     {
-        $file = tempnam("tmp", uniqid('zip'));
+        $file = tempnam('tmp', uniqid('zip'));
         $zip = new ZipArchiveTg();
         $zip->open($file, \ZipArchive::OVERWRITE);
         $zip->addEmptyDir('images');
