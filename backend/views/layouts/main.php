@@ -53,8 +53,12 @@ AppAsset::register($this);
         <div class="container-fluid page-container">
             <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
             <div class="row">
-                <div class="col-md-2"><?= $this->render('menu') ?></div>
-                <div class="col-md-10"><?= $content ?></div>
+                <?php if (Yii::$app->user->isGuest): ?>
+                    <div class="col-md-10"><?= $content ?></div>
+                <?php else: ?>
+                    <div class="col-md-2"><?= $this->render('menu') ?></div>
+                    <div class="col-md-10"><?= $content ?></div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
