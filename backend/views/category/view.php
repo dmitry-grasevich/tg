@@ -5,7 +5,7 @@
  */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Template Categories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Template Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="template-category-view">

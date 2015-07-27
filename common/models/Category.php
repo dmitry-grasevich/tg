@@ -44,11 +44,11 @@ class Category extends Library
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'alias' => Yii::t('app', 'Alias'),
-            'is_basic' => Yii::t('app', 'Basic Category'),
-            'is_visible' => Yii::t('app', 'Visible on Frontend'),
+            'id' => Yii::t('tg', 'ID'),
+            'name' => Yii::t('tg', 'Name'),
+            'alias' => Yii::t('tg', 'Alias'),
+            'is_basic' => Yii::t('tg', 'Basic Category'),
+            'is_visible' => Yii::t('tg', 'Visible on Frontend'),
         ];
     }
 

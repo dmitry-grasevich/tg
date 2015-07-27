@@ -6,7 +6,7 @@
  */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Controls'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Controls'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="control-view">

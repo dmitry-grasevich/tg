@@ -6,7 +6,7 @@
  */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Fonts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Fonts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="font-view">

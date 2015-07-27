@@ -42,9 +42,9 @@ class TemplateFunctions extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'template_id' => Yii::t('app', 'Template ID'),
-            'functions_id' => Yii::t('app', 'Functions ID'),
+            'id' => Yii::t('tg', 'ID'),
+            'template_id' => Yii::t('tg', 'Template ID'),
+            'functions_id' => Yii::t('tg', 'Functions ID'),
         ];
     }
 

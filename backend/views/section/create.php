@@ -4,10 +4,10 @@
  * @var common\models\Section $model
  */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
+$this->title = Yii::t('tg', 'Create {modelClass}', [
     'modelClass' => 'Section',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sections'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Sections'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="css-create">

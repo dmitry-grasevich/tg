@@ -44,10 +44,10 @@ class Image extends Library
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'filename' => Yii::t('app', 'File'),
-            'directory' => Yii::t('app', 'Directory'),
+            'id' => Yii::t('tg', 'ID'),
+            'name' => Yii::t('tg', 'Name'),
+            'filename' => Yii::t('tg', 'File'),
+            'directory' => Yii::t('tg', 'Directory'),
         ];
     }
 

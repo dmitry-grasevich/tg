@@ -42,9 +42,9 @@ class RelatedTemplate extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'parent_id' => Yii::t('app', 'Parent ID'),
-            'child_id' => Yii::t('app', 'Child ID'),
+            'id' => Yii::t('tg', 'ID'),
+            'parent_id' => Yii::t('tg', 'Parent ID'),
+            'child_id' => Yii::t('tg', 'Child ID'),
         ];
     }
 

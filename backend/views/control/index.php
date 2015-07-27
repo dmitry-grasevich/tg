@@ -9,7 +9,7 @@ use kartik\grid\GridView;
  * @var common\models\search\Control $searchModel
  */
 
-$this->title = Yii::t('app', 'Controls');
+$this->title = Yii::t('tg', 'Controls');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="control-index">

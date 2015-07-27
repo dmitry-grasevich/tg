@@ -4,10 +4,10 @@
  * @var common\models\Functions $model
  */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
+$this->title = Yii::t('tg', 'Create {modelClass}', [
     'modelClass' => 'Functions',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Functions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Functions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="functions-create">

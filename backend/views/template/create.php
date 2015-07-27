@@ -4,10 +4,10 @@
  * @var common\models\Template $model
  */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
+$this->title = Yii::t('tg', 'Create {modelClass}', [
     'modelClass' => 'Template',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Templates'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Templates'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="template-create">

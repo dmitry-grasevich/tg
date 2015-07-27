@@ -43,11 +43,11 @@ class Js extends Library
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'code' => Yii::t('app', 'Code'),
-            'filename' => Yii::t('app', 'Filename'),
-            'directory' => Yii::t('app', 'Directory'),
+            'id' => Yii::t('tg', 'ID'),
+            'name' => Yii::t('tg', 'Name'),
+            'code' => Yii::t('tg', 'Code'),
+            'filename' => Yii::t('tg', 'Filename'),
+            'directory' => Yii::t('tg', 'Directory'),
         ];
     }
 

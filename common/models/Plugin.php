@@ -44,9 +44,9 @@ class Plugin extends Library
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'directory' => Yii::t('app', 'Directory'),
+            'id' => Yii::t('tg', 'ID'),
+            'name' => Yii::t('tg', 'Name'),
+            'directory' => Yii::t('tg', 'Directory'),
         ];
     }
 

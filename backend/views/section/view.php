@@ -6,7 +6,7 @@
  */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sections'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Sections'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="section-view">

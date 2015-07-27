@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Functions $searchModel
  */
 
-$this->title = Yii::t('app', 'Functions');
+$this->title = Yii::t('tg', 'Functions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="functions-index">

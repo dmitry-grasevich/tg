@@ -4,10 +4,10 @@
  * @var common\models\Css $model
  */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
+$this->title = Yii::t('tg', 'Create {modelClass}', [
     'modelClass' => 'Css',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'CSSes'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'CSSes'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="css-create">

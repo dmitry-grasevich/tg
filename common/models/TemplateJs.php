@@ -42,9 +42,9 @@ class TemplateJs extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'template_id' => Yii::t('app', 'Template ID'),
-            'js_id' => Yii::t('app', 'Js ID'),
+            'id' => Yii::t('tg', 'ID'),
+            'template_id' => Yii::t('tg', 'Template ID'),
+            'js_id' => Yii::t('tg', 'Js ID'),
         ];
     }
 

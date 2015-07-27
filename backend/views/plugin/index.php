@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Plugin $searchModel
  */
 
-$this->title = Yii::t('app', 'Plugins');
+$this->title = Yii::t('tg', 'Plugins');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plugin-index">

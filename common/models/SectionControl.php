@@ -45,11 +45,11 @@ class SectionControl extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'section_id' => Yii::t('app', 'Section ID'),
-            'control_id' => Yii::t('app', 'Control ID'),
-            'priority' => Yii::t('app', 'Priority'),
-            'default' => Yii::t('app', 'Default Value'),
+            'id' => Yii::t('tg', 'ID'),
+            'section_id' => Yii::t('tg', 'Section ID'),
+            'control_id' => Yii::t('tg', 'Control ID'),
+            'priority' => Yii::t('tg', 'Priority'),
+            'default' => Yii::t('tg', 'Default Value'),
         ];
     }
 

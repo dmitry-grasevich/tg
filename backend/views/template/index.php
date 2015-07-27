@@ -9,7 +9,7 @@ use kartik\grid\GridView;
  * @var common\models\search\Template $searchModel
  */
 
-$this->title = Yii::t('app', 'Templates');
+$this->title = Yii::t('tg', 'Templates');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="template-index">

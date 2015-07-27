@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Css $searchModel
  */
 
-$this->title = Yii::t('app', 'Styles');
+$this->title = Yii::t('tg', 'Styles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="css-index">

@@ -4,10 +4,10 @@
  * @var common\models\Js $model
  */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
+$this->title = Yii::t('tg', 'Create {modelClass}', [
     'modelClass' => 'Js',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Js'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Js'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="js-create">

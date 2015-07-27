@@ -43,10 +43,10 @@ class Font extends Library
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'filename' => Yii::t('app', 'Filename'),
-            'directory' => Yii::t('app', 'Directory'),
+            'id' => Yii::t('tg', 'ID'),
+            'name' => Yii::t('tg', 'Name'),
+            'filename' => Yii::t('tg', 'Filename'),
+            'directory' => Yii::t('tg', 'Directory'),
         ];
     }
 

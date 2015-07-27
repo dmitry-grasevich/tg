@@ -42,9 +42,9 @@ class TemplateElement extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'template_id' => Yii::t('app', 'Template ID'),
-            'element_id' => Yii::t('app', 'Element ID'),
+            'id' => Yii::t('tg', 'ID'),
+            'template_id' => Yii::t('tg', 'Template ID'),
+            'element_id' => Yii::t('tg', 'Element ID'),
         ];
     }
 

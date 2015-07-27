@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Image $searchModel
  */
 
-$this->title = Yii::t('app', 'Images');
+$this->title = Yii::t('tg', 'Images');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="image-index">

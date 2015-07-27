@@ -42,9 +42,9 @@ class TemplatePlugin extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'template_id' => Yii::t('app', 'Template ID'),
-            'plugin_id' => Yii::t('app', 'Plugin ID'),
+            'id' => Yii::t('tg', 'ID'),
+            'template_id' => Yii::t('tg', 'Template ID'),
+            'plugin_id' => Yii::t('tg', 'Plugin ID'),
         ];
     }
 

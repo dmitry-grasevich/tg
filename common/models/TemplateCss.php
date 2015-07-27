@@ -42,9 +42,9 @@ class TemplateCss extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'template_id' => Yii::t('app', 'Template ID'),
-            'css_id' => Yii::t('app', 'Css ID'),
+            'id' => Yii::t('tg', 'ID'),
+            'template_id' => Yii::t('tg', 'Template ID'),
+            'css_id' => Yii::t('tg', 'Css ID'),
         ];
     }
 

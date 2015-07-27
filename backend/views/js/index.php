@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Js $searchModel
  */
 
-$this->title = Yii::t('app', 'Scripts');
+$this->title = Yii::t('tg', 'Scripts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="js-index">

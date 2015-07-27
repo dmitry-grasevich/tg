@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Category $searchModel
  */
 
-$this->title = Yii::t('app', 'Template Categories');
+$this->title = Yii::t('tg', 'Template Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="template-category-index">

@@ -50,13 +50,13 @@ class Element extends Library
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'description' => Yii::t('app', 'Description'),
-            'section_id' => Yii::t('app', 'Section'),
-            'priority' => Yii::t('app', 'Priority'),
-            'css_selector' => Yii::t('app', 'CSS Selectors'),
-            'identificator' => Yii::t('app', 'Identificator'),
+            'id' => Yii::t('tg', 'ID'),
+            'name' => Yii::t('tg', 'Name'),
+            'description' => Yii::t('tg', 'Description'),
+            'section_id' => Yii::t('tg', 'Section'),
+            'priority' => Yii::t('tg', 'Priority'),
+            'css_selector' => Yii::t('tg', 'CSS Selectors'),
+            'identificator' => Yii::t('tg', 'Identificator'),
         ];
     }
 

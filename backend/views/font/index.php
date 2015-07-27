@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var common\models\search\Font $searchModel
  */
 
-$this->title = Yii::t('app', 'Fonts');
+$this->title = Yii::t('tg', 'Fonts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="font-index">
