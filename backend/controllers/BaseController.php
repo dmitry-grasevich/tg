@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class BaseController
+ * @package backend\controllers
+ */
+
 namespace backend\controllers;
 
 use Yii;
@@ -14,7 +19,14 @@ use yii\filters\AccessControl;
 
 abstract class BaseController extends Controller implements BaseControllerInterface
 {
+    /**
+     * @var
+     */
     protected $_model;
+
+    /**
+     * @var
+     */
     protected $_searchModel;
 
     /**
@@ -26,15 +38,19 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         $this->setSearchModel();
     }
 
-    // Use Standalone Actions
+    /**
+     * Use Standalone Actions
+     *
+     * @return array
+     */
     public function actions()
     {
         return [
-            'create' => [ 'class' => CreateAction::className() ],
-            'index' => [ 'class' => IndexAction::className() ],
-            'update' => [ 'class' => UpdateAction::className() ],
-            'delete' => [ 'class' => DeleteAction::className() ],
-            'view' => [ 'class' => ViewAction::className() ],
+            'create' => ['class' => CreateAction::className()],
+            'index' => ['class' => IndexAction::className()],
+            'update' => ['class' => UpdateAction::className()],
+            'delete' => ['class' => DeleteAction::className()],
+            'view' => ['class' => ViewAction::className()],
         ];
     }
 
@@ -81,5 +97,6 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     }
 
     abstract protected function setModel();
+
     abstract protected function setSearchModel();
 }

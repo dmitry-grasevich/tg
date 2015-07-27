@@ -1,4 +1,8 @@
 <?php
+/**
+ * Class SectionController implements the CRUD actions for Section model.
+ * @package backend\controllers
+ */
 
 namespace backend\controllers;
 
@@ -9,9 +13,6 @@ use yii\helpers\ArrayHelper;
 use backend\actions\SectionViewAction;
 use yii\web\Response;
 
-/**
- * SectionController implements the CRUD actions for Section model.
- */
 class SectionController extends BaseController
 {
     protected $googleFonts;

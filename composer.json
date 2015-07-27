@@ -33,6 +33,7 @@
         "kartik-v/yii2-grid": "*",
         "kartik-v/yii2-widget-fileinput": "*",
         "kartik-v/yii2-detail-view": "*",
+        "kartik-v/yii2-datecontrol": "@dev",
         "yiisoft/yii2-jui": "*",
         "bootflat/bootflat": "*",
         "bower-asset/spectrum": "*",

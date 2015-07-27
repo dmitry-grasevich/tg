@@ -11,6 +11,14 @@ use Yii;
  * @property string $name
  * @property string $code
  * @property string $styles_code
+ * @property string $family     control family, can be one of [wp, tg, kirki]
+ * @property string $type       control type
+ * @property string $class
+ * @property string $params
+ * @property string $css
+ *
+ * @property ControlImage[] $controlImages
+ * @property SectionControl[] $sectionControls
  */
 class Control extends Library
 {
@@ -28,8 +36,11 @@ class Control extends Library
     public function rules()
     {
         return [
-            [['name', 'code'], 'required'],
-            [['styles_code'], 'string'],
+            [['code', 'styles_code', 'mods_code', 'params'], 'string'],
+            [['family', 'type', 'class'], 'required'],
+            [['name', 'family', 'type', 'class'], 'string', 'max' => 255],
+            [['family'], 'unique'],
+            [['type'], 'unique'],
         ];
     }
 
@@ -39,10 +50,30 @@ class Control extends Library
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'code' => Yii::t('app', 'Code'),
-            'styles_code' => Yii::t('app', 'Code for Styles'),
+            'id' => Yii::t('tg', 'ID'),
+            'name' => Yii::t('tg', 'Name'),
+            'code' => Yii::t('tg', 'Code'),
+            'styles_code' => Yii::t('tg', 'Code for Styles'),
+            'family' => Yii::t('tg', 'Family'),
+            'type' => Yii::t('tg', 'Type'),
+            'class' => Yii::t('tg', 'Class'),
+            'params' => Yii::t('tg', 'Params'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getControlImages()
+    {
+        return $this->hasMany(ControlImage::className(), ['control_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSectionControls()
+    {
+        return $this->hasMany(SectionControl::className(), ['control_id' => 'id']);
     }
 }

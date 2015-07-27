@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "48ac239f7dbf51636ab6e385793b245f",
+    "hash": "a7b034b4bbd211492d13ef4c5f696bd5",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -971,6 +971,51 @@
             "time": "2015-07-14 09:54:25"
         },
         {
+            "name": "kartik-v/php-date-formatter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/php-date-formatter.git",
+                "reference": "7d3dc3495dd10bd1909c0dfdecd673967019cc21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/php-date-formatter/zipball/7d3dc3495dd10bd1909c0dfdecd673967019cc21",
+                "reference": "7d3dc3495dd10bd1909c0dfdecd673967019cc21",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\plugins\\dateformatter\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "A JQuery datetime formatting and manipulation library using PHP date-time formats in javascript.",
+            "homepage": "https://github.com/kartik-v/php-date-formatter",
+            "keywords": [
+                "date",
+                "datetime",
+                "formatter",
+                "javascript",
+                "jquery",
+                "php",
+                "php-date-formatter.js",
+                "time"
+            ],
+            "time": "2015-06-18 15:14:51"
+        },
+        {
             "name": "kartik-v/yii2-checkbox-x",
             "version": "1.0.0.x-dev",
             "source": {
@@ -1017,6 +1062,53 @@
                 "three"
             ],
             "time": "2014-11-09 20:23:45"
+        },
+        {
+            "name": "kartik-v/yii2-datecontrol",
+            "version": "v1.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-datecontrol.git",
+                "reference": "3c9a0a8f69903afbadab81192c43eb4380ec7844"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-datecontrol/zipball/3c9a0a8f69903afbadab81192c43eb4380ec7844",
+                "reference": "3c9a0a8f69903afbadab81192c43eb4380ec7844",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/php-date-formatter": "*",
+                "kartik-v/yii2-krajee-base": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\datecontrol\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Date control module allowing separation of formats for View and Model for Yii Framework 2.0",
+            "homepage": "https://github.com/kartik-v/yii2-datecontrol",
+            "keywords": [
+                "control",
+                "date",
+                "extension",
+                "format",
+                "yii",
+                "yii2"
+            ],
+            "time": "2015-02-13 07:51:32"
         },
         {
             "name": "kartik-v/yii2-detail-view",
@@ -2608,12 +2700,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "be95de36bb802790a6a588451e620d27b7bdd231"
+                "reference": "1e57a3d51960b41cf54671c6df0c0a4235ace0bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/be95de36bb802790a6a588451e620d27b7bdd231",
-                "reference": "be95de36bb802790a6a588451e620d27b7bdd231",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/1e57a3d51960b41cf54671c6df0c0a4235ace0bf",
+                "reference": "1e57a3d51960b41cf54671c6df0c0a4235ace0bf",
                 "shasum": ""
             },
             "require": {
@@ -2688,7 +2780,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-07-26 00:21:41"
+            "time": "2015-07-27 14:40:38"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -3245,7 +3337,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "kartik-v/yii2-datecontrol": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

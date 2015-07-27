@@ -22,6 +22,17 @@ use yii\bootstrap\Nav;
                 'active' => $this->context->id == 'template',
             ],
             [
+                'label' => 'Sections',
+                'url' => ['/section'],
+                'active' => $this->context->id == 'section',
+            ],
+            [
+                'label' => 'Controls',
+                'url' => ['/control'],
+                'active' => $this->context->id == 'control',
+            ],
+/*
+            [
                 'label' => 'Styles',
                 'url' => ['/css/index'],
                 'active' => $this->context->id == 'css',
@@ -56,16 +67,7 @@ use yii\bootstrap\Nav;
                 'url' => ['/element'],
                 'active' => $this->context->id == 'element',
             ],
-            [
-                'label' => 'Sections',
-                'url' => ['/section'],
-                'active' => $this->context->id == 'section',
-            ],
-            [
-                'label' => 'Controls',
-                'url' => ['/control'],
-                'active' => $this->context->id == 'control',
-            ],
+*/
         ],
     ]) ?>
 </div>

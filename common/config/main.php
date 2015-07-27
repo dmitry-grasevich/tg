@@ -1,28 +1,39 @@
 <?php
+use kartik\datecontrol\Module;
+
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'extensions' => require(__DIR__ . '/../../vendor/yiisoft/extensions.php'),
     'modules' => [
-        'datecontrol' =>  [
+        'datecontrol' => [
             'class' => 'kartik\datecontrol\Module',
 
             // format settings for displaying each date attribute
             'displaySettings' => [
-                'date' => 'd-m-Y',
-                'time' => 'H:i:s A',
-                'datetime' => 'd-m-Y H:i:s A',
+                Module::FORMAT_DATE => 'dd-MM-yyyy',
+                Module::FORMAT_TIME => 'HH:mm:ss a',
+                Module::FORMAT_DATETIME => 'dd-MM-yyyy HH:mm:ss a',
             ],
 
             // format settings for saving each date attribute
             'saveSettings' => [
-                'date' => 'Y-m-d',
-                'time' => 'H:i:s',
-                'datetime' => 'Y-m-d H:i:s',
+                Module::FORMAT_DATE => 'php:U', // saves as unix timestamp
+                Module::FORMAT_TIME => 'php:H:i:s',
+                Module::FORMAT_DATETIME => 'php:Y-m-d H:i:s',
             ],
 
             // automatically use kartik\widgets for each of the above formats
             'autoWidget' => true,
 
+            // use ajax conversion for processing dates from display format to save format.
+            'ajaxConversion' => true,
+
+            // default settings for each widget from kartik\widgets used when autoWidget is true
+            'autoWidgetSettings' => [
+                Module::FORMAT_DATE => ['type' => 2, 'pluginOptions' => ['autoclose' => true]], // example
+                Module::FORMAT_DATETIME => [], // setup if needed
+                Module::FORMAT_TIME => [], // setup if needed
+            ],
         ]
     ],
     'components' => [
