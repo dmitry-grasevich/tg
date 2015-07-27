@@ -35,7 +35,7 @@ return [
         'request' => [
             'enableCookieValidation' => true,
             'enableCsrfValidation' => true,
-            'cookieValidationKey' => 'tgcookiesecretkey',
+            'cookieValidationKey' => 'SqTa7stwx8tf43KRcLof7lj7-Ixll2I_',
         ],
         'assetManager' => array(
             'converter' => array(

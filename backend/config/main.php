@@ -40,7 +40,7 @@ return [
         'request' => [
             'enableCookieValidation' => true,
             'enableCsrfValidation' => true,
-            'cookieValidationKey' => 'tgcookiesecretkey',
+            'cookieValidationKey' => 'g1w_nnTn7w-zb8KRQ8YSdm1GtFRLmoXl',
         ],
     ],
     'params' => $params,
