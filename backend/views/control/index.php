@@ -18,7 +18,36 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'name',
+            'family',
+            'type',
+            'class',
             [
+                'attribute' => 'params',
+                'format' => 'raw',
+                'value' => function($model) {
+                    /** @var \common\models\Control $model */
+                    return empty($model->params) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->params) . '</code></pre>';
+                }
+            ],
+            [
+                'attribute' => 'css',
+                'format' => 'raw',
+                'value' => function($model) {
+                    /** @var \common\models\Control $model */
+                    return empty($model->css) ? '' : '<pre class="scroll"><code class="css">' . Html::encode($model->css) . '</code></pre>';
+                }
+            ],
+            [
+                'header' => 'Preview Image',
+                'attribute' => 'img',
+                'format' => 'raw',
+                'value' => function($model) {
+                    /** @var \common\models\Control $model */
+                    return !empty($model->img) ? Html::img('/images/' . $model->img, ['style' => 'max-width: 300px;']) : false;
+                }
+            ],
+
+/*            [
                 'attribute' => 'code',
                 'format' => 'raw',
                 'value' => function($model) {
@@ -32,6 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return empty($model->styles_code) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->styles_code) . '</code></pre>';
                 }
             ],
+*/
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [

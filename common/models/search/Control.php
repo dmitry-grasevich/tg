@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use common\models\Control as ControlModel;
 
 /**
- * Css represents the model behind the search form about `common\models\Control`.
+ * Control represents the model behind the search form about `common\models\Control`.
  */
 class Control extends ControlModel
 {
@@ -16,7 +16,7 @@ class Control extends ControlModel
     {
         return [
             [['id'], 'integer'],
-            [['code', 'name', 'styles_code'], 'safe'],
+            [['family', 'type', 'class', 'name'], 'safe'],
         ];
     }
 
@@ -51,8 +51,9 @@ class Control extends ControlModel
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'styles_code', $this->styles_code]);
+            ->andFilterWhere(['like', 'family', $this->family])
+            ->andFilterWhere(['like', 'class', $this->class])
+            ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;
     }

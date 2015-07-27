@@ -109,3 +109,9 @@ textarea.text-monospace {
     font-family: monospace, serif;
     width: 100%;
 }
+
+.file-preview-image,
+.file-preview-frame {
+    max-height: 160px;
+    height: auto;
+}

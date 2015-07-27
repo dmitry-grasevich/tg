@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\detail\DetailView;
+use common\models\Control;
 
 /**
  * @var yii\web\View $this
@@ -12,6 +13,9 @@ use kartik\detail\DetailView;
 <?=
 DetailView::widget([
     'model' => $model,
+    'formOptions' => [
+        'options' => ['enctype' => 'multipart/form-data']
+    ],
     'condensed' => false,
     'hover' => true,
     'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
@@ -20,11 +24,44 @@ DetailView::widget([
         'type' => DetailView::TYPE_INFO,
     ],
     'attributes' => [
+        [
+            'attribute' => 'family',
+            'format' => 'raw',
+            'type' => DetailView::INPUT_WIDGET,
+            'value' => $model->family,
+            'widgetOptions' => [
+                'class' => DetailView::INPUT_SELECT2,
+                'data' => Control::listFamilies(),
+                'options' => [
+                    'placeholder' => 'Select Family...',
+                    'multiple' => false,
+                ],
+                'pluginOptions' => ['allowClear' => true],
+            ],
+        ],
+        'type',
+        'class',
         'name',
         [
-            'attribute' => 'code',
+            'type' => DetailView::INPUT_WIDGET,
+            'attribute' => 'img',
             'format' => 'raw',
-            'value' => empty($model->code) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->code) . '</code></pre>',
+            'value' => $model->img ? Html::img(Yii::getAlias('@web/images') . '/' . $model->img, ['class'=>'file-preview-image']) : false,
+            'widgetOptions' => [
+                'class' => '\kartik\widgets\FileInput',
+                'options' => ['accept' => 'image/*'],
+                'pluginOptions' => [
+                    'showUpload' => false,
+                    'initialPreview' => $model->img ? [
+                        Html::img(Yii::getAlias('@web/images') . '/' . $model->img, ['class'=>'file-preview-image']),
+                    ] : false,
+                ],
+            ],
+        ],
+        [
+            'attribute' => 'params',
+            'format' => 'raw',
+            'value' => empty($model->params) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->params) . '</code></pre>',
             'type' => DetailView::INPUT_TEXTAREA,
             'options' => [
                 'rows' => 15,
@@ -32,9 +69,9 @@ DetailView::widget([
             ]
         ],
         [
-            'attribute' => 'styles_code',
+            'attribute' => 'css',
             'format' => 'raw',
-            'value' => empty($model->styles_code) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->styles_code) . '</code></pre>',
+            'value' => empty($model->css) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->css) . '</code></pre>',
             'type' => DetailView::INPUT_TEXTAREA,
             'options' => [
                 'rows' => 15,
