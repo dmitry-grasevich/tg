@@ -4,7 +4,6 @@ namespace common\models;
 
 use Yii;
 use yii\helpers\FileHelper;
-use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 
 /**
@@ -19,7 +18,6 @@ use yii\web\UploadedFile;
  * @property string $css
  * @property string $img
  *
- * @property ControlImage[] $controlImages
  * @property SectionControl[] $sectionControls
  */
 class Control extends Library
@@ -41,7 +39,6 @@ class Control extends Library
             [['params', 'css'], 'string'],
             [['family', 'type', 'class'], 'required'],
             [['name', 'family', 'type', 'class', 'img'], 'string', 'max' => 255],
-            [['family'], 'unique'],
             [['type'], 'unique'],
             [['img'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
         ];

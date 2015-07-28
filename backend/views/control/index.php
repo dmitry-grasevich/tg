@@ -15,9 +15,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="control-index">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             'name',
+            [
+                'attribute' => 'family',
+                'format' => 'raw',
+                'value' => function($model) {
+                    /** @var \common\models\Control $model */
+                    $families = \common\models\Control::listFamilies();
+                    return empty($model->family) || !isset($families[$model->family]) ? '' : Html::encode($families[$model->family]);
+                }
+            ],
             'family',
             'type',
             'class',
@@ -26,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($model) {
                     /** @var \common\models\Control $model */
-                    return empty($model->params) ? '' : '<pre class="scroll"><code class="php">' . Html::encode($model->params) . '</code></pre>';
+                    return empty($model->params) ? '' : Html::tag('pre', Html::tag('code', Html::encode($model->params), ['class' => 'css']), ['class' => 'scroll']);
                 }
             ],
             [
@@ -34,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($model) {
                     /** @var \common\models\Control $model */
-                    return empty($model->css) ? '' : '<pre class="scroll"><code class="css">' . Html::encode($model->css) . '</code></pre>';
+                    return empty($model->css) ? '' : Html::tag('pre', Html::tag('code', Html::encode($model->css), ['class' => 'css']), ['class' => 'scroll']);
                 }
             ],
             [

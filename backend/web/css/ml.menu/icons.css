@@ -1,0 +1,19 @@
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+.icon:before {
+    font-family: 'FontAwesome';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    margin-right: 0.6em;
+    -webkit-font-smoothing: antialiased;
+}
+
+.icon-arrow-left:before {
+    content: '\f104';
+    font-size: 1.3em;
+}

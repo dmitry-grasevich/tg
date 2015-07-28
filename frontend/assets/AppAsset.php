@@ -18,47 +18,17 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $css = [
-        'css/normalize.css',
-        'css/site.css',
-        'css/icons.css',
-        'css/component.css',
-//        'css/less_style.less',
-
-//        'css/flat-ui.css',
-//        'css/chosen.css',
-//        'css/style.css',
-    ];
-    public $js = [
-        'js/modernizr.custom.js',
-        'js/classie.js',
-        'js/mlpushmenu.js',
-        'js/jquery.fileDownload.js',
-        'js/wpt.builder.js',
-
-//        'js/flatui-checkbox.js',
-//        'js/flatui-fileinput.js',
-//        'js/flatui-radio.js',
-//        'js/jquery.zoomer.js',
-//        'js/chosen.jquery.js',
-//        'js/application.js',
-//        'elements.json',
-//        'js/builder.js',
-    ];
+    public $css = [];
+    public $js = [];
     public $depends = [
         'yii\web\YiiAsset',
-//        'yii\bootstrap\BootstrapAsset',
-//        'yii\bootstrap\BootstrapPluginAsset',
         'yii\jui\JuiAsset',
-//        'frontend\assets\BootflatAsset',
         'frontend\assets\SpectrumAsset',
         'frontend\assets\TouchPunchAsset',
         'frontend\assets\PerfectScrollbarAsset',
         'frontend\assets\HistoryAsset',
-//        'frontend\assets\PlaceholderAsset',
-//        'frontend\assets\TagsInputAsset',
-//        'frontend\assets\BootstrapSwitchAsset',
-//        'frontend\assets\BootstrapSelectAsset',
+        'frontend\assets\CommonJsAsset',
+        'frontend\assets\CommonCssAsset',
     ];
 
     public function init() {

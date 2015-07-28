@@ -18,20 +18,13 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $css = [
-        'css/bootstrap.min.css',
-        'css/highlight.styles/rainbow.css',
-//        'css/highlight.styles/obsidian.css',
-//        'css/highlight.styles/googlecode.css',
-        'css/site.css',
-    ];
-    public $js = [
-        'scripts/highlight.pack.js',
-    ];
+    public $css = [];
+    public $js = [];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
         'frontend\assets\PerfectScrollbarAsset',
+        'backend\assets\CommonJsAsset',
+        'backend\assets\CommonCssAsset',
     ];
 
     public function init() {
