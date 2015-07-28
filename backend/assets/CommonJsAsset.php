@@ -10,6 +10,7 @@ class CommonJsAsset extends AssetBundle
     public $css = [];
     public $js = [
         'highlight.pack.js',
+        'classie.js',
         'mlpushmenu.js',
     ];
     public $depends = [];

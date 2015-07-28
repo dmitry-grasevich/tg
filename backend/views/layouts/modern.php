@@ -54,8 +54,8 @@ AppAsset::register($this);
                 <?php if (Yii::$app->user->isGuest): ?>
                     <div class="col-md-10"><?= $content ?></div>
                 <?php else: ?>
-                    <div class="col-md-2"><?= $this->render('menu') ?></div>
-                    <div class="col-md-10">
+                    <div class="mp-pusher" id="mp-pusher">
+                        <?= $this->render('menu') ?>
                         <?= $content ?>
                     </div>
                 <?php endif; ?>
@@ -65,7 +65,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container-fluid">
-        <p class="text-center">&copy; Template Generator <?= date('Y') ?></p>
+            <p class="text-center">&copy; Template Generator <?= date('Y') ?></p>
         </div>
     </footer>
 

@@ -44,7 +44,8 @@
         "bower-asset/perfect-scrollbar": "*",
         "bower-asset/history.js": "*",
         "richthegeek/phpsass": "*",
-        "nizsheanez/yii2-asset-converter": "1.*"
+        "nizsheanez/yii2-asset-converter": "1.*",
+        "components/modernizr": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
         'frontend\assets\TouchPunchAsset',
         'frontend\assets\PerfectScrollbarAsset',
         'frontend\assets\HistoryAsset',
+        'frontend\assets\ModernizrAsset',
         'frontend\assets\CommonJsAsset',
         'frontend\assets\CommonCssAsset',
     ];

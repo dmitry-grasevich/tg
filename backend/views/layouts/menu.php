@@ -1,73 +1,26 @@
-<?php
-use yii\bootstrap\Nav;
-
-/* @var $this \yii\web\View */
-?>
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title"><i class="glyphicon glyphicon-align-justify"></i> Menu </h3>
+<nav id="mp-menu" class="mp-menu">
+    <div class="mp-level">
+        <h2>Menu</h2>
+        <ul>
+            <li class="menu-item">
+                <a href="#">
+                    Dashboard
+                </a>
+            </li>
+            <li class="icon icon-arrow-left">
+                Blocks
+            </li>
+        </ul>
     </div>
+</nav>
 
-    <?= Nav::widget([
-        'options' => ['class' => 'nav-pills nav-stacked'],
-        'items' => [
-            [
-                'label' => 'Categories',
-                'url' => ['/category'],
-                'active' => $this->context->id == 'category',
-            ],
-            [
-                'label' => 'Templates',
-                'url' => ['/template'],
-                'active' => $this->context->id == 'template',
-            ],
-            [
-                'label' => 'Sections',
-                'url' => ['/section'],
-                'active' => $this->context->id == 'section',
-            ],
-            [
-                'label' => 'Controls',
-                'url' => ['/control'],
-                'active' => $this->context->id == 'control',
-            ],
-/*
-            [
-                'label' => 'Styles',
-                'url' => ['/css/index'],
-                'active' => $this->context->id == 'css',
-            ],
-            [
-                'label' => 'Scripts',
-                'url' => ['/js'],
-                'active' => $this->context->id == 'js',
-            ],
-            [
-                'label' => 'Images',
-                'url' => ['/image'],
-                'active' => $this->context->id == 'image',
-            ],
-            [
-                'label' => 'Fonts',
-                'url' => ['/font'],
-                'active' => $this->context->id == 'font',
-            ],
-            [
-                'label' => 'Functions',
-                'url' => ['/functions'],
-                'active' => $this->context->id == 'functions',
-            ],
-            [
-                'label' => 'Plugins',
-                'url' => ['/plugin'],
-                'active' => $this->context->id == 'plugin',
-            ],
-            [
-                'label' => 'Elements',
-                'url' => ['/element'],
-                'active' => $this->context->id == 'element',
-            ],
-*/
-        ],
-    ]) ?>
-</div>
+<div id="droppable" class="trash"></div>
+
+<a id="trigger" class="icon-burger" href="#"><i></i></a>
+
+<?php
+$js = <<<JS
+    new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'), { type: 'cover' });
+JS;
+
+$this->registerJs($js, \yii\web\View::POS_END, 'ml-push-menu-script');
