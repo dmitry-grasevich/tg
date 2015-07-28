@@ -60,6 +60,17 @@ a.desc:after {
     content: /*"\e114"*/ "\e152";
 }
 
+.mp-menu a {
+    text-decoration: none;
+    color: #f7f7f7;
+    outline: none;
+}
+
+.mp-menu a:hover, .mp-menu a:focus {
+    color: #fff;
+    outline: none;
+}
+
 .sort-numerical a.asc:after {
     content: "\e153";
 }

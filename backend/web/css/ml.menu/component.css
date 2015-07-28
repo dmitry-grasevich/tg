@@ -203,7 +203,7 @@ html, body, .mp-container, .scroller, .project-container {
 }
 
 .mp-menu ul li ul li > a {
-    padding: 4px;
+    /*padding: 4px;*/
 }
 
 .mp-menu ul li::before {

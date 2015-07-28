@@ -17,3 +17,7 @@
     content: '\f104';
     font-size: 1.3em;
 }
+
+.icon-plus:before {
+    content: '\f067';
+}
