@@ -21,6 +21,10 @@ NiftyAsset::register($this);
 <body class="nifty-ready">
     <?php $this->beginBody() ?>
 
+    <div id="container" class="effect mainnav-lg">
+        <?= $this->render('nifty/header') ?>
+    </div>
+
     <?php $this->endBody() ?>
 </body>
 </html>

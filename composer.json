@@ -48,7 +48,8 @@
         "bower-asset/metisMenu": "*",
         "richthegeek/phpsass": "*",
         "nizsheanez/yii2-asset-converter": "1.*",
-        "components/modernizr": "dev-master"
+        "components/modernizr": "dev-master",
+        "bower-asset/font-awesome": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

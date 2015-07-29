@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c29fe67a325256dc93a9973721e816fe",
+    "hash": "07b3d433d0247e693416e0bed3d5d768",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -204,6 +204,44 @@
             },
             "description": "Turn checkboxes and radio buttons in toggle switches.",
             "time": "2014-07-01 11:30:26"
+        },
+        {
+            "name": "bower-asset/font-awesome",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "less/font-awesome.less",
+                    "scss/font-awesome.scss"
+                ],
+                "bower-asset-ignore": [
+                    "*/.*",
+                    "*.json",
+                    "src",
+                    "*.yml",
+                    "Gemfile",
+                    "Gemfile.lock",
+                    "*.md"
+                ]
+            },
+            "license": [
+                "OFL-1.1",
+                "MIT",
+                "CC-BY-3.0"
+            ],
+            "description": "Font Awesome",
+            "time": "2015-07-28 21:55:03"
         },
         {
             "name": "bower-asset/history.js",
@@ -3508,7 +3546,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "kartik-v/yii2-datecontrol": 20,
-        "components/modernizr": 20
+        "components/modernizr": 20,
+        "bower-asset/font-awesome": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
