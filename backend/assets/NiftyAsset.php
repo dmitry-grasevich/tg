@@ -22,6 +22,8 @@ class NiftyAsset extends AssetBundle
     public $js = [];
     public $depends = [
         'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
         'common\assets\PerfectScrollbarAsset',
         'common\assets\HighlightAsset',
         'backend\assets\NanoScrollerAsset',

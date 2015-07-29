@@ -5,8 +5,6 @@
 
 use backend\assets\NiftyAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 
 NiftyAsset::register($this);
 ?>
@@ -20,54 +18,10 @@ NiftyAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
-<?php $this->beginBody() ?>
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => 'Template Generator',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top clearfix',
-        ],
-    ]);
+<body class="nifty-ready">
+    <?php $this->beginBody() ?>
 
-    $menuItems = Yii::$app->user->isGuest ?
-        [['label' => 'Login', 'url' => ['/site/login']]] :
-        [[
-            'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-            'url' => ['/site/logout'],
-            'linkOptions' => ['data-method' => 'post']
-        ]];
-
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-
-    NavBar::end();
-    ?>
-
-    <div class="container-fluid page-container">
-        <div class="row">
-            <?php if (Yii::$app->user->isGuest): ?>
-                <div class="col-md-10"><?= $content ?></div>
-            <?php else: ?>
-                <div class="mp-pusher" id="mp-pusher">
-                    <?= $content ?>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
-
-<footer class="footer">
-    <div class="container-fluid">
-        <p class="text-center">&copy; Template Generator <?= date('Y') ?></p>
-    </div>
-</footer>
-
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
