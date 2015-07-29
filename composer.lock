@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "07b3d433d0247e693416e0bed3d5d768",
+    "hash": "aa59e5e2c9326468b3850325c63a1900",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -444,6 +444,29 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/js-cookie",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/js-cookie/js-cookie.git",
+                "reference": "6b896ce02064efae60ea1e2f1617fa1853c8a708"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/js-cookie/js-cookie/zipball/6b896ce02064efae60ea1e2f1617fa1853c8a708",
+                "reference": "6b896ce02064efae60ea1e2f1617fa1853c8a708",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "src/js.cookie.js"
+                ],
+                "bower-asset-ignore": []
+            },
+            "time": "2015-07-26 15:02:53"
         },
         {
             "name": "bower-asset/metisMenu",
@@ -2911,7 +2934,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/563265e092b731c5ad26086b59c88d991e4dd7c9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b328818c123edf64461cca078d728d459837adb2",
                 "reference": "563265e092b731c5ad26086b59c88d991e4dd7c9",
                 "shasum": ""
             },
@@ -3547,7 +3570,8 @@
     "stability-flags": {
         "kartik-v/yii2-datecontrol": 20,
         "components/modernizr": 20,
-        "bower-asset/font-awesome": 20
+        "bower-asset/font-awesome": 20,
+        "bower-asset/js-cookie": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

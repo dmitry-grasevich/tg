@@ -613,3 +613,11 @@
         })
     })
 }(jQuery);
+
+$(document).ready(function () {
+    $("#toggle-aside").on("click", function (e) {
+        e.preventDefault();
+        nifty.container.hasClass("aside-in") ? ($.niftyAside("hide")) : ($.niftyAside("show"))
+    });
+    $.niftyAside("fixedPosition");
+});

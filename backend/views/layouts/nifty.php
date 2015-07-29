@@ -36,8 +36,21 @@ NiftyAsset::register($this);
 
             <?= $this->render('nifty/navigation') ?>
 
+            <?= $this->render('nifty/controls') ?>
+
         </div>
     </div>
+
+    <?= $this->render('nifty/footer') ?>
+
+
+    <!-- SCROLL TOP BUTTON -->
+    <!--===================================================-->
+    <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+    <!--===================================================-->
+
+
+    <div id="floating-top-right" class="floating-container"></div>
 
     <?php $this->endBody() ?>
 </body>

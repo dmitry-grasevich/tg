@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="control-index">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'resizableColumns' => false,
         'columns' => [
             'name',
             [
@@ -72,6 +73,9 @@ $this->params['breadcrumbs'][] = $this->title;
 */
             [
                 'class' => 'yii\grid\ActionColumn',
+                'options' => [
+                    'width' => 60,
+                ],
                 'buttons' => [
                     'update' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['control/view', 'id' => $model->id, 'edit' => 't']), [
