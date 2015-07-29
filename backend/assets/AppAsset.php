@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle
     public $js = [];
     public $depends = [
         'yii\web\YiiAsset',
-        'frontend\assets\PerfectScrollbarAsset',
+        'common\assets\PerfectScrollbarAsset',
         'frontend\assets\ModernizrAsset',
         'backend\assets\CommonJsAsset',
         'backend\assets\CommonCssAsset',

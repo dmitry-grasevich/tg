@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8680b8a1041965db876960640b624562",
+    "hash": "c29fe67a325256dc93a9973721e816fe",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -45,6 +45,34 @@
                 "ui"
             ],
             "time": "2015-04-29 06:05:01"
+        },
+        {
+            "name": "bower-asset/animate.css",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daneden/animate.css.git",
+                "reference": "2967e3bd37c32f7e5182e0a22ebed6597adab31a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daneden/animate.css/zipball/2967e3bd37c32f7e5182e0a22ebed6597adab31a",
+                "reference": "2967e3bd37c32f7e5182e0a22ebed6597adab31a",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./animate.css",
+                "bower-asset-ignore": [
+                    ".*",
+                    "src",
+                    "*.yml",
+                    "Gemfile",
+                    "Gemfile.lock",
+                    "*.md"
+                ]
+            },
+            "time": "2015-07-09 18:51:26"
         },
         {
             "name": "bower-asset/bootstrap",
@@ -378,6 +406,81 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/metisMenu",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/onokumus/metisMenu.git",
+                "reference": "bb5677d08e7bdc40210bcaec706b16f78fd188e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/onokumus/metisMenu/zipball/bb5677d08e7bdc40210bcaec706b16f78fd188e5",
+                "reference": "bb5677d08e7bdc40210bcaec706b16f78fd188e5",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": "~2.1.4"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "dist/metisMenu.js",
+                    "dist/metisMenu.css"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A jQuery menu plugin",
+            "keywords": [
+                "accordion",
+                "bootstrap",
+                "jquery",
+                "menu",
+                "metis",
+                "metisMenu",
+                "toggle",
+                "twbs",
+                "twitter"
+            ],
+            "time": "2015-07-25 10:34:15"
+        },
+        {
+            "name": "bower-asset/nanoscroller",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jamesflorentino/nanoScrollerJS.git",
+                "reference": "ee9877ef165f4e94125fee9a5470e371a1c52a2e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jamesflorentino/nanoScrollerJS/zipball/ee9877ef165f4e94125fee9a5470e371a1c52a2e",
+                "reference": "ee9877ef165f4e94125fee9a5470e371a1c52a2e",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.6"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./bin/css/nanoscroller.css",
+                    "./bin/javascripts/jquery.nanoscroller.js"
+                ]
+            },
+            "description": "A jQuery plugin that offers a simplistic way of implementing Lion OS scrollbars.",
+            "time": "2015-06-13 06:39:09"
         },
         {
             "name": "bower-asset/perfect-scrollbar",
@@ -823,12 +926,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-checkbox-x.git",
-                "reference": "47a0435a70a586f1c54d161541dfa80a6c2b7857"
+                "reference": "162efdc17768ab6222f2340794ba3463ac232749"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-checkbox-x/zipball/47a0435a70a586f1c54d161541dfa80a6c2b7857",
-                "reference": "47a0435a70a586f1c54d161541dfa80a6c2b7857",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-checkbox-x/zipball/162efdc17768ab6222f2340794ba3463ac232749",
+                "reference": "162efdc17768ab6222f2340794ba3463ac232749",
                 "shasum": ""
             },
             "type": "library",
@@ -859,7 +962,7 @@
                 "state",
                 "three"
             ],
-            "time": "2015-07-27 18:13:05"
+            "time": "2015-07-28 19:48:44"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",

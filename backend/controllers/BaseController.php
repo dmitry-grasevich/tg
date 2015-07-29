@@ -34,7 +34,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      */
     public function init()
     {
-        $this->layout = 'modern';
+        $this->layout = 'nifty';
         $this->setModel();
         $this->setSearchModel();
     }

@@ -23,9 +23,9 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\jui\JuiAsset',
+        'common\assets\PerfectScrollbarAsset',
         'frontend\assets\SpectrumAsset',
         'frontend\assets\TouchPunchAsset',
-        'frontend\assets\PerfectScrollbarAsset',
         'frontend\assets\HistoryAsset',
         'frontend\assets\ModernizrAsset',
         'frontend\assets\CommonJsAsset',

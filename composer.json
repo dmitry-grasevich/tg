@@ -43,6 +43,9 @@
         "bower-asset/bootstrap-select": "*",
         "bower-asset/perfect-scrollbar": "*",
         "bower-asset/history.js": "*",
+        "bower-asset/animate.css": "*",
+        "bower-asset/nanoscroller": "*",
+        "bower-asset/metisMenu": "*",
         "richthegeek/phpsass": "*",
         "nizsheanez/yii2-asset-converter": "1.*",
         "components/modernizr": "dev-master"
