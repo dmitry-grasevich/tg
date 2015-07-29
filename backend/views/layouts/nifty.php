@@ -23,6 +23,20 @@ NiftyAsset::register($this);
 
     <div id="container" class="effect mainnav-lg">
         <?= $this->render('nifty/header') ?>
+
+        <div class="boxed">
+
+            <!--CONTENT CONTAINER-->
+            <!--===================================================-->
+            <div id="content-container">
+                <?= $content ?>
+            </div>
+            <!--===================================================-->
+            <!--END CONTENT CONTAINER-->
+
+            <?= $this->render('nifty/navigation') ?>
+
+        </div>
     </div>
 
     <?php $this->endBody() ?>
