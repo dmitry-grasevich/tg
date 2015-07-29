@@ -1,9 +1,4 @@
 <?php
-/**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
 
 namespace backend\assets;
 
@@ -27,7 +22,6 @@ class NiftyAsset extends AssetBundle
         'common\assets\PerfectScrollbarAsset',
         'common\assets\HighlightAsset',
         'common\assets\FontAwesomeAsset',
-        'common\assets\CookieAsset',
         'backend\assets\NanoScrollerAsset',
         'backend\assets\MetisMenuAsset',
         'backend\assets\NiftyJsAsset',

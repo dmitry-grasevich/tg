@@ -13,10 +13,11 @@ $this->title = Yii::t('tg', 'Templates');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="template-index">
+    <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Create Template', ['create'], ['class' => 'btn btn-success']); ?>
     <?= GridView::widget([
         'id' => 'templates-grid',
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'resizableColumns' => false,
         'columns' => [
             [
                 'attribute' => 'id',
@@ -58,19 +59,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ],
-        'responsive' => true,
+        'responsive' => false,
         'hover' => true,
         'condensed' => true,
-        'floatHeader' => true,
+        'floatHeader' => false,
         'export' => false,
         'pjax' => true,
-
-        'panel' => [
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
-            'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Create Template', ['create'], ['class' => 'btn btn-success']), 'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
-            'showFooter' => false
-        ],
     ]) ?>
 
 </div>

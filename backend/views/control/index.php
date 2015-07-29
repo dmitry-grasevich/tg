@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+//use yii\grid\GridView;
 
 /**
  * @var yii\web\View $this
@@ -13,6 +14,7 @@ $this->title = Yii::t('tg', 'Controls');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="control-index">
+    <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Add Control', ['create'], ['class' => 'btn btn-success']) ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'resizableColumns' => false,
@@ -85,19 +87,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ],
-        'responsive' => true,
+        'responsive' => false,
         'hover' => true,
         'condensed' => true,
-        'floatHeader' => true,
+        'floatHeader' => false,
         'export' => false,
         'pjax' => true,
-
-        'panel' => [
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
-            'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add Control', ['create'], ['class' => 'btn btn-success']), 'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
-            'showFooter' => false
-        ],
     ]) ?>
 </div>
 
