@@ -66,9 +66,9 @@ $categories = Category::findAll(['is_basic' => 0]);
                         <li>
                             <a href="#">
                                 <i class="fa fa-cog"></i>
-                                    <span class="menu-title">
-                                        <strong>Template Settings</strong>
-                                    </span>
+                                <span class="menu-title">
+                                    <strong>Template Settings</strong>
+                                </span>
                                 <i class="arrow"></i>
                             </a>
 
@@ -114,7 +114,7 @@ $categories = Category::findAll(['is_basic' => 0]);
                                             </li>
                                             <?php endforeach; ?>
                                             <li class="">
-                                                <a href="#">+ Add Template</a>
+                                                <a href="#">+ Add to <?= $category->name ?></a>
                                             </li>
                                         </ul>
                                     </li>
@@ -122,9 +122,19 @@ $categories = Category::findAll(['is_basic' => 0]);
                                 <?php endforeach; ?>
 
                                 <li>
-                                    <a href="#">+ Add Block</a>
+                                    <a href="#">+ Add Block Type</a>
                                 </li>
                             </ul>
+                        </li>
+
+                        <!-- Controls -->
+                        <li>
+                            <a href="<?= Url::to(['/control']) ?>">
+                                <i class="fa fa-list-alt"></i>
+                                <span class="menu-title">
+                                    <strong>Controls</strong>
+                                </span>
+                            </a>
                         </li>
                     </ul>
 
