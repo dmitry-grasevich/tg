@@ -11,6 +11,9 @@ class NiftyJsAsset extends AssetBundle
     public $js = [
         'highlight.pack.js',
         'nifty.js',
+        'helpers.js',
+        'alert.js',
+        'navigation.js',
     ];
     public $depends = [];
 }

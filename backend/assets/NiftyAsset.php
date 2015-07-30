@@ -22,6 +22,7 @@ class NiftyAsset extends AssetBundle
         'common\assets\PerfectScrollbarAsset',
         'common\assets\HighlightAsset',
         'common\assets\FontAwesomeAsset',
+        'common\assets\BootboxAsset',
         'backend\assets\NanoScrollerAsset',
         'backend\assets\MetisMenuAsset',
         'backend\assets\NiftyJsAsset',

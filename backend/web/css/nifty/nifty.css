@@ -2911,7 +2911,7 @@ a.disabled-link:hover {
     top: 7px;
     right: 7px;
     left: 7px;
-    z-index: 15
+    z-index: 1041
 }
 #floating-top-right .alert-wrap {
     display: inline-block;
@@ -2920,7 +2920,7 @@ a.disabled-link:hover {
     margin-bottom: 5px;
     position: relative;
     opacity: .96;
-    z-index: 990
+    z-index: 1050
 }
 #floating-top-right .alert-wrap:hover {
     opacity: 1

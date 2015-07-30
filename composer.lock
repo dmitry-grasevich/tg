@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aa59e5e2c9326468b3850325c63a1900",
+    "hash": "e5b85f51d15468cd524b998a6677cfe9",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -73,6 +73,37 @@
                 ]
             },
             "time": "2015-07-09 18:51:26"
+        },
+        {
+            "name": "bower-asset/bootbox.js",
+            "version": "v4.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/makeusabrew/bootbox.git",
+                "reference": "cb756203e250ed0ff2539359ff0ad1c3ffb8e8d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/makeusabrew/bootbox/zipball/cb756203e250ed0ff2539359ff0ad1c3ffb8e8d3",
+                "reference": "cb756203e250ed0ff2539359ff0ad1c3ffb8e8d3",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/bootstrap": ">=3.0.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./bootbox.js",
+                "bower-asset-ignore": [
+                    "CHANGELOG.md",
+                    "CONTRIBUTING",
+                    "Gruntfile.js",
+                    "header.txt",
+                    "karma*.js",
+                    "build",
+                    "tests"
+                ]
+            }
         },
         {
             "name": "bower-asset/bootstrap",
@@ -2625,7 +2656,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/scssphp/zipball/f2f74120b65ffa549dba96774ffb455b913f341a",
+                "url": "https://api.github.com/repos/leafo/scssphp/zipball/c30af53d58f2eedfb07fd9c817b5ef42b9a70d64",
                 "reference": "f2f74120b65ffa549dba96774ffb455b913f341a",
                 "shasum": ""
             },
@@ -2934,7 +2965,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b328818c123edf64461cca078d728d459837adb2",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/beddff7178c4ed0f6542a947caef056dd57f3855",
                 "reference": "563265e092b731c5ad26086b59c88d991e4dd7c9",
                 "shasum": ""
             },
@@ -3427,7 +3458,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/cb5227389b60ca8303825172535778589d96e3f3",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/10b89bf195c552cc11206fb4812815e552a092f3",
                 "reference": "cb5227389b60ca8303825172535778589d96e3f3",
                 "shasum": ""
             },
@@ -3571,7 +3602,8 @@
         "kartik-v/yii2-datecontrol": 20,
         "components/modernizr": 20,
         "bower-asset/font-awesome": 20,
-        "bower-asset/js-cookie": 20
+        "bower-asset/js-cookie": 20,
+        "bower-asset/bootbox.js": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -49,7 +49,6 @@ NiftyAsset::register($this);
     <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
     <!--===================================================-->
 
-
     <div id="floating-top-right" class="floating-container"></div>
 
     <?php $this->endBody() ?>

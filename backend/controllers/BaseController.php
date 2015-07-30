@@ -7,6 +7,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\db\ActiveRecord;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use backend\actions\CreateAction;
@@ -20,7 +21,7 @@ use yii\filters\AccessControl;
 abstract class BaseController extends Controller implements BaseControllerInterface
 {
     /**
-     * @var
+     * @var \yii\db\ActiveRecord
      */
     protected $_model;
 
@@ -86,6 +87,11 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         return $this->_searchModel;
     }
 
+    /**
+     * @param $id
+     * @return ActiveRecord
+     * @throws NotFoundHttpException
+     */
     public function findModel($id)
     {
         $m = $this->getModel();

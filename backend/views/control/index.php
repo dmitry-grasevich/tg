@@ -1,14 +1,13 @@
 <?php
-
-use yii\helpers\Html;
-use kartik\grid\GridView;
-//use yii\grid\GridView;
-
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var common\models\search\Control $searchModel
  */
+
+use yii\helpers\Html;
+use kartik\grid\GridView;
+use common\models\Control;
 
 $this->title = Yii::t('tg', 'Controls');
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,11 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($model) {
                     /** @var \common\models\Control $model */
-                    $families = \common\models\Control::listFamilies();
+                    $families = Control::listFamilies();
                     return empty($model->family) || !isset($families[$model->family]) ? '' : Html::encode($families[$model->family]);
                 }
             ],
-            'family',
             'type',
             'class',
             [
