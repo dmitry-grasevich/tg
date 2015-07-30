@@ -8,6 +8,7 @@ class NiftyCssAsset extends AssetBundle
 {
     public $sourcePath = '@webroot/css/nifty';
     public $css = [
+        'fonts.css',
         'nifty.css',
     ];
     public $js = [];

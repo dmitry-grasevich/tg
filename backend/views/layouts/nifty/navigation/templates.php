@@ -5,13 +5,14 @@
  * @var common\models\Template[] $templates
  */
 
+use yii\helpers\Url;
 ?>
 
 <!-- Templates of current category -->
 <ul>
     <?php foreach ($templates as $template): ?>
         <li class="">
-            <a href="#">
+            <a href="<?= Url::to(['/template/edit', 'id' => $template->id]) ?>">
                 <?= $template->name ?>
                 <img
                     src="/images/elements/<?= $category->alias ?>/thumbs/<?= $template->img ?>"
@@ -20,6 +21,8 @@
         </li>
     <?php endforeach; ?>
     <li class="">
-        <a href="#">+ Add to <?= $category->name ?></a>
+        <a href="<?= Url::to(['/template/new', 'cat' => $category->id]) ?>">
+            + Add to <?= $category->name ?>
+        </a>
     </li>
 </ul>

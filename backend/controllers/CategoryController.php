@@ -1,4 +1,7 @@
 <?php
+/**
+ * CategoryController implements the CRUD actions for Category model.
+ */
 
 namespace backend\controllers;
 
@@ -9,9 +12,6 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
-/**
- * CategoryController implements the CRUD actions for Category model.
- */
 class CategoryController extends BaseController
 {
     public function behaviors()
