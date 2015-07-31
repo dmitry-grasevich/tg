@@ -12,7 +12,7 @@ use yii\helpers\Url;
 <ul>
     <?php foreach ($templates as $template): ?>
         <li class="">
-            <a href="<?= Url::to(['/template/edit', 'cat' => $template->category_id, 'id' => $template->id]) ?>">
+            <a href="<?= Url::to(['/template/view', 'id' => $template->id]) ?>">
                 <?= $template->name ?>
                 <img
                     src="/images/elements/<?= $category->alias ?>/thumbs/<?= $template->img ?>"

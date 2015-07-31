@@ -1,9 +1,4 @@
 <?php
-/**
- * Class BaseController
- * @package backend\controllers
- */
-
 namespace backend\controllers;
 
 use Yii;
@@ -18,6 +13,10 @@ use backend\actions\ViewAction;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 
+/**
+ * Class BaseController
+ * @package backend\controllers
+ */
 abstract class BaseController extends Controller implements BaseControllerInterface
 {
     /**
@@ -52,7 +51,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
             'index' => ['class' => IndexAction::className()],
             'update' => ['class' => UpdateAction::className()],
             'delete' => ['class' => DeleteAction::className()],
-            'view' => ['class' => ViewAction::className()],
+//            'view' => ['class' => ViewAction::className()],
         ];
     }
 

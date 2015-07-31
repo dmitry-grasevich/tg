@@ -1,20 +1,18 @@
 <?php
-/**
- * TemplateController implements the CRUD actions for Template model.
- */
-
 namespace backend\controllers;
 
-use common\models\Category;
 use Yii;
-use common\models\Template;
-use common\models\search\Template as TemplateSearch;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
-use yii\web\Response;
+use common\models\Category;
+use common\models\Template;
+use common\models\search\Template as TemplateSearch;
 
+/**
+ * Class TemplateController implements the CRUD actions for Template model.
+ * @package backend\controllers
+ */
 class TemplateController extends BaseController
 {
     public function behaviors()
@@ -49,14 +47,15 @@ class TemplateController extends BaseController
     public function actionEdit()
     {
         /** @var string $cat   category id */
-        $cat = Yii::$app->request->get('cat');
-        if (empty($cat)) {
+        $cat = (int)Yii::$app->request->get('cat');
+        if (!$cat) {
             throw new NotFoundHttpException('Page not fount');
         }
 
         /** @var string $id   template id */
-        $id = Yii::$app->request->get('id');
+        $id = (int)Yii::$app->request->get('id');
 
+        /** @var \common\models\Template $template */
         $template = $id ? $this->findModel($id) : $this->getModel();
 
         if (Yii::$app->request->isPost) {
@@ -67,6 +66,34 @@ class TemplateController extends BaseController
 
         return $this->render('edit', [
             'category' => Category::findOne($cat),
+            'template' => $template,
+        ]);
+    }
+
+    /**
+     * View template
+     *
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionView()
+    {
+        /** @var string $id   template id */
+        $id = (int)Yii::$app->request->get('id');
+        if (!$id) {
+            throw new NotFoundHttpException('Page not fount');
+        }
+
+        /** @var \common\models\Template $template */
+        $template = $this->findModel($id);
+
+        if (Yii::$app->request->isPost) {
+//            if ($template->load(Yii::$app->request->post()) && $template->save()) {
+//                $this->redirect(['view', 'id' => $template->id]);
+//            }
+        }
+
+        return $this->render('view', [
             'template' => $template,
         ]);
     }
