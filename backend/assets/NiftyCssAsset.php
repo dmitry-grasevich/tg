@@ -10,6 +10,7 @@ class NiftyCssAsset extends AssetBundle
     public $css = [
         'fonts.css',
         'nifty.css',
+        'customizer.css',
     ];
     public $js = [];
     public $depends = [

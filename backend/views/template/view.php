@@ -70,7 +70,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h3 class="panel-title"><?= Yii::t('tg', 'Customizer') ?></h3>
                     </div>
                     <div class="panel-body">
+                        <ul class="sections-sortable">
 
+                        </ul>
                     </div>
                 </div>
             </div>

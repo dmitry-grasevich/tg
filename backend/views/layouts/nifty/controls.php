@@ -19,7 +19,7 @@ $controls = Control::find()->orderBy('name')->all();
                     <i class="fa fa-list-alt"></i> <?= Yii::t('tg', 'Controls') ?>
                 </h4>
 
-                <div class="list-group bg-trans">
+                <div class="list-group section bg-trans">
                     <a href="#" class="list-group-item">
                         <div class="media-body">
                             <div class="text-lg">Section</div>
@@ -35,7 +35,7 @@ $controls = Control::find()->orderBy('name')->all();
 
                 <?php /** @var common\models\Control $control */ ?>
                 <?php foreach ($controls as $control): ?>
-                    <div class="list-group bg-trans">
+                    <div class="list-group control bg-trans">
                         <a href="#" class="list-group-item">
                             <div class="media-body">
                                 <div class="text-lg"><?= $control->name ?></div>
