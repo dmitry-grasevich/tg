@@ -6,6 +6,7 @@
  */
 
 use yii\helpers\Url;
+use yii\bootstrap\Html;
 ?>
 
 <!-- Templates of current category -->
@@ -14,9 +15,21 @@ use yii\helpers\Url;
         <li class="">
             <a href="<?= Url::to(['/template/view', 'id' => $template->id]) ?>">
                 <?= $template->name ?>
-                <img
-                    src="/images/elements/<?= $category->alias ?>/thumbs/<?= $template->img ?>"
-                    width="135px" data-id="<?= $template->id ?>"/>
+
+                <?php if ($template->is_visible): ?>
+                    <i class="fa fa-eye add-tooltip"
+                       title="<?= Yii::t('tg', 'Visible on frontend') ?>"></i>
+                <?php else: ?>
+                    <i class="fa fa-eye-slash add-tooltip"
+                       title="<?= Yii::t('tg', 'Hidden on frontend') ?>"></i>
+                <?php endif ?>
+
+                <?= Html::img($template->getImagePath(true) . '/' . $template->img, [
+                    'width' => '135px',
+                    'data' => [
+                        'id' => $template->id
+                    ]
+                ]) ?>
             </a>
         </li>
     <?php endforeach; ?>

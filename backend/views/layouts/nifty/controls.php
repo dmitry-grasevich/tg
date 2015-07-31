@@ -6,7 +6,7 @@
 use yii\helpers\Html;
 use common\models\Control;
 
-$controls = Control::find()->all();
+$controls = Control::find()->orderBy('name')->all();
 ?>
 <!-- Controls Panel -->
 <!--===================================================-->
@@ -16,11 +16,19 @@ $controls = Control::find()->all();
             <div class="nano-content" tabindex="0" style="right: -15px;">
 
                 <h4 class="pad-hor text-thin">
-                    <i class="fa fa-list-alt"></i> Controls
+                    <i class="fa fa-list-alt"></i> <?= Yii::t('tg', 'Controls') ?>
                 </h4>
 
-                <hr />
+                <div class="list-group bg-trans">
+                    <a href="#" class="list-group-item">
+                        <div class="media-body">
+                            <div class="text-lg">Section</div>
+                            <?= Html::img('/images/section.png', ['style' => 'max-width: 188px;']) ?>
+                        </div>
+                    </a>
+                </div>
 
+                <?php /** @var common\models\Control $control */ ?>
                 <?php foreach ($controls as $control): ?>
                     <div class="list-group bg-trans">
                         <a href="#" class="list-group-item">

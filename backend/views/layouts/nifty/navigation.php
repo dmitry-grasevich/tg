@@ -21,7 +21,7 @@ $categoryModel = new CategoryForm();
 
             <!--Shortcut buttons-->
             <!--================================-->
-            <div id="mainnav-shortcut">
+            <!--div id="mainnav-shortcut">
                 <ul class="list-unstyled">
                     <li class="col-xs-4" data-content="Additional Sidebar" data-original-title="" title="">
                         <a id="toggle-aside" class="shortcut-grid" href="#">
@@ -29,7 +29,7 @@ $categoryModel = new CategoryForm();
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div-->
             <!--================================-->
             <!--End shortcut buttons-->
 

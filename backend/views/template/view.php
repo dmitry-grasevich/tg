@@ -17,7 +17,9 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Templates'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <div id="page-title">
-        <h1 class="page-header text-overflow"><?= $title ?></h1>
+        <h1 class="page-header text-overflow">
+            <?= $title ?>
+        </h1>
     </div>
 
     <div id="page-content">
@@ -26,6 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel">
                     <div class="panel-heading">
                         <div class="panel-control">
+
+                            <?php if ($template->is_visible): ?>
+                                <span class="label label-success"><i class="fa fa-eye"></i> <?= Yii::t('tg', 'Visible on frontend') ?></span>
+                            <?php else: ?>
+                                <span class="label label-dark"><i class="fa fa-eye-slash"></i> <?= Yii::t('tg', 'Hidden on frontend') ?></span>
+                            <?php endif ?>
+
                             <?= Button::widget([
                                 'label' => '<i class="fa fa-pencil fa-fw"></i> Edit',
                                 'encodeLabel' => false,

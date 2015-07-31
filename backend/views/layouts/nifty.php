@@ -36,7 +36,9 @@ NiftyAsset::register($this);
 
             <?= $this->render('nifty/navigation') ?>
 
-            <?= $this->render('nifty/controls') ?>
+            <?php if ($this->context->id == 'template' && $this->context->action->id == 'view'): ?>
+                <?= $this->render('nifty/controls') ?>
+            <?php endif ?>
 
         </div>
     </div>
