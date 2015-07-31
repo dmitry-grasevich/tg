@@ -11,6 +11,7 @@ use common\models\Template;
 use common\models\search\Template as TemplateSearch;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -22,8 +23,6 @@ class TemplateController extends BaseController
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'new' => ['get'],
-                    'edit' => ['get'],
                     'remove' => ['post'],
                     'save' => ['post'],
                 ],
@@ -42,41 +41,33 @@ class TemplateController extends BaseController
     }
 
     /**
-     * Create new template in category
-     *
-     * @param string $cat   category id
+     * Create/Edit template
      *
      * @return string
      * @throws NotFoundHttpException
      */
-    public function actionNew($cat = '')
+    public function actionEdit()
     {
+        /** @var string $cat   category id */
+        $cat = Yii::$app->request->get('cat');
         if (empty($cat)) {
             throw new NotFoundHttpException('Page not fount');
         }
 
-        return $this->render('new', [
-            'category' => Category::findOne($cat),
-            'template' => new Template(),
-        ]);
-    }
+        /** @var string $id   template id */
+        $id = Yii::$app->request->get('id');
 
-    /**
-     * Edit template
-     *
-     * @param string $id   template id
-     *
-     * @return string
-     * @throws NotFoundHttpException
-     */
-    public function actionEdit($id)
-    {
-        if (empty($id)) {
-            throw new NotFoundHttpException('Page not fount');
+        $template = $id ? $this->findModel($id) : $this->getModel();
+
+        if (Yii::$app->request->isPost) {
+            if ($template->load(Yii::$app->request->post()) && $template->save()) {
+                $this->redirect(['view', 'id' => $template->id]);
+            }
         }
 
         return $this->render('edit', [
-            'template' => Template::findOne($id),
+            'category' => Category::findOne($cat),
+            'template' => $template,
         ]);
     }
 }

@@ -3,7 +3,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         var formId = 'block-form',
-            modelClass = 'category';
+            modelClass = 'categoryform';
 
         $.post('/category/save', $('#' + formId).serialize(), function(res) {
             if (res.success) {
@@ -36,10 +36,10 @@ $(document).ready(function () {
         cleanFormErrors('block-form');
 
         modal.find('.modal-title').text(button.attr('data-title'));
-        modal.find('#category-id').val(button.attr('data-id'));
-        modal.find('#category-name').val(button.attr('data-name'));
-        modal.find('#category-alias').val(button.attr('data-alias'));
-        modal.find('#category-is_visible').prop('checked', button.attr('data-visible') == 1);
+        modal.find('#categoryform-id').val(button.attr('data-id'));
+        modal.find('#categoryform-name').val(button.attr('data-name'));
+        modal.find('#categoryform-alias').val(button.attr('data-alias'));
+        modal.find('#categoryform-is_visible').prop('checked', button.attr('data-visible') == 1);
 
         if (button.attr('data-id')) {
             $('#delete-block-btn').removeClass('hidden');
@@ -49,7 +49,7 @@ $(document).ready(function () {
     });
 
     function removeCategory () {
-        var catId = $('#block-modal').find('#category-id').val();
+        var catId = $('#block-modal').find('#categoryform-id').val();
 
         $.post('/category/remove', { id: catId }, function(res) {
             if (res.success) {

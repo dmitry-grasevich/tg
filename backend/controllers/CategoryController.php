@@ -47,11 +47,13 @@ class CategoryController extends BaseController
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        $category = Yii::$app->request->post('Category');
+        $category = Yii::$app->request->post('CategoryForm');
         $model = isset($category['id']) && $category['id'] ?
             $this->findModel($category['id']) : $this->getModel();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model->attributes = $category;
+
+        if ($model->save()) {
             return ['success' => $this->renderPartial('/layouts/nifty/navigation/categories', [
                 'categories' => Category::findAll(['is_basic' => 0]),
             ])];

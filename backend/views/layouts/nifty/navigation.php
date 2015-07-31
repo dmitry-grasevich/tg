@@ -8,10 +8,11 @@ use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Button;
 use yii\bootstrap\Modal;
 use common\models\Category;
+use backend\models\CategoryForm;
 
 $categories = Category::findAll(['is_basic' => 0]);
 
-$categoryModel = new Category();
+$categoryModel = new CategoryForm();
 ?>
     <!--MAIN NAVIGATION-->
     <!--===================================================-->
@@ -158,8 +159,11 @@ Modal::begin([
         ]); ?>
 
         <?= $form->field($categoryModel, 'name') ?>
+
         <?= $form->field($categoryModel, 'alias') ?>
+
         <?= $form->field($categoryModel, 'is_visible')->checkbox() ?>
+
         <?= $form->field($categoryModel, 'id')->hiddenInput()->label(false) ?>
 
         <?php ActiveForm::end(); ?>

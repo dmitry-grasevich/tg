@@ -41,7 +41,7 @@ NiftyAsset::register($this);
         </div>
     </div>
 
-    <?= $this->render('nifty/footer') ?>
+<?php //= $this->render('nifty/footer') ?>
 
 
     <!-- SCROLL TOP BUTTON -->

@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\FileHelper;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 use common\helpers\ImageTg;
 
@@ -440,19 +441,29 @@ class Template extends Library
             $img = UploadedFile::getInstance($this, 'img');
             if (!empty($img)) {
                 $backendDir = Yii::getAlias('@webroot/images');
+                $backendFullImagesDir = Yii::getAlias('@backend/web/images/elements/' . $this->category->alias . '/');
+                $backendThumbsImagesDir = Yii::getAlias('@backend/web/images/elements/' . $this->category->alias . '/thumbs');
                 $frontendFullImagesDir = Yii::getAlias('@frontend/web/images/elements/' . $this->category->alias . '/');
                 $frontendThumbsImagesDir = Yii::getAlias('@frontend/web/images/elements/' . $this->category->alias . '/thumbs');
                 FileHelper::createDirectory($backendDir);
+                FileHelper::createDirectory($backendFullImagesDir);
+                FileHelper::createDirectory($backendThumbsImagesDir);
                 FileHelper::createDirectory($frontendFullImagesDir);
                 FileHelper::createDirectory($frontendThumbsImagesDir);
 
                 if (!$img->saveAs($backendDir . '/' . $img->name)) {
                     return false;
                 }
+                ImageTg::thumbnail($backendDir . '/' . $img->name, $backendFullImagesDir . '/' . $img->name,
+                    1200, 2000, ['quality' => 80]);
+                ImageTg::thumbnail($backendDir . '/' . $img->name, $backendThumbsImagesDir . '/' . $img->name,
+                    272, 500, ['quality' => 80]);
                 ImageTg::thumbnail($backendDir . '/' . $img->name, $frontendFullImagesDir . '/' . $img->name,
                     1200, 2000, ['quality' => 80]);
                 ImageTg::thumbnail($backendDir . '/' . $img->name, $frontendThumbsImagesDir . '/' . $img->name,
                     272, 500, ['quality' => 80]);
+
+                unlink($backendDir . '/' . $img->name);
                 $this->img = $img->name;
             } elseif (!$this->getIsNewRecord()) {
                 $this->img = $this->getOldAttribute('img');

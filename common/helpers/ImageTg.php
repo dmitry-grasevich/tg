@@ -1,14 +1,13 @@
 <?php
-
-namespace common\helpers;
-
-use \yii\imagine\Image;
-use Imagine\Image\Point;
-
 /**
  * Class ImageTg
  * @package common\helpers
  */
+
+namespace common\helpers;
+
+use yii\imagine\Image;
+use Imagine\Image\Point;
 
 class ImageTg
 {

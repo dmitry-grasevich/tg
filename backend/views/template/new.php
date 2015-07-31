@@ -6,9 +6,9 @@
  */
 ?>
 
-<h1 class="page-header text-overflow text-center">New template in category "<?= $category->name ?>"</h1>
+<h1 class="page-header text-overflow text-center">New Block in category "<?= $category->name ?>"</h1>
 
 <div class="template-create">
-    <?= $this->render('_form', ['model' => $template, 'category' => $category]) ?>
+    <?= $this->render('_form', ['category' => $category, 'template' => $template]) ?>
 </div>
 
