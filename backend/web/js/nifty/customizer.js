@@ -112,12 +112,16 @@ var TgCustomizer = library(function ($) {
         });
     }
 
+    var dropBlock = function(el) {
+        el.remove();
+    };
+
     return {
         init: function () {
             initSectionsDraggable('.sections-sortable');
             initControlsDraggable('.controls-sortable');
             initSectionsSortable($('.sections-sortable'));
-            //initDroppable($('#droppable'));
+            initDroppable($('#droppable'));
             initEditable();
         }
     };
