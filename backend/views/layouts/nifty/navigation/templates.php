@@ -11,8 +11,13 @@ use yii\bootstrap\Html;
 
 <!-- Templates of current category -->
 <ul>
+    <li>
+        <a href="<?= Url::to(['/template/edit', 'cat' => $category->id]) ?>">
+            + Add to <?= $category->name ?>
+        </a>
+    </li>
     <?php foreach ($templates as $template): ?>
-        <li class="">
+        <li>
             <a href="<?= Url::to(['/template/view', 'id' => $template->id]) ?>">
                 <?= $template->name ?>
 
@@ -33,9 +38,4 @@ use yii\bootstrap\Html;
             </a>
         </li>
     <?php endforeach; ?>
-    <li class="">
-        <a href="<?= Url::to(['/template/edit', 'cat' => $category->id]) ?>">
-            + Add to <?= $category->name ?>
-        </a>
-    </li>
 </ul>

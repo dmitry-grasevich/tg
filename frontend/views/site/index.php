@@ -4,8 +4,12 @@
  * @var common\models\Category[]    $categories
  * @var common\models\Template[]    $selected
  */
+
+use yii\helpers\Html;
+
 $this->title = 'WordPress Template Generator';
 ?>
+
 <div class="container" id="main_container">
     <div class="mp-pusher" id="mp-pusher">
 
@@ -26,7 +30,12 @@ $this->title = 'WordPress Template Generator';
                                         <?php foreach ($category->visibleTemplates as $template): ?>
                                             <li class="menu-item">
                                                 <a href="#">
-                                                    <img src="images/elements/<?= $category->alias ?>/thumbs/<?= $template->img ?>" width="294px" data-id="<?= $template->id ?>" />
+                                                    <?= Html::img($template->getImagePath(true) . '/' . $template->img, [
+                                                        'data' => [
+                                                            'id' => $template->id,
+                                                        ],
+                                                        'width' => '294px',
+                                                    ]) ?>
                                                 </a>
                                             </li>
                                         <?php endforeach; ?>

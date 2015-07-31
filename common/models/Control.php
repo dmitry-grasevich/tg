@@ -69,6 +69,11 @@ class Control extends Library
         return $this->hasMany(SectionControl::className(), ['control_id' => 'id']);
     }
 
+    public static function getImagePath()
+    {
+        return Yii::getAlias('@web/images/controls');
+    }
+
     /**
      * @param bool $insert
      * @return bool
@@ -79,7 +84,7 @@ class Control extends Library
         if (parent::beforeSave($insert)) {
             $img = UploadedFile::getInstance($this, 'img');
             if (!empty($img)) {
-                $backendDir = Yii::getAlias('@webroot/images');
+                $backendDir = self::getImagePath();
                 FileHelper::createDirectory($backendDir);
 
                 if (!$img->saveAs($backendDir . '/' . $img->name)) {

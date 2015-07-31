@@ -1,3 +1,12 @@
+function library(module) {
+    $(function () {
+        if (module.init) {
+            module.init();
+        }
+    });
+    return module;
+}
+
 var updateFormErrors = function(form_id, model, errors, skipCleanForm) {
         if (!skipCleanForm) {
             // clean form errors

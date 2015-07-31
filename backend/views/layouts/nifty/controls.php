@@ -23,7 +23,12 @@ $controls = Control::find()->orderBy('name')->all();
                     <a href="#" class="list-group-item">
                         <div class="media-body">
                             <div class="text-lg">Section</div>
-                            <?= Html::img('/images/section.png', ['style' => 'max-width: 188px;']) ?>
+                            <?= Html::img(Control::getImagePath() . '/section.png', [
+                                'style' => 'max-width: 188px;',
+                                'data' => [
+                                    'type' => 'section',
+                                ]
+                            ]) ?>
                         </div>
                     </a>
                 </div>
@@ -35,7 +40,14 @@ $controls = Control::find()->orderBy('name')->all();
                             <div class="media-body">
                                 <div class="text-lg"><?= $control->name ?></div>
                                 <?php if (!empty($control->img)) {
-                                    echo Html::img('/images/' . $control->img, ['style' => 'max-width: 188px;']);
+                                    echo Html::img(Control::getImagePath() . '/' . $control->img, [
+                                        'style' => 'max-width: 188px;',
+                                        'data' => [
+                                            'type' => 'control',
+                                            'id' => $control->id,
+                                            'name' => $control->name,
+                                        ]
+                                    ]);
                                 } ?>
                             </div>
                         </a>

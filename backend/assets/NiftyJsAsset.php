@@ -10,10 +10,13 @@ class NiftyJsAsset extends AssetBundle
     public $css = [];
     public $js = [
         'highlight.pack.js',
-        'nifty.js',
         'helpers.js',
+        'nifty.js',
         'alert.js',
         'navigation.js',
+        'customizer.js',
     ];
-    public $depends = [];
+    public $depends = [
+        'yii\jui\JuiAsset',
+    ];
 }

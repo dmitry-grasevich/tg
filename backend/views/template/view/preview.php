@@ -15,7 +15,7 @@ use yii\helpers\Html;
     <?php endif ?>
 
     <?php if (!empty($template->img)): ?>
-        <?= Html::img($template->getImagePath() . '/' . $template->img, ['class'=>'file-preview-image', 'style' => 'width:100%']) ?>
+        <?= Html::img($template->getImagePath() . '/' . $template->img, ['class' => 'file-preview-image', 'style' => 'width:100%']) ?>
     <?php endif ?>
 
     <?php if (!empty($template->code)): ?>
