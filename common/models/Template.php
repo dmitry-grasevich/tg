@@ -431,6 +431,26 @@ class Template extends Library
     }
 
     /**
+     * @param bool|false $isBackend
+     * @param bool|false $isThumb
+     * @return bool|string
+     */
+    public function getImageDir($isBackend = false, $isThumb = false)
+    {
+        return Yii::getAlias('@' . ($isBackend ? 'backend' : 'frontend') . '/web/images/elements/' .
+            $this->category->alias . ($isThumb ? '/thumbs' : ''));
+    }
+
+    /**
+     * @param bool|false $isThumb
+     * @return bool|string
+     */
+    public function getImagePath($isThumb = false)
+    {
+        return Yii::getAlias('@web/images/elements/' . $this->category->alias . ($isThumb ? '/thumbs' : ''));
+    }
+
+    /**
      * @param bool $insert
      * @return bool
      * @throws \yii\base\Exception
@@ -441,10 +461,10 @@ class Template extends Library
             $img = UploadedFile::getInstance($this, 'img');
             if (!empty($img)) {
                 $backendDir = Yii::getAlias('@webroot/images');
-                $backendFullImagesDir = Yii::getAlias('@backend/web/images/elements/' . $this->category->alias . '/');
-                $backendThumbsImagesDir = Yii::getAlias('@backend/web/images/elements/' . $this->category->alias . '/thumbs');
-                $frontendFullImagesDir = Yii::getAlias('@frontend/web/images/elements/' . $this->category->alias . '/');
-                $frontendThumbsImagesDir = Yii::getAlias('@frontend/web/images/elements/' . $this->category->alias . '/thumbs');
+                $backendFullImagesDir = $this->getImageDir(true);
+                $backendThumbsImagesDir = $this->getImageDir(true, true);
+                $frontendFullImagesDir = $this->getImageDir();
+                $frontendThumbsImagesDir = $this->getImageDir(false, true);
                 FileHelper::createDirectory($backendDir);
                 FileHelper::createDirectory($backendFullImagesDir);
                 FileHelper::createDirectory($backendThumbsImagesDir);

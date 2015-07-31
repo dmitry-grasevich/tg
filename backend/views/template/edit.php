@@ -5,7 +5,7 @@
  * @var common\models\Template $template
  */
 $title = Yii::t('tg', $template->isNewRecord ? 'New Block in category "{category}"' :
-    'Edit Block "{template}" in category ":category"', [
+    'Edit Block "{template}" in category "{category}"', [
     'category' => $category->name,
     'template' => $template->name,
 ]);

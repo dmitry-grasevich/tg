@@ -53,7 +53,7 @@ $labels = $template->attributeLabels();
         'pluginOptions' => [
             'showUpload' => false,
             'initialPreview' => $template->img ? [
-                Html::img(Yii::getAlias('@web/images') . '/' . $template->img, ['class'=>'file-preview-image']),
+                Html::img($template->getImagePath() . '/' . $template->img, ['class'=>'file-preview-image']),
             ] : false,
         ],
     ]) ?>
