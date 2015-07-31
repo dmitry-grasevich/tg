@@ -2,13 +2,11 @@
 
 namespace common\models;
 
-use common\helpers\ImageTg;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\FileHelper;
-use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
-
+use common\helpers\ImageTg;
 
 /**
  * This is the model class for table "template".
@@ -16,12 +14,12 @@ use yii\web\UploadedFile;
  * @property integer $id
  * @property integer $category_id
  * @property string $name
- * @property string $filename
- * @property string $directory
  * @property string $img
  * @property string $code
- * @property integer $is_visible  show or not this template on frontend
- * @property string $identificator
+ * @property boolean $is_visible
+ * @property string $alias
+ * @property string $title
+ * @property string $description
  *
  * @property Category $category
  * @property TemplateCss[] $templateCss
@@ -55,12 +53,12 @@ class Template extends Library
     public function rules()
     {
         return [
-            [['category_id', 'name'], 'required'],
-            [['name', 'identificator'], 'unique'],
+            [['category_id', 'name', 'alias', 'title'], 'required'],
             [['category_id', 'is_visible'], 'integer'],
-            [['code', 'filename', 'identificator'], 'string'],
-            [['img'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
-            [['name', 'filename', 'directory', 'img'], 'string', 'max' => 255],
+            [['code', 'description'], 'string'],
+            [['name', 'img', 'alias', 'title'], 'string', 'max' => 255],
+            [['alias'], 'unique'],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             // relations
             [['parents', 'children',  'css', 'js', 'images', 'fonts', 'functions', 'plugins', 'elements'], 'safe'],
         ];
@@ -75,10 +73,12 @@ class Template extends Library
             'id' => Yii::t('tg', 'ID'),
             'category_id' => Yii::t('tg', 'Category'),
             'name' => Yii::t('tg', 'Name'),
-            'filename' => Yii::t('tg', 'Filename'),
-            'directory' => Yii::t('tg', 'Dir'),
+            'alias' => Yii::t('tg', 'Alias'),
+            'title' => Yii::t('tg', 'Title'),
+            'description' => Yii::t('tg', 'Description'),
             'img' => Yii::t('tg', 'Preview Image'),
             'code' => Yii::t('tg', 'Code'),
+
             'categoryName' => Yii::t('tg', 'Category'),
             'css' => Yii::t('tg', 'CSS'),
             'CssName' => Yii::t('tg', 'CSS'),
@@ -97,7 +97,6 @@ class Template extends Library
             'parentsName' => Yii::t('tg', 'Parents'),
             'childrenName' => Yii::t('tg', 'Children'),
             'is_visible' => Yii::t('tg', 'Visible on Frontend'),
-            'identificator' => Yii::t('tg', 'Identificator'),
         ];
     }
 

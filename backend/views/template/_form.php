@@ -25,7 +25,7 @@ use \common\models\Element;
     ],
     'condensed' => false,
     'hover' => true,
-    'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
+    'mode' => DetailView::MODE_EDIT,
     'panel' => [
         'heading' => $this->title,
         'type' => DetailView::TYPE_INFO,

@@ -16,7 +16,7 @@ use yii\helpers\Url;
         <div class="navbar-header">
             <a href="/" class="navbar-brand">
                 <div class="brand-title">
-                    <span class="brand-text">Template Generator</span>
+                    <span class="brand-text">Genetrator</span>
                 </div>
             </a>
         </div>

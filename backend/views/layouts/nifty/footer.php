@@ -7,7 +7,7 @@
     <div class="show-fixed pull-right">
         <ul class="footer-list list-inline">
             <li>
-                <p class="text-sm">SEO Proggres</p>
+                <p class="text-sm">SEO Progress</p>
 
                 <div class="progress progress-sm progress-light-base">
                     <div style="width: 80%" class="progress-bar progress-bar-danger"></div>
@@ -30,14 +30,14 @@
 
     <!-- Visible when footer positions are static -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div class="hide-fixed pull-right pad-rgt">Currently v2.2</div>
+    <div class="hide-fixed pull-right pad-rgt">Currently v1.0.0</div>
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- Remove the class name "show-fixed" and "hide-fixed" to make the content always appears. -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <p class="pad-lft">© 2015 Template Generator</p>
+    <p class="pad-lft">© 2015 Genetrator</p>
 
 
 </footer>

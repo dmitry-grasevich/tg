@@ -22,6 +22,8 @@ class TemplateController extends BaseController
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'new' => ['get'],
+                    'edit' => ['get'],
                     'remove' => ['post'],
                     'save' => ['post'],
                 ],
@@ -53,7 +55,28 @@ class TemplateController extends BaseController
             throw new NotFoundHttpException('Page not fount');
         }
 
-        $category = Category::findOne($cat);
-        return $this->render('new', ['category' => $category]);
+        return $this->render('new', [
+            'category' => Category::findOne($cat),
+            'template' => new Template(),
+        ]);
+    }
+
+    /**
+     * Edit template
+     *
+     * @param string $id   template id
+     *
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionEdit($id)
+    {
+        if (empty($id)) {
+            throw new NotFoundHttpException('Page not fount');
+        }
+
+        return $this->render('edit', [
+            'template' => Template::findOne($id),
+        ]);
     }
 }
