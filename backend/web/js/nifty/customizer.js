@@ -23,8 +23,14 @@ var TgCustomizer = library(function ($) {
                         if (type != 'section') {
                             $result = $result.append($('<div class="text-lg" style="padding: 3px;">' + controlName + '</div>'));
                         }
-                        $result = $result.append($('<img src="' + imgSrc + '" data-id="' + controlId + '" ' +
-                            'data-name="' + controlName + '" data-type="' + type + '" />'));
+
+                        var $dragImg = $('<img src="' + imgSrc + '" />');
+
+                        if (!!controlId) { $dragImg.attr('data-id', controlId); }
+                        if (!!controlName) { $dragImg.attr('data-name', controlName); }
+                        if (!!type) { $dragImg.attr('data-type', type); }
+
+                        $result = $result.append($dragImg);
 
                         return $result;
                     },
@@ -57,16 +63,21 @@ var TgCustomizer = library(function ($) {
                         imgSrc = $img.attr('src'),
                         controlName = $img.data('name'),
                         type = $img.data('type'),
-                        $sortable = $('<a href="#" class="' + type + '-wrapper" data-id="' + controlId + '" />');
+                        $sortable = $('<a href="#" class="' + type + '-wrapper" />');
+
+                    if (!!controlId) { $sortable.attr('data-id', controlId); }
 
                     if (type != 'section') {
                         $sortable = $sortable
                             .append($('<div class="text-lg control-label">' + controlName + '</div>'));
                     }
 
-                    var $newImg = $('<img src="' + imgSrc + '" data-id="' + controlId + '"' +
-                        'data-name="' + controlName + '" data-type="' + type + '" ' +
-                        'data-toggle="panel-overlay" data-target="#settings-wrapper" />');
+                    var $newImg = $('<img src="' + imgSrc + '" data-toggle="panel-overlay" data-target="#settings-wrapper" />');
+
+                    if (!!controlId) { $newImg.attr('data-id', controlId); }
+                    if (!!controlName) { $newImg.attr('data-name', controlName); }
+                    if (!!type) { $newImg.attr('data-type', type); }
+
                     $sortable = $sortable.append($newImg);
 
                     if (type == 'section') {
@@ -144,8 +155,8 @@ var TgCustomizer = library(function ($) {
                 controlId = $el.data('control-id'),
                 params = { type: type };
 
-            if (id !== undefined) { params.id = id; }
-            if (controlId !== undefined) { params.controlId = controlId; }
+            if (!!id) { params.id = id; }
+            if (!!controlId) { params.controlId = controlId; }
 
             $el.niftyOverlay('show');
 
@@ -154,9 +165,9 @@ var TgCustomizer = library(function ($) {
                 if (res.success) {
                     $('#setting-helper').addClass('hidden');
                 } else if (res.error) {
-                    TgAlert.error('Error occurs', res.error);
+                    TgAlert.error('Error occurred', res.error);
                 } else {
-                    TgAlert.error('Error occurs', 'Unknown error');
+                    TgAlert.error('Error occurred', 'Unknown error');
                 }
             }, 'json');
         };

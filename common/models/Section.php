@@ -11,11 +11,13 @@ use yii\helpers\VarDumper;
  * This is the model class for table "section".
  *
  * @property integer $id
- * @property string $name
- * @property string $code
+ * @property integer $template_id
+ * @property string $alias
+ * @property string $title
+ * @property string $description
  *
  * @property SectionControl[] $sectionControls
- * @property Control[] $controls
+ * @property Template $template
  */
 class Section extends Library
 {
@@ -33,9 +35,11 @@ class Section extends Library
     public function rules()
     {
         return [
-            [['name', 'code'], 'required'],
-            // relations
-            [['controls'], 'safe'],
+            [['template_id', 'alias', 'title'], 'required'],
+            [['template_id'], 'integer'],
+            [['description'], 'string'],
+            [['alias', 'title'], 'string', 'max' => 255],
+            [['template_id'], 'exist', 'skipOnError' => true, 'targetClass' => Template::className(), 'targetAttribute' => ['template_id' => 'id']],
         ];
     }
 
@@ -46,9 +50,19 @@ class Section extends Library
     {
         return [
             'id' => Yii::t('tg', 'ID'),
-            'name' => Yii::t('tg', 'Name'),
-            'code' => Yii::t('tg', 'Code'),
+            'template_id' => Yii::t('tg', 'Template ID'),
+            'alias' => Yii::t('tg', 'Alias'),
+            'title' => Yii::t('tg', 'Title'),
+            'description' => Yii::t('tg', 'Description'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTemplate()
+    {
+        return $this->hasOne(Template::className(), ['id' => 'template_id']);
     }
 
     /**

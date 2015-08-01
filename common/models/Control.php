@@ -22,6 +22,11 @@ use yii\web\UploadedFile;
  */
 class Control extends Library
 {
+    const TYPE_SECTION = 'section';
+    const TYPE_CONTROL = 'control';
+
+    protected static $_allowedTypes = [self::TYPE_SECTION, self::TYPE_CONTROL];
+
     /**
      * @inheritdoc
      */
@@ -100,6 +105,9 @@ class Control extends Library
         }
     }
 
+    /**
+     * @return array
+     */
     public static function listFamilies()
     {
         return [
@@ -107,5 +115,17 @@ class Control extends Library
             'tg' => 'Template Generator',
             'kirki' => 'Kirki',
         ];
+    }
+
+    /**
+     * Return true if type is allowed control type
+     *
+     * @param $type
+     *
+     * @return bool
+     */
+    public static function isAllowedType($type)
+    {
+        return in_array($type, self::$_allowedTypes);
     }
 }

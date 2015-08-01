@@ -12,7 +12,14 @@ use yii\db\ActiveRecord;
  * @property integer $section_id
  * @property integer $control_id
  * @property integer $priority
- * @property string  $default
+ * @property string $alias
+ * @property string $label
+ * @property string $help
+ * @property string $description
+ * @property string $default
+ * @property string $style
+ * @property string $params
+ * @property string $pseudojs
  *
  * @property Section $section
  * @property Control $control
@@ -33,9 +40,12 @@ class SectionControl extends ActiveRecord
     public function rules()
     {
         return [
-            [['section_id', 'control_id'], 'required'],
+            [['section_id', 'control_id', 'alias', 'label'], 'required'],
             [['section_id', 'control_id', 'priority'], 'integer'],
-            [['default'], 'string'],
+            [['description', 'default', 'style', 'params', 'pseudojs'], 'string'],
+            [['alias', 'label', 'help'], 'string', 'max' => 255],
+            [['control_id'], 'exist', 'skipOnError' => true, 'targetClass' => Control::className(), 'targetAttribute' => ['control_id' => 'id']],
+            [['section_id'], 'exist', 'skipOnError' => true, 'targetClass' => Section::className(), 'targetAttribute' => ['section_id' => 'id']],
         ];
     }
 
@@ -49,7 +59,14 @@ class SectionControl extends ActiveRecord
             'section_id' => Yii::t('tg', 'Section ID'),
             'control_id' => Yii::t('tg', 'Control ID'),
             'priority' => Yii::t('tg', 'Priority'),
-            'default' => Yii::t('tg', 'Default Value'),
+            'alias' => Yii::t('tg', 'Alias'),
+            'label' => Yii::t('tg', 'Label'),
+            'help' => Yii::t('tg', 'Help'),
+            'description' => Yii::t('tg', 'Description'),
+            'default' => Yii::t('tg', 'Default'),
+            'style' => Yii::t('tg', 'Style'),
+            'params' => Yii::t('tg', 'Params'),
+            'pseudojs' => Yii::t('tg', 'Pseudo JS'),
         ];
     }
 
