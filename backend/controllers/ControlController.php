@@ -40,6 +40,6 @@ class ControlController extends BaseController
         /** @var ActiveRecord $class */
         $model = $id ? $class::findOne($id) : new $class();
 
-        return $this->renderPartial($type, ['model' => $model]);
+        return $this->renderAjax($type, ['model' => $model]);
     }
 }

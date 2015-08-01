@@ -15,6 +15,7 @@ use yii\helpers\VarDumper;
  * @property string $alias
  * @property string $title
  * @property string $description
+ * @property integer $priority
  *
  * @property SectionControl[] $sectionControls
  * @property Template $template
@@ -36,7 +37,7 @@ class Section extends Library
     {
         return [
             [['template_id', 'alias', 'title'], 'required'],
-            [['template_id'], 'integer'],
+            [['template_id', 'priority'], 'integer'],
             [['description'], 'string'],
             [['alias', 'title'], 'string', 'max' => 255],
             [['template_id'], 'exist', 'skipOnError' => true, 'targetClass' => Template::className(), 'targetAttribute' => ['template_id' => 'id']],
@@ -70,7 +71,7 @@ class Section extends Library
      */
     public function getSectionControls()
     {
-        return $this->hasMany(SectionControl::className(), ['section_id' => 'id'])->orderBy('priority');
+        return $this->hasMany(SectionControl::className(), ['section_id' => 'id'])->orderBy('section_control.priority');
     }
 
     /**

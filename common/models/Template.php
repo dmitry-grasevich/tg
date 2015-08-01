@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\FileHelper;
-use yii\helpers\VarDumper;
+use yii\behaviors\TimestampBehavior;
 use yii\web\UploadedFile;
 use common\helpers\ImageTg;
 
@@ -21,8 +21,10 @@ use common\helpers\ImageTg;
  * @property string $alias
  * @property string $title
  * @property string $description
+ * @property string $updated_at
  *
  * @property Category $category
+ * @property Section[] $sections
  * @property TemplateCss[] $templateCss
  * @property TemplateJs[] $templateJs
  * @property TemplateImage[] $templateImages
@@ -48,6 +50,13 @@ class Template extends Library
         return 'template';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -55,13 +64,13 @@ class Template extends Library
     {
         return [
             [['category_id', 'name', 'alias', 'title'], 'required'],
-            [['category_id', 'is_visible'], 'integer'],
+            [['category_id', 'is_visible', 'updated_at'], 'integer'],
             [['code', 'description'], 'string'],
             [['name', 'img', 'alias', 'title'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             // relations
-            [['parents', 'children',  'css', 'js', 'images', 'fonts', 'functions', 'plugins', 'elements'], 'safe'],
+            [['parents', 'children', 'css', 'js', 'images', 'fonts', 'functions', 'plugins', 'elements', 'sections'], 'safe'],
         ];
     }
 
@@ -117,6 +126,14 @@ class Template extends Library
     public function getCategoryName()
     {
         return $this->category->name;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSections()
+    {
+        return $this->hasMany(Section::className(), ['template_id' => 'id'])->orderBy('section.priority');
     }
 
     /**
@@ -430,6 +447,18 @@ class Template extends Library
         return '';
     }
 
+    public static function getCustomizerControls($id)
+    {
+        $template = Template::find()
+            ->select(['{{template}}.id', 'updated_at'])
+            ->where('template.id = :id', [':id' => $id])
+            ->joinWith('sections.sectionControls.control')
+            ->asArray()
+            ->all();
+
+        return $template[0];
+    }
+
     /**
      * @param bool|false $isBackend
      * @param bool|false $isThumb
@@ -524,7 +553,7 @@ class Template extends Library
         $templates = [];
         $ts = explode('-', $t);
         foreach (self::find()->innerJoinWith([
-            'category' => function($query) {
+            'category' => function ($query) {
                 $query->where(['category.is_basic' => 0, 'category.is_visible' => 1]);
             }
         ])->where(['template.id' => $ts])->each() as $template) {

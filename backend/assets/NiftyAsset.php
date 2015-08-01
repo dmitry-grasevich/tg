@@ -20,6 +20,7 @@ class NiftyAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'common\assets\PerfectScrollbarAsset',
+        'common\assets\UnderscoreAsset',
         'common\assets\HighlightAsset',
         'common\assets\FontAwesomeAsset',
         'common\assets\BootboxAsset',

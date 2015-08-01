@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($model) {
                     /** @var \common\models\Control $model */
-                    return !empty($model->img) ? Html::img('/images/' . $model->img, ['style' => 'max-width: 300px;']) : false;
+                    return !empty($model->img) ? Html::img(Control::getImagePath() . '/' . $model->img, ['style' => 'max-width: 300px;']) : false;
                 }
             ],
 

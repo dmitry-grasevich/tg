@@ -42,6 +42,10 @@
     width: 90%;
 }
 
+.controls-sortable .draggable-el img {
+    width: 270px;
+}
+
 .section-wrapper,
 .control-wrapper {
     display: block;
@@ -57,7 +61,7 @@
     height: 100px;
     background: #ECF0F1;
 }
-.control-label {
+.sections-sortable .control-label {
     padding: 5px 0 0 10px;
 }
 
@@ -95,7 +99,7 @@
     color: rgba(255, 255, 255, 1);
 }
 
-.section-wrapper img:first-child {
+.section-wrapper > img:first-child {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }

@@ -51,7 +51,8 @@
         "components/modernizr": "dev-master",
         "bower-asset/font-awesome": "dev-master",
         "bower-asset/js-cookie": "dev-master",
-        "bower-asset/bootbox.js": "^4.4@dev"
+        "bower-asset/bootbox.js": "^4.4@dev",
+        "bower-asset/underscore": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

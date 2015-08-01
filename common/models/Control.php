@@ -45,6 +45,7 @@ class Control extends Library
             [['family', 'type', 'class'], 'required'],
             [['name', 'family', 'type', 'class', 'img'], 'string', 'max' => 255],
             [['type'], 'unique'],
+            [['imgUrl'], 'safe'],
             [['img'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
         ];
     }
@@ -74,9 +75,20 @@ class Control extends Library
         return $this->hasMany(SectionControl::className(), ['control_id' => 'id']);
     }
 
+    /**
+     * @return bool|string
+     */
     public static function getImagePath()
     {
         return Yii::getAlias('@web/images/controls');
+    }
+
+    /**
+     * @return string
+     */
+    public function getImgUrl()
+    {
+        return self::getImagePath() . '/' . $this->img;
     }
 
     /**

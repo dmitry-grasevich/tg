@@ -53,7 +53,7 @@ DetailView::widget([
                 'pluginOptions' => [
                     'showUpload' => false,
                     'initialPreview' => $model->img ? [
-                        Html::img(Yii::getAlias('@web/images') . '/' . $model->img, ['class'=>'file-preview-image']),
+                        Html::img(Control::getImagePath() . '/' . $model->img, ['class'=>'file-preview-image']),
                     ] : false,
                 ],
             ],

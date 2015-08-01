@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Templates'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 
 echo Html::hiddenInput('template-id', $template->id, ['id' => 'tid']);
+echo Html::hiddenInput('template-updated_at', $template->updated_at, ['id' => 'template-upd']);
 
 ?>
     <div id="page-title">
@@ -71,12 +72,39 @@ echo Html::hiddenInput('template-id', $template->id, ['id' => 'tid']);
             </div>
 
             <div class="col-sm-3">
-                <div class="panel">
+                <div class="panel" id="customizer-panel">
                     <div class="panel-heading">
+                        <div class="panel-control">
+
+                            <!--span class="label label-warning"><i class="fa fa-flash"></i> <?= Yii::t('tg', 'Has unsaved data') ?></span-->
+
+                            <?= Button::widget([
+                                'label' => '<i class="fa fa-rotate-right fa-fw"></i> Load',
+                                'encodeLabel' => false,
+                                'options' => [
+                                    'id' => 'load-customizer-btn',
+                                    'class' => 'btn-default',
+                                    'data' => [
+                                        'target' => '#customizer-panel',
+                                        'toggle' => 'panel-overlay',
+                                    ]
+                                ]
+                            ]) ?>
+
+                            <?= Button::widget([
+                                'label' => '<i class="fa fa-floppy-o fa-fw"></i> Save',
+                                'encodeLabel' => false,
+                                'options' => [
+                                    'id' => 'save-customizer-btn',
+                                    'class' => 'btn-default'
+                                ]
+                            ]) ?>
+                        </div>
+
                         <h3 class="panel-title"><?= Yii::t('tg', 'Customizer') ?></h3>
                     </div>
                     <div class="panel-body">
-                        <ul class="sections-sortable">
+                        <ul class="sections-sortable" id="customizer-controls">
 
                         </ul>
                     </div>

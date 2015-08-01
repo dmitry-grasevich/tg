@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e5b85f51d15468cd524b998a6677cfe9",
+    "hash": "66ba18377a1faa86889e8d96018ddc26",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -672,6 +672,46 @@
                 ]
             },
             "time": "2014-09-03 03:01:28"
+        },
+        {
+            "name": "bower-asset/underscore",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jashkenas/underscore.git",
+                "reference": "f8a8bb1f15ab67b0ff988617044181b06fdbf2ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jashkenas/underscore/zipball/f8a8bb1f15ab67b0ff988617044181b06fdbf2ac",
+                "reference": "f8a8bb1f15ab67b0ff988617044181b06fdbf2ac",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "underscore.js",
+                "bower-asset-ignore": [
+                    "docs",
+                    "test",
+                    "*.yml",
+                    "CNAME",
+                    "index.html",
+                    "favicon.ico",
+                    "CONTRIBUTING.md",
+                    ".*",
+                    "component.json",
+                    "package.json",
+                    "karma.*"
+                ]
+            },
+            "keywords": [
+                "browser",
+                "client",
+                "functional",
+                "server",
+                "util"
+            ],
+            "time": "2015-07-28 21:51:14"
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -3603,7 +3643,8 @@
         "components/modernizr": 20,
         "bower-asset/font-awesome": 20,
         "bower-asset/js-cookie": 20,
-        "bower-asset/bootbox.js": 20
+        "bower-asset/bootbox.js": 20,
+        "bower-asset/underscore": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -4,10 +4,12 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use common\models\Category;
 use common\models\Template;
 use common\models\search\Template as TemplateSearch;
+use yii\web\Response;
 
 /**
  * Class TemplateController implements the CRUD actions for Template model.
@@ -96,5 +98,23 @@ class TemplateController extends BaseController
         return $this->render('view', [
             'template' => $template,
         ]);
+    }
+
+    /**
+     * Load all customizer's controls
+     *
+     * @throws NotFoundHttpException
+     */
+    public function actionCustomizer()
+    {
+        /** @var string $id   template id */
+        $id = (int)Yii::$app->request->get('id');
+        if (!$id) {
+            throw new BadRequestHttpException('Unknown template');
+        }
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return Template::getCustomizerControls($id);
     }
 }
