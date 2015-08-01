@@ -93,8 +93,6 @@ var TgCustomizerObj = library(function ($) {
             var self = this;
 
             _.each(template[templateId].sections, function (section) {
-                //console.log(element);
-                //console.log(index);
                 var $section = self.prepareSection(section);
                 $el.append($section);
 
@@ -105,7 +103,7 @@ var TgCustomizerObj = library(function ($) {
                 var $controlsSortable = $section.find('.controls-sortable');
 
                 _.each(section.sectionControls, function (sectionControl) {
-                    sectionControl.img = sectionControl.control.img;
+                    sectionControl.img = '/images/controls/' + sectionControl.control.img;
                     var $sectionControl = self.prepareControl(sectionControl);
                     $controlsSortable.append($sectionControl);
                 });
@@ -126,7 +124,7 @@ var TgCustomizerObj = library(function ($) {
                 .append($('<div class="controls-sortable"></div>'));
         },
         prepareControl: function (data) {
-            var $newImg = $('<img src="/images/controls/' + data.img + '" data-toggle="panel-overlay" data-target="#settings-wrapper" data-type="control" />')
+            var $newImg = $('<img src="' + data.img + '" data-toggle="panel-overlay" data-target="#settings-wrapper" data-type="control" />')
                 .niftyOverlay();
             var $control = $('<a href="#" class="control-wrapper" />');
 
@@ -224,41 +222,14 @@ var TgCustomizer = library(function ($) {
                         controlId = $img.data('id'),
                         imgSrc = $img.attr('src'),
                         controlName = $img.data('name'),
-                        type = $img.data('type'),
-                        $sortable = $('<a href="#" class="' + type + '-wrapper" />');
+                        type = $img.data('type');
 
-                    if (!!controlId) {
-                        $sortable.attr('data-id', controlId);
-                    }
-
-                    if (type != 'section') {
-                        $sortable = $sortable
-                            .append($('<div class="text-lg control-label">' + controlName + '</div>'));
-                    }
-
-                    var $newImg = $('<img src="' + imgSrc + '" data-toggle="panel-overlay" data-target="#settings-wrapper" />');
-
-                    if (!!controlId) {
-                        $newImg.attr('data-id', controlId);
-                    }
-                    if (!!controlName) {
-                        $newImg.attr('data-name', controlName);
-                    }
-                    if (!!type) {
-                        $newImg.attr('data-type', type);
-                    }
-
-                    $newImg.niftyOverlay();
-
-                    $sortable = $sortable.append($newImg);
-
-                    if (type == 'section') {
-                        var $controls = ui.helper.find('.controls-sortable');
-                        if (!$controls.length) {
-                            $controls = $('<div class="controls-sortable"></div>');
-                        }
-                        $sortable = $sortable.append($controls);
-                    }
+                    var $sortable = type == 'section' ? TgCustomizerObj.prepareSection({}) :
+                        TgCustomizerObj.prepareControl({
+                            img: imgSrc,
+                            control_id: controlId,
+                            label: controlName
+                        });
 
                     ui.item
                         .removeAttr('style')
