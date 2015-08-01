@@ -56,6 +56,8 @@ var TgCustomizer = library(function ($) {
             revert: true,
             placeholder: 'drop-hover',
             containment: 'document',
+            opacity: 0.5,
+            zIndex: 1100,
             beforeStop: function (event, ui) {
                 var $img = ui.helper.find('img'),
                     controlId = $img.attr('data-id'),
@@ -74,8 +76,11 @@ var TgCustomizer = library(function ($) {
                         'data-name="' + controlName + '" data-type="' + type + '" />'));
 
                 if (type == 'section') {
-                    $sortable = $sortable
-                        .append($('<div class="controls-sortable"></div>'));
+                    var $controls = ui.helper.find('.controls-sortable');
+                    if (!$controls.length) {
+                        $controls = $('<div class="controls-sortable"></div>');
+                    }
+                    $sortable = $sortable.append($controls);
                 }
 
                 ui.item
@@ -87,8 +92,7 @@ var TgCustomizer = library(function ($) {
                 initControlsSortable($('.controls-sortable'));
             },
             stop: function () {}
-        });
-        el.disableSelection();
+        }).disableSelection();
     }
 
     function initDroppable(el) {

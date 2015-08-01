@@ -17,8 +17,8 @@
 .controls-sortable {
     list-style: none;
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     display: block;
     height: 100%;
     min-height: 400px;
@@ -74,4 +74,9 @@
 }
 .trash.ui-state-active:before {
     color: rgba(255, 255, 255, 1);
+}
+
+.section-wrapper img:first-child {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }

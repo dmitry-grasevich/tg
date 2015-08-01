@@ -95,4 +95,3 @@ $('#edit-template-btn').on('click', function() {
 });
 JS;
 $this->registerJs($js, $this::POS_READY, 'template-view-script');
-
