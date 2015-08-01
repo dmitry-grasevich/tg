@@ -20,4 +20,9 @@ class ControlController extends BaseController
     {
         $this->_searchModel = new ControlSearch;
     }
+
+    public function actionSettings()
+    {
+        return true;
+    }
 }

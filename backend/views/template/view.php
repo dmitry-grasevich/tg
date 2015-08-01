@@ -59,8 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="panel-heading">
                         <h3 class="panel-title"><?= Yii::t('tg', 'Control Settings') ?></h3>
                     </div>
-                    <div class="panel-body">
-
+                    <div class="panel-body" id="settings-wrapper">
+                        <div class="text-thin text-center text-muted" id="setting-helper"><?= Yii::t('tg', 'Select a section or control on Customizer') ?></div>
+                        <div id="settings-container"></div>
                     </div>
                 </div>
             </div>

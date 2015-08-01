@@ -1,3 +1,7 @@
+.list-group-item .text-lg {
+    padding-bottom: 3px;
+}
+
 .list-group {
     margin-bottom: 0;
 }
@@ -28,9 +32,24 @@
     min-height: 100px;
 }
 
-.sections-sortable img,
+.sections-sortable img {
+    vertical-align: top;
+    width: 100%;
+}
+
 .controls-sortable img {
     vertical-align: top;
+    width: 90%;
+}
+
+.section-wrapper,
+.control-wrapper {
+    display: block;
+}
+
+.section-wrapper.selected,
+.control-wrapper.selected {
+    border-left: 2px solid #986291;
 }
 
 .drop-hover {

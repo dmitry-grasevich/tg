@@ -63,9 +63,11 @@ var TgCustomizer = library(function ($) {
                         $sortable = $sortable
                             .append($('<div class="text-lg control-label">' + controlName + '</div>'));
                     }
-                    $sortable = $sortable
-                        .append($('<img src="' + imgSrc + '" data-id="' + controlId + '"' +
-                            'data-name="' + controlName + '" data-type="' + type + '" />'));
+
+                    var $newImg = $('<img src="' + imgSrc + '" data-id="' + controlId + '"' +
+                        'data-name="' + controlName + '" data-type="' + type + '" ' +
+                        'data-toggle="panel-overlay" data-target="#settings-wrapper" />');
+                    $sortable = $sortable.append($newImg);
 
                     if (type == 'section') {
                         var $controls = ui.helper.find('.controls-sortable');
@@ -81,15 +83,17 @@ var TgCustomizer = library(function ($) {
                         .removeClass('draggable-el')
                         .html($sortable);
 
+                    $newImg.niftyOverlay();
+
                     initControlsSortable($('.controls-sortable'));
                 }
             }).disableSelection();
         },
 
-        initDroppable = function (el) {
-            el.droppable({
-                accept: function (el) {
-                    return el.hasClass('ui-sortable-handle');
+        initDroppable = function ($el) {
+            $el.droppable({
+                accept: function ($el) {
+                    return $el.hasClass('ui-sortable-handle');
                 },
                 activeClass: 'ui-state-hover',
                 hoverClass: 'ui-state-active',
@@ -101,14 +105,60 @@ var TgCustomizer = library(function ($) {
             });
         },
 
+        dropBlock = function ($el) {
+            $el.remove();
+        },
+
         initEditable = function () {
-            $(document).on('click', '.section-wrapper', function (e) {
+            $(document).on('click', '.section-wrapper > img,.control-wrapper', function (e) {
                 e.preventDefault();
+
+                if ($(this).hasClass('control-wrapper')) {
+                    highlightSelectedControl($(this));
+                    loadSettings($(this).find('img'));
+                } else {
+                    highlightSelectedSection($(this).parent());
+                    loadSettings($(this));
+                }
             });
         },
 
-        dropBlock = function (el) {
-            el.remove();
+        clearSelected = function () {
+            $('.sections-sortable').find('.section-wrapper,.control-wrapper').removeClass('selected');
+            $('#settings-container').empty();
+        },
+
+        highlightSelectedSection = function ($el) {
+            clearSelected();
+            $el.addClass('selected');
+        },
+
+        highlightSelectedControl = function ($el) {
+            clearSelected();
+            $el.addClass('selected');
+        },
+
+        loadSettings = function($el) {
+            var type = $el.data('type'),
+                id = $el.data('id'),
+                controlId = $el.data('control-id'),
+                params = { type: type };
+
+            if (id !== undefined) { params.id = id; }
+            if (controlId !== undefined) { params.controlId = controlId; }
+
+            $el.niftyOverlay('show');
+
+            $.get('/control/settings', params, function (res) {
+                $el.niftyOverlay('hide');
+                if (res.success) {
+                    $('#setting-helper').addClass('hidden');
+                } else if (res.error) {
+                    TgAlert.error('Error occurs', res.error);
+                } else {
+                    TgAlert.error('Error occurs', 'Unknown error');
+                }
+            }, 'json');
         };
 
     return {
