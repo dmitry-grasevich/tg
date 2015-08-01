@@ -1,5 +1,6 @@
 var TgCustomizer = library(function ($) {
-    var
+    var jqxhr = null,
+
         initSectionsDraggable = function (id) {
             initDraggable(id, '.list-group.section');
         },
@@ -26,9 +27,15 @@ var TgCustomizer = library(function ($) {
 
                         var $dragImg = $('<img src="' + imgSrc + '" />');
 
-                        if (!!controlId) { $dragImg.attr('data-id', controlId); }
-                        if (!!controlName) { $dragImg.attr('data-name', controlName); }
-                        if (!!type) { $dragImg.attr('data-type', type); }
+                        if (!!controlId) {
+                            $dragImg.attr('data-id', controlId);
+                        }
+                        if (!!controlName) {
+                            $dragImg.attr('data-name', controlName);
+                        }
+                        if (!!type) {
+                            $dragImg.attr('data-type', type);
+                        }
 
                         $result = $result.append($dragImg);
 
@@ -65,7 +72,9 @@ var TgCustomizer = library(function ($) {
                         type = $img.data('type'),
                         $sortable = $('<a href="#" class="' + type + '-wrapper" />');
 
-                    if (!!controlId) { $sortable.attr('data-id', controlId); }
+                    if (!!controlId) {
+                        $sortable.attr('data-id', controlId);
+                    }
 
                     if (type != 'section') {
                         $sortable = $sortable
@@ -74,9 +83,15 @@ var TgCustomizer = library(function ($) {
 
                     var $newImg = $('<img src="' + imgSrc + '" data-toggle="panel-overlay" data-target="#settings-wrapper" />');
 
-                    if (!!controlId) { $newImg.attr('data-id', controlId); }
-                    if (!!controlName) { $newImg.attr('data-name', controlName); }
-                    if (!!type) { $newImg.attr('data-type', type); }
+                    if (!!controlId) {
+                        $newImg.attr('data-id', controlId);
+                    }
+                    if (!!controlName) {
+                        $newImg.attr('data-name', controlName);
+                    }
+                    if (!!type) {
+                        $newImg.attr('data-type', type);
+                    }
 
                     $sortable = $sortable.append($newImg);
 
@@ -95,6 +110,7 @@ var TgCustomizer = library(function ($) {
                         .html($sortable);
 
                     $newImg.niftyOverlay();
+                    clearSelected();
 
                     initControlsSortable($('.controls-sortable'));
                 }
@@ -137,6 +153,7 @@ var TgCustomizer = library(function ($) {
         clearSelected = function () {
             $('.sections-sortable').find('.section-wrapper,.control-wrapper').removeClass('selected');
             $('#settings-container').empty();
+            $('#setting-helper').removeClass('hidden');
         },
 
         highlightSelectedSection = function ($el) {
@@ -149,27 +166,33 @@ var TgCustomizer = library(function ($) {
             $el.addClass('selected');
         },
 
-        loadSettings = function($el) {
-            var type = $el.data('type'),
-                id = $el.data('id'),
-                controlId = $el.data('control-id'),
-                params = { type: type };
+        loadSettings = function ($el) {
+            if (jqxhr && jqxhr.readyState != 4) { // check if request is executing now
+                jqxhr.abort();
+            }
 
-            if (!!id) { params.id = id; }
-            if (!!controlId) { params.controlId = controlId; }
+            var type = $el.data('type'),
+                id = $el.data('control-id'),
+                tid = $('#tid').val(),
+                params = {type: type, tid: tid};
+
+            if (!!id) {
+                params.id = id;
+            }
 
             $el.niftyOverlay('show');
 
-            $.get('/control/settings', params, function (res) {
-                $el.niftyOverlay('hide');
-                if (res.success) {
-                    $('#setting-helper').addClass('hidden');
-                } else if (res.error) {
-                    TgAlert.error('Error occurred', res.error);
-                } else {
-                    TgAlert.error('Error occurred', 'Unknown error');
-                }
-            }, 'json');
+            jqxhr = $.get('/control/settings', params, function (res) {
+                $('#setting-helper').addClass('hidden');
+                $('#settings-container').html(res);
+            })
+                .fail(function (res) {
+                    var json = res.responseJSON;
+                    TgAlert.error(json.name, json.message);
+                })
+                .always(function () {
+                    $el.niftyOverlay('hide');
+                });
         };
 
     return {

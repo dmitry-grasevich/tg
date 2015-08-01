@@ -5,6 +5,7 @@
  */
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 use yii\bootstrap\Button;
 
 $title = Yii::t('tg', 'Block "{template}" ({alias})', [
@@ -15,6 +16,9 @@ $title = Yii::t('tg', 'Block "{template}" ({alias})', [
 $this->title = $title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('tg', 'Templates'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+echo Html::hiddenInput('template-id', $template->id, ['id' => 'tid']);
+
 ?>
     <div id="page-title">
         <h1 class="page-header text-overflow">
@@ -60,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h3 class="panel-title"><?= Yii::t('tg', 'Control Settings') ?></h3>
                     </div>
                     <div class="panel-body" id="settings-wrapper">
-                        <div class="text-thin text-center text-muted" id="setting-helper"><?= Yii::t('tg', 'Select a section or control on Customizer') ?></div>
+                        <div class="text-thin text-center text-muted" id="setting-helper"><?= Yii::t('tg', 'Select a section or control in Customizer') ?></div>
                         <div id="settings-container"></div>
                     </div>
                 </div>
@@ -83,6 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 $editProfileUrl = Url::to(['/template/edit', 'cat' => $template->category_id, 'id' => $template->id]);
+
 $js = <<<JS
 
 hljs.initHighlightingOnLoad();

@@ -5,8 +5,10 @@ namespace backend\controllers;
 use Yii;
 use common\models\Control;
 use common\models\search\Control as ControlSearch;
+use common\models\Section;
+use common\models\SectionControl;
+use yii\db\ActiveRecord;
 use yii\web\BadRequestHttpException;
-use yii\web\Response;
 
 /**
  * ControlController implements the CRUD actions for Control model.
@@ -25,20 +27,19 @@ class ControlController extends BaseController
 
     public function actionSettings()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
         /** @var string $type   control type */
         $type = Yii::$app->request->get('type');
-        if (!$type || Control::isAllowedType($type)) {
-            throw new BadRequestHttpException('Bad control type');
+        if (empty($type) || !Control::isAllowedType($type)) {
+            throw new BadRequestHttpException('Unknown control type');
         }
 
-        /** @var integer $id   control id */
+        /** @var integer $id   section/section_control id */
         $id = (int)Yii::$app->request->get('id');
 
-        /** @var integer $controlId   id of control assigned to a section */
-        $controlId = (int)Yii::$app->request->get('controlId');
+        $class = $type == Control::TYPE_SECTION ? Section::className() : SectionControl::className();
+        /** @var ActiveRecord $class */
+        $model = $id ? $class::findOne($id) : new $class();
 
-        return true;
+        return $this->renderPartial($type, ['model' => $model]);
     }
 }

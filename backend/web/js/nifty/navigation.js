@@ -16,7 +16,11 @@ $(document).ready(function () {
                 updateFormErrors(formId, modelClass, res.errors);
                 TgAlert.error('Form save error', 'Please, check your form');
             }
-        }, 'json');
+        }, 'json')
+            .fail(function (res) {
+                var json = res.responseJSON;
+                TgAlert.error(json.name, json.message);
+            });
     });
 
     $(document).on('click', '#delete-block-btn', function (e) {
@@ -61,6 +65,10 @@ $(document).ready(function () {
             } else if (res.error) {
                 TgAlert.error('Can\'t remove a Block Category', res.error);
             }
-        }, 'json');
+        }, 'json')
+            .fail(function (res) {
+                var json = res.responseJSON;
+                TgAlert.error(json.name, json.message);
+            });
     }
 });
