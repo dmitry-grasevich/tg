@@ -86,7 +86,7 @@ var TgCustomizerObj = library(function ($) {
                         .clone()
                         .omit('sectionControls')
                         .value();
-                var sectionEl = self.prepareSection(sectionData, true);
+                var sectionEl = self.prepareSection(sectionData, true, true);
                 $el.append(sectionEl);
 
                 if (!_.has(section, 'sectionControls')) { // this section has no controls
@@ -101,27 +101,29 @@ var TgCustomizerObj = library(function ($) {
                             .clone()
                             .omit('control')
                             .value();
-                    var $control = self.prepareControl(controlData, true);
+                    var $control = self.prepareControl(controlData, true, true);
                     $controlsSortable.append($control);
                 });
             });
         },
-        prepareSection: function (data, isSaved) {
+        prepareSection: function (data, isSaved, isWrap) {
             var sectionTemplate = Handlebars.compile($('#section-template').html());
             var $section = $(sectionTemplate({
                 uid: _.uniqueId('section_'),
                 isSaved: isSaved,
+                isWrap: isWrap,
                 settings: JSON.stringify(data)
             }));
 
             $section.find('img').niftyOverlay();
             return $section;
         },
-        prepareControl: function (data, isSaved) {
+        prepareControl: function (data, isSaved, isWrap) {
             var controlTemplate = Handlebars.compile($('#control-template').html());
             var $control = $(controlTemplate({
                 uid: _.uniqueId('control_'),
                 isSaved: isSaved,
+                isWrap: isWrap,
                 label: data.label,
                 img: data.img,
                 settings: JSON.stringify(data)
@@ -139,6 +141,7 @@ var TgCustomizer = library(function ($) {
         jqxhr = null,
         templateId = $('#tid').val(),
         storage,
+        needForceSave = false,
 
         initSectionsDraggable = function (id) {
             initDraggable(id, '.list-group.section');
@@ -199,7 +202,8 @@ var TgCustomizer = library(function ($) {
                         controlId = $img.data('id'),
                         imgSrc = $img.attr('src'),
                         controlName = $img.data('name'),
-                        type = $img.data('type');
+                        type = $img.data('type'),
+                        controls = ui.helper.find('.control-wrapper');
 
                     var $sortable = type == 'section' ? TgCustomizerObj.prepareSection() :
                         TgCustomizerObj.prepareControl({
@@ -207,6 +211,12 @@ var TgCustomizer = library(function ($) {
                             control_id: controlId,
                             label: controlName
                         });
+
+                    if (type == 'section' && controls.length) {
+                        _.each(controls, function($control) {
+                            $sortable.find('.controls-sortable').append($control);
+                        })
+                    }
 
                     ui.item
                         .removeAttr('style')
@@ -240,6 +250,7 @@ var TgCustomizer = library(function ($) {
 
         dropBlock = function ($el) {
             $el.remove();
+            needForceSave = true;
             $(window).trigger('customizerChanged');
         },
 
@@ -367,7 +378,7 @@ var TgCustomizer = library(function ($) {
         },
 
         customizerChanged = function () {
-            if ($('#customizer-controls').find('.unsaved').length) {
+            if ($('#customizer-controls').find('.unsaved').length || needForceSave) {
                 $('#save-customizer-btn').removeClass('hidden');
             } else {
                 $('#save-customizer-btn').addClass('hidden');
