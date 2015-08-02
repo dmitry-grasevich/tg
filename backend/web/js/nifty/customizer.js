@@ -383,6 +383,44 @@ var TgCustomizer = library(function ($) {
             } else {
                 $('#save-customizer-btn').addClass('hidden');
             }
+        },
+
+        saveCustomizer = function () {
+            var sections = $('#customizer-panel').find('.section-wrapper');
+            var result = [],
+                priorityStep = 10,
+                sectionPriority = priorityStep;
+
+            _.each(sections, function (sectionWrapper) {
+                var sectionData = $(sectionWrapper).find('img').data('settings') || {};
+                sectionData.priority = sectionPriority;
+                sectionPriority += priorityStep;
+
+                sectionData.controls = [];
+                var controlPriority = priorityStep;
+                var controls = $(sectionWrapper).find('.control-wrapper');
+                _.each(controls, function (controlWrapper) {
+                    var controlData = $(controlWrapper).find('img').data('settings') || {};
+                    controlData.priority = controlPriority;
+                    controlPriority += priorityStep;
+
+                    sectionData.controls.push(controlData);
+                });
+
+                result.push(sectionData);
+            });
+
+            $('#save-customizer-btn').niftyOverlay('show');
+
+            $.post('/template/customizer?id=' + templateId, { data: JSON.stringify(result) }, function (res) {
+
+            }, 'json')
+                .fail(function (res) {
+                    showError(res);
+                })
+                .always(function () {
+                    $('#save-customizer-btn').niftyOverlay('hide');
+                });
         };
 
     return {
@@ -399,6 +437,11 @@ var TgCustomizer = library(function ($) {
             $(window).bind('customizerChanged', function () {
                 customizerChanged();
             });
+
+            $('#save-customizer-btn')
+                .on('click', function () {
+                    saveCustomizer();
+                });
         },
 
         storageChanged: function (e) {

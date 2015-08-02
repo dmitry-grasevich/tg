@@ -4,6 +4,8 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
+use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use common\models\Category;
@@ -114,6 +116,11 @@ class TemplateController extends BaseController
         }
 
         Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (Yii::$app->request->isPost) {
+            $data = Json::decode(Yii::$app->request->post('data'));
+            VarDumper::dump($data); die;
+        }
 
         return Template::getCustomizerControls($id);
     }

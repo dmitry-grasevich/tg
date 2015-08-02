@@ -79,8 +79,6 @@ echo $this->render('view/dragcontrol');
                     <div class="panel-heading">
                         <div class="panel-control">
 
-                            <!--span class="label label-warning"><i class="fa fa-flash"></i> <?= Yii::t('tg', 'Has unsaved data') ?></span-->
-
                             <?= Button::widget([
                                 'label' => '<i class="fa fa-rotate-right fa-fw"></i> Load',
                                 'encodeLabel' => false,
@@ -99,7 +97,11 @@ echo $this->render('view/dragcontrol');
                                 'encodeLabel' => false,
                                 'options' => [
                                     'id' => 'save-customizer-btn',
-                                    'class' => 'btn-warning hidden'
+                                    'class' => 'btn-warning hidden',
+                                    'data' => [
+                                        'target' => '#customizer-panel',
+                                        'toggle' => 'panel-overlay',
+                                    ]
                                 ]
                             ]) ?>
                         </div>
