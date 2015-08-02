@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "66ba18377a1faa86889e8d96018ddc26",
+    "hash": "ade71e2a14037c85bd5f70fb83d73567",
     "packages": [
         {
             "name": "bootflat/bootflat",
@@ -295,6 +295,44 @@
                 }
             },
             "time": "2014-04-10 16:38:53"
+        },
+        {
+            "name": "bower-asset/jQuery-Storage-API",
+            "version": "1.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/julien-maurel/jQuery-Storage-API.git",
+                "reference": "fb86cc39036f9340f9068feb1e56bb84ac280202"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/julien-maurel/jQuery-Storage-API/zipball/fb86cc39036f9340f9068feb1e56bb84ac280202",
+                "reference": "fb86cc39036f9340f9068feb1e56bb84ac280202",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.4"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "jquery.storageapi.js",
+                "bower-asset-ignore": [
+                    "Jasmine",
+                    "/*.md",
+                    "/*.txt",
+                    "/*.json"
+                ]
+            },
+            "description": "jQuery Storage API is a plugin that simplify access to storages (HTML5) & cookies, add namespace storage functionality and provide compatiblity for old browsers with cookies!",
+            "keywords": [
+                "cookie",
+                "html5",
+                "jquery",
+                "localStorage",
+                "namespace",
+                "sessionStorage",
+                "storage"
+            ]
         },
         {
             "name": "bower-asset/jquery",
@@ -1106,7 +1144,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/69e82026060160ae6652ec9ec2493a38d90b016f",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/c762b59f6b293f1717135a0ac82a56192dbe168d",
                 "reference": "69e82026060160ae6652ec9ec2493a38d90b016f",
                 "shasum": ""
             },
@@ -2696,7 +2734,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/scssphp/zipball/331a7fcf5e339910c9f54b885b6acc5c6f8bdc35",
+                "url": "https://api.github.com/repos/leafo/scssphp/zipball/609c08586d583fc7d1db78b7edd8b4ac57fa5137",
                 "reference": "331a7fcf5e339910c9f54b885b6acc5c6f8bdc35",
                 "shasum": ""
             },
@@ -3005,7 +3043,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/40df0e4d27e22b5f7ee471a4b582e922e039c69c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/749d9f7d1121bd9a307cb4af29e659f8e6272762",
                 "reference": "40df0e4d27e22b5f7ee471a4b582e922e039c69c",
                 "shasum": ""
             },
@@ -3644,7 +3682,8 @@
         "bower-asset/font-awesome": 20,
         "bower-asset/js-cookie": 20,
         "bower-asset/bootbox.js": 20,
-        "bower-asset/underscore": 20
+        "bower-asset/underscore": 20,
+        "bower-asset/jquery-storage-api": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

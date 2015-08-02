@@ -26,7 +26,7 @@ $controls = Control::find()->orderBy('name')->all();
                             <?= Html::img(Control::getImagePath() . '/section.png', [
                                 'style' => 'max-width: 188px;',
                                 'data' => [
-                                    'type' => 'section',
+                                    'type' => Control::TYPE_SECTION,
                                 ]
                             ]) ?>
                         </div>
@@ -43,7 +43,7 @@ $controls = Control::find()->orderBy('name')->all();
                                     echo Html::img(Control::getImagePath() . '/' . $control->img, [
                                         'style' => 'max-width: 188px;',
                                         'data' => [
-                                            'type' => 'control',
+                                            'type' => Control::TYPE_CONTROL,
                                             'id' => $control->id,
                                             'name' => $control->name,
                                         ]

@@ -49,11 +49,27 @@
 .section-wrapper,
 .control-wrapper {
     display: block;
+    position: relative;
 }
 
 .section-wrapper.selected,
 .control-wrapper.selected {
     border-left: 2px solid #986291;
+}
+
+.section-wrapper.unsaved:before,
+.control-wrapper.unsaved:before {
+    content: '\f12a';
+    position: absolute;
+    font-family: 'FontAwesome';
+    top: 12px;
+    right: 0;
+    font-size: 1.2em;
+    color: #e79b2b;
+}
+
+.control-wrapper.unsaved:before {
+    top: 30px;
 }
 
 .drop-hover {

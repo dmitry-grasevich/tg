@@ -2,17 +2,23 @@ var TgCustomizerObj = library(function ($) {
     var storage,
         template = {},
         templateId,
+        unsaved = false,
 
         set = function (data) {
-            template = JSON.parse(data);
+            template = data;
+        },
+
+        exitInStorage = function (key) {
+            return $.parseJSON(storage.getItem(key) || 'false');
         };
 
     return {
         /**
          *
-         * @param id  template id
+         * @param id        template id
+         * @param handle    handler function
          */
-        init: function (id) {
+        init: function (id, handle) {
             if (!id) {
                 return;
             }
@@ -21,28 +27,57 @@ var TgCustomizerObj = library(function ($) {
             if (!storage) {
                 storage = localStorage;
             }
-            if (storage.customizer) {
-                set(storage.customizer);
-            } else {
-                this.save();
+            var customizer = exitInStorage('customizer');
+            if (customizer) {
+                set(customizer);
             }
+
             return this;
         },
-        save: function () {
-            storage.customizer = JSON.stringify(template);
+        save: function (isUpdate) {
+            if (!_.has(template, templateId)) {
+                template[templateId] = {};
+            }
+            if (isUpdate !== false) {
+                template[templateId].updated_at = Math.floor(Date.now() / 1000);
+                unsaved = true;
+            }
+
+            // event is not sent if the storage is not mutated!
+            if (storage.getItem('customizer') !== null) {
+                storage.removeItem('customizer');
+            }
+            storage.setItem('customizer', JSON.stringify(template));
+
+            try {
+                console.log('setItem');
+                //storage.setItem('customizer', JSON.stringify(template));
+                return true;
+            } catch (e) {
+                if (e.name === 'QUOTA_EXCEEDED_ERR') {
+                    TgAlert.error('Local Storage', 'Oh no! We ran out of room!');
+                    return false;
+                }
+            }
+        },
+        isUnsaved: function () {
+            return unsaved;
         },
         load: function (data) {
             if (_.has(template, templateId) && template[templateId].updated_at > parseInt(data.updated_at)) {
-                console.log('Current date is later than saved in the DB');
+                TgAlert.warning('Customizer', 'You have unsaved data!');
+                unsaved = true;
                 return this;
+            } else if (_.has(template, templateId) && template[templateId].updated_at == parseInt(data.updated_at)) {
+                TgAlert.purple('Customizer', 'Used data stored in th database');
+                unsaved = false;
             }
 
-            template[data.id.toString()] = { updated_at: data.updated_at, sections: data.sections };
-            this.save();
+            template[data.id.toString()] = {updated_at: data.updated_at, sections: data.sections};
+            this.save(false);
 
-            //console.log(Math.floor(Date.now() / 1000));
 
-            var ee = [{
+            var input = [{
                 "id": "17",
                 "updated_at": "1438448768",
                 "sections": [{
@@ -78,70 +113,109 @@ var TgCustomizerObj = library(function ($) {
                     }]
                 }]
             }];
+
+            var saved = {
+                "17": {
+                    "updated_at": 1438496657,
+                    "sections": [{
+                        "id": "1",
+                        "template_id": "17",
+                        "alias": "test",
+                        "title": "Test",
+                        "description": "Rtrawfd auhf zsjf ozs osgj",
+                        "priority": "10",
+                        "sectionControls": [{
+                            "id": "1",
+                            "section_id": "1",
+                            "control_id": "4",
+                            "priority": "10",
+                            "alias": "test-text",
+                            "label": "Test Text",
+                            "help": null,
+                            "description": "skehf zsh lsh ",
+                            "default": "Blah Blah",
+                            "style": null,
+                            "params": null,
+                            "pseudojs": null,
+                            "control": {
+                                "id": "4",
+                                "name": "Text",
+                                "family": "kirki",
+                                "type": "tg-text",
+                                "class": "text",
+                                "params": "",
+                                "img": "text.png",
+                                "css": ""
+                            }
+                        }]
+                    }]
+                }
+            };
             return this;
         },
-        addSection: function () {
+        addSection: function ($el) {
+            this.save();
+        },
+        addControl: function ($el) {
 
         },
-        addControl: function () {
+        removeEl: function ($el) {
 
         },
         render: function ($el) {
-            if (!_.has(template[templateId], 'sections')) {
+            $el.empty();
+
+            if (!_.has(template[templateId], 'sections')) { // if no was stored
                 return this;
             }
             var self = this;
 
             _.each(template[templateId].sections, function (section) {
-                var $section = self.prepareSection(section);
-                $el.append($section);
+                var sectionData = _.chain(section)
+                        .clone()
+                        .omit('sectionControls')
+                        .value();
+                var sectionEl = self.prepareSection(sectionData, true);
+                $el.append(sectionEl);
 
-                if (!_.has(section, 'sectionControls')) {
+                if (!_.has(section, 'sectionControls')) { // this section has no controls
                     return this;
                 }
 
-                var $controlsSortable = $section.find('.controls-sortable');
+                var $controlsSortable = sectionEl.find('.controls-sortable');
 
-                _.each(section.sectionControls, function (sectionControl) {
-                    sectionControl.img = '/images/controls/' + sectionControl.control.img;
-                    var $sectionControl = self.prepareControl(sectionControl);
-                    $controlsSortable.append($sectionControl);
+                _.each(section.sectionControls, function (control) {
+                    control.img = '/images/controls/' + control.control.img;
+                    var controlData = _.chain(control)
+                            .clone()
+                            .omit('control')
+                            .value();
+                    var $control = self.prepareControl(controlData, true);
+                    $controlsSortable.append($control);
                 });
             });
         },
-        prepareSection: function (data) {
-            var $newImg = $('<img src="/images/controls/section.png" data-toggle="panel-overlay" data-target="#settings-wrapper" data-type="section" />')
-                .niftyOverlay();
-            if (!!data.id) {
-                $newImg.attr('data-control-id', data.id);
-            }
-            if (!!data.title) {
-                $newImg.attr('data-name', data.title);
-            }
+        prepareSection: function (data, isSaved) {
+            var sectionTemplate = Handlebars.compile($('#section-template').html());
+            var $section = $(sectionTemplate({
+                isSaved: isSaved,
+                settings: JSON.stringify(data)
+            }));
 
-            return $('<a href="#" class="section-wrapper" />')
-                .append($newImg)
-                .append($('<div class="controls-sortable"></div>'));
+            $section.find('img').niftyOverlay();
+            return $section;
         },
-        prepareControl: function (data) {
-            var $newImg = $('<img src="' + data.img + '" data-toggle="panel-overlay" data-target="#settings-wrapper" data-type="control" />')
-                .niftyOverlay();
-            var $control = $('<a href="#" class="control-wrapper" />');
+        prepareControl: function (data, isSaved) {
+            var controlTemplate = Handlebars.compile($('#control-template').html());
+            var $control = $(controlTemplate({
+                isSaved: isSaved,
+                label: data.label,
+                img: data.img,
+                settings: JSON.stringify(data)
+            }));
 
-            if (!!data.id) {
-                $newImg.attr('data-control-id', data.id);
-                $control.attr('data-control-id', data.id);
-            }
-            if (!!data.control_id) {
-                $newImg.attr('data-id', data.control_id);
-                $control.attr('data-id', data.control_id);
-            }
-            if (!!data.label) {
-                $newImg.attr('data-name', data.label);
-                $control = $control.append($('<div class="text-lg control-label">' + data.label + '</div>'));
-            }
-
-            return $control.append($newImg);
+            $control.find('img').niftyOverlay();
+            return $control;
         }
     };
 }(jQuery));
@@ -151,7 +225,7 @@ var TgCustomizer = library(function ($) {
         controlWidth = 270,
         jqxhr = null,
         templateId = $('#tid').val(),
-        storage = TgCustomizerObj.init(templateId),
+        storage,
 
         initSectionsDraggable = function (id) {
             initDraggable(id, '.list-group.section');
@@ -224,7 +298,7 @@ var TgCustomizer = library(function ($) {
                         controlName = $img.data('name'),
                         type = $img.data('type');
 
-                    var $sortable = type == 'section' ? TgCustomizerObj.prepareSection({}) :
+                    var $sortable = type == 'section' ? TgCustomizerObj.prepareSection() :
                         TgCustomizerObj.prepareControl({
                             img: imgSrc,
                             control_id: controlId,
@@ -237,9 +311,15 @@ var TgCustomizer = library(function ($) {
                         .removeClass('draggable-el')
                         .html($sortable);
 
+                    if (type == 'section') {
+                        storage.addSection($sortable);
+                    }
+
                     clearSelected();
 
                     initControlsSortable($('.controls-sortable'));
+
+                    $(window).trigger('customizerChanged');
                 }
             }).disableSelection();
         },
@@ -261,6 +341,7 @@ var TgCustomizer = library(function ($) {
 
         dropBlock = function ($el) {
             $el.remove();
+            storage.removeEl($el);
         },
 
         initEditable = function () {
@@ -285,6 +366,9 @@ var TgCustomizer = library(function ($) {
             });
         },
 
+        /**
+         * Deselect section/control and empty settings container
+         */
         clearSelected = function () {
             $('.sections-sortable').find('.section-wrapper,.control-wrapper').removeClass('selected');
             $('#settings-container').empty();
@@ -307,18 +391,18 @@ var TgCustomizer = library(function ($) {
             }
 
             var type = $el.data('type'),
-                id = $el.data('control-id'),
+                settings = $el.data('settings'),
                 params = {type: type, tid: templateId};
-
-            if (!!id) {
-                params.id = id;
-            }
 
             $el.niftyOverlay('show');
 
             jqxhr = $.get('/control/settings', params, function (res) {
                 $('#setting-helper').addClass('hidden');
                 $('#settings-container').html(res);
+
+                if (!_.isEmpty(settings)) {
+                    fillForm(type, settings);
+                }
             })
                 .fail(function (res) {
                     showError(res);
@@ -328,6 +412,16 @@ var TgCustomizer = library(function ($) {
                 });
         },
 
+        fillForm = function(type, settings) {
+            _.each(settings, function (setting, index) {
+                $('#' + type + '-' + index).val(setting);
+            });
+        },
+
+        /**
+         * Load saved sections and controls and render they in $el
+         * @param $el
+         */
         loadControls = function ($el) {
             if (jqxhr && jqxhr.readyState != 4) { // check if request is executing now
                 jqxhr.abort();
@@ -335,11 +429,11 @@ var TgCustomizer = library(function ($) {
 
             var params = {id: templateId};
 
-            $el.niftyOverlay('show');
+            $('#load-customizer-btn').niftyOverlay('show');
 
             jqxhr = $
                 .get('/template/customizer', params, function (res) {
-                    storage.load(res).render($('#customizer-controls'));
+                    storage.load(res).render($el);
 
                     initSectionsDraggable('.sections-sortable');
                     initControlsDraggable('.controls-sortable');
@@ -353,18 +447,41 @@ var TgCustomizer = library(function ($) {
                     showError(res);
                 })
                 .always(function () {
-                    $el.niftyOverlay('hide');
+                    $('#load-customizer-btn').niftyOverlay('hide');
                 });
+        },
+
+        customizerChanges = function () {
+            if ($('#customizer-controls').find('.unsaved').length) {
+                $('#save-customizer-btn').removeClass('hidden');
+            } else {
+                $('#save-customizer-btn').addClass('hidden');
+            }
         };
 
     return {
         init: function () {
+            storage = TgCustomizerObj.init(templateId, this.storageChanged);
+
             $('#load-customizer-btn')
                 .niftyOverlay()
                 .on('click', function () {
-                    loadControls($(this));
+                    loadControls($('#customizer-controls'));
                 })
                 .trigger('click');
+
+            $(window).bind('customizerChanged', function () {
+                customizerChanges();
+            });
+        },
+
+        storageChanged: function (e) {
+            console.log(e);
+            console.log('3213123');
+
+            var event = e || window.event;
+
+            console.log(event);
         }
     };
 }(jQuery));

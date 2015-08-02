@@ -20,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 echo Html::hiddenInput('template-id', $template->id, ['id' => 'tid']);
 echo Html::hiddenInput('template-updated_at', $template->updated_at, ['id' => 'template-upd']);
 
+echo $this->render('view/section');
+echo $this->render('view/sectioncontrol');
 ?>
     <div id="page-title">
         <h1 class="page-header text-overflow">
@@ -96,7 +98,7 @@ echo Html::hiddenInput('template-updated_at', $template->updated_at, ['id' => 't
                                 'encodeLabel' => false,
                                 'options' => [
                                     'id' => 'save-customizer-btn',
-                                    'class' => 'btn-default'
+                                    'class' => 'btn-warning hidden'
                                 ]
                             ]) ?>
                         </div>

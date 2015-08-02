@@ -23,7 +23,7 @@ use yii\web\UploadedFile;
 class Control extends Library
 {
     const TYPE_SECTION = 'section';
-    const TYPE_CONTROL = 'control';
+    const TYPE_CONTROL = 'sectioncontrol';
 
     protected static $_allowedTypes = [self::TYPE_SECTION, self::TYPE_CONTROL];
 
