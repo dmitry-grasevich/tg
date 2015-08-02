@@ -8,6 +8,7 @@ use common\models\Control;
              data-toggle="panel-overlay"
              data-target="#settings-wrapper"
              data-type="<?= Control::TYPE_CONTROL ?>"
-             data-settings="{{settings}}">
+             data-settings="{{settings}}"
+             id="{{uid}}">
     </a>
 </script>

@@ -198,6 +198,7 @@ var TgCustomizerObj = library(function ($) {
         prepareSection: function (data, isSaved) {
             var sectionTemplate = Handlebars.compile($('#section-template').html());
             var $section = $(sectionTemplate({
+                uid: _.uniqueId('section_'),
                 isSaved: isSaved,
                 settings: JSON.stringify(data)
             }));
@@ -208,6 +209,7 @@ var TgCustomizerObj = library(function ($) {
         prepareControl: function (data, isSaved) {
             var controlTemplate = Handlebars.compile($('#control-template').html());
             var $control = $(controlTemplate({
+                uid: _.uniqueId('control_'),
                 isSaved: isSaved,
                 label: data.label,
                 img: data.img,
@@ -397,12 +399,20 @@ var TgCustomizer = library(function ($) {
             $el.niftyOverlay('show');
 
             jqxhr = $.get('/control/settings', params, function (res) {
+                var $settingContainer = $('#settings-container');
                 $('#setting-helper').addClass('hidden');
-                $('#settings-container').html(res);
+
+                $settingContainer.html(res);
 
                 if (!_.isEmpty(settings)) {
                     fillForm(type, settings);
                 }
+
+                $settingContainer.find('input,textarea').on('change', function (e) {
+                    var key = $(e.target).attr('id').replace(type + '-', '');
+                    settings[key] = $(e.target).val();
+                    updateSettings($el, settings);
+                });
             })
                 .fail(function (res) {
                     showError(res);
@@ -410,6 +420,12 @@ var TgCustomizer = library(function ($) {
                 .always(function () {
                     $el.niftyOverlay('hide');
                 });
+        },
+
+        updateSettings = function ($el, settings) {
+            $el.attr('data-settings', JSON.stringify(settings));
+            $el.parent().removeClass('saved').addClass('unsaved');
+            $(window).trigger('customizerChanged');
         },
 
         fillForm = function(type, settings) {

@@ -7,7 +7,8 @@ use common\models\Control;
              data-toggle="panel-overlay"
              data-target="#settings-wrapper"
              data-type="<?= Control::TYPE_SECTION ?>"
-             data-settings="{{settings}}">
+             data-settings="{{settings}}"
+             id="{{uid}}">
         <div class="controls-sortable"></div>
     </a>
 </script>
