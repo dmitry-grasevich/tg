@@ -14,11 +14,9 @@ var TgCustomizerObj = library(function ($) {
 
     return {
         /**
-         *
          * @param id        template id
-         * @param handle    handler function
          */
-        init: function (id, handle) {
+        init: function (id) {
             if (!id) {
                 return;
             }
@@ -60,9 +58,6 @@ var TgCustomizerObj = library(function ($) {
                 }
             }
         },
-        isUnsaved: function () {
-            return unsaved;
-        },
         load: function (data) {
             if (_.has(template, templateId) && template[templateId].updated_at > parseInt(data.updated_at)) {
                 TgAlert.warning('Customizer', 'You have unsaved data!');
@@ -74,93 +69,9 @@ var TgCustomizerObj = library(function ($) {
             }
 
             template[data.id.toString()] = {updated_at: data.updated_at, sections: data.sections};
-            this.save(false);
+            //this.save(false);
 
-
-            var input = [{
-                "id": "17",
-                "updated_at": "1438448768",
-                "sections": [{
-                    "id": "1",
-                    "template_id": "17",
-                    "alias": "test",
-                    "title": "Test",
-                    "description": "Rtrawfd auhf zsjf ozs osgj",
-                    "priority": "10",
-                    "sectionControls": [{
-                        "id": "1",
-                        "section_id": "1",
-                        "control_id": "4",
-                        "priority": "10",
-                        "alias": "test-text",
-                        "label": "Test Text",
-                        "help": null,
-                        "description": "skehf zsh lsh ",
-                        "default": "Blah Blah",
-                        "style": null,
-                        "params": null,
-                        "pseudojs": null,
-                        "control": {
-                            "id": "4",
-                            "name": "Text",
-                            "family": "kirki",
-                            "type": "tg-text",
-                            "class": "text",
-                            "params": "",
-                            "img": "text.png",
-                            "css": ""
-                        }
-                    }]
-                }]
-            }];
-
-            var saved = {
-                "17": {
-                    "updated_at": 1438496657,
-                    "sections": [{
-                        "id": "1",
-                        "template_id": "17",
-                        "alias": "test",
-                        "title": "Test",
-                        "description": "Rtrawfd auhf zsjf ozs osgj",
-                        "priority": "10",
-                        "sectionControls": [{
-                            "id": "1",
-                            "section_id": "1",
-                            "control_id": "4",
-                            "priority": "10",
-                            "alias": "test-text",
-                            "label": "Test Text",
-                            "help": null,
-                            "description": "skehf zsh lsh ",
-                            "default": "Blah Blah",
-                            "style": null,
-                            "params": null,
-                            "pseudojs": null,
-                            "control": {
-                                "id": "4",
-                                "name": "Text",
-                                "family": "kirki",
-                                "type": "tg-text",
-                                "class": "text",
-                                "params": "",
-                                "img": "text.png",
-                                "css": ""
-                            }
-                        }]
-                    }]
-                }
-            };
             return this;
-        },
-        addSection: function ($el) {
-            this.save();
-        },
-        addControl: function ($el) {
-
-        },
-        removeEl: function ($el) {
-
         },
         render: function ($el) {
             $el.empty();
@@ -249,26 +160,16 @@ var TgCustomizer = library(function ($) {
                             type = $img.data('type'),
                             width = type == 'section' ? sectionWidth : controlWidth;
 
-                        var $result = $('<div class="draggable-el" style="width: ' + width + 'px" />');
-                        if (type != 'section') {
-                            $result = $result.append($('<div class="text-lg" style="padding: 3px;">' + controlName + '</div>'));
-                        }
-
-                        var $dragImg = $('<img src="' + imgSrc + '" width="' + width + 'px" />');
-
-                        if (!!controlId) {
-                            $dragImg.attr('data-id', controlId);
-                        }
-                        if (!!controlName) {
-                            $dragImg.attr('data-name', controlName);
-                        }
-                        if (!!type) {
-                            $dragImg.attr('data-type', type);
-                        }
-
-                        $result = $result.append($dragImg);
-
-                        return $result;
+                        var controlTemplate = Handlebars.compile($('#draggable-template').html());
+                        return $(controlTemplate({
+                            width: width,
+                            name: controlName,
+                            isControl: type != 'section',
+                            img: imgSrc,
+                            controlId: controlId,
+                            controlName: controlName,
+                            type: type
+                        }));
                     },
                     zIndex: 1100,
                     revert: 'invalid',
@@ -313,10 +214,6 @@ var TgCustomizer = library(function ($) {
                         .removeClass('draggable-el')
                         .html($sortable);
 
-                    if (type == 'section') {
-                        storage.addSection($sortable);
-                    }
-
                     clearSelected();
 
                     initControlsSortable($('.controls-sortable'));
@@ -343,7 +240,7 @@ var TgCustomizer = library(function ($) {
 
         dropBlock = function ($el) {
             $el.remove();
-            storage.removeEl($el);
+            $(window).trigger('customizerChanged');
         },
 
         initEditable = function () {
@@ -458,6 +355,8 @@ var TgCustomizer = library(function ($) {
                     initDroppable($('#droppable'));
                     initEditable();
 
+                    customizerChanged();
+
                 }, 'json')
                 .fail(function (res) {
                     showError(res);
@@ -467,7 +366,7 @@ var TgCustomizer = library(function ($) {
                 });
         },
 
-        customizerChanges = function () {
+        customizerChanged = function () {
             if ($('#customizer-controls').find('.unsaved').length) {
                 $('#save-customizer-btn').removeClass('hidden');
             } else {
@@ -487,7 +386,7 @@ var TgCustomizer = library(function ($) {
                 .trigger('click');
 
             $(window).bind('customizerChanged', function () {
-                customizerChanges();
+                customizerChanged();
             });
         },
 

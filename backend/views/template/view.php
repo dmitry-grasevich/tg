@@ -22,6 +22,7 @@ echo Html::hiddenInput('template-updated_at', $template->updated_at, ['id' => 't
 
 echo $this->render('view/section');
 echo $this->render('view/sectioncontrol');
+echo $this->render('view/dragcontrol');
 ?>
     <div id="page-title">
         <h1 class="page-header text-overflow">
