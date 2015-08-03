@@ -3,22 +3,24 @@
  * @var yii\web\View $this
  * @var common\models\Category $category
  * @var common\models\Template[] $templates
+ * @var boolean $addNew
+ * @var string $selected    selected template's id
  */
 
 use yii\helpers\Url;
 use yii\bootstrap\Html;
+
 ?>
 
 <!-- Templates of current category -->
 <ul>
-    <li>
-        <a href="<?= Url::to(['/template/edit', 'cat' => $category->id]) ?>">
-            + Add to <?= $category->name ?>
-        </a>
+    <li<?= $addNew ? ' class="active-link"' : '' ?>>
+        <?= Html::a('+ Add to ' . $category->name, ['/template/edit', 'cat' => $category->id]) ?>
     </li>
     <?php foreach ($templates as $template): ?>
-        <li>
+        <li<?= $selected == $template->id ? ' class="active-link"' : '' ?>>
             <a href="<?= Url::to(['/template/view', 'id' => $template->id]) ?>">
+
                 <?= $template->name ?>
 
                 <?php if ($template->is_visible): ?>

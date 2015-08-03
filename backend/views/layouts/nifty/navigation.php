@@ -45,7 +45,7 @@ $categoryModel = new CategoryForm();
                             <li class="list-header">Navigation</li>
 
                             <!-- Menu Dashboard -->
-                            <li class="active-link">
+                            <li<?= $this->context->id == 'dashboard' ? ' class="active-link"' : '' ?>>
                                 <a href="<?= Url::to('/dashboard') ?>">
                                     <i class="fa fa-dashboard"></i>
                                 <span class="menu-title">
@@ -59,7 +59,7 @@ $categoryModel = new CategoryForm();
                             <li class="list-header">Generator</li>
 
                             <!-- Template Settings -->
-                            <li>
+                            <li<?= $this->context->id == 'settings' ? ' class="active active-sub"' : '' ?>>
                                 <a href="#">
                                     <i class="fa fa-cog"></i>
                                 <span class="menu-title">
@@ -80,7 +80,7 @@ $categoryModel = new CategoryForm();
                             </li>
 
                             <!-- Blocks -->
-                            <li>
+                            <li<?= $this->context->id == 'template' ? ' class="active active-sub"' : '' ?>>
                                 <a href="#">
                                     <i class="fa fa-th-large"></i>
                                 <span class="menu-title">
@@ -96,12 +96,12 @@ $categoryModel = new CategoryForm();
                             </li>
 
                             <!-- Controls -->
-                            <li>
+                            <li<?= $this->context->id == 'control' ? ' class="active-link"' : '' ?>>
                                 <a href="<?= Url::to(['/control']) ?>">
                                     <i class="fa fa-list-alt"></i>
-                                <span class="menu-title">
-                                    <strong>Controls</strong>
-                                </span>
+                                    <span class="menu-title">
+                                        <strong>Controls</strong>
+                                    </span>
                                 </a>
                             </li>
                         </ul>
@@ -120,7 +120,7 @@ $categoryModel = new CategoryForm();
 <?php
 /**
  * Modal for creating/editing of Block
-*/
+ */
 Modal::begin([
     'id' => 'block-modal',
     'header' => '<h4 class="modal-title">header</h4>',
@@ -151,23 +151,23 @@ Modal::begin([
         ])
 ]);
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <?php $form = ActiveForm::begin([
-            'id' => 'block-form',
-            'class' => 'form-horizontal'
-        ]); ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?php $form = ActiveForm::begin([
+                'id' => 'block-form',
+                'class' => 'form-horizontal'
+            ]); ?>
 
-        <?= $form->field($categoryModel, 'name') ?>
+            <?= $form->field($categoryModel, 'name') ?>
 
-        <?= $form->field($categoryModel, 'alias') ?>
+            <?= $form->field($categoryModel, 'alias') ?>
 
-        <?= $form->field($categoryModel, 'is_visible')->checkbox() ?>
+            <?= $form->field($categoryModel, 'is_visible')->checkbox() ?>
 
-        <?= $form->field($categoryModel, 'id')->hiddenInput()->label(false) ?>
+            <?= $form->field($categoryModel, 'id')->hiddenInput()->label(false) ?>
 
-        <?php ActiveForm::end(); ?>
+            <?php ActiveForm::end(); ?>
+        </div>
     </div>
-</div>
 <?php
 Modal::end();
