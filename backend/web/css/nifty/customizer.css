@@ -69,7 +69,9 @@
 }
 
 .section-wrapper.has-error:before,
-.control-wrapper.has-error:before {
+.section-wrapper.has-error:before,
+.section-wrapper.unsaved.has-error:before,
+.control-wrapper.unsaved.has-error:before {
     content: '\f071';
     position: absolute;
     font-family: 'FontAwesome';

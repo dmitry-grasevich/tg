@@ -1,3 +1,6 @@
+/**
+ * @TODO: save template customizer setting in the localStorage ???
+ * */
 var TgCustomizerObj = library(function ($) {
     var storage,
         template = {},
@@ -203,9 +206,12 @@ var TgCustomizer = library(function ($) {
                         imgSrc = $img.attr('src'),
                         controlName = $img.data('name'),
                         type = $img.data('type'),
+                        settings = $img.attr('data-settings'),
                         controls = ui.helper.find('.control-wrapper');
 
-                    var $sortable = type == 'section' ? TgCustomizerObj.prepareSection() :
+                    settings = _.isUndefined(settings) || settings == '' ? {} : $.parseJSON(settings);
+
+                    var $sortable = type == 'section' ? TgCustomizerObj.prepareSection(settings) :
                         TgCustomizerObj.prepareControl({
                             img: imgSrc,
                             control_id: controlId,
@@ -397,10 +403,13 @@ var TgCustomizer = library(function ($) {
 
         clearCustomizerErrors = function () {
             var $panel = $('#customizer-panel');
-            $panel.find('.section-wrapper.has-error,.control-wrapper.has-error')
-                .removeClass('unsaved').removeClass('has-error');
-            $panel.find('.section-wrapper.has-error > img,.control-wrapper.has-error > img')
-                .attr('data-error', null);
+            $panel.find('.section-wrapper.has-error,.control-wrapper.has-error').removeClass('has-error');
+            $panel.find('.section-wrapper.has-error > img,.control-wrapper.has-error > img').attr('data-error', null);
+        },
+
+        clearCustomizerUnsaved = function () {
+            var $panel = $('#customizer-panel');
+            $panel.find('.section-wrapper.unsaved,.control-wrapper.unsaved').removeClass('unsaved');
         },
 
         collectCustomizerData = function () {
@@ -451,6 +460,8 @@ var TgCustomizer = library(function ($) {
             $.post('/template/customizer?id=' + templateId, {data: JSON.stringify(customizerData)}, function (res) {
                 if (res.success) {
                     TgAlert.success('Customizer', 'All settings was successfully saved');
+                    clearCustomizerUnsaved();
+                    $(window).trigger('customizerChanged');
                 } else if (res.error) {
                     if (res.error.section) {
                         _.each(res.error.section, function (data, id) {
