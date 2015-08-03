@@ -382,6 +382,8 @@ var TgCustomizer = library(function ($) {
                     initDroppable($('#droppable'));
                     initEditable();
 
+                    clearSelected();
+
                     customizerChanged();
 
                 }, 'json')

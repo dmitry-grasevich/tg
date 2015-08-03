@@ -51,13 +51,6 @@ class Template extends Library
         return 'template';
     }
 
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
-
     /**
      * @inheritdoc
      */
