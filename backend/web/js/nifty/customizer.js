@@ -490,6 +490,22 @@ var TgCustomizer = library(function ($) {
                 .always(function () {
                     $('#save-customizer-btn').niftyOverlay('hide');
                 });
+        },
+
+        removeBlock = function() {
+            bootbox.confirm("Are you sure? This Block and his setting will be removed", function (result) {
+                if (result) {
+                    $.post('/template/remove', {id: templateId}, function () {
+                        TgAlert.success('Success', 'Block was successfully removed');
+                        setTimeout(function () {
+                            window.location.href = '/template';
+                        }, 1000);
+                    })
+                        .fail(function (res) {
+                            showError(res);
+                        });
+                }
+            });
         };
 
     return {
@@ -510,6 +526,11 @@ var TgCustomizer = library(function ($) {
             $('#save-customizer-btn')
                 .on('click', function () {
                     saveCustomizer();
+                });
+
+            $('#remove-block')
+                .on('click', function () {
+                    removeBlock();
                 });
         }
     };

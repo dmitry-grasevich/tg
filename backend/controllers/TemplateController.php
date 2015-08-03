@@ -51,13 +51,13 @@ class TemplateController extends BaseController
     public function actionEdit()
     {
         /** @var string $cat   category id */
-        $cat = (int)Yii::$app->request->get('cat');
+        $cat = intval(Yii::$app->request->get('cat'));
         if (!$cat) {
             throw new NotFoundHttpException('Page not fount');
         }
 
         /** @var string $id   template id */
-        $id = (int)Yii::$app->request->get('id');
+        $id = intval(Yii::$app->request->get('id'));
 
         /** @var \common\models\Template $template */
         $template = $id ? $this->findModel($id) : $this->getModel();
@@ -83,7 +83,7 @@ class TemplateController extends BaseController
     public function actionView()
     {
         /** @var string $id   template id */
-        $id = (int)Yii::$app->request->get('id');
+        $id = intval(Yii::$app->request->get('id'));
         if (!$id) {
             throw new NotFoundHttpException('Page not fount');
         }
@@ -110,7 +110,7 @@ class TemplateController extends BaseController
     public function actionCustomizer()
     {
         /** @var string $id   template id */
-        $id = (int)Yii::$app->request->get('id');
+        $id = intval(Yii::$app->request->get('id'));
         $template = Template::findOne($id);
         if (!$template) {
             throw new BadRequestHttpException('Template not found');
@@ -129,5 +129,24 @@ class TemplateController extends BaseController
         }
 
         return Template::getCustomizerControls($id);
+    }
+
+    /**
+     * Remove block and it's customizer settings
+     *
+     * @throws NotFoundHttpException
+     */
+    public function actionRemove()
+    {
+        /** @var string $id   template id */
+        $id = intval(Yii::$app->request->post('id'));
+
+        /** @var \common\models\Template $template */
+        $template = Template::findOne($id);
+        if (!$template) {
+            throw new BadRequestHttpException('Template not found');
+        }
+
+        $template->delete();
     }
 }

@@ -6117,3 +6117,10 @@ a.text-dark:focus {
 .panel-control>.btn-group:last-child>.btn:first-child {
     border-bottom-right-radius: 0
 }
+
+.block-right {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    padding-right: 22px;
+}

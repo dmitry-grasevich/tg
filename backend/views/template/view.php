@@ -28,6 +28,16 @@ echo $this->render('view/dragcontrol');
         <h1 class="page-header text-overflow">
             <?= $title ?>
         </h1>
+        <div class="block-right">
+            <?= Button::widget([
+                'label' => '<i class="fa fa-trash-o"></i> Remove Block',
+                'encodeLabel' => false,
+                'options' => [
+                    'id' => 'remove-block',
+                    'class' => 'btn-danger',
+                ]
+            ]) ?>
+        </div>
     </div>
 
     <div id="page-content">
