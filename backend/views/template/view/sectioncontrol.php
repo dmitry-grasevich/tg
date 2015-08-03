@@ -6,7 +6,7 @@ use common\models\Control;
         <div class="ui-sortable-handle">
     {{/if}}
 
-        <a href="#" class="control-wrapper {{#if isSaved}}saved{{else}}unsaved{{/if}}">
+        <a href="#" class="control-wrapper {{#if isUnsaved}}unsaved{{/if}}">
             <div class="text-lg control-label">{{label}}</div>
             <img src="{{img}}"
                  data-toggle="panel-overlay"

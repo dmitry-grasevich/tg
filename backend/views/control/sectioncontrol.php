@@ -7,7 +7,7 @@
 use yii\bootstrap\ActiveForm;
 
 $form = ActiveForm::begin([
-    'id' => 'section-control-form',
+    'id' => 'sectioncontrol-form',
     'class' => 'form-horizontal',
 ]);
 

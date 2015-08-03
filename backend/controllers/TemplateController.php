@@ -111,15 +111,21 @@ class TemplateController extends BaseController
     {
         /** @var string $id   template id */
         $id = (int)Yii::$app->request->get('id');
-        if (!$id) {
-            throw new BadRequestHttpException('Unknown template');
+        $template = Template::findOne($id);
+        if (!$template) {
+            throw new BadRequestHttpException('Template not found');
         }
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (Yii::$app->request->isPost) {
             $data = Json::decode(Yii::$app->request->post('data'));
-            VarDumper::dump($data); die;
+
+            $result = $template->saveCustomizer($data);
+            if ($result !== true) {
+                return ['error' => $result];
+            }
+            return ['success' => true];
         }
 
         return Template::getCustomizerControls($id);

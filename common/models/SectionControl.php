@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "section_control".
@@ -35,12 +37,23 @@ class SectionControl extends ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['without_section'] = ['control_id', 'alias', 'label', 'priority', 'description', 'default', 'style', 'params', 'pseudojs', 'help'];
+        return $scenarios;
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
             [['section_id', 'control_id', 'alias', 'label'], 'required'],
+            [['control_id', 'alias', 'label'], 'required', 'on' => 'without_section'],
             [['section_id', 'control_id', 'priority'], 'integer'],
             [['description', 'default', 'style', 'params', 'pseudojs'], 'string'],
             [['alias', 'label', 'help'], 'string', 'max' => 255],

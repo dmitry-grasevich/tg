@@ -6,6 +6,7 @@ use Yii;
 use yii\helpers\Html;
 use yii\helpers\FileHelper;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 use common\helpers\ImageTg;
 
@@ -568,5 +569,63 @@ class Template extends Library
             }
         }
         return $result;
+    }
+
+    /**
+     * @param $data
+     * @return bool
+     */
+    public function saveCustomizer($data)
+    {
+        $errors = [];
+        $sections = [];
+        $controls = [];
+        foreach ($data as $sectionUid => $sectionData) {
+            if (array_key_exists('controls', $sectionData) && count($sectionData['controls'])) {
+                $sectionControls = $sectionData['controls'];
+                foreach ($sectionControls as $controlUid => $controlData) {
+                    $control = isset($controlData['id']) ? SectionControl::findOne($controlData['id']) :
+                        new SectionControl(['scenario' => 'without_section']);
+                    $control->attributes = $controlData;
+                    if (!$control->validate()) {
+                        $errors['control'][$controlUid] = $control->getErrors();
+                    } else {
+                        $controls[$sectionUid][] = $control;
+                    }
+                }
+                unset($sectionData['controls']);
+            }
+            $section = isset($sectionData['id']) ? Section::findOne($sectionData['id']) :
+                new Section();
+            $section->attributes = $sectionData;
+            $section->template_id = $this->id;
+            if (!$section->validate()) {
+                $errors['section'][$sectionUid] = $section->getErrors();
+            } else {
+                $sections[$sectionUid] = $section;
+            }
+        }
+
+        if (empty($errors)) {
+            foreach ($sections as $id => $section) {
+                /** @var Section $section */
+                $section->save(false);
+
+                if (!array_key_exists($id, $controls)) {
+                    continue;
+                }
+
+                foreach ($controls[$id] as $control) {
+                    /** @var SectionControl $control */
+                    $control->scenario = 'default';
+                    $control->link('section', $section);
+                    $control->save(false);
+                }
+            }
+        } else {
+            return $errors;
+        }
+
+        return true;
     }
 }

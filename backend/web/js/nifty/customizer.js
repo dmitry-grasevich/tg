@@ -83,9 +83,9 @@ var TgCustomizerObj = library(function ($) {
 
             _.each(template[templateId].sections, function (section) {
                 var sectionData = _.chain(section)
-                        .clone()
-                        .omit('sectionControls')
-                        .value();
+                    .clone()
+                    .omit('sectionControls')
+                    .value();
                 var sectionEl = self.prepareSection(sectionData, true, true);
                 $el.append(sectionEl);
 
@@ -98,9 +98,9 @@ var TgCustomizerObj = library(function ($) {
                 _.each(section.sectionControls, function (control) {
                     control.img = '/images/controls/' + control.control.img;
                     var controlData = _.chain(control)
-                            .clone()
-                            .omit('control')
-                            .value();
+                        .clone()
+                        .omit('control')
+                        .value();
                     var $control = self.prepareControl(controlData, true, true);
                     $controlsSortable.append($control);
                 });
@@ -110,7 +110,7 @@ var TgCustomizerObj = library(function ($) {
             var sectionTemplate = Handlebars.compile($('#section-template').html());
             var $section = $(sectionTemplate({
                 uid: _.uniqueId('section_'),
-                isSaved: isSaved,
+                isUnsaved: !isSaved,
                 isWrap: isWrap,
                 settings: JSON.stringify(data)
             }));
@@ -122,7 +122,7 @@ var TgCustomizerObj = library(function ($) {
             var controlTemplate = Handlebars.compile($('#control-template').html());
             var $control = $(controlTemplate({
                 uid: _.uniqueId('control_'),
-                isSaved: isSaved,
+                isUnsaved: !isSaved,
                 isWrap: isWrap,
                 label: data.label,
                 img: data.img,
@@ -213,7 +213,7 @@ var TgCustomizer = library(function ($) {
                         });
 
                     if (type == 'section' && controls.length) {
-                        _.each(controls, function($control) {
+                        _.each(controls, function ($control) {
                             $sortable.find('.controls-sortable').append($control);
                         })
                     }
@@ -258,14 +258,14 @@ var TgCustomizer = library(function ($) {
             $(document).on('click', '.section-wrapper > img,.control-wrapper', function (e) {
                 e.preventDefault();
 
-                if ($(this).hasClass('control-wrapper')) {
+                if ($(this).hasClass('control-wrapper')) { // control settings editing
                     if ($(this).hasClass('selected')) {
                         clearSelected();
                         return;
                     }
                     highlightSelectedControl($(this));
                     loadSettings($(this).find('img'));
-                } else {
+                } else {    // section settings editing
                     if ($(this).parent().hasClass('selected')) {
                         clearSelected();
                         return;
@@ -300,9 +300,13 @@ var TgCustomizer = library(function ($) {
                 jqxhr.abort();
             }
 
-            var type = $el.data('type'),
-                settings = $el.data('settings'),
+            var type = $el.attr('data-type'),
+                settings = $el.attr('data-settings'),
+                errors = $el.attr('data-error'),
                 params = {type: type, tid: templateId};
+
+            settings = _.isUndefined(settings) || settings == '' ? {} : $.parseJSON(settings);
+            errors = _.isUndefined(errors) ? {} : $.parseJSON(errors);
 
             $el.niftyOverlay('show');
 
@@ -314,6 +318,12 @@ var TgCustomizer = library(function ($) {
 
                 if (!_.isEmpty(settings)) {
                     fillForm(type, settings);
+                }
+
+                if (!_.isEmpty(errors)) { // this control has errors
+                    var formId = type + '-form',
+                        model = type == 'section' ? 'section' : 'sectioncontrol';
+                    updateFormErrors(formId, model, errors);
                 }
 
                 $settingContainer.find('input,textarea').on('change', function (e) {
@@ -332,11 +342,11 @@ var TgCustomizer = library(function ($) {
 
         updateSettings = function ($el, settings) {
             $el.attr('data-settings', JSON.stringify(settings));
-            $el.parent().removeClass('saved').addClass('unsaved');
+            $el.parent().addClass('unsaved');
             $(window).trigger('customizerChanged');
         },
 
-        fillForm = function(type, settings) {
+        fillForm = function (type, settings) {
             _.each(settings, function (setting, index) {
                 $('#' + type + '-' + index).val(setting);
             });
@@ -385,35 +395,81 @@ var TgCustomizer = library(function ($) {
             }
         },
 
-        saveCustomizer = function () {
+        clearCustomizerErrors = function () {
+            var $panel = $('#customizer-panel');
+            $panel.find('.section-wrapper.has-error,.control-wrapper.has-error')
+                .removeClass('unsaved').removeClass('has-error');
+            $panel.find('.section-wrapper.has-error > img,.control-wrapper.has-error > img')
+                .attr('data-error', null);
+        },
+
+        collectCustomizerData = function () {
             var sections = $('#customizer-panel').find('.section-wrapper');
-            var result = [],
+            var result = {},
                 priorityStep = 10,
                 sectionPriority = priorityStep;
 
             _.each(sections, function (sectionWrapper) {
-                var sectionData = $(sectionWrapper).find('img').data('settings') || {};
+                var sectionData = $(sectionWrapper).find('img').attr('data-settings'),
+                    sectionUid = $(sectionWrapper).find('img').attr('id');
+
+                sectionData = _.isUndefined(sectionData) || sectionData == '' ? {} : $.parseJSON(sectionData);
+
                 sectionData.priority = sectionPriority;
                 sectionPriority += priorityStep;
 
-                sectionData.controls = [];
-                var controlPriority = priorityStep;
-                var controls = $(sectionWrapper).find('.control-wrapper');
+                sectionData.controls = {};
+                var controlPriority = priorityStep,
+                    controls = $(sectionWrapper).find('.control-wrapper');
+
                 _.each(controls, function (controlWrapper) {
-                    var controlData = $(controlWrapper).find('img').data('settings') || {};
+                    var controlData = $(controlWrapper).find('img').attr('data-settings'),
+                        controlUid = $(controlWrapper).find('img').attr('id');
+
+                    controlData = _.isUndefined(controlData) || controlData == '' ? {} : $.parseJSON(controlData);
+
                     controlData.priority = controlPriority;
                     controlPriority += priorityStep;
 
-                    sectionData.controls.push(controlData);
+                    sectionData.controls[controlUid] = controlData;
                 });
 
-                result.push(sectionData);
+                result[sectionUid] = sectionData;
             });
+
+            return result;
+        },
+
+        saveCustomizer = function () {
+            var customizerData = collectCustomizerData();
 
             $('#save-customizer-btn').niftyOverlay('show');
 
-            $.post('/template/customizer?id=' + templateId, { data: JSON.stringify(result) }, function (res) {
+            clearCustomizerErrors();
+            clearSelected();
 
+            $.post('/template/customizer?id=' + templateId, {data: JSON.stringify(customizerData)}, function (res) {
+                if (res.success) {
+                    TgAlert.success('Customizer', 'All settings was successfully saved');
+                } else if (res.error) {
+                    if (res.error.section) {
+                        _.each(res.error.section, function (data, id) {
+                            var $section = $('#' + id);
+                            $section.attr('data-error', JSON.stringify(data));
+                            $section.parent().removeClass('unsaved').addClass('has-error');
+                        });
+                    }
+                    if (res.error.control) {
+                        _.each(res.error.control, function (data, id) {
+                            var $control = $('#' + id);
+                            $control.attr('data-error', JSON.stringify(data));
+                            $control.parent().removeClass('unsaved').addClass('has-error');
+                        });
+                    }
+                    TgAlert.error('Customizer Error', 'Customizer has errors. Please fix its before saving');
+                } else {
+                    TgAlert.error('Error', JSON.stringify(res));
+                }
             }, 'json')
                 .fail(function (res) {
                     showError(res);
@@ -425,7 +481,7 @@ var TgCustomizer = library(function ($) {
 
     return {
         init: function () {
-            storage = TgCustomizerObj.init(templateId, this.storageChanged);
+            storage = TgCustomizerObj.init(templateId);
 
             $('#load-customizer-btn')
                 .niftyOverlay()
@@ -442,15 +498,6 @@ var TgCustomizer = library(function ($) {
                 .on('click', function () {
                     saveCustomizer();
                 });
-        },
-
-        storageChanged: function (e) {
-            console.log(e);
-            console.log('3213123');
-
-            var event = e || window.event;
-
-            console.log(event);
         }
     };
 }(jQuery));

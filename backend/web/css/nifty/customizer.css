@@ -68,8 +68,24 @@
     color: #e79b2b;
 }
 
-.control-wrapper.unsaved:before {
+.section-wrapper.has-error:before,
+.control-wrapper.has-error:before {
+    content: '\f071';
+    position: absolute;
+    font-family: 'FontAwesome';
+    top: 12px;
+    right: 0;
+    font-size: 1.2em;
+    color: #a94442;
+}
+
+.control-wrapper.unsaved:before,
+.control-wrapper.has-error:before {
     top: 30px;
+}
+
+.has-error .control-wrapper .control-label {
+    color: #515151;
 }
 
 .drop-hover {

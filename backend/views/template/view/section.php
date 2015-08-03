@@ -6,7 +6,7 @@ use common\models\Control;
     <div class="ui-sortable-handle">
     {{/if}}
 
-        <a href="#" class="section-wrapper {{#if isSaved}}saved{{else}}unsaved{{/if}}">
+        <a href="#" class="section-wrapper {{#if isUnsaved}}unsaved{{/if}}">
             <img src="/images/controls/section.png"
                  data-toggle="panel-overlay"
                  data-target="#settings-wrapper"
