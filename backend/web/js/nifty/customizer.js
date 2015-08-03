@@ -27,7 +27,7 @@ var TgCustomizerObj = library(function ($) {
             }
             var customizer = exitInStorage('customizer');
             if (customizer) {
-                set(customizer);
+                //set(customizer);
             }
 
             return this;
