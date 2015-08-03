@@ -578,7 +578,7 @@ class Template extends Library
                 $sectionControls = $sectionData['controls'];
                 foreach ($sectionControls as $controlUid => $controlData) {
                     $control = isset($controlData['id']) ? SectionControl::findOne($controlData['id']) :
-                        new SectionControl(['scenario' => 'without_section']);
+                        new SectionControl(['scenario' => SectionControl::SCENARIO_WITHOUT_SECTION]);
                     $control->attributes = $controlData;
                     if (!$control->validate()) {
                         $errors['control'][$controlUid] = $control->getErrors();

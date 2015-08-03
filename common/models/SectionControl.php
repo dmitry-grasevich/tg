@@ -28,6 +28,8 @@ use yii\helpers\VarDumper;
  */
 class SectionControl extends ActiveRecord
 {
+    const SCENARIO_WITHOUT_SECTION = 'without_section';
+
     /**
      * @inheritdoc
      */
@@ -42,7 +44,7 @@ class SectionControl extends ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['without_section'] = ['control_id', 'alias', 'label', 'priority', 'description', 'default', 'style', 'params', 'pseudojs', 'help'];
+        $scenarios[self::SCENARIO_WITHOUT_SECTION] = ['control_id', 'alias', 'label', 'priority', 'description', 'default', 'style', 'params', 'pseudojs', 'help'];
         return $scenarios;
     }
 
@@ -53,7 +55,7 @@ class SectionControl extends ActiveRecord
     {
         return [
             [['section_id', 'control_id', 'alias', 'label'], 'required'],
-            [['control_id', 'alias', 'label'], 'required', 'on' => 'without_section'],
+            [['control_id', 'alias', 'label'], 'required', 'on' => self::SCENARIO_WITHOUT_SECTION],
             [['section_id', 'control_id', 'priority'], 'integer'],
             [['description', 'default', 'style', 'params', 'pseudojs'], 'string'],
             [['alias', 'label', 'help'], 'string', 'max' => 255],
