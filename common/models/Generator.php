@@ -32,7 +32,7 @@ class Generator
 
         /** 2. Prepare customizer config and put it to core/customizer/builder/config.php */
         /** 3. Add blocks HTML into partials */
-        /** 4. Add common css */
+        /** 4. Add common style.css */
         /** 5. Add common screenshot.png */
         /** 6. Add common header.php */
         /** 7. Add common footer.php */
