@@ -54,23 +54,41 @@ $this->title = $title;
                                 ]
                             ]) ?>
 
+                            <?= Button::widget([
+                                'label' => '<i class="fa fa-chevron-down"></i>',
+                                'encodeLabel' => false,
+                                'options' => [
+                                    'class' => 'btn-default',
+                                    'data' => [
+                                        'target' => '#panel-collapse-' . $file->id,
+                                        'toggle' => 'collapse',
+                                    ]
+                                ]
+                            ]) ?>
+
                         </div>
 
                         <h3 class="panel-title"><?= $file->filename ?></h3>
                     </div>
-                    <div class="panel-body" id="view-<?= $file->id ?>">
-                        <?= empty($file->code) ? '' : Html::tag('pre', Html::tag('code', Html::encode($file->code)), ['class' => 'scroll', 'style' => 'max-height: 400px; position: relative;'])?>
-                    </div>
-                    <div class="panel-body hidden" id="edit-<?= $file->id ?>" style="padding: 0 20px;">
-                        <?php $form = ActiveForm::begin([
-                            'id' => 'form-' . $file->id
-                        ]); ?>
 
-                        <?= $form->field($file, 'id')->hiddenInput()->label(false) ?>
+                    <div id="panel-collapse-<?= $file->id ?>" class="collapse">
 
-                        <?= $form->field($file, 'code')->textarea(['rows' => 15]) ?>
+                        <div class="panel-body" id="view-<?= $file->id ?>">
+                            <?= empty($file->code) ? '' : Html::tag('pre', Html::tag('code', Html::encode($file->code)), ['class' => 'scroll', 'style' => 'max-height: 400px; position: relative;'])?>
+                        </div>
 
-                        <?php ActiveForm::end(); ?>
+                        <div class="panel-body hidden" id="edit-<?= $file->id ?>" style="padding: 0 20px;">
+                            <?php $form = ActiveForm::begin([
+                                'id' => 'form-' . $file->id
+                            ]); ?>
+
+                            <?= $form->field($file, 'id')->hiddenInput()->label(false) ?>
+
+                            <?= $form->field($file, 'code')->textarea(['rows' => 15]) ?>
+
+                            <?php ActiveForm::end(); ?>
+                        </div>
+
                     </div>
                 </div>
             </div>
