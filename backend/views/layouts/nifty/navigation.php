@@ -4,6 +4,7 @@
  */
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Button;
 use yii\bootstrap\Modal;
@@ -42,39 +43,36 @@ $categoryModel = new CategoryForm();
                         <ul id="mainnav-menu" class="list-group">
 
                             <!-- Category name -->
-                            <li class="list-header">Navigation</li>
+                            <li class="list-header"><?= Yii::t('tg', 'Navigation') ?></li>
 
                             <!-- Menu Dashboard -->
                             <li<?= $this->context->id == 'dashboard' ? ' class="active-link"' : '' ?>>
                                 <a href="<?= Url::to('/dashboard') ?>">
                                     <i class="fa fa-dashboard"></i>
-                                <span class="menu-title">
-                                    <strong>Dashboard</strong>
-                                    <span class="label label-success pull-right">Top</span>
-                                </span>
+                                    <span class="menu-title">
+                                        <strong><?= Yii::t('tg', 'Dashboard') ?></strong>
+                                        <span class="label label-success pull-right"><?= Yii::t('tg', 'Top') ?></span>
+                                    </span>
                                 </a>
                             </li>
 
                             <!-- Generator Settings -->
-                            <li class="list-header">Generator</li>
+                            <li class="list-header"><?= Yii::t('tg', 'Generator') ?></li>
 
                             <!-- Template Settings -->
                             <li<?= $this->context->id == 'settings' ? ' class="active active-sub"' : '' ?>>
                                 <a href="#">
                                     <i class="fa fa-cog"></i>
-                                <span class="menu-title">
-                                    <strong>Template Settings</strong>
-                                </span>
+                                    <span class="menu-title">
+                                        <strong><?= Yii::t('tg', 'Template Settings') ?></strong>
+                                    </span>
                                     <i class="arrow"></i>
                                 </a>
 
                                 <!-- Template Settings Submenu -->
-                                <ul class="collapse" aria-expanded="false" style="height: 0;">
-                                    <li>
-                                        <a href="#">Setting 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Setting 2</a>
+                                <ul aria-expanded="false">
+                                    <li<?= $this->context->id == 'settings' && $this->context->action->id == 'index' ? ' class="active-link"' : '' ?>>
+                                        <?= Html::a(Yii::t('tg', 'Common files'), ['/settings']) ?>
                                     </li>
                                 </ul>
                             </li>
@@ -83,9 +81,9 @@ $categoryModel = new CategoryForm();
                             <li<?= $this->context->id == 'template' ? ' class="active active-sub"' : '' ?>>
                                 <a href="#">
                                     <i class="fa fa-th-large"></i>
-                                <span class="menu-title">
-                                    <strong>Blocks</strong>
-                                </span>
+                                    <span class="menu-title">
+                                        <strong><?= Yii::t('tg', 'Blocks') ?></strong>
+                                    </span>
                                     <i class="arrow"></i>
                                 </a>
 
@@ -100,7 +98,7 @@ $categoryModel = new CategoryForm();
                                 <a href="<?= Url::to(['/control']) ?>">
                                     <i class="fa fa-list-alt"></i>
                                     <span class="menu-title">
-                                        <strong>Controls</strong>
+                                        <strong><?= Yii::t('tg', 'Controls') ?></strong>
                                     </span>
                                 </a>
                             </li>
@@ -123,7 +121,7 @@ $categoryModel = new CategoryForm();
  */
 Modal::begin([
     'id' => 'block-modal',
-    'header' => '<h4 class="modal-title">header</h4>',
+    'header' => '<h4 class="modal-title"></h4>',
     'size' => Modal::SIZE_SMALL,
     'footer' =>
         Button::widget([
