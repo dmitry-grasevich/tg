@@ -9,15 +9,19 @@ use yii\helpers\VarDumper;
 
 class Generator
 {
+    const DIR_PARTIALS = 'partials';
+
     /**
      * @param $q - query
      */
     public static function run($q)
     {
-        self::createZip();
+        $blocks = array_map('trim', explode(',', $q['blocks']));
+
+        self::createZip($blocks);
     }
 
-    public static function createZip()
+    public static function createZip($blocks)
     {
         $file = tempnam('tmp', uniqid('zip'));
         $zip = new ZipArchiveTg();
@@ -30,15 +34,31 @@ class Generator
             $zip->addDir(Yii::getAlias($templateSource . '/' . $dir), '');
         }
 
-        /** 2. Prepare customizer config and put it to core/customizer/builder/config.php */
-        /** 3. Add blocks HTML into partials */
-        /** 4. Prepare and add common files */
-            /** 1. Add common styles.css */
-            /** 2. Add common screenshot.png */
-            /** 3. Add common header.php */
-            /** 4. Add common footer.php */
-            /** 5. Add common index.php */
-            /** 6. Prepare and add common functions.php */
+        /** 2. Prepare and add common files */
+        $commonFiles = File::find()->common()->all();
+        foreach ($commonFiles as $commonFile) {
+            /** @var File $commonFile */
+            $zip->addFromString($commonFile->filename, $commonFile->code);
+        }
+
+        /** @var Screenshot $screenshot */
+        $screenshot = Screenshot::find()->screenshot()->one();
+        $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
+
+        /** 3. Prepare customizer config and put it to core/customizer/builder/config.php */
+        /** 4. Add blocks HTML into partials */
+        $templates = Template::findAll($blocks);
+        if (count($templates)) {
+            $zip->addEmptyDir(self::DIR_PARTIALS);
+            foreach ($templates as $template) {
+                /** @var Template $template */
+                $zip->addFromString(self::DIR_PARTIALS . '/section-' . $template->alias . '.php', $template->code);
+            }
+        }
+
+        $css = $zip->getFromName(Yii::getAlias($templateSource) . '/css/theme.css');
+        $css .= "\nTEST STRING\n";
+        $zip->addFromString('css/theme.css', $css);
 
         // Close and send to user
         $zip->close();

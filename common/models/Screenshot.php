@@ -16,7 +16,7 @@ use yii\web\UploadedFile;
  * @property string $directory
  * @property string $code
  */
-class Screenshot extends CommonFile
+class Screenshot extends File
 {
     const SCREENSHOT_FILENAME = 'screenshot.png';
 
@@ -31,7 +31,7 @@ class Screenshot extends CommonFile
     /**
      * @return bool|string
      */
-    public function getImageDir()
+    public static function getImageDir()
     {
         return Yii::getAlias('@backend/web/images/template');
     }

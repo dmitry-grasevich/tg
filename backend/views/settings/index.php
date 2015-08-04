@@ -1,8 +1,8 @@
 <?php
 /**
  * @var yii\web\View $this
- * @var common\models\CommonFile[] $files
- * @var common\models\CommonFile $screenshot
+ * @var common\models\File[] $files
+ * @var common\models\Screenshot $screenshot
  */
 
 use yii\bootstrap\ActiveForm;
@@ -24,74 +24,7 @@ $this->title = $title;
         <div class="row">
 
             <?php foreach ($files as $file): ?>
-                <div class="col-sm-12">
-                    <div class="panel" id="panel-<?= $file->id ?>">
-                        <div class="panel-heading">
-                            <div class="panel-control">
-
-                                <?= Button::widget([
-                                    'label' => '<i class="fa fa-pencil fa-fw"></i> Edit',
-                                    'encodeLabel' => false,
-                                    'options' => [
-                                        'class' => 'btn-default edit-btn',
-                                        'data-id' => $file->id,
-                                    ]
-                                ]) ?>
-
-                                <?= Button::widget([
-                                    'label' => '<i class="fa fa-mail-reply fa-fw"></i> Cancel',
-                                    'encodeLabel' => false,
-                                    'options' => [
-                                        'class' => 'btn-default cancel-btn hidden',
-                                        'data-id' => $file->id,
-                                    ]
-                                ]) ?>
-
-                                <?= Button::widget([
-                                    'label' => '<i class="fa fa-floppy-o fa-fw"></i> Save',
-                                    'encodeLabel' => false,
-                                    'options' => [
-                                        'class' => 'btn-success save-btn hidden',
-                                        'data-id' => $file->id,
-                                    ]
-                                ]) ?>
-
-                                <?= Button::widget([
-                                    'label' => '<i class="fa fa-chevron-down"></i>',
-                                    'encodeLabel' => false,
-                                    'options' => [
-                                        'class' => 'btn-default',
-                                        'data' => [
-                                            'target' => '#panel-collapse-' . $file->id,
-                                            'toggle' => 'collapse',
-                                        ]
-                                    ]
-                                ]) ?>
-
-                            </div>
-
-                            <h3 class="panel-title"><?= $file->filename ?></h3>
-                        </div>
-
-                        <div id="panel-collapse-<?= $file->id ?>" class="collapse">
-
-                            <div class="panel-body" id="view-<?= $file->id ?>">
-                                <?= empty($file->code) ? '' : Html::tag('pre', Html::tag('code', Html::encode($file->code)), ['class' => 'scroll', 'style' => 'max-height: 400px; position: relative;']) ?>
-                            </div>
-
-                            <div class="panel-body hidden" id="edit-<?= $file->id ?>" style="padding: 0 20px;">
-                                <?php $form = ActiveForm::begin(['id' => 'form-' . $file->id]) ?>
-
-                                <?= $form->field($file, 'id')->hiddenInput()->label(false) ?>
-
-                                <?= $form->field($file, 'code')->textarea(['rows' => 15]) ?>
-
-                                <?php ActiveForm::end(); ?>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                <?= $this->render('_panel', ['file' => $file, 'isCommon' => true, 'id' => $file->id]) ?>
             <?php endforeach ?>
 
             <div class="col-sm-12">

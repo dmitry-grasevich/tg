@@ -70,9 +70,12 @@ $categoryModel = new CategoryForm();
                                 </a>
 
                                 <!-- Template Settings Submenu -->
-                                <ul aria-expanded="false">
+                                <ul>
                                     <li<?= $this->context->id == 'settings' && $this->context->action->id == 'index' ? ' class="active-link"' : '' ?>>
                                         <?= Html::a(Yii::t('tg', 'Common files'), ['/settings']) ?>
+                                    </li>
+                                    <li<?= $this->context->id == 'settings' && $this->context->action->id == 'additional' ? ' class="active-link"' : '' ?>>
+                                        <?= Html::a(Yii::t('tg', 'Additional files'), ['/settings/additional']) ?>
                                     </li>
                                 </ul>
                             </li>

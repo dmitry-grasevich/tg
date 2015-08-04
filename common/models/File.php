@@ -3,19 +3,17 @@
 namespace common\models;
 
 use Yii;
-use yii\helpers\FileHelper;
-use yii\web\UploadedFile;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "common_file".
  *
  * @property integer $id
- * @property string $name
  * @property string $filename
  * @property string $directory
  * @property string $code
  */
-class CommonFile extends Library
+class File extends Library
 {
     /**
      * @inheritdoc
@@ -31,9 +29,9 @@ class CommonFile extends Library
     public function rules()
     {
         return [
-            [['name', 'filename'], 'required'],
+            [['filename'], 'required'],
             [['code'], 'string'],
-            [['name', 'filename', 'directory'], 'string', 'max' => 255],
+            [['filename', 'directory'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,11 +42,18 @@ class CommonFile extends Library
     {
         return [
             'id' => Yii::t('tg', 'ID'),
-            'name' => Yii::t('tg', 'Name'),
             'filename' => Yii::t('tg', 'Filename'),
             'directory' => Yii::t('tg', 'Directory'),
             'code' => Yii::t('tg', 'Code'),
         ];
+    }
+
+    /**
+     * @return FileQuery
+     */
+    public static function find()
+    {
+        return new FileQuery(get_called_class());
     }
 
     /**
@@ -57,5 +62,29 @@ class CommonFile extends Library
     public static function getImagePath()
     {
         return Yii::getAlias('@web/images/template');
+    }
+}
+
+class FileQuery extends ActiveQuery
+{
+    public function common()
+    {
+        return $this
+            ->where(['!=', 'filename', Screenshot::SCREENSHOT_FILENAME])
+            ->andWhere('directory IS NULL');
+    }
+
+    public function additional()
+    {
+        return $this
+            ->where(['!=', 'filename', Screenshot::SCREENSHOT_FILENAME])
+            ->andWhere('directory IS NOT NULL');
+    }
+
+    public function screenshot()
+    {
+        return $this
+            ->where(['=', 'filename', Screenshot::SCREENSHOT_FILENAME])
+            ->andWhere('directory IS NULL');
     }
 }
