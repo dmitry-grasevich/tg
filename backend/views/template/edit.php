@@ -96,6 +96,12 @@ $labels = $template->attributeLabels();
                         'placeholder' => Yii::t('tg', 'Block code'),
                     ]) ?>
 
+                    <?= $form->field($template, 'style')->textarea([
+                        'class' => 'form-control',
+                        'rows' => 10,
+                        'placeholder' => Yii::t('tg', 'Block styles'),
+                    ]) ?>
+
                     <?= $form->field($template, 'id')->hiddenInput()->label(false) ?>
                     <?= Html::hiddenInput('Template[category_id]', $category->id) ?>
 

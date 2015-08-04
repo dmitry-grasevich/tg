@@ -21,4 +21,8 @@ use yii\helpers\Html;
     <?php if (!empty($template->code)): ?>
         <pre class="scroll"><code><?= Html::encode($template->code) ?></code></pre>
     <?php endif ?>
+
+    <?php if (!empty($template->style)): ?>
+        <pre class="scroll"><code><?= Html::encode($template->style) ?></code></pre>
+    <?php endif ?>
 </div>
