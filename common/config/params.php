@@ -5,10 +5,7 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'template' => [
         'alias' => [
-            'images' => '/templateData/images',
-            'fonts' => '/templateData/fonts',
-            'plugins' => '/templateData/plugins',
-            'inc' => '/templateData/inc',
+            'templateSource' => 'templateSource',
         ]
     ]
 ];

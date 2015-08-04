@@ -1,0 +1,254 @@
+.onoffswitch {
+    position: relative;
+    width: 64px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select: none;
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+}
+.onoffswitch-checkbox {
+    display: none !important;
+}
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s;
+    -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 31px;
+    padding: 0;
+    line-height: 31px;
+    font-size: 12px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "YES";
+    padding-left: 8px;
+    background-color: #59ABE3;
+    color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "NO";
+    padding-right: 8px;
+    background-color: #EEEEEE;
+    color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block;
+    width: 24px;
+    margin: 4px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 32px;
+    -moz-transition: all 0.3s ease-in 0s;
+    -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
+
+.toggle-label {
+    margin-right: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 31px;
+}
+.image-picker-label input[type='radio'] {
+    margin-left: 10px;
+}
+
+.toggle-container {
+    overflow: hidden;
+    padding-bottom: 8px;
+}
+
+.section-separator {
+    font-size: 0;
+    padding: 0;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: #eee;
+    margin: 15px 0 5px 0;
+}
+
+
+/* reset kirki styles */
+.customize-control-sortable ul.ui-sortable li {
+    border-color: #dddddd !important;
+}
+/*
+.wp-customizer ul.ui-sortable li.kirki-sortable-item {
+    border: none;
+    padding: 6px 20px;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+.wp-customizer .kirki-sortable-item .dashicons {
+    display: none;
+}
+.wp-customizer .customize-control-radio label {
+    padding: 0;
+    line-height: 32px;
+}
+*/
+
+/*---------------------------*/
+/*- BUTTONS -----------------*/
+
+.tg-button{
+    display: inline-block;
+    height: 28px;
+    margin: 0px;
+    padding: 0px 10px 1px;
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.4) inset, 0px 1px 0px rgba(0, 0, 0, 0.08);
+    vertical-align: middle;
+    cursor: pointer;
+    color: #555;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 26px;
+    text-align: center;
+}
+.tg-button:hover{
+    background-color: #f2f2f2;
+    color: #555;
+}
+.tg-button:focus{
+    box-shadow: none;
+}
+
+/*-----------------------*/
+/*- PRIMARY BUTTON ------*/
+.btn-primary{
+    background: #2EA2CC;
+    border-color: #0074A2;
+    color: #fff;
+}
+.btn-primary:hover{
+    background: #1E8CBE;
+    color: #fff;
+}
+
+/*-----------------------*/
+/*- SECONDARY BUTTON ----*/
+.btn-secondary{
+    background-color: #A3C567;
+    border-color: #668056;
+    color: #fff;
+}
+.btn-secondary:hover{
+    background-color: #93B25E;
+    color: #fff;
+}
+
+/*-----------------------*/
+/*- ERROR BUTTON --------*/
+.btn-error{
+    background-color: #FF5353;
+    border-color: #BC3F39;
+    color: #fff;
+}
+.btn-error:hover{
+    background-color: #F2413D;
+    color: #fff;
+}
+
+/*-----------------------*/
+/*- LINK BUTTON --------*/
+.btn-link{
+    background-color: transparent;
+    border-color: transparent;
+    color: #2EA2CC;
+    text-decoration: underline;
+    box-shadow: none;
+}
+.btn-link:hover{
+    background-color: transparent;
+    color: #1E8CBE;
+}
+
+/*-----------------------*/
+/*- CANCEL BUTTON -------*/
+.btn-cancel{
+    background-color: transparent;
+    border-color: transparent;
+    color: #A00;
+    text-decoration: underline;
+    box-shadow: none;
+}
+.btn-cancel:hover{
+    background-color: transparent;
+    color: #f00;
+}
+
+/*-----------------------*/
+/*- BUTTON SIZES --------*/
+.tg-button.btn-small{
+    height: 24px;
+    font-size: 11px;
+    line-height: 22px;
+}
+.tg-button.btn-large{
+    height: 38px;
+    font-size: 16px;
+    line-height: 34px;
+}
+.tg-button.btn-massive{
+    height: 44px;
+    font-size: 18px;
+    line-height: 40px;
+}
+.tg-button.btn-full{
+    display: block;
+}
+
+/*-----------------------*/
+/*- BUTTON WELL ---------*/
+.tg-button-well{
+    overflow: hidden;
+    padding: 10px;
+    clear: both;
+    border-top: 1px solid #E5E5E5;
+    background: #F5F5F5;
+}
+
+/*-----------------------*/
+/*- BUTTON COLLECTION ---*/
+.tg-button-collection{
+    overflow: hidden;
+}

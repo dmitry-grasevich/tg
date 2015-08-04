@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\TemplateGenerator;
 use yii\web\Controller;
+use common\models\Generator;
 
 class TemplateController extends Controller
 {
@@ -19,6 +19,7 @@ class TemplateController extends Controller
             return ['error' => 'Your template has no block! Please add one or more.'];
         }
 
-        TemplateGenerator::create($q);
+//        TemplateGenerator::create($q);
+        Generator::run($q);
     }
 }
