@@ -10,6 +10,7 @@ use yii\helpers\VarDumper;
 class Generator
 {
     const DIR_PARTIALS = 'partials';
+    const FILE_THEME_STYLES = 'theme.css';
 
     /**
      * @param $q - query
@@ -46,19 +47,31 @@ class Generator
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
 
         /** 3. Prepare customizer config and put it to core/customizer/builder/config.php */
+
         /** 4. Add blocks HTML into partials */
         $templates = Template::findAll($blocks);
         if (count($templates)) {
             $zip->addEmptyDir(self::DIR_PARTIALS);
+
+            /** @var File $css */
+            $css = File::find()->additional()->where(['filename' => self::FILE_THEME_STYLES])->one();
+
             foreach ($templates as $template) {
                 /** @var Template $template */
                 $zip->addFromString(self::DIR_PARTIALS . '/section-' . $template->alias . '.php', $template->code);
+
+                if (!empty($css)) {
+                    $css->code .= self::getComment("Styles for block \"" . $template->name . "\"");
+                    $css->code .= $template->style;
+                    $css->code .= self::getComment("End of styles for block \"" . $template->name . "\"");
+                }
+            }
+
+            if (!empty($css)) {
+                $zip->addFromString($css->directory . '/' . $css->filename, $css->code);
             }
         }
 
-        $css = $zip->getFromName(Yii::getAlias($templateSource) . '/css/theme.css');
-        $css .= "\nTEST STRING\n";
-        $zip->addFromString('css/theme.css', $css);
 
         // Close and send to user
         $zip->close();
@@ -69,6 +82,15 @@ class Generator
         header('Content-Disposition: attachment; filename="template.zip"');
         readfile($file);
         unlink($file);
+    }
+
+    protected static function getComment($text)
+    {
+        return "\n/**
+ * ----------------------------------------------------------------------------------------
+ * $text
+ * ----------------------------------------------------------------------------------------
+ */\n";
     }
 
     public static function getTemplateSourcePath()

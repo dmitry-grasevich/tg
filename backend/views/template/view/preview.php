@@ -19,10 +19,10 @@ use yii\helpers\Html;
     <?php endif ?>
 
     <?php if (!empty($template->code)): ?>
-        <pre class="scroll"><code><?= Html::encode($template->code) ?></code></pre>
+        <?= Html::tag('pre', Html::tag('code', Html::encode($template->code)), ['class' => 'scroll', 'style' => 'max-height: 400px; position: relative;']) ?>
     <?php endif ?>
 
     <?php if (!empty($template->style)): ?>
-        <pre class="scroll"><code><?= Html::encode($template->style) ?></code></pre>
+        <?= Html::tag('pre', Html::tag('code', Html::encode($template->style)), ['class' => 'scroll', 'style' => 'max-height: 400px; position: relative;']) ?>
     <?php endif ?>
 </div>
