@@ -11,6 +11,7 @@ class Generator
 {
     const DIR_PARTIALS = 'partials';
     const FILE_THEME_STYLES = 'theme.css';
+    const FILE_CONFIG = 'config.php';
 
     /**
      * @param $q - query
@@ -47,6 +48,11 @@ class Generator
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
 
         /** 3. Prepare customizer config and put it to core/customizer/builder/config.php */
+        /** @var File $config */
+        $config = File::find()->additional()->where(['filename' => self::FILE_CONFIG])->one();
+        if (!empty($config)) {
+            $zip->addFromString($config->directory . '/' . $config->filename, $config->code);
+        }
 
         /** 4. Add blocks HTML into partials */
         $templates = Template::findAll($blocks);
