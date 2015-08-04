@@ -32,12 +32,13 @@ class Generator
 
         /** 2. Prepare customizer config and put it to core/customizer/builder/config.php */
         /** 3. Add blocks HTML into partials */
-        /** 4. Add common style.css */
-        /** 5. Add common screenshot.png */
-        /** 6. Add common header.php */
-        /** 7. Add common footer.php */
-        /** 8. Add common index.php */
-        /** 9. Prepare and add common functions.php */
+        /** 4. Prepare and add common files */
+            /** 1. Add common styles.css */
+            /** 2. Add common screenshot.png */
+            /** 3. Add common header.php */
+            /** 4. Add common footer.php */
+            /** 5. Add common index.php */
+            /** 6. Prepare and add common functions.php */
 
         // Close and send to user
         $zip->close();

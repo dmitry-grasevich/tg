@@ -15,4 +15,5 @@
             <h1><?php _e('No posts were found.', 'adaptive-framework'); ?></h1>
         </article>
     <?php endif; ?>
+
 <?php get_footer(); ?>

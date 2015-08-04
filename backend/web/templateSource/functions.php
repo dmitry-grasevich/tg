@@ -85,22 +85,8 @@ if (!function_exists('tg_setup')) {
         register_nav_menus(array(
             TG_THEME_SLUG . '-primary' => __('Header Menu', 'layerswp'),
             TG_THEME_SLUG . '-footer' => __('Footer Menu', 'layerswp'),
-//            TG_THEME_SLUG . '-secondary-left' => __('Top Left Menu', 'layerswp'),
-//            TG_THEME_SLUG . '-secondary-right' => __('Top Right Menu', 'layerswp'),
-//            TG_THEME_SLUG . '-primary-right' => __('Right Header Menu', 'layerswp'),
         ));
 
     } // function tg_setup
 } // if !function tg_setup
 add_action('after_setup_theme', 'tg_setup', 10);
-
-/**
- *      Include Styles
- **/
-function register_tg_styles()
-{
-    wp_enqueue_style('bootstrap', TG_TEMPLATE_URI . '/bootstrap/css/bootstrap.min.css');
-    wp_enqueue_style('theme-css', get_stylesheet_uri(), 'bootstrap');
-}
-
-add_action('wp_enqueue_scripts', 'register_tg_styles');

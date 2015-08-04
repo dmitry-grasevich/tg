@@ -4,13 +4,10 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Json;
+use yii\helpers\Html;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
 use common\models\CommonFile;
-
 
 /**
  * Class SettingsController implements
@@ -35,16 +32,44 @@ class SettingsController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'remove' => ['post'],
+                    'index' => ['get'],
                     'save' => ['post'],
                 ],
             ],
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
-        $commonFiles = CommonFile::findAll([]);
+        $commonFiles = CommonFile::find()->orderBy('name desc')->all();
         return $this->render('index', ['files' => $commonFiles]);
+    }
+
+    /**
+     * @return string
+     * @throws BadRequestHttpException
+     */
+    public function actionSave()
+    {
+        $data = Yii::$app->request->post('CommonFile');
+        if (!$data['id']) {
+            throw new BadRequestHttpException('Bad request');
+        }
+
+        /** @var \common\models\CommonFile $file */
+        $file = CommonFile::findOne($data['id']);
+        if (empty($file)) {
+            throw new BadRequestHttpException('Common File not found');
+        }
+        $file->code = $data['code'];
+
+        if (!$file->save()) {
+            throw new BadRequestHttpException($file->getErrors());
+        }
+
+        return Html::tag('pre', Html::tag('code', Html::encode($file->code)), ['class' => 'scroll']);
     }
 }

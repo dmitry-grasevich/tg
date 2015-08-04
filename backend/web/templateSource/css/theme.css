@@ -1,0 +1,354 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'fontello';
+  src: url("../fonts/fontello.eot?80707783");
+  src: url("../fonts/fontello.eot?80707783#iefix") format("embedded-opentype"), url("../fonts/fontello.woff?80707783") format("woff"), url("../fonts/fontello.ttf?80707783") format("truetype"), url("../fonts/fontello.svg?80707783#fontello") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/**************************************************************************/
+/* TYPOGRAPHY */
+/**************************************************************************/
+/* line 5, ../scss/typography.scss */
+body {
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  color: #333333;
+  font-size: 16px;
+}
+
+/* line 11, ../scss/typography.scss */
+p {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 1.5em 0 0 0;
+}
+
+/* line 17, ../scss/typography.scss */
+h1 {
+  font-size: 4.5000em;
+  /* 72px */
+  line-height: 1.0000em;
+  /* 72px */
+  margin-top: 0.3333em;
+  margin-bottom: 0.0000em;
+}
+
+/* line 24, ../scss/typography.scss */
+h2 {
+  font-size: 3.7500em;
+  /* 60px */
+  line-height: 1.2000em;
+  /* 72px */
+  margin-top: 0.4000em;
+  margin-bottom: 0.0000em;
+}
+
+/* line 31, ../scss/typography.scss */
+h3 {
+  font-size: 3.0000em;
+  /* 48px */
+  line-height: 1.0000em;
+  /* 48px */
+  margin-top: 0.5000em;
+  margin-bottom: 0.0000em;
+}
+
+/* line 38, ../scss/typography.scss */
+h4 {
+  font-size: 2.2500em;
+  /* 36px */
+  line-height: 1.3333em;
+  /* 48px */
+  margin-top: 0.6667em;
+  margin-bottom: 0.0000em;
+}
+
+/* line 45, ../scss/typography.scss */
+h5 {
+  font-size: 1.8750em;
+  /* 30px */
+  line-height: 1.6000em;
+  /* 48px */
+  margin-top: 0.8000em;
+  margin-bottom: 0.0000em;
+}
+
+/* line 52, ../scss/typography.scss */
+h6 {
+  font-size: 1.5em;
+  /* 24px */
+  line-height: 1em;
+  /* 24px */
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+/* line 59, ../scss/typography.scss */
+.class-for-18px {
+  font-size: 1.1250em;
+  /* 18px */
+  line-height: 1.3333em;
+  /* 24px */
+  margin-top: 1.3333em;
+  margin-bottom: 0.0000em;
+}
+
+/* line 65, ../scss/typography.scss */
+.class-for-16px {
+  font-size: 1.0000em;
+  /* 16px */
+  line-height: 1.5000em;
+  /* 24px */
+  margin-top: 1.5000em;
+  margin-bottom: 0.0000em;
+}
+
+/* line 71, ../scss/typography.scss */
+.class-for-14px {
+  font-size: 0.8750em;
+  /* 14px */
+  line-height: 1.7143em;
+  /* 24px */
+  margin-top: 1.7143em;
+  margin-bottom: 0.0000em;
+}
+
+/* line 79, ../scss/typography.scss */
+.uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/**************************************************************************/
+/* General */
+/**************************************************************************/
+/* line 5, ../scss/general.scss */
+html,
+body {
+  height: 100%;
+}
+
+/* line 9, ../scss/general.scss */
+.amp {
+  font-family: "Pacifico", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* line 15, ../scss/general.scss */
+img {
+  max-width: 100%;
+}
+
+/* helpers for text-align */
+/* line 20, ../scss/general.scss */
+.text-right {
+  text-align: right;
+}
+
+/* line 24, ../scss/general.scss */
+.text-center {
+  text-align: center;
+}
+
+/* vertical-align for elements */
+/* line 29, ../scss/general.scss */
+.vertical {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/* buttons */
+/* line 35, ../scss/general.scss */
+.btn {
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+/* line 38, ../scss/general.scss */
+.btn-cta {
+  background: transparent;
+  border: 2px solid #FFF;
+  color: #FFF;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  padding: 0.5em 2em;
+  border-radius: 0;
+  text-transform: uppercase;
+}
+/* line 48, ../scss/general.scss */
+.btn-cta:hover {
+  color: #fff;
+}
+
+/* line 52, ../scss/general.scss */
+.btn-red {
+  background: #b8312f;
+  color: #fff;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  padding: 0.5em 2em;
+  border-radius: 0;
+  text-transform: uppercase;
+}
+/* line 61, ../scss/general.scss */
+.btn-red:hover {
+  color: #fff;
+  background: #cb3735;
+}
+
+
+/**************************************************************************/
+/* PAGE LAYOUT */
+/**************************************************************************/
+/* line 4, ../scss/layout.scss */
+.screen {
+  min-height: 100%;
+}
+
+/**************************************************************************/
+/* HEADER */
+/**************************************************************************/
+/* line 13, ../scss/layout.scss */
+header a {
+  color: white;
+}
+/* line 16, ../scss/layout.scss */
+header a:hover {
+  color: #e6e6e6;
+}
+/* line 22, ../scss/layout.scss */
+header a:hover, header a:active, header a:focus {
+  text-decoration: none;
+}
+
+/* line 28, ../scss/layout.scss */
+.hdr-v1 {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  padding-top: 40px;
+}
+/* line 35, ../scss/layout.scss */
+.hdr-v1 .logo {
+  font: italic 300 36px/44px "Pacifico", Georgia, serif;
+}
+/* line 38, ../scss/layout.scss */
+.hdr-v1 .prim-nav {
+  text-align: right;
+}
+
+/**************************************************************************/
+/* HOME SCREEN */
+/**************************************************************************/
+/* line 133, ../scss/layout.scss */
+.home-v1 {
+  background: #333333 url(images/bg-home-v1.jpg) 50% 50% no-repeat;
+  background-size: cover;
+  position: relative;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.home-v1:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+/* line 139, ../scss/layout.scss */
+.home-v1 h2 {
+  color: white;
+  font-weight: 300;
+}
+/* line 143, ../scss/layout.scss */
+.home-v1 p {
+  color: white;
+  font-size: 20px;
+}
+
+/**
+ * ----------------------------------------------------------------------------------------
+ * Form styles.
+ * ----------------------------------------------------------------------------------------
+ */
+form button,
+form input,
+form select,
+form textarea {
+    max-width: 100%; }
+form input[type="submit"],
+form input[type="button"] {
+    -webkit-font-smoothing: antialiased; }
+
+/**
+ * ----------------------------------------------------------------------------------------
+ * Buttons classes.
+ *
+ * Change default bootstrap colors & styles.
+ * ----------------------------------------------------------------------------------------
+ */
+.btn, form input[type="submit"],
+form input[type="button"] {
+    border-radius: 0; }
+
+.btn-ghost {
+    border: 1px solid #fff;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    position: relative; }
+.btn-ghost:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0);
+    -moz-transition: all, 300ms, ease;
+    -o-transition: all, 300ms, ease;
+    -webkit-transition: all, 300ms, ease;
+    transition: all, 300ms, ease; }
+.btn-ghost:hover {
+    color: #fff; }
+.btn-ghost:hover:before {
+    background: rgba(255, 255, 255, 0.1); }
+.btn-ghost:active, .btn-ghost:focus {
+    color: #fff; }
+
+.btn-ghost-inverse {
+    border: 1px solid #222;
+    color: #222;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    position: relative; }
+.btn-ghost-inverse:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    -moz-transition: all, 300ms, ease;
+    -o-transition: all, 300ms, ease;
+    -webkit-transition: all, 300ms, ease;
+    transition: all, 300ms, ease; }
+.btn-ghost-inverse:hover {
+    color: #222; }
+.btn-ghost-inverse:hover:before {
+    background: rgba(0, 0, 0, 0.1); }
+.btn-ghost-inverse:active, .btn-ghost-inverse:focus {
+    color: #222; }
