@@ -18,6 +18,7 @@ use common\helpers\ImageTg;
  * @property string $name
  * @property string $img
  * @property string $code
+ * @property string $style
  * @property boolean $is_visible
  * @property string $alias
  * @property string $title
@@ -59,7 +60,7 @@ class Template extends Library
         return [
             [['category_id', 'name', 'alias', 'title'], 'required'],
             [['category_id', 'is_visible', 'updated_at'], 'integer'],
-            [['code', 'description'], 'string'],
+            [['code', 'style', 'description'], 'string'],
             [['name', 'img', 'alias', 'title'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -82,6 +83,7 @@ class Template extends Library
             'description' => Yii::t('tg', 'Description'),
             'img' => Yii::t('tg', 'Preview Image'),
             'code' => Yii::t('tg', 'Code'),
+            'style' => Yii::t('tg', 'Style'),
 
             'categoryName' => Yii::t('tg', 'Category'),
             'css' => Yii::t('tg', 'CSS'),
