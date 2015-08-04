@@ -5,9 +5,11 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use common\models\CommonFile;
+use common\models\Screenshot;
 
 /**
  * Class SettingsController implements
@@ -34,6 +36,7 @@ class SettingsController extends Controller
                 'actions' => [
                     'index' => ['get'],
                     'save' => ['post'],
+                    'screenshot' => ['post'],
                 ],
             ],
         ]);
@@ -44,8 +47,9 @@ class SettingsController extends Controller
      */
     public function actionIndex()
     {
-        $commonFiles = CommonFile::find()->orderBy('name desc')->all();
-        return $this->render('index', ['files' => $commonFiles]);
+        $files = CommonFile::find()->where(['!=', 'filename', Screenshot::SCREENSHOT_FILENAME])->orderBy('name desc')->all();
+        $screenshot = Screenshot::find()->where(['=', 'filename', Screenshot::SCREENSHOT_FILENAME])->one();
+        return $this->render('index', ['files' => $files, 'screenshot' => $screenshot]);
     }
 
     /**
@@ -55,7 +59,7 @@ class SettingsController extends Controller
     public function actionSave()
     {
         $data = Yii::$app->request->post('CommonFile');
-        if (!$data['id']) {
+        if (!$data['id'] || !array_key_exists('code', $data)) {
             throw new BadRequestHttpException('Bad request');
         }
 
@@ -71,5 +75,30 @@ class SettingsController extends Controller
         }
 
         return Html::tag('pre', Html::tag('code', Html::encode($file->code)), ['class' => 'scroll']);
+    }
+
+    /**
+     * @return string
+     * @throws BadRequestHttpException
+     */
+    public function actionScreenshot()
+    {
+        $data = Yii::$app->request->post('Screenshot');
+        if (!$data['id']) {
+            throw new BadRequestHttpException('Bad request: ' . Json::encode($data));
+        }
+
+        /** @var \common\models\Screenshot $file */
+        $file = Screenshot::findOne($data['id']);
+        if (empty($file)) {
+            throw new BadRequestHttpException('Screenshot not found');
+        }
+        $file->code = $data['code'];
+
+        if (!$file->save()) {
+            throw new BadRequestHttpException($file->getErrors());
+        }
+
+        return '<div class="screenshot-preview-frame">' . Html::img(Screenshot::getImagePath() . '/' . $file->code) . '</div>';
     }
 }

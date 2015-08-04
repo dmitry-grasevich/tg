@@ -84,6 +84,14 @@ class Control extends Library
     }
 
     /**
+     * @return bool|string
+     */
+    public function getImageDir()
+    {
+        return Yii::getAlias('@backend/web/images/controls');
+    }
+
+    /**
      * @return string
      */
     public function getImgUrl()
@@ -101,7 +109,7 @@ class Control extends Library
         if (parent::beforeSave($insert)) {
             $img = UploadedFile::getInstance($this, 'img');
             if (!empty($img)) {
-                $backendDir = self::getImagePath();
+                $backendDir = self::getImageDir();
                 FileHelper::createDirectory($backendDir);
 
                 if (!$img->saveAs($backendDir . '/' . $img->name)) {

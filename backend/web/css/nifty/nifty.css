@@ -6124,3 +6124,18 @@ a.text-dark:focus {
     text-align: right;
     padding-right: 22px;
 }
+
+.screenshot-preview-frame {
+    display: table;
+    margin: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 5px 0 #a2958a;
+    padding: 6px;
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.screenshot-preview-frame:hover {
+    box-shadow: 3px 3px 5px 0 #333;
+}

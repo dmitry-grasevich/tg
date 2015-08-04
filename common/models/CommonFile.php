@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "common_file".
@@ -47,5 +49,13 @@ class CommonFile extends Library
             'directory' => Yii::t('tg', 'Directory'),
             'code' => Yii::t('tg', 'Code'),
         ];
+    }
+
+    /**
+     * @return bool|string
+     */
+    public static function getImagePath()
+    {
+        return Yii::getAlias('@web/images/template');
     }
 }
