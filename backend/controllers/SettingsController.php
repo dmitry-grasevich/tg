@@ -52,7 +52,7 @@ class SettingsController extends Controller
      */
     public function actionIndex()
     {
-        $files = File::find()->common()->orderBy('name desc')->all();
+        $files = File::find()->common()->orderBy('filename desc')->all();
         $screenshot = Screenshot::find()->screenshot()->one();
         return $this->render('index', ['files' => $files, 'screenshot' => $screenshot]);
     }

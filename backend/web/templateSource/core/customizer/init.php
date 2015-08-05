@@ -70,7 +70,7 @@ if (!class_exists('TG_Customizer')) {
                 // Enqueue Styles
                 add_action('admin_enqueue_scripts', array($this, 'admin_print_styles'));
                 add_action('customize_controls_print_styles', array($this, 'admin_print_styles'));
-                add_action('customize_preview_init', array($this, 'customizer_preview_enqueue_scripts'));
+//                add_action('customize_preview_init', array($this, 'customizer_preview_enqueue_scripts'));
             } else {
                 /**
                  * Only frontend

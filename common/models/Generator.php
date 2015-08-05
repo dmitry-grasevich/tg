@@ -18,10 +18,10 @@ class Generator
     {
         $blocks = array_map('trim', explode(',', $q['blocks']));
 
-        self::createZip($blocks);
+        self::createZip($blocks, $q['name']);
     }
 
-    public static function createZip($blocks)
+    public static function createZip($blocks, $name)
     {
         $file = tempnam('tmp', uniqid('zip'));
         $zip = new ZipArchiveTg();
@@ -38,6 +38,9 @@ class Generator
         $commonFiles = File::find()->common()->all();
         foreach ($commonFiles as $commonFile) {
             /** @var File $commonFile */
+            if ($commonFile->filename == File::COMMON_CSS_FILENAME) {
+                $commonFile->code = str_replace('{{name}}', $name, $commonFile->code);
+            }
             $zip->addFromString($commonFile->filename, $commonFile->code);
         }
 
@@ -56,7 +59,8 @@ class Generator
             /** @var File $css */
             $css = File::find()->styles()->one();
 
-            $panelCode = $sectionCode = $controlCode = $styleCode = $pseudoJsCode = $cssCode = '';
+            $panelCode = $sectionCode = $controlCode = $styleCode = $pseudoJsCode =
+            $sorterDefault = $sorterChoices = $cssCode = '';
 
             $panelPriority = 20;
             $priorityStep = 10;
@@ -66,6 +70,9 @@ class Generator
 
                 $panelCode .= $template->getCodeForConfig($panelPriority);
                 $panelPriority += $priorityStep;
+
+                $sorterDefault .= "'" . $template->alias . "',\n                        ";
+                $sorterChoices .= "'" . $template->alias . "' => __('" . $template->title . "', 'tg'),\n                        ";
 
                 $zip->addFromString(self::DIR_PARTIALS . '/section-' . $template->alias . '.php', $template->code);
 
@@ -115,8 +122,9 @@ class Generator
 
             if (!empty($config)) {
                 $configCode = $config->code;
-                $search = ['{%panels%}', '{%sections%}', '{%controls%}', '{%styles%}', '{%pseudojs%}'];
-                $replace = [$panelCode, $sectionCode, $controlCode, $styleCode, $pseudoJsCode];
+                $search = ['{%panels%}', '{%sections%}', '{%controls%}', '{%styles%}', '{%pseudojs%}',
+                    '{%sorter_default%}', '{%sorter_choices%}'];
+                $replace = [$panelCode, $sectionCode, $controlCode, $styleCode, $pseudoJsCode, $sorterDefault, $sorterChoices];
                 $configCode = str_replace($search, $replace, $configCode);
                 $zip->addFromString($config->directory . '/' . $config->filename, $configCode);
             }

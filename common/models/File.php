@@ -15,6 +15,7 @@ use yii\db\ActiveQuery;
  */
 class File extends Library
 {
+    const COMMON_CSS_FILENAME = 'style.css';
     const CONFIG_FILENAME = 'config.php';
     const THEME_STYLES_FILENAME = 'theme.css';
 
