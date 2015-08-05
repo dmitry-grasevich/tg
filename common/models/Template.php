@@ -443,16 +443,20 @@ class Template extends Library
         return '';
     }
 
-    public static function getCustomizerControls($id)
+    /**
+     * @return \yii\db\ActiveRecord
+     */
+    public function getCustomizerControls()
     {
         $template = Template::find()
             ->select(['{{template}}.id', 'updated_at'])
-            ->where('template.id = :id', [':id' => $id])
+            ->where('template.id = :id', [':id' => $this->id])
             ->joinWith('sections.sectionControls.control')
+            ->with('sections')
             ->asArray()
-            ->all();
+            ->one();
 
-        return $template[0];
+        return $template;
     }
 
     /**
@@ -622,5 +626,20 @@ class Template extends Library
         }
 
         return true;
+    }
+
+    /**
+     *
+     * @param $priority
+     * @return string
+     */
+    public function getCodeForConfig($priority)
+    {
+        return "'" . $this->alias . "' => array(
+                'title' => __('" . $this->title . "', 'tg'),
+                'description' => __('" . $this->description . "', 'tg'),
+                'priority' => " . $priority . "
+            ),
+            ";
     }
 }

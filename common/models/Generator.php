@@ -10,8 +10,6 @@ use yii\helpers\VarDumper;
 class Generator
 {
     const DIR_PARTIALS = 'partials';
-    const FILE_THEME_STYLES = 'theme.css';
-    const FILE_CONFIG = 'config.php';
 
     /**
      * @param $q - query
@@ -47,37 +45,86 @@ class Generator
         $screenshot = Screenshot::find()->screenshot()->one();
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
 
-        /** 3. Prepare customizer config and put it to core/customizer/builder/config.php */
-        /** @var File $config */
-        $config = File::find()->additional()->where(['filename' => self::FILE_CONFIG])->one();
-        if (!empty($config)) {
-            $zip->addFromString($config->directory . '/' . $config->filename, $config->code);
-        }
-
-        /** 4. Add blocks HTML into partials */
+        /** 3. Add blocks HTML into partials and prepare customizer config */
         $templates = Template::findAll($blocks);
         if (count($templates)) {
             $zip->addEmptyDir(self::DIR_PARTIALS);
 
-            /** @var File $css */
-            $css = File::find()->additional()->where(['filename' => self::FILE_THEME_STYLES])->one();
+            /** @var File $config */
+            $config = File::find()->config()->one();
 
+            /** @var File $css */
+            $css = File::find()->styles()->one();
+
+            $panelCode = $sectionCode = $controlCode = $styleCode = $pseudoJsCode = $cssCode = '';
+
+            $panelPriority = 20;
+            $priorityStep = 10;
             foreach ($templates as $template) {
                 /** @var Template $template */
+                $templateData = $template->getCustomizerControls();
+
+                $panelCode .= $template->getCodeForConfig($panelPriority);
+                $panelPriority += $priorityStep;
+
                 $zip->addFromString(self::DIR_PARTIALS . '/section-' . $template->alias . '.php', $template->code);
 
                 if (!empty($css)) {
-                    $css->code .= self::getComment("Styles for block \"" . $template->name . "\"");
-                    $css->code .= $template->style;
-                    $css->code .= self::getComment("End of styles for block \"" . $template->name . "\"");
+                    $cssCode .= self::getComment("Styles for block \"" . $template->name . "\"");
+                    $cssCode .= $template->style;
+                    $cssCode .= self::getComment("End of styles for block \"" . $template->name . "\"");
+                }
+
+                if (!isset($templateData['sections']) || empty($templateData['sections'])) {
+                    continue;
+                }
+
+                $sectionCode .= "// " . $template->title . "\n            ";
+
+                $sectionPriority = 10;
+                foreach ($templateData['sections'] as $sectionData) {
+                    $section = new Section();
+                    $section->attributes = $sectionData;
+                    $sectionCode .= $section->getCodeForConfig($template->alias, $sectionPriority);
+                    $sectionPriority += $priorityStep;
+
+                    if (!isset($sectionData['sectionControls']) || empty($sectionData['sectionControls'])) {
+                        continue;
+                    }
+
+                    $controlCode .= "// " . $template->title . " -> " . $section->title . "\n            ";
+                    $controlCode .= "'" . $section->alias . "' => array(\n                ";
+
+                    foreach ($sectionData['sectionControls'] as $sectionControlData) {
+                        $sectionControl = new SectionControl();
+                        $sectionControl->attributes = $sectionControlData;
+                        $controlCode .= $sectionControl->getCodeForConfig($section->alias);
+
+                        if (!empty($sectionControl->style)) {
+                            $styleCode .= $sectionControl->getStylesForConfig($section->alias);
+                        }
+
+                        if (!empty($sectionControl->pseudojs)) {
+                            $pseudoJsCode .= $sectionControl->getPseudoJsForConfig($section->alias);
+                        }
+                    }
+
+                    $controlCode .= "\n            ),\n            ";
                 }
             }
 
+            if (!empty($config)) {
+                $configCode = $config->code;
+                $search = ['{%panels%}', '{%sections%}', '{%controls%}', '{%styles%}', '{%pseudojs%}'];
+                $replace = [$panelCode, $sectionCode, $controlCode, $styleCode, $pseudoJsCode];
+                $configCode = str_replace($search, $replace, $configCode);
+                $zip->addFromString($config->directory . '/' . $config->filename, $configCode);
+            }
+
             if (!empty($css)) {
-                $zip->addFromString($css->directory . '/' . $css->filename, $css->code);
+                $zip->addFromString($css->directory . '/' . $css->filename, $css->code . $cssCode);
             }
         }
-
 
         // Close and send to user
         $zip->close();

@@ -100,4 +100,59 @@ class SectionControl extends ActiveRecord
     {
         return $this->hasOne(Control::className(), ['id' => 'control_id']);
     }
+
+    /**
+     * @param string $sectionAlias
+     * @return string
+     */
+    public function getCodeForConfig($sectionAlias)
+    {
+        $control = $this->control;
+
+        $code = "
+                'tg-" . $sectionAlias . "-" . $this->alias . "' => array(
+                    'type' => '" . $control->type . "',
+                    'default' => '" . $this->default . "',
+                    'label' => __('" . $this->label . "', 'tg'),\n";
+
+        if (!empty($this->description)) {
+            $code .= "                    'description' => __('" . $this->description . "', 'tg'),\n";
+        }
+
+        if (!empty($this->help)) {
+            $code .= "                    'help' => __('" . $this->help . "', 'tg'),\n";
+        }
+
+        if (!empty($this->params)) {
+            $code .= "                    " . $this->params . "\n";
+        }
+
+        $code .= "                ),\n";
+
+        return $code;
+    }
+
+    /**
+     * @param string $sectionAlias
+     * @return string
+     */
+    public function getStylesForConfig($sectionAlias)
+    {
+        return "'tg-" . $sectionAlias . "-" . $this->alias . "' => array(
+                " . $this->style . "
+             ),
+             ";
+    }
+
+    /**
+     * @param string $sectionAlias
+     * @return string
+     */
+    public function getPseudoJsForConfig($sectionAlias)
+    {
+        return "'tg-" . $sectionAlias . "-" . $this->alias . "' => array(
+                " . $this->pseudojs . "
+            ),
+            ";
+    }
 }

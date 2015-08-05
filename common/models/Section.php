@@ -128,4 +128,21 @@ class Section extends Library
             }
         }
     }
+
+    /**
+     * @param string $panel
+     * @param string $priority
+     *
+     * @return string
+     */
+    public function getCodeForConfig($panel, $priority)
+    {
+        return "'" . $this->alias . "' => array(
+                'title' => __('" . $this->title . "', 'tg'),
+                'description' => __('" . $this->description . "', 'tg'),
+                'panel' => '" . $panel . "',
+                'priority' => " . $priority . "
+            ),
+            ";
+    }
 }

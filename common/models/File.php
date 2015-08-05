@@ -15,6 +15,9 @@ use yii\db\ActiveQuery;
  */
 class File extends Library
 {
+    const CONFIG_FILENAME = 'config.php';
+    const THEME_STYLES_FILENAME = 'theme.css';
+
     /**
      * @inheritdoc
      */
@@ -86,5 +89,19 @@ class FileQuery extends ActiveQuery
         return $this
             ->where(['=', 'filename', Screenshot::SCREENSHOT_FILENAME])
             ->andWhere('directory IS NULL');
+    }
+
+    public function config()
+    {
+        return $this
+            ->where(['=', 'filename', File::CONFIG_FILENAME])
+            ->andWhere('directory IS NOT NULL');
+    }
+
+    public function styles()
+    {
+        return $this
+            ->where(['=', 'filename', File::THEME_STYLES_FILENAME])
+            ->andWhere('directory IS NOT NULL');
     }
 }

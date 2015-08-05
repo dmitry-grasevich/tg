@@ -111,6 +111,8 @@ class TemplateController extends BaseController
     {
         /** @var string $id   template id */
         $id = intval(Yii::$app->request->get('id'));
+
+        /** @var \common\models\Template $template */
         $template = Template::findOne($id);
         if (!$template) {
             throw new BadRequestHttpException('Template not found');
@@ -128,7 +130,7 @@ class TemplateController extends BaseController
             return ['success' => true];
         }
 
-        return Template::getCustomizerControls($id);
+        return $template->getCustomizerControls();
     }
 
     /**
