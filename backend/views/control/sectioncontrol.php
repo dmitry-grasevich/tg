@@ -42,6 +42,11 @@ echo $form->field($model, 'style')->textarea([
     'placeholder' => Yii::t('tg', 'Control style [output, js_vars]'),
 ]);
 
+echo $form->field($model, 'params')->textarea([
+    'class' => 'form-control',
+    'rows' => 5,
+    'placeholder' => Yii::t('tg', 'Additional control params'),
+]);
 
 echo $form->field($model, 'pseudojs')->textarea([
     'class' => 'form-control',
