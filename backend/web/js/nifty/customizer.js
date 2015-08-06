@@ -464,6 +464,7 @@ var TgCustomizer = library(function ($) {
                 if (res.success) {
                     TgAlert.success('Customizer', 'All settings was successfully saved');
                     clearCustomizerUnsaved();
+                    needForceSave = false;
                     $(window).trigger('customizerChanged');
                 } else if (res.error) {
                     if (res.error.section) {
