@@ -127,7 +127,7 @@ class TemplateController extends BaseController
             if ($result !== true) {
                 return ['error' => $result];
             }
-            return ['success' => true];
+            return ['success' => $template->getCustomizerControls()];
         }
 
         return $template->getCustomizerControls();

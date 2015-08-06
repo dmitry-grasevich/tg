@@ -1140,12 +1140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "3634cae55d5cac2f314ea372a81846f1b7b7c687"
+                "reference": "8683ea004c6c7dfabb732f1b50cf9db8831992fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/3634cae55d5cac2f314ea372a81846f1b7b7c687",
-                "reference": "3634cae55d5cac2f314ea372a81846f1b7b7c687",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/8683ea004c6c7dfabb732f1b50cf9db8831992fd",
+                "reference": "8683ea004c6c7dfabb732f1b50cf9db8831992fd",
                 "shasum": ""
             },
             "type": "library",
@@ -1180,7 +1180,7 @@
                 "progress",
                 "upload"
             ],
-            "time": "2015-08-03 09:33:36"
+            "time": "2015-08-05 19:44:19"
         },
         {
             "name": "kartik-v/bootstrap-popover-x",
@@ -1232,12 +1232,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "bd9c52db6ac71cb270620c1aee601d142ab2cc00"
+                "reference": "1016d46b3e41565d76a582f98c6f843c46d200fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/bd9c52db6ac71cb270620c1aee601d142ab2cc00",
-                "reference": "bd9c52db6ac71cb270620c1aee601d142ab2cc00",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/1016d46b3e41565d76a582f98c6f843c46d200fc",
+                "reference": "1016d46b3e41565d76a582f98c6f843c46d200fc",
                 "shasum": ""
             },
             "type": "library",
@@ -1265,7 +1265,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2015-06-18 14:42:46"
+            "time": "2015-08-05 17:30:11"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -3039,12 +3039,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "d9ca44e2eb6b6d35b6517a474d9bfde2900835a6"
+                "reference": "cf882497cb749e4ef65dadcde9aec6ad6cfddce0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d9ca44e2eb6b6d35b6517a474d9bfde2900835a6",
-                "reference": "d9ca44e2eb6b6d35b6517a474d9bfde2900835a6",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/cf882497cb749e4ef65dadcde9aec6ad6cfddce0",
+                "reference": "cf882497cb749e4ef65dadcde9aec6ad6cfddce0",
                 "shasum": ""
             },
             "require": {
@@ -3119,7 +3119,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-08-04 14:08:38"
+            "time": "2015-08-05 22:04:24"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

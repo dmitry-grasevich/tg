@@ -359,11 +359,25 @@ var TgCustomizer = library(function ($) {
             });
         },
 
+        loadCustomizer = function (data) {
+            storage.load(data).render($('#customizer-controls'));
+
+            initSectionsDraggable('.sections-sortable');
+            initControlsDraggable('.controls-sortable');
+            initSectionsSortable($('.sections-sortable'));
+            initControlsSortable($('.controls-sortable'));
+            initDroppable($('#droppable'));
+            initEditable();
+
+            clearSelected();
+
+            $(window).trigger('customizerChanged');
+        },
+
         /**
-         * Load saved sections and controls and render they in $el
-         * @param $el
+         * Load saved sections and controls
          */
-        loadControls = function ($el) {
+        loadControls = function () {
             if (jqxhr && jqxhr.readyState != 4) { // check if request is executing now
                 jqxhr.abort();
             }
@@ -374,19 +388,7 @@ var TgCustomizer = library(function ($) {
 
             jqxhr = $
                 .get('/template/customizer', params, function (res) {
-                    storage.load(res).render($el);
-
-                    initSectionsDraggable('.sections-sortable');
-                    initControlsDraggable('.controls-sortable');
-                    initSectionsSortable($('.sections-sortable'));
-                    initControlsSortable($('.controls-sortable'));
-                    initDroppable($('#droppable'));
-                    initEditable();
-
-                    clearSelected();
-
-                    customizerChanged();
-
+                    loadCustomizer(res);
                 }, 'json')
                 .fail(function (res) {
                     showError(res);
@@ -462,10 +464,9 @@ var TgCustomizer = library(function ($) {
 
             $.post('/template/customizer?id=' + templateId, {data: JSON.stringify(customizerData)}, function (res) {
                 if (res.success) {
-                    TgAlert.success('Customizer', 'All settings was successfully saved');
-                    clearCustomizerUnsaved();
                     needForceSave = false;
-                    $(window).trigger('customizerChanged');
+                    TgAlert.success('Customizer', 'All settings was successfully saved');
+                    loadCustomizer(res.success);
                 } else if (res.error) {
                     if (res.error.section) {
                         _.each(res.error.section, function (data, id) {
@@ -517,7 +518,7 @@ var TgCustomizer = library(function ($) {
             $('#load-customizer-btn')
                 .niftyOverlay()
                 .on('click', function () {
-                    loadControls($('#customizer-controls'));
+                    loadControls();
                 })
                 .trigger('click');
 
