@@ -250,15 +250,29 @@ var TgCustomizer = library(function ($) {
                 tolerance: 'touch',
                 greedy: true,
                 drop: function (ev, ui) {
-                    dropBlock(ui.draggable);
+                    dropControl(ui.draggable);
                 }
             });
         },
 
-        dropBlock = function ($el) {
-            $el.remove();
-            needForceSave = true;
-            $(window).trigger('customizerChanged');
+        dropControl = function ($el) {
+            var settings = $.parseJSON($el.find('img').attr('data-settings')),
+                type = $el.find('img').attr('data-type');
+            if (settings.id) {
+                $.post('/control/remove', {id: settings.id, type: type}, function () {
+                    $el.remove();
+                    $(window).trigger('customizerChanged');
+                    TgAlert.success('Success', 'Control was successfully removed');
+                })
+                .fail(function (res) {
+                    showError(res);
+                });
+            } else {
+                $el.remove();
+                needForceSave = true;
+                $(window).trigger('customizerChanged');
+                TgAlert.success('Success', 'Control was successfully removed');
+            }
         },
 
         initEditable = function () {

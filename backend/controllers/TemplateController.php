@@ -5,7 +5,6 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
-use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use common\models\Category;
@@ -136,7 +135,7 @@ class TemplateController extends BaseController
     /**
      * Remove block and it's customizer settings
      *
-     * @throws NotFoundHttpException
+     * @throws BadRequestHttpException
      */
     public function actionRemove()
     {
