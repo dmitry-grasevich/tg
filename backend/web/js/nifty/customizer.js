@@ -110,9 +110,10 @@ var TgCustomizerObj = library(function ($) {
             });
         },
         prepareSection: function (data, isSaved, isWrap) {
-            var sectionTemplate = Handlebars.compile($('#section-template').html());
+            var sectionTemplate = Handlebars.compile($('#section-template').html()),
+                uid = data.control_id ? data.control_id : _.uniqueId('section_');
             var $section = $(sectionTemplate({
-                uid: _.uniqueId('section_'),
+                uid: uid,
                 isUnsaved: !isSaved,
                 isWrap: isWrap,
                 settings: JSON.stringify(data)
@@ -122,9 +123,10 @@ var TgCustomizerObj = library(function ($) {
             return $section;
         },
         prepareControl: function (data, isSaved, isWrap) {
-            var controlTemplate = Handlebars.compile($('#control-template').html());
+            var controlTemplate = Handlebars.compile($('#control-template').html()),
+                uid = data.control_id ? data.control_id : _.uniqueId('control_');
             var $control = $(controlTemplate({
-                uid: _.uniqueId('control_'),
+                uid: uid,
                 isUnsaved: !isSaved,
                 isWrap: isWrap,
                 label: data.label,
@@ -210,13 +212,12 @@ var TgCustomizer = library(function ($) {
                         controls = ui.helper.find('.control-wrapper');
 
                     settings = _.isUndefined(settings) || settings == '' ? {} : $.parseJSON(settings);
+                    settings.control_id = controlId;
+                    settings.img = imgSrc;
+                    settings.label = controlName ? controlName : settings.label;
 
                     var $sortable = type == 'section' ? TgCustomizerObj.prepareSection(settings) :
-                        TgCustomizerObj.prepareControl({
-                            img: imgSrc,
-                            control_id: controlId,
-                            label: controlName
-                        });
+                        TgCustomizerObj.prepareControl(settings);
 
                     if (type == 'section' && controls.length) {
                         _.each(controls, function ($control) {
