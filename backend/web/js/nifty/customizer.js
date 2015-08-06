@@ -363,6 +363,7 @@ var TgCustomizer = library(function ($) {
 
         updateSettings = function ($el, settings) {
             $el.attr('data-settings', JSON.stringify(settings));
+            $el.parent().find('div.control-label').text(settings.label);
             $el.parent().addClass('unsaved');
             $(window).trigger('customizerChanged');
         },
