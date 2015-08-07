@@ -26,8 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'filename',
                 'format' => 'raw',
                 'value' => function ($model) {
+                    /** @var \common\models\Image $model */
                     return !empty($model->filename) ?
-                        Html::img('@web' . Yii::$app->params['template']['alias']['images'] . '/' . $model->filename, ['style' => 'max-width: 400px;']) : false;
+                        Html::img($model->getUrl(), ['style' => 'max-width: 400px;']) : false;
                 }
             ],
             [
@@ -35,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'update' =>
                         function ($url, $model) {
+                            /** @var \common\models\Image $model */
                             return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['image/view', 'id' => $model->id, 'edit' => 't']), [
                                 'title' => Yii::t('yii', 'Edit'),
                             ]);

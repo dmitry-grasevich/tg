@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
@@ -59,10 +60,25 @@ class Image extends Library
         return $this->hasMany(TemplateImage::className(), ['image_id' => 'id']);
     }
 
+    public static function listAll()
+    {
+        return ArrayHelper::map(Image::find()->all(), 'id', 'name');
+    }
+
+    public static function getPath()
+    {
+        return Yii::getAlias('@webroot/images/template');
+    }
+
+    public function getUrl()
+    {
+        return Yii::getAlias('@web/images/template') . '/' . $this->filename;
+    }
+
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $dir = Yii::getAlias('@webroot' . Yii::$app->params['template']['alias']['images']);
+            $dir = Image::getPath();
             FileHelper::createDirectory($dir);
             $img = UploadedFile::getInstance($this, 'filename');
             if (!empty($img)) {

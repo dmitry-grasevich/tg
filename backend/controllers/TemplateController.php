@@ -88,7 +88,7 @@ class TemplateController extends BaseController
         }
 
         /** @var \common\models\Template $template */
-        $template = $this->findModel($id);
+        $template = Template::find()->where(['id' => $id])->with('images')->one();
 
         if (Yii::$app->request->isPost) {
 //            if ($template->load(Yii::$app->request->post()) && $template->save()) {

@@ -116,7 +116,7 @@ class Section extends Library
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
-
+/*
         $relatedRecords = $this->getRelatedRecords();
         foreach ($relatedRecords as $model => $data) {
             if (!is_array($data)) continue;
@@ -127,6 +127,7 @@ class Section extends Library
                 }
             }
         }
+*/
     }
 
     /**

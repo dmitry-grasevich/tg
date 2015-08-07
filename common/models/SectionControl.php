@@ -112,7 +112,7 @@ class SectionControl extends ActiveRecord
         $code = "
                 'tg-" . $sectionAlias . "-" . $this->alias . "' => array(
                     'type' => '" . $control->type . "',
-                    'default' => '" . $this->default . "',
+                    'default' => " . $this->default . ",
                     'label' => __('" . $this->label . "', 'tg'),\n";
 
         if (!empty($this->description)) {

@@ -105,6 +105,16 @@ $categoryModel = new CategoryForm();
                                     </span>
                                 </a>
                             </li>
+
+                            <!-- Images -->
+                            <li<?= $this->context->id == 'image' ? ' class="active-link"' : '' ?>>
+                                <a href="<?= Url::to(['/image']) ?>">
+                                    <i class="fa fa-image"></i>
+                                    <span class="menu-title">
+                                        <strong><?= Yii::t('tg', 'Images') ?></strong>
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
 
                     </div>

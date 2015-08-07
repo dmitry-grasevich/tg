@@ -65,7 +65,7 @@ class Template extends Library
             [['alias'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             // relations
-            [['parents', 'children', 'css', 'js', 'images', 'fonts', 'functions', 'plugins', 'elements', 'sections'], 'safe'],
+            [['images'], 'safe'],
         ];
     }
 

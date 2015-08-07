@@ -2,13 +2,12 @@
 
 use yii\helpers\Html;
 use kartik\detail\DetailView;
+use common\models\Image;
 
 /**
  * @var yii\web\View $this
  * @var common\models\Image $model
  */
-
-$imagesAlias = '@web' . Yii::$app->params['template']['alias']['images'];
 ?>
 
 <?=
@@ -30,15 +29,13 @@ DetailView::widget([
             'type' => DetailView::INPUT_WIDGET,
             'attribute' => 'filename',
             'format' => 'raw',
-            'value' => $model->filename ? Html::img(Yii::getAlias($imagesAlias) . '/' . $model->filename, ['class' => 'file-preview-image']) : false,
+            'value' => $model->filename ? Html::img($model->getUrl(), ['class' => 'file-preview-image']) : false,
             'widgetOptions' => [
                 'class' => DetailView::INPUT_FILEINPUT,
                 'options' => ['accept' => 'image/*'],
                 'pluginOptions' => [
                     'showUpload' => false,
-                    'initialPreview' => $model->filename ? [
-                            Html::img(Yii::getAlias($imagesAlias) . '/' . $model->filename, ['class' => 'file-preview-image']),
-                        ] : false,
+                    'initialPreview' => $model->filename ? [Html::img($model->getUrl(), ['class' => 'file-preview-image'])] : false,
                 ],
             ],
         ],
