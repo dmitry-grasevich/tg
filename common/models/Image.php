@@ -67,7 +67,7 @@ class Image extends Library
 
     public static function getPath()
     {
-        return Yii::getAlias('@webroot/images/template');
+        return Yii::getAlias('@backend/web/images/template');
     }
 
     public function getUrl()

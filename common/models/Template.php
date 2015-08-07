@@ -453,6 +453,7 @@ class Template extends Library
             ->where('template.id = :id', [':id' => $this->id])
             ->joinWith('sections.sectionControls.control')
             ->with('sections')
+            ->with('images')
             ->asArray()
             ->one();
 

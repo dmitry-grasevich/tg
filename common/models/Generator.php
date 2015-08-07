@@ -10,6 +10,7 @@ use yii\helpers\VarDumper;
 class Generator
 {
     const DIR_PARTIALS = 'partials';
+    const DIR_IMAGES = 'images';
 
     /**
      * @param $q - query
@@ -48,7 +49,10 @@ class Generator
         $screenshot = Screenshot::find()->screenshot()->one();
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
 
-        /** 3. Add blocks HTML into partials and prepare customizer config */
+        /** 3. Add directory for the attached images */
+        $zip->addEmptyDir(self::DIR_IMAGES);
+
+        /** 4. Add blocks HTML into partials and prepare customizer config */
         $templates = Template::findAll($blocks);
         if (count($templates)) {
             $zip->addEmptyDir(self::DIR_PARTIALS);
@@ -67,6 +71,14 @@ class Generator
             foreach ($templates as $template) {
                 /** @var Template $template */
                 $templateData = $template->getCustomizerControls();
+                if (isset($templateData['images']) && count($templateData['images'])) {
+                    foreach ($templateData['images'] as  $id => $img) {
+                        $image = new Image();
+                        $image->attributes = $img;
+                        $path = empty($image->directory) ? $image->filename : $image->directory . '/' . $image->filename;
+                        $zip->addFile(Image::getPath() . '/' . $path, self::DIR_IMAGES . '/' . $path);
+                    }
+                }
 
                 $panelCode .= $template->getCodeForConfig($panelPriority);
                 $panelPriority += $priorityStep;
@@ -105,14 +117,15 @@ class Generator
                     foreach ($sectionData['sectionControls'] as $sectionControlData) {
                         $sectionControl = new SectionControl();
                         $sectionControl->attributes = $sectionControlData;
-                        $controlCode .= $sectionControl->getCodeForConfig($section->alias);
+                        $alias = $template->alias . '-' . $section->alias;
+                        $controlCode .= $sectionControl->getCodeForConfig($alias);
 
                         if (!empty($sectionControl->style)) {
-                            $styleCode .= $sectionControl->getStylesForConfig($section->alias);
+                            $styleCode .= $sectionControl->getStylesForConfig($alias);
                         }
 
                         if (!empty($sectionControl->pseudojs)) {
-                            $pseudoJsCode .= $sectionControl->getPseudoJsForConfig($section->alias);
+                            $pseudoJsCode .= $sectionControl->getPseudoJsForConfig($alias);
                         }
                     }
 
