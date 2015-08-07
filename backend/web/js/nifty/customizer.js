@@ -111,7 +111,7 @@ var TgCustomizerObj = library(function ($) {
         },
         prepareSection: function (data, isSaved, isWrap) {
             var sectionTemplate = Handlebars.compile($('#section-template').html()),
-                uid = data.control_id ? data.control_id : _.uniqueId('section_');
+                uid = data.ctrl_id ? data.ctrl_id : _.uniqueId('section__');
             var $section = $(sectionTemplate({
                 uid: uid,
                 isUnsaved: !isSaved,
@@ -124,7 +124,7 @@ var TgCustomizerObj = library(function ($) {
         },
         prepareControl: function (data, isSaved, isWrap) {
             var controlTemplate = Handlebars.compile($('#control-template').html()),
-                uid = data.control_id ? data.control_id : _.uniqueId('control_');
+                uid = data.ctrl_id ? data.ctrl_id : _.uniqueId('control__');
             var $control = $(controlTemplate({
                 uid: uid,
                 isUnsaved: !isSaved,

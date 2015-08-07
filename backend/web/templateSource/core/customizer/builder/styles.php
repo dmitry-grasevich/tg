@@ -10,7 +10,13 @@ if (!function_exists('generate_custom_styles')) :
         // Grab the customizer config
         $config = TG_Customizer_Config::get_instance();
 
-        $styles = $sorted = $fonts = array();
+        $styles = $sorted = $fonts = $default = array();
+        foreach ($config->controls as $section_key => $controls_data) {
+            foreach ($controls_data as $control_key => $control_data) {
+                $default[$control_key] = isset($control_data['default']) ? $control_data['default'] : '';
+            }
+        }
+
         foreach ($config->styles as $control_key => $style_data) {
             if (!array_key_exists('output', $style_data)) {
                 continue;
@@ -22,6 +28,9 @@ if (!function_exists('generate_custom_styles')) :
                 }
 
                 $value = get_theme_mod($control_key);
+                if (empty($value)) {
+                    $value = isset($default[$control_key]) ? $default[$control_key] : '';
+                }
 
                 $sorted[$output['element']][$output['property']] = $value;
 
