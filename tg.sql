@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 29, 2015 at 05:59 PM
+-- Generation Time: Aug 10, 2015 at 09:26 PM
 -- Server version: 5.6.25-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.2
 
@@ -45,7 +45,35 @@ INSERT INTO `category` (`id`, `name`, `is_basic`, `is_visible`, `alias`) VALUES
 (3, 'Functions', 1, 0, 'function'),
 (4, 'Footers', 0, 1, 'footer'),
 (5, 'Fonts', 1, 0, 'font'),
-(6, 'Contact', 0, 1, 'contact');
+(6, 'Contact', 0, 0, 'contact');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `common_file`
+--
+
+DROP TABLE IF EXISTS `common_file`;
+CREATE TABLE IF NOT EXISTS `common_file` (
+`id` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `directory` varchar(255) DEFAULT NULL,
+  `code` text
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `common_file`
+--
+
+INSERT INTO `common_file` (`id`, `filename`, `directory`, `code`) VALUES
+(1, 'index.php', NULL, '<?php get_header(); ?>\r\n\r\n    <?php\r\n        $order = get_theme_mod(''tg-sections-order-sorter'');\r\n        $sections = maybe_unserialize($order);\r\n        foreach ($sections as $section) {\r\n            get_template_part(''partials/section'', $section);\r\n        }\r\n    ?>\r\n\r\n    <?php if (have_posts()) : while(have_posts()) : the_post(); ?>\r\n        <?php get_template_part(''content'', get_post_format()); ?>\r\n     <?php endwhile; else : ?>\r\n        <article id="post-<?php the_ID(); ?>" <?php post_class(''no-posts''); ?>>\r\n            <h1><?php _e(''No posts were found.'', ''tg''); ?></h1>\r\n        </article>\r\n    <?php endif; ?>\r\n\r\n<?php get_footer(); ?>'),
+(2, 'header.php', NULL, '<!DOCTYPE html>\n<!--[if IE 8]> <html <?php language_attributes(); ?> class="ie8"> <![endif]-->\n<!--[if !IE]><!--> <html <?php language_attributes(); ?>> <!--<![endif]-->\n<head>\n    <meta charset="<?php bloginfo("charset"); ?>">\n    <title><?php wp_title("|", true, "right"); ?><?php bloginfo("name"); ?></title>\n    <meta name="description" content="<?php bloginfo("description"); ?>">\n    <meta name="author" content="Template Generator Team">\n\n    <!-- Mobile Specific Meta -->\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\n\n    <!-- Pingbacks -->\n    <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />\n\n    <!--[if lt IE 9]>\n        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\n    <![endif]-->\n\n<?php wp_head(); ?>\n</head>\n<body <?php body_class(); ?>>\n'),
+(3, 'footer.php', NULL, '    <?php wp_footer(); ?>\n    </body>\n</html>\n'),
+(4, 'functions.php', NULL, '<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) {\r\n    die(''Direct access forbidden.'');\r\n}\r\n\r\n/**\r\n *      Define Constants\r\n **/\r\ndefine(''TG_VERSION'', ''1.0.0'');\r\ndefine(''TG_TEMPLATE_URI'', get_template_directory_uri());\r\ndefine(''TG_TEMPLATE_DIR'', get_template_directory());\r\ndefine(''TG_THEME_TITLE'', ''Template Generator'');\r\ndefine(''TG_THEME_SLUG'', ''tg'');\r\ndefine(''TG_IMAGES'', TG_TEMPLATE_URI . ''/img'');\r\ndefine(''TG_SCRIPTS'', TG_TEMPLATE_URI . ''/js'');\r\ndefine(''TG_STYLES'', TG_TEMPLATE_URI . ''/css'');\r\ndefine(''TG_CUSTOMIZER_URI'', TG_TEMPLATE_URI . ''/core/customizer'');\r\ndefine(''TG_CUSTOMIZER_DIR'', TG_TEMPLATE_DIR . ''/core/customizer'');\r\n\r\n/**\r\n * Load Customizer Support\r\n *\r\n * @since 1.0.0\r\n **/\r\nrequire_once TG_TEMPLATE_DIR . ''/core/customizer/init.php'';\r\n\r\n/**\r\n * TGM Plugin Activation\r\n *\r\n * @since 1.0.0\r\n */\r\n{\r\n    require_once dirname(__FILE__) . ''/TGM-Plugin-Activation/class-tgm-plugin-activation.php'';\r\n\r\n    /** @internal */\r\n    function tg_theme_register_required_plugins()\r\n    {\r\n        tgmpa(array(\r\n            array(\r\n                ''name'' => ''Kirki Toolkit'',\r\n                ''slug'' => ''kirki'',\r\n                ''required'' => true,\r\n                ''force_activation'' => true,\r\n            ),\r\n        ));\r\n    }\r\n\r\n    add_action(''tgmpa_register'', ''tg_theme_register_required_plugins'');\r\n}\r\n\r\n/**\r\n * Init theme\r\n *\r\n * @since 1.0.0\r\n **/\r\nif (!function_exists(''tg_setup'')) {\r\n\r\n    function tg_setup()\r\n    {\r\n        /**\r\n         * Add support for HTML5\r\n         */\r\n        add_theme_support(''html5'');\r\n\r\n        /**\r\n         * Add support for Title Tags\r\n         */\r\n        add_theme_support(''title-tag'');\r\n\r\n        /**\r\n         * Add support for widgets inside the customizer\r\n         */\r\n        add_theme_support(''widget-customizer'');\r\n\r\n        /**\r\n         * Add support for featured images\r\n         */\r\n        add_theme_support(''post-thumbnails'');\r\n\r\n        /**\r\n         * Add theme support\r\n         */\r\n\r\n        // Automatic Feed Links\r\n        add_theme_support(''automatic-feed-links'');\r\n\r\n        /**\r\n         * Register nav menus\r\n         */\r\n        register_nav_menus(array(\r\n            TG_THEME_SLUG . ''-primary'' => __(''Header Menu'', ''layerswp''),\r\n            TG_THEME_SLUG . ''-footer'' => __(''Footer Menu'', ''layerswp''),\r\n        ));\r\n\r\n    } // function tg_setup\r\n} // if !function tg_setup\r\nadd_action(''after_setup_theme'', ''tg_setup'', 10);\r\n\r\n/**\r\n * Enqueue styles.\r\n *\r\n * @since 1.0.0\r\n */\r\nfunction tg_styles() {\r\n    // Load our main stylesheet.\r\n    wp_enqueue_style(''tg-style'', get_stylesheet_uri());\r\n}\r\nadd_action(''wp_enqueue_scripts'', ''tg_styles'');'),
+(5, 'style.css', NULL, '@charset "UTF-8";\n/*\nTheme Name: {{name}} by Template Generator\nTheme URI: http://www.templates-generator.com\nAuthor: Template Generator Team\nAuthor URI:\nDescription: Theme for Wordpress.\nVersion: 1.0.0\nLicense: GNU General Public License v2 or later\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\n*/\n\n@import url(''css/bootstrap.min.css'');\n@import url(''css/theme.css'');\n'),
+(6, 'screenshot.png', NULL, 'screenshot.png'),
+(9, 'theme.css', 'css', '@charset "UTF-8";\r\n\r\n@font-face {\r\n    font-family: ''fontello'';\r\n    src: url("../fonts/fontello.eot?80707783");\r\n    src: url("../fonts/fontello.eot?80707783#iefix") format("embedded-opentype"), url("../fonts/fontello.woff?80707783") format("woff"), url("../fonts/fontello.ttf?80707783") format("truetype"), url("../fonts/fontello.svg?80707783#fontello") format("svg");\r\n    font-weight: normal;\r\n    font-style: normal;\r\n}\r\n\r\n/**************************************************************************/\r\n/* TYPOGRAPHY */\r\n/**************************************************************************/\r\n/* line 5, ../scss/typography.scss */\r\nbody {\r\n    font-family: "Lato", Helvetica, Arial, sans-serif;\r\n    color: #333333;\r\n    font-size: 16px;\r\n}\r\n\r\n/* line 11, ../scss/typography.scss */\r\np {\r\n    font-size: 1em;\r\n    line-height: 1.5em;\r\n    margin: 1.5em 0 0 0;\r\n}\r\n\r\n/* line 17, ../scss/typography.scss */\r\nh1 {\r\n    font-size: 4.5000em;\r\n    /* 72px */\r\n    line-height: 1.0000em;\r\n    /* 72px */\r\n    margin-top: 0.3333em;\r\n    margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 24, ../scss/typography.scss */\r\nh2 {\r\n    font-size: 3.7500em;\r\n    /* 60px */\r\n    line-height: 1.2000em;\r\n    /* 72px */\r\n    margin-top: 0.4000em;\r\n    margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 31, ../scss/typography.scss */\r\nh3 {\r\n    font-size: 3.0000em;\r\n    /* 48px */\r\n    line-height: 1.0000em;\r\n    /* 48px */\r\n    margin-top: 0.5000em;\r\n    margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 38, ../scss/typography.scss */\r\nh4 {\r\n    font-size: 2.2500em;\r\n    /* 36px */\r\n    line-height: 1.3333em;\r\n    /* 48px */\r\n    margin-top: 0.6667em;\r\n    margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 45, ../scss/typography.scss */\r\nh5 {\r\n    font-size: 1.8750em;\r\n    /* 30px */\r\n    line-height: 1.6000em;\r\n    /* 48px */\r\n    margin-top: 0.8000em;\r\n    margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 52, ../scss/typography.scss */\r\nh6 {\r\n    font-size: 1.5em;\r\n    /* 24px */\r\n    line-height: 1em;\r\n    /* 24px */\r\n    margin-top: 1em;\r\n    margin-bottom: 0;\r\n}\r\n\r\n/* line 59, ../scss/typography.scss */\r\n.class-for-18px {\r\n    font-size: 1.1250em;\r\n    /* 18px */\r\n    line-height: 1.3333em;\r\n    /* 24px */\r\n    margin-top: 1.3333em;\r\n    margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 65, ../scss/typography.scss */\r\n.class-for-16px {\r\n    font-size: 1.0000em;\r\n    /* 16px */\r\n    line-height: 1.5000em;\r\n    /* 24px */\r\n    margin-top: 1.5000em;\r\n    margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 71, ../scss/typography.scss */\r\n.class-for-14px {\r\n    font-size: 0.8750em;\r\n    /* 14px */\r\n    line-height: 1.7143em;\r\n    /* 24px */\r\n    margin-top: 1.7143em;\r\n    margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 79, ../scss/typography.scss */\r\n.uppercase {\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.05em;\r\n}\r\n\r\n/**************************************************************************/\r\n/* General */\r\n/**************************************************************************/\r\n/* line 5, ../scss/general.scss */\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n}\r\n\r\n/* line 9, ../scss/general.scss */\r\n.amp {\r\n    font-family: "Pacifico", Georgia, serif;\r\n    font-style: italic;\r\n    font-weight: 400;\r\n}\r\n\r\n/* line 15, ../scss/general.scss */\r\nimg {\r\n    max-width: 100%;\r\n}\r\n\r\n/* helpers for text-align */\r\n/* line 20, ../scss/general.scss */\r\n.text-right {\r\n    text-align: right;\r\n}\r\n\r\n/* line 24, ../scss/general.scss */\r\n.text-center {\r\n    text-align: center;\r\n}\r\n\r\n/* vertical-align for elements */\r\n/* line 29, ../scss/general.scss */\r\n.vertical {\r\n    position: absolute;\r\n    top: 50%;\r\n    -webkit-transform: translateY(-50%);\r\n    -ms-transform: translateY(-50%);\r\n    transform: translateY(-50%);\r\n}\r\n\r\n/* buttons */\r\n/* line 35, ../scss/general.scss */\r\n.btn {\r\n    -webkit-transition: all 300ms ease;\r\n    -moz-transition: all 300ms ease;\r\n    -ms-transition: all 300ms ease;\r\n    -o-transition: all 300ms ease;\r\n    transition: all 300ms ease;\r\n}\r\n\r\n/* line 38, ../scss/general.scss */\r\n.btn-cta {\r\n    background: transparent;\r\n    border: 2px solid #FFF;\r\n    color: #FFF;\r\n    font-family: "Lato", Helvetica, Arial, sans-serif;\r\n    font-size: 24px;\r\n    padding: 0.5em 2em;\r\n    border-radius: 0;\r\n    text-transform: uppercase;\r\n}\r\n\r\n/* line 48, ../scss/general.scss */\r\n.btn-cta:hover {\r\n    color: #fff;\r\n}\r\n\r\n/* line 52, ../scss/general.scss */\r\n.btn-red {\r\n    background: #b8312f;\r\n    color: #fff;\r\n    font-family: "Lato", Helvetica, Arial, sans-serif;\r\n    font-size: 24px;\r\n    padding: 0.5em 2em;\r\n    border-radius: 0;\r\n    text-transform: uppercase;\r\n}\r\n\r\n/* line 61, ../scss/general.scss */\r\n.btn-red:hover {\r\n    color: #fff;\r\n    background: #cb3735;\r\n}\r\n\r\n/**************************************************************************/\r\n/* PAGE LAYOUT */\r\n/**************************************************************************/\r\n/* line 4, ../scss/layout.scss */\r\n.screen {\r\n    min-height: 100%;\r\n}\r\n\r\n/**************************************************************************/\r\n/* HEADER */\r\n/**************************************************************************/\r\n/* line 13, ../scss/layout.scss */\r\nheader a {\r\n    color: white;\r\n}\r\n\r\n/* line 16, ../scss/layout.scss */\r\nheader a:hover {\r\n    color: #e6e6e6;\r\n}\r\n\r\n/* line 22, ../scss/layout.scss */\r\nheader a:hover, header a:active, header a:focus {\r\n    text-decoration: none;\r\n}\r\n\r\n/* line 28, ../scss/layout.scss */\r\n.hdr-v1 {\r\n    position: absolute;\r\n    width: 100%;\r\n    left: 0;\r\n    top: 0;\r\n    padding-top: 40px;\r\n}\r\n\r\n/* line 35, ../scss/layout.scss */\r\n.hdr-v1 .logo {\r\n    font: italic 300 36px/44px "Pacifico", Georgia, serif;\r\n}\r\n\r\n/* line 38, ../scss/layout.scss */\r\n.hdr-v1 .prim-nav {\r\n    text-align: right;\r\n}\r\n\r\n/**\r\n * ----------------------------------------------------------------------------------------\r\n * Form styles.\r\n * ----------------------------------------------------------------------------------------\r\n */\r\nform button,\r\nform input,\r\nform select,\r\nform textarea {\r\n    max-width: 100%;\r\n}\r\n\r\nform input[type="submit"],\r\nform input[type="button"] {\r\n    -webkit-font-smoothing: antialiased;\r\n}\r\n'),
+(11, 'config.php', 'core/customizer/builder', '<?php\r\nif (!defined(''ABSPATH''))  {\r\n    die(''Direct access forbidden.'');\r\n}\r\n\r\nif (!class_exists(''TG_Customizer_Config'')) {\r\n    return;\r\n}\r\n\r\n/**\r\n * Customizer Configuration File\r\n *\r\n * This file is used to define the different panels, sections and controls for Template\r\n *\r\n * @package TG\r\n * @since TG 1.0.0\r\n */\r\nclass TG_Customizer_Config\r\n{\r\n    /**\r\n     * @var\r\n     */\r\n    public $panels;\r\n\r\n    /**\r\n     * @var\r\n     */\r\n    public $default_sections;\r\n\r\n    /**\r\n     * @var\r\n     */\r\n    public $sections;\r\n\r\n    /**\r\n     * @var\r\n     */\r\n    public $controls;\r\n\r\n    /**\r\n     * @var\r\n     */\r\n    public $default_controls;\r\n\r\n    /**\r\n     * @var\r\n     */\r\n    public $styles;\r\n\r\n    /**\r\n     * @var\r\n     */\r\n    public $pseudo_js;\r\n\r\n    /**\r\n     * @var\r\n     */\r\n    private static $instance; // stores singleton class\r\n\r\n    /**\r\n     *  Get Instance creates a singleton class that''s cached to stop duplicate instances\r\n     */\r\n    public static function get_instance()\r\n    {\r\n        if (!self::$instance) {\r\n            self::$instance = new self();\r\n            self::$instance->init();\r\n        }\r\n        return self::$instance;\r\n    }\r\n\r\n    /**\r\n     *  Construct empty on purpose\r\n     */\r\n    private function __construct() {}\r\n\r\n    /**\r\n     *  Init behaves like, and replaces, construct\r\n     */\r\n    public function init()\r\n    {\r\n        // Init and store panels\r\n        $this->panels = $this->panels();\r\n\r\n        // Init and store default_sections\r\n        $this->default_sections = $this->default_sections();\r\n\r\n        // Init and store sections\r\n        $this->sections = $this->sections();\r\n\r\n        // Init and store controls\r\n        $this->controls = $this->controls();\r\n\r\n        // Init and store default controls\r\n        $this->default_controls = $this->default_controls();\r\n\r\n        // Init and store styles\r\n        $this->styles = $this->styles();\r\n\r\n        // Init and store pseudo js\r\n        $this->pseudo_js = $this->pseudo_js();\r\n    }\r\n\r\n    /**\r\n     * TG Customizer Panels\r\n     *\r\n     * @return   array            Panels to be registered in the customizer\r\n     */\r\n    private function panels()\r\n    {\r\n        $panels = array(\r\n            ''site-settings'' => array(\r\n                ''title'' => __(''General Settings'', ''tg''),\r\n                ''description'' => __(''Control your site\\''s logo, navigation and fonts.'', ''tg''),\r\n                ''priority'' => 10\r\n            ),\r\n            {%panels%}\r\n        );\r\n\r\n        return apply_filters(''tg_customizer_panels'', $panels);\r\n    }\r\n\r\n    /**\r\n     * TG Customizer Sections\r\n     *\r\n     * @return   array            Sections to be registered in the customizer\r\n     */\r\n    private function default_sections()\r\n    {\r\n        $default_sections = array(\r\n            ''title_tagline'' => array(\r\n                ''title'' => __(''Logo &amp; Title'', ''tg''),\r\n                ''panel'' => ''site-settings''\r\n            ),\r\n            ''colors'' => array(\r\n                ''title'' => __(''Colors'', ''tg''),\r\n                ''panel'' => ''site-settings'',\r\n                ''priority'' => 55,\r\n            ),\r\n            ''nav'' => array( // This is used before any menus are registered. Then replaced by WP Navigation\r\n                ''title'' => __(''Navigation'', ''tg''),\r\n                ''description'' => __(''First create a menu then come back here to place it.'', ''tg''),\r\n                ''priority'' => 50,\r\n                ''panel'' => ''site-settings''\r\n            ),\r\n        );\r\n\r\n        return apply_filters(''tg_customizer_default_sections'', $default_sections);\r\n    }\r\n\r\n    /**\r\n     * TG Customizer Sections\r\n     *\r\n     * @return array Sections to be registered in the customizer\r\n     */\r\n    private function sections()\r\n    {\r\n        $sections = array(\r\n            // Site Settings\r\n            ''site-colors'' => array(\r\n                ''title'' => __(''Colors'', ''tg''),\r\n                ''panel'' => ''site-settings'',\r\n            ),\r\n            ''fonts'' => array(\r\n                ''title'' => __(''Fonts'', ''tg''),\r\n                ''panel'' => ''site-settings''\r\n            ),\r\n            ''sections-order'' => array(\r\n                ''title'' => __(''Sections Order'', ''tg''),\r\n                ''panel'' => ''site-settings''\r\n            ),\r\n            {%sections%}\r\n        );\r\n\r\n        return apply_filters(''tg_customizer_sections'', $sections);\r\n    }\r\n\r\n    /**\r\n     * TG Customizer controls\r\n     *\r\n     * @return array Controls to be registered in the customizer\r\n     */\r\n    private function controls()\r\n    {\r\n        $controls = array(\r\n            // Site Settings -> Fonts\r\n            ''fonts'' => array(\r\n                ''tg-body-fonts'' => array(\r\n                    ''type'' => ''tg-font'',\r\n                    ''label'' => __(''Body'', ''tg''),\r\n                    ''default'' => ''Lato'',\r\n                ),\r\n                ''tg-fonts-break-1'' => array(\r\n                    ''type'' => ''tg-separator''\r\n                ),\r\n                ''tg-logo-font'' => array(\r\n                    ''type'' => ''tg-font'',\r\n                    ''label'' => __(''Logo'', ''tg''),\r\n                    ''default'' => ''Lobster'',\r\n                ),\r\n                ''tg-fonts-break-2'' => array(\r\n                    ''type'' => ''tg-separator''\r\n                ),\r\n                ''tg-heading-fonts'' => array(\r\n                    ''type'' => ''tg-font'',\r\n                    ''label'' => __(''Headings'', ''tg''),\r\n                    ''default'' => ''Lato'',\r\n                ),\r\n                ''tg-fonts-break-3'' => array(\r\n                    ''type'' => ''tg-separator''\r\n                ),\r\n                ''tg-buttons-fonts'' => array(\r\n                    ''type'' => ''tg-font'',\r\n                    ''label'' => __(''Buttons'', ''tg''),\r\n                    ''default'' => ''Lato'',\r\n                ),\r\n            ),\r\n\r\n            // Site Settings -> Sections Order\r\n            ''sections-order'' => array(\r\n                ''tg-sections-order-sorter'' => array(\r\n                    ''type'' => ''tg-sortable'',\r\n                    ''label'' => __(''Sections'', ''tg''),\r\n                    ''help'' => __(''Click the "eye" to toggle the section from being displayed.'', ''tg''),\r\n                    ''default'' => array(\r\n\r\n                        {%sorter_default%}\r\n                    ),\r\n                    ''choices'' => array(\r\n\r\n                        {%sorter_choices%}\r\n                    ),\r\n                ),\r\n            ),\r\n\r\n            {%controls%}\r\n\r\n        );\r\n\r\n        $controls = apply_filters(''tg_customizer_controls'', $controls);\r\n\r\n        $controls = $this->apply_defaults($controls);\r\n\r\n        return $controls;\r\n    }\r\n\r\n    /**\r\n     * TG Customizer default controls\r\n     *\r\n     * @return array Default Controls to be registered in the customizer after moving of default sections\r\n     */\r\n    private function default_controls()\r\n    {\r\n        // Site Settings -> Logo & Title\r\n        $default_controls = array(\r\n            ''title_tagline'' => array(\r\n                ''tg-site-logo-text-color'' => array(\r\n                    ''type'' => ''tg-color'',\r\n                    ''label'' => __(''Title Text Color'', ''tg''),\r\n                    ''default'' => ''#ffffff'',\r\n                ),\r\n                ''tg-site-logo-image'' => array(\r\n                    ''type'' => ''image'',\r\n                    ''label'' => __(''Logo'', ''tg''),\r\n                ),\r\n            ),\r\n        );\r\n\r\n        // Site Settings -> Navigation\r\n        if (!wp_get_nav_menus()) {\r\n            $default_controls[''nav''] = array(\r\n                ''tg-general-nav'' => array(\r\n                    ''type'' => ''tg-button'',\r\n                    ''text'' => __(''Create Menu'', ''tg''),\r\n                    ''href'' => admin_url(''nav-menus.php''),\r\n                ),\r\n            ); // header-layout\r\n        }\r\n\r\n        $default_controls = apply_filters(''tg_customizer_default_controls'', $default_controls);\r\n\r\n        $default_controls = $this->apply_defaults($default_controls);\r\n\r\n        return $default_controls;\r\n    }\r\n\r\n    /**\r\n     * TG Customizer styles\r\n     *\r\n     * @return array\r\n     */\r\n    private function styles()\r\n    {\r\n        $styles = array(\r\n            ''tg-site-logo-text-color'' => array(\r\n                ''output'' => array(\r\n                    array(\r\n                        ''element'' => ''.hdr-v1 h1.logo a'',\r\n                        ''property'' => ''color'',\r\n                    ),\r\n                ),\r\n                ''js_vars'' => array(\r\n                    array(\r\n                        ''element'' => ''.hdr-v1 h1.logo a'',\r\n                        ''function'' => ''css'',\r\n                        ''property'' => ''color'',\r\n                    ),\r\n                )\r\n            ),\r\n            ''tg-body-fonts'' => array(\r\n                ''output'' => array(\r\n                    array(\r\n                        ''element'' => ''body'',\r\n                        ''property'' => ''font-family'',\r\n                    ),\r\n                ),\r\n            ),\r\n            ''tg-logo-font'' => array(\r\n                ''output'' => array(\r\n                    array(\r\n                        ''element'' => ''.hdr-v1 h1.logo'',\r\n                        ''property'' => ''font-family'',\r\n                    ),\r\n                ),\r\n            ),\r\n            ''tg-heading-fonts'' => array(\r\n                ''output'' => array(\r\n                    array(\r\n                        ''element'' => ''h1,h2,h3,h4,h5,h6, .heading'',\r\n                        ''property'' => ''font-family'',\r\n                    ),\r\n                ),\r\n            ),\r\n            ''tg-buttons-fonts'' => array(\r\n                ''output'' => array(\r\n                    array(\r\n                        ''element'' => ''button, .button, input[type=submit]'',\r\n                        ''property'' => ''font-family'',\r\n                    ),\r\n                ),\r\n            ),\r\n\r\n            {%styles%}\r\n        );\r\n\r\n        return $styles;\r\n    }\r\n\r\n    /**\r\n     * TG Customizer pseudo js\r\n     *\r\n     * @return array\r\n     */\r\n    private function pseudo_js()\r\n    {\r\n        $pseudo_js = array(\r\n           {%pseudojs%}\r\n        );\r\n\r\n        return $pseudo_js;\r\n    }\r\n\r\n    /**\r\n     * @param $controls\r\n     * @return mixed\r\n     */\r\n    private function apply_defaults($controls)\r\n    {\r\n        $defaults = apply_filters(''tg_customizer_control_defaults'', array());\r\n\r\n        if (empty($defaults)) return $controls;\r\n\r\n        foreach ($controls as $section_key => $control) {\r\n            foreach ($control as $control_key => $control_data) {\r\n                if (isset($defaults[$control_key])) {\r\n                    $controls[$section_key][$control_key][''default''] = $defaults[$control_key];\r\n                }\r\n            }\r\n        }\r\n\r\n        return $controls;\r\n    }\r\n}\r\n');
 
 -- --------------------------------------------------------
 
@@ -63,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `control` (
   `params` text,
   `img` varchar(255) DEFAULT NULL,
   `css` text
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `control`
@@ -81,7 +109,8 @@ INSERT INTO `control` (`id`, `name`, `family`, `type`, `class`, `params`, `img`,
 (13, 'Image', 'kirki', 'tg-image', 'image', '', 'image.png', ''),
 (14, 'Radio Buttonset', 'kirki', 'tg-radio-buttonset', 'radio-buttonset', '', 'radio-buttonset.png', ''),
 (15, 'Sortable', 'kirki', 'tg-sortable', 'sortable', '''help'' => __(''Click the "eye" to toggle the section from being displayed.'', ''tg''),', 'sortable.png', ''),
-(16, 'Button', 'tg', 'tg-button', 'TG_Button_Control', '', 'button.png', '');
+(16, 'Button', 'tg', 'tg-button', 'TG_Button_Control', '', 'button.png', ''),
+(17, 'Toggle', 'tg', 'tg-toggle', 'TG_Toggle_Control', '', 'toggle.png', '');
 
 -- --------------------------------------------------------
 
@@ -203,8 +232,8 @@ INSERT INTO `functions` (`id`, `name`, `code`, `parent_id`) VALUES
 (2, 'Main Menu', '/***********************************************************************************************/\r\n/* Add Menus */\r\n/***********************************************************************************************/\r\nfunction register_tg_menus() {\r\n    register_nav_menus(array(\r\n        ''main-menu'' => ''Main Menu'',\r\n    ));\r\n}\r\n\r\nadd_action(''init'', ''register_tg_menus'');\r\n\r\n', 6),
 (3, 'Section1 : header background image', '/***********************************************************************************************/\r\n/* Header Customization */\r\n/***********************************************************************************************/\r\n$args = array(\r\n	''default-image'' => get_template_directory_uri() . ''/images/bg-home-v1.jpg'',\r\n	''uploads''       => true,\r\n);\r\nadd_theme_support( ''custom-header'', $args );\r\n\r\n\r\n', 6),
 (4, 'Google Font: Lato', '/**\r\n * Enqueue Google fonts style to admin screen for custom header display.\r\n */\r\nfunction tg_admin_fonts() {\r\n	wp_enqueue_style( ''tg-lato'', tg_font_url(), array(), null );\r\n}\r\nadd_action( ''admin_print_scripts-appearance_page_custom-header'', ''tg_admin_fonts'' );', NULL),
-(5, 'Section1 : header settings', '/***********************************************************************************************/\r\n/* Adds the header settings and controls to the theme customizer */\r\n/***********************************************************************************************/\r\nadd_action(''customize_register'', ''tg_header_customizer'');\r\n\r\nfunction tg_header_customizer($wp_customize) {\r\n    $wp_customize->add_section(''tg_header'', array(\r\n        ''title'' => __(''Header Settings'', ''template-generator''),\r\n        ''description'' => __(''This is a header settings section.'', ''template-generator''),\r\n        ''priority'' => 35,\r\n    ));\r\n\r\n    $wp_customize->add_setting(''description_textbox'', array(\r\n        ''default'' => ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'',\r\n    ));\r\n\r\n    $wp_customize->add_control(''description_textbox'', array(\r\n        ''label'' => __(''Description text'', ''template-generator''),\r\n        ''section'' => ''tg_header'',\r\n        ''type'' => ''text'',\r\n    ));\r\n}', 6),
-(6, 'Contact #1 functions', 'function tg_load_google_maps() {\r\n	if (!class_exists(''Pronamic_Google_Maps_Maps'')) {\r\n		include_once(THEMEPATH . ''plugins/pronamic-google-maps/pronamic-google-maps.php'');\r\n	}\r\n}\r\nadd_action(''after_setup_theme'', ''tg_load_google_maps'');\r\n', 6);
+(5, 'Section1 : header settings', '/***********************************************************************************************//* Adds the header settings and controls to the theme customizer *//***********************************************************************************************/add_action(''customize_register'', ''tg_header_customizer'');function tg_header_customizer($wp_customize) {    $wp_customize->add_section(''tg_header'', array(        ''title'' => __(''Header Settings'', ''template-generator''),        ''description'' => __(''This is a header settings section.'', ''template-generator''),        ''priority'' => 35,    ));    $wp_customize->add_setting(''description_textbox'', array(        ''default'' => ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'',    ));    $wp_customize->add_control(''description_textbox'', array(        ''label'' => __(''Description text'', ''template-generator''),        ''section'' => ''tg_header'',        ''type'' => ''text'',    ));}', 6),
+(6, 'Contact #1 functions', 'function tg_load_google_maps() {	if (!class_exists(''Pronamic_Google_Maps_Maps'')) {		include_once(THEMEPATH . ''plugins/pronamic-google-maps/pronamic-google-maps.php'');	}}add_action(''after_setup_theme'', ''tg_load_google_maps'');', 6);
 
 -- --------------------------------------------------------
 
@@ -218,17 +247,15 @@ CREATE TABLE IF NOT EXISTS `image` (
   `name` varchar(255) NOT NULL,
   `filename` varchar(255) DEFAULT NULL,
   `directory` varchar(255) DEFAULT ''
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `image`
 --
 
 INSERT INTO `image` (`id`, `name`, `filename`, `directory`) VALUES
-(1, 'Logo 1', 'logo.png', ''),
-(2, 'Color Stripe', 'color-stripe.jpg', ''),
-(3, 'Pattern 1', 'pattern.jpg', ''),
-(4, 'Header BW background', 'bg-home-v1.jpg', '');
+(4, 'Header BW background', 'bg-home-v1.jpg', ''),
+(5, 'Wall map', '07.08.15 - 1.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -303,7 +330,17 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m141116_193841_element_fields_add', 1416166822),
 ('m141120_203146_section_control_default_add', 1416515567),
 ('m150727_150559_control_new_attributes', 1438010836),
-('m150727_165133_remove_old_control_attributes', 1438016142);
+('m150727_165133_remove_old_control_attributes', 1438016142),
+('m150731_070250_template_new_attributes', 1438330132),
+('m150731_081031_template_add_unique_to_alias', 1438330447),
+('m150801_125217_section_control_new_fields_add', 1438434932),
+('m150801_130255_section_new_fields_add', 1438435242),
+('m150801_163402_template_updated_at', 1438448754),
+('m150801_174811_section_priority_add', 1438452100),
+('m150804_110544_common_files_code', 1438686886),
+('m150804_120339_common_files_screenshot', 1438689901),
+('m150804_150957_template_style_add', 1438701248),
+('m150804_175950_common_file_name_remove', 1438711368);
 
 -- --------------------------------------------------------
 
@@ -337,16 +374,7 @@ CREATE TABLE IF NOT EXISTS `related_template` (
 `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `child_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `related_template`
---
-
-INSERT INTO `related_template` (`id`, `parent_id`, `child_id`) VALUES
-(113, 2, 17),
-(114, 3, 16),
-(115, 2, 19);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -357,16 +385,21 @@ INSERT INTO `related_template` (`id`, `parent_id`, `child_id`) VALUES
 DROP TABLE IF EXISTS `section`;
 CREATE TABLE IF NOT EXISTS `section` (
 `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `code` text
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `template_id` int(11) NOT NULL,
+  `alias` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text,
+  `priority` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `section`
 --
 
-INSERT INTO `section` (`id`, `name`, `code`) VALUES
-(1, 'Text', '    $sections[] = array(\r\n        ''id'' => ''{{section_id}}'',\r\n        ''title'' => __(''{{title}}'', ''template-generator''),\r\n        ''description'' => __(''{{description}}'', ''template-generator''),\r\n        ''priority'' => ''{{priority}}'',\r\n        ''panel'' => ''{{panel_id}}'',\r\n    );\r\n');
+INSERT INTO `section` (`id`, `template_id`, `alias`, `title`, `description`, `priority`) VALUES
+(12, 17, 'text', 'Text', NULL, 10),
+(13, 17, 'buttons', 'Buttons', NULL, 20),
+(14, 17, 'background', 'Background', NULL, 30);
 
 -- --------------------------------------------------------
 
@@ -380,8 +413,39 @@ CREATE TABLE IF NOT EXISTS `section_control` (
   `section_id` int(11) NOT NULL,
   `control_id` int(11) NOT NULL,
   `priority` int(11) DEFAULT NULL,
-  `default` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `alias` varchar(255) NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `help` varchar(255) DEFAULT NULL,
+  `description` text,
+  `default` text,
+  `style` text,
+  `params` text,
+  `pseudojs` text
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `section_control`
+--
+
+INSERT INTO `section_control` (`id`, `section_id`, `control_id`, `priority`, `alias`, `label`, `help`, `description`, `default`, `style`, `params`, `pseudojs`) VALUES
+(43, 12, 4, 10, 'title', 'Title Color', NULL, NULL, '''Flat landing page for apps &amp; portfolio''', '''js_vars'' => array(\n                    array(\n                        ''element'' => ''.home-v1 h2.page-intro'',\n                        ''function'' => ''html'',\n                    ),\n                )', '''transport'' => ''postMessage'',\n                    ''sanitize_callback'' => ''tg_sanitize_text_kses'',', NULL),
+(44, 12, 7, 20, 'title-color', 'Title Color', NULL, NULL, '''#ffffff''', '''output'' => array(\n                    array(\n                        ''element'' => ''.home-v1 h2.page-intro'',\n                        ''property'' => ''color'',\n                    ),\n                ),\n                ''js_vars'' => array(\n                    array(\n                        ''element'' => ''.home-v1 h2.page-intro'',\n                        ''function'' => ''css'',\n                        ''property'' => ''color'',\n                    ),\n                )', NULL, NULL),
+(45, 12, 10, 30, 'title-font', 'Title Font', NULL, 'Please choose a font for the title.', '''Lato''', '''output'' => array(\n                    array(\n                        ''element'' => ''.home-v1 h2.page-intro'',\n                        ''property'' => ''font-family'',\n                    ),\n                ),', NULL, NULL),
+(46, 12, 9, 40, 'title-size', 'Title Font Size', NULL, 'Please choose a font-size for the title.', '3.75', '''output'' => array(\n                    array(\n                        ''element'' => ''.home-v1 h2.page-intro'',\n                        ''property'' => ''font-size'',\n                        ''units'' => ''em'',\n                    ),\n                ),\n                ''js_vars'' => array(\n                    array(\n                        ''element'' => ''.home-v1 h2.page-intro'',\n                        ''function'' => ''css'',\n                        ''property'' => ''font-size'',\n                    ),\n                )', '''choices'' => array(\n                        ''min'' => 2,\n                        ''max'' => 6,\n                        ''step'' => .05\n                    ),', NULL),
+(47, 12, 11, 50, 'title-separator', 'Separator', NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 12, 8, 60, 'description', 'Description', NULL, NULL, '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.''', '''js_vars'' => array(\n                    array(\n                        ''element'' => ''.intro .page-description'',\n                        ''function'' => ''html'',\n                    ),\n                )', NULL, NULL),
+(49, 12, 7, 70, 'description-color', 'Description Color', NULL, NULL, '''#ffffff''', '''output'' => array(\n                    array(\n                        ''element'' => ''.intro .page-description'',\n                        ''property'' => ''color'',\n                    ),\n                ),\n                ''js_vars'' => array(\n                    array(\n                        ''element'' => ''.intro .page-description'',\n                        ''function'' => ''css'',\n                        ''property'' => ''color'',\n                    ),\n                )', NULL, NULL),
+(50, 12, 10, 80, 'description-font', 'Description Font', NULL, 'Please choose a font for description.', '''Lato''', '''output'' => array(\n                    array(\n                        ''element'' => ''.intro .page-description'',\n                        ''property'' => ''font-family'',\n                    ),\n                ),', NULL, NULL),
+(51, 12, 9, 90, 'description-size', 'Description Font Size', NULL, 'Please choose a font-size for description.', '1.3', '''output'' => array(\n                    array(\n                        ''element'' => ''.intro .page-description'',\n                        ''property'' => ''font-size'',\n                        ''units'' => ''em'',\n                    ),\n                ),\n                ''js_vars'' => array(\n                    array(\n                        ''element'' => ''.intro .page-description'',\n                        ''function'' => ''css'',\n                        ''property'' => ''font-size'',\n                    ),\n                )', '''choices'' => array(\n                        ''min'' => 0.5,\n                        ''max'' => 3,\n                        ''step'' => .05\n                    ),', NULL),
+(52, 12, 11, 100, 'description-separator', 'Separator', NULL, NULL, NULL, NULL, NULL, NULL),
+(53, 12, 9, 110, 'text-width', 'Width', NULL, 'Change width of the text block.', '8', NULL, '''choices'' => array(\n                        ''min'' => 4,\n                        ''max'' => 12,\n                        ''step'' => 1,\n                    ),', NULL),
+(54, 13, 17, 10, 'button-visibility', 'Display button', NULL, NULL, '''1''', NULL, NULL, NULL),
+(55, 13, 4, 20, 'button-title', 'Button Title', NULL, NULL, '''Get started''', '''js_vars'' => array(\n                    array(\n                        ''element'' => ''#hdr-btn-1'',\n                        ''function'' => ''html'',\n                    )\n                )', '''transport'' => ''postMessage'',', NULL),
+(56, 13, 4, 30, 'button-url', 'Button URL', NULL, NULL, '''#''', NULL, NULL, NULL),
+(57, 13, 12, 40, 'button-style', 'Select Button Style', NULL, NULL, '''btn-ghost''', NULL, '''choices'' => array(\n                        ''btn-ghost'' => ''Ghost (light)'',\n                        ''btn-ghost-inverse'' => ''Ghost (dark)'',\n                        ''btn-primary'' => ''Primary'',\n                        ''btn-info'' => ''Info'',\n                        ''btn-danger'' => ''Danger'',\n                        ''btn-warning'' => ''Warning'',\n                        ''btn-success'' => ''Success'',\n                        ''btn-default'' => ''Default'',\n                        ''btn-link'' => ''Link'',\n                    ),', NULL),
+(58, 14, 13, 10, 'image', 'Background Image', NULL, NULL, 'TG_TEMPLATE_URI . ''/images/bg-home-v1.jpg''', '''output'' => array(\n                    array(\n                        ''element'' => ''section.home-v1'',\n                        ''property'' => ''background-image'',\n                    ),\n                ),\n                ''js_vars'' => array(\n                    array(\n                        ''element'' => ''section.home-v1'',\n                        ''function'' => ''css'',\n                        ''property'' => ''background-image'',\n                    ),\n                )', NULL, NULL),
+(59, 14, 14, 20, 'position', 'Background Image Position', NULL, NULL, '''scroll''', '''output'' => array(\n                    array(\n                        ''element'' => ''section.home-v1'',\n                        ''property'' => ''background-attachment'',\n                    ),\n                ),\n                ''js_vars'' => array(\n                    array(\n                        ''element'' => ''section.home-v1'',\n                        ''function'' => ''css'',\n                        ''property'' => ''background-attachment'',\n                    ),\n                )', '''choices'' => array(\n                        ''scroll'' => ''Scroll'',\n                        ''fixed'' => ''Fixed'',\n                    ),', NULL),
+(60, 14, 7, 30, 'cover-color', 'Image Cover Color', NULL, NULL, '''rgba(0,0,0,.3)''', '''output'' => array(\n                    array(\n                        ''element'' => ''section.home-v1:before'',\n                        ''property'' => ''background'',\n                    ),\n                ),\n                ''js_vars'' => array(\n                    array(\n                        ''element'' => ''section.home-v1:before'',\n                        ''function'' => ''css'',\n                        ''property'' => ''background'',\n                    ),\n                )', NULL, 'array(\n                    ''element'' => ''section.home-v1:before'',\n                    ''property'' => ''background'',\n                ),');
 
 -- --------------------------------------------------------
 
@@ -394,29 +458,24 @@ CREATE TABLE IF NOT EXISTS `template` (
 `id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `filename` varchar(255) NOT NULL,
-  `directory` varchar(255) DEFAULT '',
   `img` varchar(255) DEFAULT NULL,
   `code` text,
   `is_visible` tinyint(1) DEFAULT '0',
-  `identificator` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  `alias` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text,
+  `updated_at` int(11) DEFAULT NULL,
+  `style` text
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `template`
 --
 
-INSERT INTO `template` (`id`, `category_id`, `name`, `filename`, `directory`, `img`, `code`, `is_visible`, `identificator`) VALUES
-(1, 1, 'Common Index', 'index.php', '', '', '<?php get_header(); ?>\r\n    <?php if (have_posts()) : while(have_posts()) : the_post(); ?>\r\n        <?php get_template_part(''content'', get_post_format()); ?>\r\n     <?php endwhile; else : ?>\r\n        <article id="post-<?php the_ID(); ?>" <?php post_class(''no-posts''); ?>>\r\n            <h1><?php _e(''No posts were found.'', ''adaptive-framework''); ?></h1>\r\n        </article>\r\n    <?php endif; ?>\r\n<?php get_footer(); ?>', 1, NULL),
-(2, 1, 'Common Header', 'header.php', '', '', '<!DOCTYPE html>\r\n<!--[if IE 8]> <html <?php language_attributes(); ?> class="ie8"> <![endif]-->\r\n<!--[if !IE]><!--> <html <?php language_attributes(); ?>> <!--<![endif]-->\r\n<head>\r\n    <meta charset="<?php bloginfo("charset"); ?>">\r\n    <title><?php wp_title("|", true, "right"); ?><?php bloginfo("name"); ?></title>\r\n    <meta name="description" content="<?php bloginfo("description"); ?>">\r\n    <meta name="author" content="Template Generator Team">\r\n\r\n    <!-- Mobile Specific Meta -->\r\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\r\n\r\n    <!-- Stylesheets -->\r\n    <link rel="stylesheet" href="<?php bloginfo("stylesheet_url"); ?>" />\r\n   \r\n      <!-- google web fonts -->\r\n        <link href=''http://fonts.googleapis.com/css?family=Lato:400,300,300italic,700'' rel=''stylesheet'' type=''text/css''>\r\n        <link href=''http://fonts.googleapis.com/css?family=Pacifico'' rel=''stylesheet'' type=''text/css''>\r\n\r\n    <!-- Pingbacks -->\r\n    <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />\r\n\r\n    <!--[if lt IE 9]>\r\n        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\r\n    <![endif]-->\r\n\r\n<?php wp_head(); ?>\r\n</head>\r\n<body <?php body_class(); ?>>', 1, NULL),
-(3, 1, 'Common Footer', 'footer.php', '', '', '    <?php wp_footer(); ?>\r\n    </body>\r\n</html>', 1, NULL),
-(6, 1, 'Common Functions', 'functions.php', '', '', '<?php\r\n\r\nif (__FILE__ == $_SERVER[''SCRIPT_FILENAME'']) { die(); }\r\n\r\n/***********************************************************************************************/\r\n/** Define Constants **/\r\n/***********************************************************************************************/\r\ndefine(''THEMEROOT'', get_stylesheet_directory_uri());\r\ndefine(''IMAGES'', THEMEROOT . ''/images'');\r\ndefine(''THEMEPATH'', trailingslashit(TEMPLATEPATH));\r\n\r\n/***********************************************************************************************/\r\n/** Include Styles **/\r\n/***********************************************************************************************/\r\nadd_action(''wp_enqueue_scripts'', ''register_tg_styles'');\r\nfunction register_tg_styles()\r\n{\r\n    wp_enqueue_style(''bootstrap'', get_template_directory_uri() . ''/bootstrap/css/bootstrap.min.css'');\r\n    wp_enqueue_style(''theme-css'', get_stylesheet_uri(), ''bootstrap'');\r\n}\r\n\r\n/***********************************************************************************************/\r\n/** Customizer **/\r\n/***********************************************************************************************/\r\nfunction demo_styles() {\r\n    wp_enqueue_style(''demo-style'', get_stylesheet_uri());\r\n}\r\nadd_action(''wp_enqueue_scripts'', ''demo_styles'');\r\n\r\n// Helper library for the theme customizer.\r\nrequire get_template_directory() . ''/inc/customizer-library/customizer-library.php'';\r\n\r\n// Define options for the theme customizer.\r\nrequire get_template_directory() . ''/inc/customize.php'';\r\n\r\n// General Options\r\nadd_action("init", "tg_template_general_options");\r\nfunction tg_template_general_options()\r\n{\r\n    $options = array();\r\n    $sections = array();\r\n\r\n    $sections[] = array(\r\n        ''id'' => ''typography_section'',\r\n        ''title'' => __(''Typography'', ''template-generator''),\r\n        ''description'' => __('''', ''template-generator''),\r\n        ''priority'' => ''0'',\r\n    );\r\n\r\n    $options[''headers-font''] = array(\r\n        ''id'' => ''headers-font'',\r\n        ''label'' => __(''Headers Font'', ''template-generator''),\r\n        ''section'' => ''typography_section'',\r\n        ''type'' => ''select'',\r\n        ''choices'' => customizer_library_get_font_choices(),\r\n        ''priority'' => ''10'',\r\n        ''default'' => ''Pacifico'',\r\n    );\r\n    \r\n    $options[''general-font''] = array(\r\n        ''id'' => ''general-font'',\r\n        ''label'' => __(''General Font'', ''template-generator''),\r\n        ''section'' => ''typography_section'',\r\n        ''type'' => ''select'',\r\n        ''choices'' => customizer_library_get_font_choices(),\r\n        ''priority'' => ''20'',\r\n        ''default'' => ''Lato'',\r\n    );\r\n    \r\n    $customizer_library = Customizer_Library::Instance();\r\n    $opt = $customizer_library->get_options();\r\n    if (!empty($opt) && isset($opt[''sections''])) {\r\n        $options = array_merge($opt, $options);\r\n        $options[''sections''] = array_merge($opt[''sections''], $sections);\r\n    } else {\r\n        $options["sections"] = $sections;\r\n    }\r\n\r\n    $customizer_library->set_options($options);\r\n}\r\n\r\nadd_action("wp_enqueue_scripts", "tg_template_general_fonts");\r\nfunction tg_template_general_fonts()\r\n{\r\n    $fonts = array(\r\n        get_theme_mod("headers-font", customizer_library_get_default("headers-font")),\r\n        get_theme_mod("general-font", customizer_library_get_default("general-font")),\r\n    );\r\n\r\n    $font_uri = customizer_library_get_google_font_uri($fonts);\r\n\r\n    // Load Google Fonts\r\n    wp_enqueue_style("tg_template_general_fonts", $font_uri, array(), null, "screen");\r\n}\r\n\r\nadd_action("customizer_library_styles", "tg_template_general_styles");\r\nfunction tg_template_general_styles()\r\n{\r\n        $setting = ''headers-font'';\r\n        $mod = get_theme_mod($setting, customizer_library_get_default($setting));\r\n        $stack = customizer_library_get_font_stack($mod);\r\n\r\n        if ($mod != customizer_library_get_default($setting)) {\r\n            Customizer_Library_Styles()->add(array(\r\n                ''selectors'' => array(''.header-font''),\r\n                ''declarations'' => array(''font-family'' => $stack)\r\n            ));\r\n        }\r\n\r\n        $setting = ''general-font'';\r\n        $mod = get_theme_mod($setting, customizer_library_get_default($setting));\r\n        $stack = customizer_library_get_font_stack($mod);\r\n\r\n        if ($mod != customizer_library_get_default($setting)) {\r\n            Customizer_Library_Styles()->add(array(\r\n                ''selectors'' => array(''body''),\r\n                ''declarations'' => array(''font-family'' => $stack)\r\n            ));\r\n        }\r\n}\r\n\r\n', 1, NULL),
-(15, 1, 'Common Styles', 'style.css', '', '', '@charset "UTF-8";\r\n/*\r\nTheme Name: Template Generator\r\nTheme URI: http://www.templates-generator.com\r\nAuthor: Template Generator Team\r\nAuthor URI:\r\nDescription: Theme for Wordpress.\r\nVersion: 1.0.0\r\nLicense: GNU General Public License v2 or later\r\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\r\nTags: generator\r\n*/\r\n\r\n@font-face {\r\n  font-family: ''fontello'';\r\n  src: url("../fonts/fontello.eot?80707783");\r\n  src: url("../fonts/fontello.eot?80707783#iefix") format("embedded-opentype"), url("../fonts/fontello.woff?80707783") format("woff"), url("../fonts/fontello.ttf?80707783") format("truetype"), url("../fonts/fontello.svg?80707783#fontello") format("svg");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n/**************************************************************************/\r\n/* TYPOGRAPHY */\r\n/**************************************************************************/\r\n/* line 5, ../scss/typography.scss */\r\nbody {\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  color: #333333;\r\n  font-size: 16px;\r\n}\r\n\r\n/* line 11, ../scss/typography.scss */\r\np {\r\n  font-size: 1em;\r\n  line-height: 1.5em;\r\n  margin: 1.5em 0 0 0;\r\n}\r\n\r\n/* line 17, ../scss/typography.scss */\r\nh1 {\r\n  font-size: 4.5000em;\r\n  /* 72px */\r\n  line-height: 1.0000em;\r\n  /* 72px */\r\n  margin-top: 0.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 24, ../scss/typography.scss */\r\nh2 {\r\n  font-size: 3.7500em;\r\n  /* 60px */\r\n  line-height: 1.2000em;\r\n  /* 72px */\r\n  margin-top: 0.4000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 31, ../scss/typography.scss */\r\nh3 {\r\n  font-size: 3.0000em;\r\n  /* 48px */\r\n  line-height: 1.0000em;\r\n  /* 48px */\r\n  margin-top: 0.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 38, ../scss/typography.scss */\r\nh4 {\r\n  font-size: 2.2500em;\r\n  /* 36px */\r\n  line-height: 1.3333em;\r\n  /* 48px */\r\n  margin-top: 0.6667em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 45, ../scss/typography.scss */\r\nh5 {\r\n  font-size: 1.8750em;\r\n  /* 30px */\r\n  line-height: 1.6000em;\r\n  /* 48px */\r\n  margin-top: 0.8000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 52, ../scss/typography.scss */\r\nh6 {\r\n  font-size: 1.5em;\r\n  /* 24px */\r\n  line-height: 1em;\r\n  /* 24px */\r\n  margin-top: 1em;\r\n  margin-bottom: 0;\r\n}\r\n\r\n/* line 59, ../scss/typography.scss */\r\n.class-for-18px {\r\n  font-size: 1.1250em;\r\n  /* 18px */\r\n  line-height: 1.3333em;\r\n  /* 24px */\r\n  margin-top: 1.3333em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 65, ../scss/typography.scss */\r\n.class-for-16px {\r\n  font-size: 1.0000em;\r\n  /* 16px */\r\n  line-height: 1.5000em;\r\n  /* 24px */\r\n  margin-top: 1.5000em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 71, ../scss/typography.scss */\r\n.class-for-14px {\r\n  font-size: 0.8750em;\r\n  /* 14px */\r\n  line-height: 1.7143em;\r\n  /* 24px */\r\n  margin-top: 1.7143em;\r\n  margin-bottom: 0.0000em;\r\n}\r\n\r\n/* line 79, ../scss/typography.scss */\r\n.uppercase {\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.05em;\r\n}\r\n\r\n/**************************************************************************/\r\n/* General */\r\n/**************************************************************************/\r\n/* line 5, ../scss/general.scss */\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n}\r\n\r\n/* line 9, ../scss/general.scss */\r\n.amp {\r\n  font-family: "Pacifico", Georgia, serif;\r\n  font-style: italic;\r\n  font-weight: 400;\r\n}\r\n\r\n/* line 15, ../scss/general.scss */\r\nimg {\r\n  max-width: 100%;\r\n}\r\n\r\n/* helpers for text-align */\r\n/* line 20, ../scss/general.scss */\r\n.text-right {\r\n  text-align: right;\r\n}\r\n\r\n/* line 24, ../scss/general.scss */\r\n.text-center {\r\n  text-align: center;\r\n}\r\n\r\n/* vertical-align for elements */\r\n/* line 29, ../scss/general.scss */\r\n.vertical {\r\n  position: absolute;\r\n  top: 50%;\r\n  -webkit-transform: translateY(-50%);\r\n  -ms-transform: translateY(-50%);\r\n  transform: translateY(-50%);\r\n}\r\n\r\n/* buttons */\r\n/* line 35, ../scss/general.scss */\r\n.btn {\r\n  -webkit-transition: all 300ms ease;\r\n  -moz-transition: all 300ms ease;\r\n  -ms-transition: all 300ms ease;\r\n  -o-transition: all 300ms ease;\r\n  transition: all 300ms ease;\r\n}\r\n\r\n/* line 38, ../scss/general.scss */\r\n.btn-cta {\r\n  background: transparent;\r\n  border: 2px solid #FFF;\r\n  color: #FFF;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 48, ../scss/general.scss */\r\n.btn-cta:hover {\r\n  color: #fff;\r\n}\r\n\r\n/* line 52, ../scss/general.scss */\r\n.btn-red {\r\n  background: #b8312f;\r\n  color: #fff;\r\n  font-family: "Lato", Helvetica, Arial, sans-serif;\r\n  font-size: 24px;\r\n  padding: 0.5em 2em;\r\n  border-radius: 0;\r\n  text-transform: uppercase;\r\n}\r\n/* line 61, ../scss/general.scss */\r\n.btn-red:hover {\r\n  color: #fff;\r\n  background: #cb3735;\r\n}\r\n', 1, NULL),
-(16, 4, 'Footer 1', '', '', 'footer1.png', '	<!-- QUOTE AREA -->\r\n	<section>\r\n		<div class="quote-container section-content align-center">\r\n			<h3>Need a quote?</h3>\r\n			\r\n			<p>Please use the form inside the contact page. Make sure you include some personal information as well as your project description and available budget.</p>\r\n			<p><a href="<?php echo home_url(); ?>/contact">Get a free quote &rarr;</a></p>\r\n		</div> <!-- end quote-container -->\r\n	</section>\r\n	\r\n		\r\n	\r\n	<!-- FOOTER -->\r\n	<footer class="main-footer section-content align-center" id="contact-info">\r\n		<h3>Just wanna say hi?</h3>\r\n		\r\n		<p>You can call me, email me directly or connect with me through my social networks.</p>\r\n		<p>(+40) 744111222 <br> <a href="mailto:hello@adipurdila.com">hello@adipurdila.com</a></p>\r\n		\r\n		<ul class="social-icons inline">\r\n			<li><a href="#" class="icon-twitter"></a></li>\r\n			<li><a href="#" class="icon-facebook"></a></li>\r\n			<li><a href="#" class="icon-dribbble"></a></li>\r\n		</ul>\r\n		\r\n		<hr />\r\n		\r\n		<p>&copy; Copyright <?php echo date(''Y''); ?> <?php echo bloginfo(''name''); ?>. Portfolio theme by Adi Purdila.</p>\r\n	</footer>', 1, NULL),
-(17, 2, 'Header 1', '', '', 'header1.png', '<section class="screen home-v1" style="background-image: url(<?php header_image(); ?>)">\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo header-font">\r\n                        <a href="<?php echo home_url(); ?>" class="primary">\r\n                            <?php if (get_theme_mod(''logo'', false)): ?>\r\n                                <img src="<?php echo esc_url(get_theme_mod(''logo'')) ?>" alt="<?php bloginfo(''name''); ?>" />\r\n                            <?php else: ?>\r\n                                <?php bloginfo(''name''); ?>\r\n                            <?php endif; ?>\r\n                        </a>\r\n                    </h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-md-8 vertical">\r\n                <h2 class="page-intro border header-font">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                <p class="page-description secondary">\r\n                    <?php echo get_theme_mod(''description_textbox'', ''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'') ?>\r\n                </p>\r\n                <p>\r\n                    <a class="btn btn-lg btn-cta" href="#application">Get started</a>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>', 1, NULL),
-(18, 6, 'Contact #1', '', '', 'header4.png', '', 1, NULL),
-(19, 2, 'Header BW', '', '', 'Selection_001.png', '        <!-- section 1 -->\r\n        <section class="screen home-v1">\r\n\r\n            <header class="hdr-v1">\r\n                <div class="container">\r\n                    <div class="row">\r\n                        <div class="col-md-3">\r\n                            <h1 class="logo"><a href="#">frameOne</a></h1>\r\n                        </div>\r\n                        <div class="col-md-9">\r\n                            <nav class="prim-nav">\r\n                                <ul>\r\n                                    <li><a href="#about"><span data-hover="About">About</span></a></li>\r\n                                    <li><a href="#team"><span data-hover="Team">Team</span></a></li>\r\n                                    <li><a href="#contact"><span data-hover="Contact">Contact</span></a></li>\r\n                                    <li><a href="#application"><span data-hover="Application">Application</span></a></li>\r\n                                </ul>\r\n                            </nav>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </header>\r\n\r\n            <div class="container">\r\n                <div class="row">\r\n                    <div class="col-md-8 vertical">\r\n                        <h2 class="page-intro">Flat landing page<br />for apps <span class="amp">&amp;</span> portfolio</h2>\r\n                        <p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt mi ac facilisis cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n                        <p><a class="btn btn-lg btn-cta" href="#application">Get started</a></p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- end section 1 -->\r\n', 0, NULL),
-(20, 6, 'test', '', '', '', '', 1, NULL);
+INSERT INTO `template` (`id`, `category_id`, `name`, `img`, `code`, `is_visible`, `alias`, `title`, `description`, `updated_at`, `style`) VALUES
+(16, 4, 'Footer 1', 'footer1.png', '	<!-- QUOTE AREA -->\r\n	<section>\r\n		<div class="quote-container section-content align-center">\r\n			<h3>Need a quote?</h3>\r\n			\r\n			<p>Please use the form inside the contact page. Make sure you include some personal information as well as your project description and available budget.</p>\r\n			<p><a href="<?php echo home_url(); ?>/contact">Get a free quote &rarr;</a></p>\r\n		</div> <!-- end quote-container -->\r\n	</section>\r\n	\r\n		\r\n	\r\n	<!-- FOOTER -->\r\n	<footer class="main-footer section-content align-center" id="contact-info">\r\n		<h3>Just wanna say hi?</h3>\r\n		\r\n		<p>You can call me, email me directly or connect with me through my social networks.</p>\r\n		<p>(+40) 744111222 <br> <a href="mailto:hello@adipurdila.com">hello@adipurdila.com</a></p>\r\n		\r\n		<ul class="social-icons inline">\r\n			<li><a href="#" class="icon-twitter"></a></li>\r\n			<li><a href="#" class="icon-facebook"></a></li>\r\n			<li><a href="#" class="icon-dribbble"></a></li>\r\n		</ul>\r\n		\r\n		<hr />\r\n		\r\n		<p>&copy; Copyright <?php echo date(''Y''); ?> <?php echo bloginfo(''name''); ?>. Portfolio theme by Adi Purdila.</p>\r\n	</footer>', 1, 'footer-1', 'Footer', NULL, NULL, NULL),
+(17, 2, 'Header 1', 'header1.png', '<section class="screen home-v1" style="background-image: (<?php echo esc_url(get_theme_mod(''tg-header-1-background-image'')) ?>)">\r\n    <header class="hdr-v1">\r\n        <div class="container">\r\n            <div class="row">\r\n                <div class="col-md-3">\r\n                    <h1 class="logo header-font">\r\n                        <a href="<?php echo home_url(); ?>" class="primary">\r\n                            <?php if (get_theme_mod(''tg-site-logo-image'')): ?>\r\n                                <img src="<?php echo esc_url(get_theme_mod(''tg-site-logo-image'')) ?>" alt="<?php bloginfo(''name''); ?>" />\r\n                            <?php endif; ?>\r\n                            <?php if (''blank'' != get_theme_mod(''header_textcolor'')): ?>\r\n                                <?php bloginfo(''name''); ?>\r\n                            <?php endif; ?>\r\n                        </a>\r\n                    </h1>\r\n                </div>\r\n                <div class="col-md-9">\r\n                    <nav class="prim-nav">\r\n                        <?php\r\n                        wp_nav_menu(array(\r\n                            ''theme_location'' => ''main-menu'',\r\n                            ''container'' => '''',\r\n                            ''menu_class'' => ''inline'',\r\n                        ));\r\n                        ?>\r\n                    </nav>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <div class="container">\r\n        <div class="row">\r\n\r\n            <div class="vertical">\r\n\r\n                <div class="intro col-xs-12 col-sm-10 col-md-<?php echo get_theme_mod(''tg-header-1-text-text-width''); ?>" >\r\n                    <h2 class="page-intro border header-font">\r\n                        <?php echo get_theme_mod(''tg-header-1-text-title''); ?>\r\n                    </h2>\r\n\r\n                    <p class="page-description secondary">\r\n                        <?php echo get_theme_mod(''tg-header-1-text-description''); ?>\r\n                    </p>\r\n\r\n                    <p>\r\n                        <?php if (get_theme_mod(''tg-header-1-buttons-button-visibility'') == ''1''): ?>\r\n                            <a href="<?php echo get_theme_mod(''tg-header-1-buttons-button-url''); ?>"\r\n                               id="hdr-btn-1"\r\n                               class="btn btn-lg <?php echo get_theme_mod(''tg-header-1-buttons-button-style''); ?>">\r\n                                <?php echo get_theme_mod(''tg-header-1-buttons-button-title''); ?>\r\n                            </a>\r\n                        <?php endif; ?>\r\n                    </p>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</section>', 1, 'header-1', 'Header', '', 1438448768, '/**************************************************************************/\r\n/* HOME SCREEN */\r\n/**************************************************************************/\r\n/* line 133, ../scss/layout.scss */\r\n.home-v1 {\r\n  background: #333333 50% 50% no-repeat;\r\n  background-size: cover;\r\n  position: relative;\r\n  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);\r\n}\r\n.home-v1:before {\r\n    content: '''';\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n    display: block;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: rgba(0, 0, 0, 0.3);\r\n}\r\n/* line 139, ../scss/layout.scss */\r\n.home-v1 h2 {\r\n  color: white;\r\n  font-weight: 300;\r\n}\r\n/* line 143, ../scss/layout.scss */\r\n.home-v1 p {\r\n  color: white;\r\n  font-size: 20px;\r\n}\r\n\r\n/**\r\n * ----------------------------------------------------------------------------------------\r\n * Form styles.\r\n * ----------------------------------------------------------------------------------------\r\n */\r\nform button,\r\nform input,\r\nform select,\r\nform textarea {\r\n    max-width: 100%; }\r\nform input[type="submit"],\r\nform input[type="button"] {\r\n    -webkit-font-smoothing: antialiased; }\r\n\r\n/**\r\n * ----------------------------------------------------------------------------------------\r\n * Buttons classes.\r\n *\r\n * Change default bootstrap colors & styles.\r\n * ----------------------------------------------------------------------------------------\r\n */\r\n.btn, form input[type="submit"],\r\nform input[type="button"] {\r\n    border-radius: 0;\r\n}\r\n\r\n.btn-ghost {\r\n    border: 1px solid #fff;\r\n    color: #fff;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.15em;\r\n    position: relative;\r\n}\r\n\r\n.btn-ghost:before {\r\n    content: '''';\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: rgba(255, 255, 255, 0);\r\n    -moz-transition: all, 300ms, ease;\r\n    -o-transition: all, 300ms, ease;\r\n    -webkit-transition: all, 300ms, ease;\r\n    transition: all, 300ms, ease;\r\n}\r\n\r\n.btn-ghost:hover {\r\n    color: #fff;\r\n}\r\n\r\n.btn-ghost:hover:before {\r\n    background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.btn-ghost:active, .btn-ghost:focus {\r\n    color: #fff;\r\n}\r\n\r\n.btn-ghost-inverse {\r\n    border: 1px solid #222;\r\n    color: #222;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.15em;\r\n    position: relative;\r\n}\r\n\r\n.btn-ghost-inverse:before {\r\n    content: '''';\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: transparent;\r\n    -moz-transition: all, 300ms, ease;\r\n    -o-transition: all, 300ms, ease;\r\n    -webkit-transition: all, 300ms, ease;\r\n    transition: all, 300ms, ease;\r\n}\r\n\r\n.btn-ghost-inverse:hover {\r\n    color: #222;\r\n}\r\n\r\n.btn-ghost-inverse:hover:before {\r\n    background: rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n.btn-ghost-inverse:active, .btn-ghost-inverse:focus {\r\n    color: #222;\r\n}\r\n'),
+(18, 6, 'Contact #1', 'header4.png', '', 1, 'contact-1', 'Contacts', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -429,18 +488,16 @@ CREATE TABLE IF NOT EXISTS `template_css` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `css_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `template_css`
 --
 
 INSERT INTO `template_css` (`id`, `template_id`, `css_id`) VALUES
-(30, 2, 5),
-(84, 17, 1),
-(85, 17, 3),
-(86, 17, 8),
-(87, 19, 8);
+(118, 17, 1),
+(119, 17, 3),
+(120, 17, 8);
 
 -- --------------------------------------------------------
 
@@ -453,15 +510,15 @@ CREATE TABLE IF NOT EXISTS `template_element` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `element_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `template_element`
 --
 
 INSERT INTO `template_element` (`id`, `template_id`, `element_id`) VALUES
-(3, 17, 1),
-(4, 17, 2);
+(25, 17, 1),
+(26, 17, 2);
 
 -- --------------------------------------------------------
 
@@ -474,22 +531,17 @@ CREATE TABLE IF NOT EXISTS `template_font` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `font_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `template_font`
 --
 
 INSERT INTO `template_font` (`id`, `template_id`, `font_id`) VALUES
-(156, 17, 5),
-(157, 17, 6),
-(158, 17, 7),
-(159, 17, 8),
-(164, 15, 5),
-(165, 15, 6),
-(166, 15, 7),
-(167, 15, 8),
-(168, 19, 6);
+(209, 17, 5),
+(210, 17, 6),
+(211, 17, 7),
+(212, 17, 8);
 
 -- --------------------------------------------------------
 
@@ -502,16 +554,16 @@ CREATE TABLE IF NOT EXISTS `template_functions` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `functions_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `template_functions`
 --
 
 INSERT INTO `template_functions` (`id`, `template_id`, `functions_id`) VALUES
-(87, 18, 6),
-(107, 17, 2),
-(108, 17, 3);
+(120, 18, 6),
+(131, 17, 2),
+(132, 17, 3);
 
 -- --------------------------------------------------------
 
@@ -524,15 +576,14 @@ CREATE TABLE IF NOT EXISTS `template_image` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `image_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `template_image`
 --
 
 INSERT INTO `template_image` (`id`, `template_id`, `image_id`) VALUES
-(62, 17, 4),
-(63, 19, 4);
+(101, 17, 4);
 
 -- --------------------------------------------------------
 
@@ -545,14 +596,7 @@ CREATE TABLE IF NOT EXISTS `template_js` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `js_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `template_js`
---
-
-INSERT INTO `template_js` (`id`, `template_id`, `js_id`) VALUES
-(9, 2, 6);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -565,15 +609,14 @@ CREATE TABLE IF NOT EXISTS `template_plugin` (
 `id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL,
   `plugin_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `template_plugin`
 --
 
 INSERT INTO `template_plugin` (`id`, `template_id`, `plugin_id`) VALUES
-(5, 1, 1),
-(8, 18, 2);
+(10, 18, 2);
 
 -- --------------------------------------------------------
 
@@ -610,6 +653,12 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `common_file`
+--
+ALTER TABLE `common_file`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -676,7 +725,7 @@ ALTER TABLE `related_template`
 -- Indexes for table `section`
 --
 ALTER TABLE `section`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `fk_section_template` (`template_id`);
 
 --
 -- Indexes for table `section_control`
@@ -688,7 +737,7 @@ ALTER TABLE `section_control`
 -- Indexes for table `template`
 --
 ALTER TABLE `template`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_template_template_category` (`category_id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `alias` (`alias`), ADD KEY `fk_template_template_category` (`category_id`);
 
 --
 -- Indexes for table `template_css`
@@ -748,10 +797,15 @@ ALTER TABLE `user`
 ALTER TABLE `category`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT for table `common_file`
+--
+ALTER TABLE `common_file`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
 -- AUTO_INCREMENT for table `control`
 --
 ALTER TABLE `control`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `css`
 --
@@ -776,7 +830,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `js`
 --
@@ -791,57 +845,57 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `related_template`
 --
 ALTER TABLE `related_template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=116;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `section_control`
 --
 ALTER TABLE `section_control`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `template`
 --
 ALTER TABLE `template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `template_css`
 --
 ALTER TABLE `template_css`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=121;
 --
 -- AUTO_INCREMENT for table `template_element`
 --
 ALTER TABLE `template_element`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `template_font`
 --
 ALTER TABLE `template_font`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=169;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=213;
 --
 -- AUTO_INCREMENT for table `template_functions`
 --
 ALTER TABLE `template_functions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=109;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=133;
 --
 -- AUTO_INCREMENT for table `template_image`
 --
 ALTER TABLE `template_image`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=102;
 --
 -- AUTO_INCREMENT for table `template_js`
 --
 ALTER TABLE `template_js`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `template_plugin`
 --
 ALTER TABLE `template_plugin`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `user`
 --
@@ -852,23 +906,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 
 --
--- Constraints for table `css`
---
-ALTER TABLE `css`
-ADD CONSTRAINT `fk_css_parent` FOREIGN KEY (`parent_id`) REFERENCES `template` (`id`);
-
---
--- Constraints for table `functions`
---
-ALTER TABLE `functions`
-ADD CONSTRAINT `fk_functions_parent` FOREIGN KEY (`parent_id`) REFERENCES `template` (`id`);
-
---
 -- Constraints for table `related_template`
 --
 ALTER TABLE `related_template`
 ADD CONSTRAINT `fk_related_template_child` FOREIGN KEY (`child_id`) REFERENCES `template` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `fk_related_template_parent` FOREIGN KEY (`parent_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `section`
+--
+ALTER TABLE `section`
+ADD CONSTRAINT `fk_section_template` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `section_control`
