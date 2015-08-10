@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7f841cb5cc8b96e446b24c0dbaef0bc2",
+    "hash": "f0f38d3f2ae8908acfe76c513eb957bb",
     "packages": [
+        {
+            "name": "bazilio/yii2-stubs-generator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bazilio91/yii2-stubs-generator.git",
+                "reference": "640853f9dd5b2139b49ccbab9be478ad267ab128"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bazilio91/yii2-stubs-generator/zipball/640853f9dd5b2139b49ccbab9be478ad267ab128",
+                "reference": "640853f9dd5b2139b49ccbab9be478ad267ab128",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "bazilio\\stubsgenerator\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vasily Ostanin",
+                    "email": "bazilio91@gmail.com"
+                }
+            ],
+            "description": "Yii2 component stubs generator for Yii::$app",
+            "keywords": [
+                "autocomplete",
+                "phpstorm",
+                "stubs",
+                "yii2"
+            ],
+            "time": "2015-07-24 12:14:15"
+        },
         {
             "name": "bootflat/bootflat",
             "version": "dev-master",
@@ -1144,7 +1186,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/e8dd7fd8db6f8c2a057c417d151f5a01dee1419b",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/04f471e42eb10c3b78a70d1534544e0395cd0412",
                 "reference": "e8dd7fd8db6f8c2a057c417d151f5a01dee1419b",
                 "shasum": ""
             },
@@ -1459,7 +1501,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/c502e12b25da77bb3b36c2ef7510c6d1aae44f39",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/69f1df3b1f4757e9d6ee0c302db47744e8bed94a",
                 "reference": "c502e12b25da77bb3b36c2ef7510c6d1aae44f39",
                 "shasum": ""
             },
@@ -3043,7 +3085,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/cf882497cb749e4ef65dadcde9aec6ad6cfddce0",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/a972fbac76133feb1020a372aece4a1f2685dcd7",
                 "reference": "cf882497cb749e4ef65dadcde9aec6ad6cfddce0",
                 "shasum": ""
             },
@@ -3684,7 +3726,8 @@
         "bower-asset/js-cookie": 20,
         "bower-asset/bootbox.js": 20,
         "bower-asset/underscore": 20,
-        "bower-asset/jquery-storage-api": 20
+        "bower-asset/jquery-storage-api": 20,
+        "bazilio/yii2-stubs-generator": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

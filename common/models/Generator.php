@@ -28,31 +28,14 @@ class Generator
         $zip = new ZipArchiveTg();
         $zip->open($file, \ZipArchive::OVERWRITE);
 
-        $templateSource = self::getTemplateSourcePath();
-
-        /** 1. Add common dirs */
-        foreach (['core', 'css', 'fonts', 'TGM-Plugin-Activation'] as $dir) {
-            $zip->addDir(Yii::getAlias($templateSource . '/' . $dir), '');
-        }
-
-        /** 2. Prepare and add common files */
-        $commonFiles = File::find()->common()->all();
-        foreach ($commonFiles as $commonFile) {
-            /** @var File $commonFile */
-            if ($commonFile->filename == File::COMMON_CSS_FILENAME) {
-                $commonFile->code = str_replace('{{name}}', $name, $commonFile->code);
-            }
-            $zip->addFromString($commonFile->filename, $commonFile->code);
-        }
-
         /** @var Screenshot $screenshot */
         $screenshot = Screenshot::find()->screenshot()->one();
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
 
-        /** 3. Add directory for the attached images */
+        /** Add directory for the attached images */
         $zip->addEmptyDir(self::DIR_IMAGES);
 
-        /** 4. Add blocks HTML into partials and prepare customizer config */
+        /** Add blocks HTML into partials and prepare customizer config */
         $templates = Template::findAll($blocks);
         if (count($templates)) {
             $zip->addEmptyDir(self::DIR_PARTIALS);
@@ -69,6 +52,8 @@ class Generator
             $panelPriority = 20;
             $priorityStep = 10;
             foreach ($templates as $template) {
+                $templateCode = $template->code;
+
                 /** @var Template $template */
                 $templateData = $template->getCustomizerControls();
                 if (isset($templateData['images']) && count($templateData['images'])) {
@@ -85,8 +70,6 @@ class Generator
 
                 $sorterDefault .= "'" . $template->alias . "',\n                        ";
                 $sorterChoices .= "'" . $template->alias . "' => __('" . $template->title . "', 'tg'),\n                        ";
-
-                $zip->addFromString(self::DIR_PARTIALS . '/section-' . $template->alias . '.php', $template->code);
 
                 if (!empty($css)) {
                     $cssCode .= self::getComment("Styles for block \"" . $template->name . "\"");
@@ -120,6 +103,8 @@ class Generator
                         $alias = $template->alias . '-' . $section->alias;
                         $controlCode .= $sectionControl->getCodeForConfig($alias);
 
+                        $templateCode = $sectionControl->applyDefault($alias, $templateCode);
+
                         if (!empty($sectionControl->style)) {
                             $styleCode .= $sectionControl->getStylesForConfig($alias);
                         }
@@ -131,6 +116,8 @@ class Generator
 
                     $controlCode .= "\n            ),\n            ";
                 }
+
+                $zip->addFromString(self::DIR_PARTIALS . '/section-' . $template->alias . '.php', $templateCode);
             }
 
             if (!empty($config)) {
@@ -145,6 +132,28 @@ class Generator
             if (!empty($css)) {
                 $zip->addFromString($css->directory . '/' . $css->filename, $css->code . $cssCode);
             }
+        }
+
+        $templateSource = self::getTemplateSourcePath();
+
+        /** Add common dirs */
+        foreach (['core', 'css', 'fonts', 'TGM-Plugin-Activation'] as $dir) {
+            $zip->addDir(Yii::getAlias($templateSource . '/' . $dir), '');
+        }
+
+        /** Prepare and add common files */
+        $commonFiles = File::find()->common()->all();
+        foreach ($commonFiles as $commonFile) {
+            /** @var File $commonFile */
+            if ($commonFile->filename == File::COMMON_CSS_FILENAME) {
+                $commonFile->code = str_replace('{{name}}', $name, $commonFile->code);
+            } elseif ($commonFile->filename == File::COMMON_INDEX_FILENAME) {
+                // convert comma separated string into array and trim all elements (explode -> array_map(trim, ...))
+                // remove all empty values and convert array into comma separated string (array_filter -> implode)
+                $sorterCode = 'array(' . implode(', ', array_filter(array_map('trim', explode(',', $sorterDefault)))) . ')';
+                $commonFile->code = str_replace("'tg-sections-order-sorter'", "'tg-sections-order-sorter', " . $sorterCode, $commonFile->code);
+            }
+            $zip->addFromString($commonFile->filename, $commonFile->code);
         }
 
         // Close and send to user

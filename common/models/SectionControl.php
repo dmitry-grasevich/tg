@@ -136,6 +136,21 @@ class SectionControl extends ActiveRecord
     }
 
     /**
+     * @param $sectionAlias
+     * @param $code
+     *
+     * @return mixed
+     */
+    public function applyDefault($sectionAlias, $code)
+    {
+        if (!empty($this->default)) {
+            $code = str_replace("'tg-" . $sectionAlias . "-" . $this->alias . "'",
+                "'tg-" . $sectionAlias . "-" . $this->alias . "', " . $this->default, $code);
+        }
+        return $code;
+    }
+
+    /**
      * @param string $sectionAlias
      * @return string
      */

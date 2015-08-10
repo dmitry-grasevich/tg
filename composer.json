@@ -54,7 +54,8 @@
         "bower-asset/js-cookie": "dev-master",
         "bower-asset/bootbox.js": "^4.4@dev",
         "bower-asset/underscore": "dev-master",
-        "bower-asset/jQuery-Storage-API": "^1.7@dev"
+        "bower-asset/jQuery-Storage-API": "^1.7@dev",
+        "bazilio/yii2-stubs-generator": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

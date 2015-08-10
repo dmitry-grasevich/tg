@@ -64,4 +64,9 @@ return [
             'uses' => ['yii\bootstrap'],
         ],
     ],
+    'controllerMap' => [
+        'stubs' => [
+            'class' => 'bazilio\stubsgenerator\StubsController',
+        ],
+    ],
 ];
