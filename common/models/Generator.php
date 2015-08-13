@@ -28,6 +28,13 @@ class Generator
         $zip = new ZipArchiveTg();
         $zip->open($file, \ZipArchive::OVERWRITE);
 
+        $templateSource = self::getTemplateSourcePath();
+
+        /** Add common dirs */
+        foreach (['core', 'css', 'fonts', 'inc', 'partials', 'TGM-Plugin-Activation'] as $dir) {
+            $zip->addDir(Yii::getAlias($templateSource . '/' . $dir), '');
+        }
+
         /** @var Screenshot $screenshot */
         $screenshot = Screenshot::find()->screenshot()->one();
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
@@ -38,8 +45,6 @@ class Generator
         /** Add blocks HTML into partials and prepare customizer config */
         $templates = Template::findAll($blocks);
         if (count($templates)) {
-            $zip->addEmptyDir(self::DIR_PARTIALS);
-
             /** @var File $config */
             $config = File::find()->config()->one();
 
@@ -134,13 +139,6 @@ class Generator
             }
         }
 
-        $templateSource = self::getTemplateSourcePath();
-
-        /** Add common dirs */
-        foreach (['core', 'css', 'fonts', 'TGM-Plugin-Activation'] as $dir) {
-            $zip->addDir(Yii::getAlias($templateSource . '/' . $dir), '');
-        }
-
         /** Prepare and add common files */
         $commonFiles = File::find()->common()->all();
         foreach ($commonFiles as $commonFile) {
@@ -154,6 +152,9 @@ class Generator
                 $commonFile->code = str_replace("'tg-sections-order-sorter'", "'tg-sections-order-sorter', " . $sorterCode, $commonFile->code);
             }
             $zip->addFromString($commonFile->filename, $commonFile->code);
+        }
+        foreach (['404.php', 'archive.php', 'comments.php', 'page.php', 'search.php', 'sidebar.php', 'single.php'] as $filename) {
+            $zip->addFile(Yii::getAlias($templateSource) . '/' . $filename, $filename);
         }
 
         // Close and send to user

@@ -53,9 +53,28 @@ if (!function_exists('tg_setup')) {
     function tg_setup()
     {
         /**
-         * Add support for HTML5
+         * Switch default core markup for search form, comment form, and comments
+         * to output valid HTML5.
          */
-        add_theme_support('html5');
+        add_theme_support('html5', array(
+            'search-form',
+            'comment-form',
+            'comment-list',
+            'gallery',
+            'caption',
+        ));
+
+        /**
+         * Enable support for Post Formats.
+         * See https://developer.wordpress.org/themes/functionality/post-formats/
+         */
+        add_theme_support('post-formats', array(
+            'aside',
+            'image',
+            'video',
+            'quote',
+            'link',
+        ));
 
         /**
          * Add support for Title Tags
@@ -90,3 +109,29 @@ if (!function_exists('tg_setup')) {
     } // function tg_setup
 } // if !function tg_setup
 add_action('after_setup_theme', 'tg_setup', 10);
+
+/**
+ * Enqueue styles.
+ *
+ * @since 1.0.0
+ */
+function tg_styles() {
+    // Load our main stylesheet.
+    wp_enqueue_style('tg-style', get_stylesheet_uri());
+}
+add_action('wp_enqueue_scripts', 'tg_styles');
+
+/**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/inc/template-tags.php';
+
+/**
+ * Custom functions that act independently of the theme templates.
+ */
+require get_template_directory() . '/inc/extras.php';
+
+/**
+ * Load Jetpack compatibility file.
+ */
+require get_template_directory() . '/inc/jetpack.php';
