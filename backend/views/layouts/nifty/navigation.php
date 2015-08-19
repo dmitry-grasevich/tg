@@ -83,7 +83,7 @@ $categoryModel = new CategoryForm();
                             <!-- Blocks -->
                             <li<?= $this->context->id == 'template' ? ' class="active active-sub"' : '' ?>>
                                 <a href="#">
-                                    <i class="fa fa-th-large"></i>
+                                    <i class="fa fa-cubes"></i>
                                     <span class="menu-title">
                                         <strong><?= Yii::t('tg', 'Blocks') ?></strong>
                                     </span>
@@ -102,6 +102,16 @@ $categoryModel = new CategoryForm();
                                     <i class="fa fa-list-alt"></i>
                                     <span class="menu-title">
                                         <strong><?= Yii::t('tg', 'Controls') ?></strong>
+                                    </span>
+                                </a>
+                            </li>
+
+                            <!-- JavaScripts -->
+                            <li<?= $this->context->id == 'script' ? ' class="active-link"' : '' ?>>
+                                <a href="<?= Url::to(['/script']) ?>">
+                                    <i class="fa fa-puzzle-piece"></i>
+                                    <span class="menu-title">
+                                        <strong><?= Yii::t('tg', 'Scripts') ?></strong>
                                     </span>
                                 </a>
                             </li>
@@ -172,6 +182,8 @@ Modal::begin([
             <?= $form->field($categoryModel, 'name') ?>
 
             <?= $form->field($categoryModel, 'alias') ?>
+
+            <?= $form->field($categoryModel, 'style')->textarea() ?>
 
             <?= $form->field($categoryModel, 'is_visible')->checkbox() ?>
 

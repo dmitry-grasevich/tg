@@ -1,12 +1,12 @@
 <?php
 
-use yii\helpers\Html;
 use kartik\detail\DetailView;
-use common\models\Template;
+use \yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
- * @var common\models\Css $model
+ * @var common\models\Js $model
+ * @var yii\widgets\ActiveForm $form
  */
 ?>
 
@@ -21,27 +21,15 @@ DetailView::widget([
         'type' => DetailView::TYPE_INFO,
     ],
     'attributes' => [
-        [
-            'type' => DetailView::INPUT_WIDGET,
-            'attribute' => 'parent_id',
-            'format' => 'raw',
-            'value' => $model->parent ? $model->parent->name : '',
-            'widgetOptions' => [
-                'class' => DetailView::INPUT_SELECT2,
-                'data' => Template::listAll(),
-                'options' => ['placeholder' => 'Select Parent Css'],
-                'pluginOptions' => ['allowClear' => false],
-            ],
-        ],
         'name',
         [
             'attribute' => 'code',
             'format' => 'raw',
-            'value' => '<pre class="scroll"><code class="css">' . Html::encode($model->code) . '</code></pre>',
+            'value' => '<pre class="scroll"><code class="js">' . Html::encode($model->code) . '</code></pre>',
             'type' => DetailView::INPUT_TEXTAREA,
             'options' => [
                 'rows' => 15,
-                'class' => 'text-monospace'
+                'class' => 'text-monospace form-control'
             ]
         ],
         'filename',

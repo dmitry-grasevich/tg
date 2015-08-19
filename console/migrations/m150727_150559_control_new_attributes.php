@@ -12,15 +12,15 @@ class m150727_150559_control_new_attributes extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         }
 
-        $this->addColumn('{{%control}}', 'family', Schema::string()->notNull());
-        $this->addColumn('{{%control}}', 'type', Schema::string()->notNull()->unique());
-        $this->addColumn('{{%control}}', 'class', Schema::string()->notNull());
-        $this->addColumn('{{%control}}', 'params', Schema::text());
+        $this->addColumn('{{%control}}', 'family', $this->string()->notNull());
+        $this->addColumn('{{%control}}', 'type', $this->string()->notNull()->unique());
+        $this->addColumn('{{%control}}', 'class', $this->string()->notNull());
+        $this->addColumn('{{%control}}', 'params', $this->text());
 
         $this->createTable('{{%control_image}}', [
             'id' => 'pk',
-            'control_id' => Schema::integer()->notNull(),
-            'image_id' => Schema::integer()->notNull(),
+            'control_id' => $this->integer()->notNull(),
+            'image_id' => $this->integer()->notNull(),
         ], $tableOptions);
 
         $this->addForeignKey('fk_control_image_control', '{{%control_image}}', 'control_id', '{{%control}}', 'id', 'cascade');

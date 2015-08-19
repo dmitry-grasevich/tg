@@ -2,10 +2,8 @@
 
 namespace common\models;
 
-use common\helpers\ZipArchiveTg;
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
+use common\helpers\ZipArchiveTg;
 
 class Generator
 {
@@ -129,7 +127,8 @@ class Generator
                 $configCode = $config->code;
                 $search = ['{%panels%}', '{%sections%}', '{%controls%}', '{%styles%}', '{%pseudojs%}',
                     '{%sorter_default%}', '{%sorter_choices%}'];
-                $replace = [$panelCode, $sectionCode, $controlCode, $styleCode, $pseudoJsCode, $sorterDefault, $sorterChoices];
+                $replace = [$panelCode, $sectionCode, $controlCode, $styleCode, $pseudoJsCode,
+                    $sorterDefault, $sorterChoices];
                 $configCode = str_replace($search, $replace, $configCode);
                 $zip->addFromString($config->directory . '/' . $config->filename, $configCode);
             }

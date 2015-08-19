@@ -9,10 +9,10 @@ class m150801_130255_section_new_fields_add extends Migration
     {
         $this->dropColumn('{{%section}}', 'name');
         $this->dropColumn('{{%section}}', 'code');
-        $this->addColumn('{{%section}}', 'template_id', Schema::integer()->notNull());
-        $this->addColumn('{{%section}}', 'alias', Schema::string()->notNull());
-        $this->addColumn('{{%section}}', 'title', Schema::string()->notNull());
-        $this->addColumn('{{%section}}', 'description', Schema::text());
+        $this->addColumn('{{%section}}', 'template_id', $this->integer()->notNull());
+        $this->addColumn('{{%section}}', 'alias', $this->string()->notNull());
+        $this->addColumn('{{%section}}', 'title', $this->string()->notNull());
+        $this->addColumn('{{%section}}', 'description', $this->text());
 
         $this->dropForeignKey('fk_section_control_section', '{{%section_control}}');
         $this->truncateTable('{{%section}}');
@@ -28,8 +28,8 @@ class m150801_130255_section_new_fields_add extends Migration
         $this->dropColumn('{{%section}}', 'alias');
         $this->dropColumn('{{%section}}', 'title');
         $this->dropColumn('{{%section}}', 'description');
-        $this->addColumn('{{%section}}', 'name', Schema::string()->notNull());
-        $this->addColumn('{{%section}}', 'code', Schema::text());
+        $this->addColumn('{{%section}}', 'name', $this->string()->notNull());
+        $this->addColumn('{{%section}}', 'code', $this->text());
 
     }
 }

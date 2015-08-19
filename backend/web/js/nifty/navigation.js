@@ -43,6 +43,7 @@ $(document).ready(function () {
         modal.find('#categoryform-id').val(button.attr('data-id'));
         modal.find('#categoryform-name').val(button.attr('data-name'));
         modal.find('#categoryform-alias').val(button.attr('data-alias'));
+        modal.find('#categoryform-style').val(button.attr('data-style'));
         modal.find('#categoryform-is_visible').prop('checked', button.attr('data-visible') == 1);
 
         if (button.attr('data-id')) {

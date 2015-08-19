@@ -51,7 +51,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
             'index' => ['class' => IndexAction::className()],
             'update' => ['class' => UpdateAction::className()],
             'delete' => ['class' => DeleteAction::className()],
-//            'view' => ['class' => ViewAction::className()],
+            'view' => ['class' => ViewAction::className()],
         ];
     }
 
@@ -76,6 +76,9 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         ];
     }
 
+    /**
+     * @return ActiveRecord
+     */
     public function getModel()
     {
         return $this->_model;

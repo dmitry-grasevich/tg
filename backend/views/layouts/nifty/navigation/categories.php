@@ -52,6 +52,7 @@ $id = Yii::$app->request->get('id');
                     'name' => $category->name,
                     'alias' => $category->alias,
                     'visible' => $category->is_visible,
+                    'style' => $category->style,
                     'toggle' => 'modal',
                     'target' => '#block-modal'
                 ]

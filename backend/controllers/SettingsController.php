@@ -62,7 +62,7 @@ class SettingsController extends Controller
      */
     public function actionAdditional()
     {
-        $files = File::find()->additional()->orderBy('filename')->all();
+        $files = File::find()->additional()->orderBy(['directory' => SORT_ASC, 'filename' => SORT_ASC])->all();
         return $this->render('add', ['files' => $files]);
     }
 

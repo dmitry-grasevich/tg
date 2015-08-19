@@ -14,10 +14,10 @@ class m150731_070250_template_new_attributes extends Migration
 
         $this->createTable('{{%common_file}}', [
             'id' => 'pk',
-            'name' => Schema::string()->notNull(),
-            'filename' => Schema::string()->notNull(),
-            'directory' => Schema::string(),
-            'code' => Schema::text(),
+            'name' => $this->string()->notNull(),
+            'filename' => $this->string()->notNull(),
+            'directory' => $this->string(),
+            'code' => $this->text(),
         ], $tableOptions);
 
         $this->insert('{{%common_file}}', [
@@ -55,9 +55,9 @@ class m150731_070250_template_new_attributes extends Migration
         $this->delete('{{%template}}', 'id < 16');
         $this->delete('{{%template}}', 'id > 19');
 
-        $this->addColumn('{{%template}}', 'alias', Schema::string()->notNull());
-        $this->addColumn('{{%template}}', 'title', Schema::string()->notNull());
-        $this->addColumn('{{%template}}', 'description', Schema::text());
+        $this->addColumn('{{%template}}', 'alias', $this->string()->notNull());
+        $this->addColumn('{{%template}}', 'title', $this->string()->notNull());
+        $this->addColumn('{{%template}}', 'description', $this->text());
         $this->dropColumn('{{%template}}', 'filename');
         $this->dropColumn('{{%template}}', 'directory');
         $this->dropColumn('{{%template}}', 'identificator');

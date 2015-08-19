@@ -14,17 +14,17 @@ class m130524_201442_init extends Migration
         }
 
         $this->createTable('{{%user}}', [
-            'id' => Schema::primaryKey(),
-            'username' => Schema::string()->notNull()->unique(),
-            'auth_key' => Schema::string(32)->notNull(),
-            'password_hash' => Schema::string()->notNull(),
-            'password_reset_token' => Schema::string()->unique(),
-            'email' => Schema::string()->notNull()->unique(),
-            'role' => Schema::smallInteger()->notNull()->default(10),
+            'id' => $this->primaryKey(),
+            'username' => $this->string()->notNull()->unique(),
+            'auth_key' => $this->string(32)->notNull(),
+            'password_hash' => $this->string()->notNull(),
+            'password_reset_token' => $this->string()->unique(),
+            'email' => $this->string()->notNull()->unique(),
+            'role' => $this->smallInteger()->notNull()->defaultValue(10),
 
-            'status' => Schema::smallInteger()->notNull()->default(10),
-            'created_at' => Schema::integer()->notNull(),
-            'updated_at' => Schema::integer()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
     }
 

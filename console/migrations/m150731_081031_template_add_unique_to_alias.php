@@ -7,7 +7,7 @@ class m150731_081031_template_add_unique_to_alias extends Migration
 {
     public function up()
     {
-        $this->alterColumn('{{%template}}', 'alias', Schema::string()->notNull()->unique());
+        $this->alterColumn('{{%template}}', 'alias', $this->string()->notNull()->unique());
     }
 
     public function down()

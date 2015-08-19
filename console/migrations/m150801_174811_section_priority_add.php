@@ -7,7 +7,7 @@ class m150801_174811_section_priority_add extends Migration
 {
     public function up()
     {
-        $this->addColumn('{{%section}}', 'priority', Schema::integer());
+        $this->addColumn('{{%section}}', 'priority', $this->integer());
     }
 
     public function down()

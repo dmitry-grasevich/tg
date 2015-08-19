@@ -12,6 +12,7 @@ use Yii;
  * @property string $alias
  * @property integer $is_basic
  * @property integer $is_visible  show or not this category items on frontend
+ * @property string $style
  *
  * @property Template[] $templates
  */
@@ -34,7 +35,8 @@ class Category extends Library
             [['name', 'alias'], 'required'],
             [['alias'], 'unique'],
             [['is_basic', 'is_visible'], 'integer'],
-            [['name'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255],
+            [['style'], 'string'],
         ];
     }
 
@@ -49,6 +51,7 @@ class Category extends Library
             'alias' => Yii::t('tg', 'Alias'),
             'is_basic' => Yii::t('tg', 'Basic Category'),
             'is_visible' => Yii::t('tg', 'Visible on Frontend'),
+            'style' => Yii::t('tg', 'Style'),
         ];
     }
 

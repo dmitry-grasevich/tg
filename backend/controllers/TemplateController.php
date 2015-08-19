@@ -7,10 +7,12 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use common\models\Category;
 use common\models\Template;
 use common\models\search\Template as TemplateSearch;
-use yii\web\Response;
+use backend\actions\TemplateViewAction;
+
 
 /**
  * Class TemplateController implements the CRUD actions for Template model.
@@ -18,6 +20,14 @@ use yii\web\Response;
  */
 class TemplateController extends BaseController
 {
+    // Use Standalone Actions
+    public function actions()
+    {
+        return ArrayHelper::merge(parent::actions(), [
+            'view' => ['class' => TemplateViewAction::className() ],
+        ]);
+    }
+
     public function behaviors()
     {
         return ArrayHelper::merge(parent::behaviors(), [
@@ -69,34 +79,6 @@ class TemplateController extends BaseController
 
         return $this->render('edit', [
             'category' => Category::findOne($cat),
-            'template' => $template,
-        ]);
-    }
-
-    /**
-     * View template
-     *
-     * @return string
-     * @throws NotFoundHttpException
-     */
-    public function actionView()
-    {
-        /** @var string $id   template id */
-        $id = intval(Yii::$app->request->get('id'));
-        if (!$id) {
-            throw new NotFoundHttpException('Page not fount');
-        }
-
-        /** @var \common\models\Template $template */
-        $template = Template::find()->where(['id' => $id])->with('images')->one();
-
-        if (Yii::$app->request->isPost) {
-//            if ($template->load(Yii::$app->request->post()) && $template->save()) {
-//                $this->redirect(['view', 'id' => $template->id]);
-//            }
-        }
-
-        return $this->render('view', [
             'template' => $template,
         ]);
     }
