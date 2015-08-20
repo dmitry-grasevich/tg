@@ -17,6 +17,7 @@ class File extends Library
 {
     const COMMON_CSS_FILENAME = 'style.css';
     const COMMON_INDEX_FILENAME = 'index.php';
+    const CUSTOM_PAGE_FILENAME = 'page-custom.php';
     const CONFIG_FILENAME = 'config.php';
     const THEME_STYLES_FILENAME = 'theme.css';
 
@@ -72,6 +73,9 @@ class File extends Library
 
 class FileQuery extends ActiveQuery
 {
+    /**
+     * @return $this
+     */
     public function common()
     {
         return $this
@@ -79,13 +83,28 @@ class FileQuery extends ActiveQuery
             ->andWhere('directory IS NULL');
     }
 
-    public function additional()
+    /**
+     * Get additional files
+     *
+     * @param bool|true $excludeConfig
+     * @return $this
+     */
+    public function additional($excludeConfig = false)
     {
-        return $this
+        $result = $this
             ->where(['!=', 'filename', Screenshot::SCREENSHOT_FILENAME])
             ->andWhere('directory IS NOT NULL');
+        if ($excludeConfig) {
+            $result = $result->andWhere(['!=', 'filename', Screenshot::CONFIG_FILENAME]);
+        }
+        return $result;
     }
 
+    /**
+     * Get screenshot
+     *
+     * @return $this
+     */
     public function screenshot()
     {
         return $this
@@ -93,6 +112,11 @@ class FileQuery extends ActiveQuery
             ->andWhere('directory IS NULL');
     }
 
+    /**
+     * Get config file
+     *
+     * @return $this
+     */
     public function config()
     {
         return $this
@@ -100,6 +124,11 @@ class FileQuery extends ActiveQuery
             ->andWhere('directory IS NOT NULL');
     }
 
+    /**
+     * Get styles file
+     *
+     * @return $this
+     */
     public function styles()
     {
         return $this

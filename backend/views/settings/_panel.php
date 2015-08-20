@@ -10,8 +10,6 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\bootstrap\Button;
-
-$isRemovable = isset($isRemovable) ?: false;
 ?>
 
 <div class="col-sm-12">
@@ -85,9 +83,9 @@ $isRemovable = isset($isRemovable) ?: false;
 
                 <?= $form->field($file, 'id')->hiddenInput()->label(false) ?>
 
-                <?php if (!$isCommon): ?>
-                    <?= $form->field($file, 'filename')->textInput() ?>
+                <?= $form->field($file, 'filename')->textInput() ?>
 
+                <?php if (!$isCommon): ?>
                     <?= $form->field($file, 'directory')->textInput() ?>
                 <?php endif ?>
 

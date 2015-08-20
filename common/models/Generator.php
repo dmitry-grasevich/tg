@@ -4,11 +4,16 @@ namespace common\models;
 
 use Yii;
 use common\helpers\ZipArchiveTg;
+use yii\behaviors\SluggableBehavior;
 
 class Generator
 {
+    const DIR_CORE = 'core';
     const DIR_PARTIALS = 'partials';
     const DIR_IMAGES = 'images';
+    const DIR_CSS = 'css';
+    const DIR_INC = 'inc';
+    const DIR_TGM = 'TGM-Plugin-Activation';
 
     /**
      * @param $q - query
@@ -29,16 +34,22 @@ class Generator
         $templateSource = self::getTemplateSourcePath();
 
         /** Add common dirs */
-        foreach (['core', 'css', 'fonts', 'inc', 'partials', 'TGM-Plugin-Activation'] as $dir) {
+        foreach ([self::DIR_CORE, self::DIR_INC, self::DIR_PARTIALS, self::DIR_TGM] as $dir) {
             $zip->addDir(Yii::getAlias($templateSource . '/' . $dir), '');
         }
+
+        /** Add directory for attached images */
+        $zip->addEmptyDir(self::DIR_IMAGES);
+
+        /** Add directory for styles */
+        $zip->addEmptyDir(self::DIR_CSS);
 
         /** @var Screenshot $screenshot */
         $screenshot = Screenshot::find()->screenshot()->one();
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
 
-        /** Add directory for the attached images */
-        $zip->addEmptyDir(self::DIR_IMAGES);
+        $panelCode = $sectionCode = $controlCode = $styleCode = $pseudoJsCode =
+        $sorterDefault = $sorterChoices = $cssCode = '';
 
         /** Add blocks HTML into partials and prepare customizer config */
         $templates = Template::findAll($blocks);
@@ -49,8 +60,13 @@ class Generator
             /** @var File $css */
             $css = File::find()->styles()->one();
 
-            $panelCode = $sectionCode = $controlCode = $styleCode = $pseudoJsCode =
-            $sorterDefault = $sorterChoices = $cssCode = '';
+            $category = $templates[0]->category;
+
+            /** main styles for the current category */
+            if (!empty($css) && !empty($category->style)) {
+                $cssCode .= self::getComment(strtoupper($category->name));
+                $cssCode .= $category->style;
+            }
 
             $panelPriority = 20;
             $priorityStep = 10;
@@ -130,11 +146,11 @@ class Generator
                 $replace = [$panelCode, $sectionCode, $controlCode, $styleCode, $pseudoJsCode,
                     $sorterDefault, $sorterChoices];
                 $configCode = str_replace($search, $replace, $configCode);
-                $zip->addFromString($config->directory . '/' . $config->filename, $configCode);
+                $zip->addFromString($config->directory . DIRECTORY_SEPARATOR . $config->filename, $configCode);
             }
 
             if (!empty($css)) {
-                $zip->addFromString($css->directory . '/' . $css->filename, $css->code . $cssCode);
+                $zip->addFromString($css->directory . DIRECTORY_SEPARATOR . $css->filename, $css->code . $cssCode);
             }
         }
 
@@ -144,7 +160,7 @@ class Generator
             /** @var File $commonFile */
             if ($commonFile->filename == File::COMMON_CSS_FILENAME) {
                 $commonFile->code = str_replace('{{name}}', $name, $commonFile->code);
-            } elseif ($commonFile->filename == File::COMMON_INDEX_FILENAME) {
+            } elseif ($commonFile->filename == File::CUSTOM_PAGE_FILENAME) {
                 // convert comma separated string into array and trim all elements (explode -> array_map(trim, ...))
                 // remove all empty values and convert array into comma separated string (array_filter -> implode)
                 $sorterCode = 'array(' . implode(', ', array_filter(array_map('trim', explode(',', $sorterDefault)))) . ')';
@@ -152,8 +168,13 @@ class Generator
             }
             $zip->addFromString($commonFile->filename, $commonFile->code);
         }
-        foreach (['404.php', 'archive.php', 'comments.php', 'page.php', 'search.php', 'sidebar.php', 'single.php'] as $filename) {
-            $zip->addFile(Yii::getAlias($templateSource) . '/' . $filename, $filename);
+
+        /** Prepare and add additional files */
+        $addFiles = File::find()->additional(true)->all();
+        foreach ($addFiles as $addFile) {
+            /** @var File $addFile */
+            $zip->addEmptyDir($addFile->directory);
+            $zip->addFromString($addFile->directory . DIRECTORY_SEPARATOR . $addFile->filename, $addFile->code);
         }
 
         // Close and send to user
@@ -169,11 +190,11 @@ class Generator
 
     protected static function getComment($text)
     {
-        return "\n/**
- * ----------------------------------------------------------------------------------------
- * $text
- * ----------------------------------------------------------------------------------------
- */\n";
+        return "
+/**************************************************************************/
+/* $text */
+/**************************************************************************/
+";
     }
 
     public static function getTemplateSourcePath()

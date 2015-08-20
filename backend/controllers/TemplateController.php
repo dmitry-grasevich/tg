@@ -2,30 +2,29 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
-use yii\web\Response;
 use common\models\Category;
 use common\models\Template;
 use common\models\search\Template as TemplateSearch;
-use backend\actions\TemplateViewAction;
-
+use yii\web\Response;
 
 /**
  * Class TemplateController implements the CRUD actions for Template model.
  * @package backend\controllers
  */
-class TemplateController extends BaseController
+class TemplateController extends Controller
 {
-    // Use Standalone Actions
-    public function actions()
+    /**
+     * Init controller
+     */
+    public function init()
     {
-        return ArrayHelper::merge(parent::actions(), [
-            'view' => ['class' => TemplateViewAction::className() ],
-        ]);
+        $this->layout = 'nifty';
     }
 
     public function behaviors()
@@ -39,16 +38,6 @@ class TemplateController extends BaseController
                 ],
             ],
         ]);
-    }
-
-    protected function setModel()
-    {
-        $this->_model = new Template;
-    }
-
-    protected function setSearchModel()
-    {
-        $this->_searchModel = new TemplateSearch;
     }
 
     /**
@@ -69,7 +58,13 @@ class TemplateController extends BaseController
         $id = intval(Yii::$app->request->get('id'));
 
         /** @var \common\models\Template $template */
-        $template = $id ? $this->findModel($id) : $this->getModel();
+        if ($id) {
+            if (($template = Template::findOne($id)) === null) {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+        } else {
+            $template = new Template();
+        }
 
         if (Yii::$app->request->isPost) {
             if ($template->load(Yii::$app->request->post()) && $template->save()) {
@@ -79,6 +74,28 @@ class TemplateController extends BaseController
 
         return $this->render('edit', [
             'category' => Category::findOne($cat),
+            'template' => $template,
+        ]);
+    }
+
+    /**
+     * View template
+     *
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionView()
+    {
+        /** @var string $id   template id */
+        $id = intval(Yii::$app->request->get('id'));
+        if (!$id) {
+            throw new NotFoundHttpException('Page not fount');
+        }
+
+        /** @var \common\models\Template $template */
+        $template = Template::find()->where(['id' => $id])->with('images')->one();
+
+        return $this->render('view', [
             'template' => $template,
         ]);
     }

@@ -37,11 +37,10 @@ class SettingsController extends Controller
                 'actions' => [
                     'index' => ['get'],
                     'additional' => ['get'],
+                    'file-panel' => ['get'],
                     'save' => ['post'],
-                    'save-additional' => ['post'],
-                    'remove-additional' => ['post'],
+                    'remove' => ['post'],
                     'screenshot' => ['post'],
-                    'file-panel' => ['post'],
                 ],
             ],
         ]);
@@ -52,9 +51,12 @@ class SettingsController extends Controller
      */
     public function actionIndex()
     {
-        $files = File::find()->common()->orderBy('filename desc')->all();
-        $screenshot = Screenshot::find()->screenshot()->one();
-        return $this->render('index', ['files' => $files, 'screenshot' => $screenshot]);
+        return $this->render('index', [
+            'files' => File::find()->common()->orderBy(['filename' => SORT_ASC])->all(),
+            'screenshot' => Screenshot::find()->screenshot()->one(),
+            'isCommon' => true,
+            'isRemovable' => true,
+        ]);
     }
 
     /**
@@ -62,8 +64,11 @@ class SettingsController extends Controller
      */
     public function actionAdditional()
     {
-        $files = File::find()->additional()->orderBy(['directory' => SORT_ASC, 'filename' => SORT_ASC])->all();
-        return $this->render('add', ['files' => $files]);
+        return $this->render('index', [
+            'files' => File::find()->additional()->orderBy(['directory' => SORT_ASC, 'filename' => SORT_ASC])->all(),
+            'isCommon' => false,
+            'isRemovable' => true,
+        ]);
     }
 
     /**
@@ -71,31 +76,6 @@ class SettingsController extends Controller
      * @throws BadRequestHttpException
      */
     public function actionSave()
-    {
-        $data = Yii::$app->request->post('File');
-        if (!$data['id'] || !array_key_exists('code', $data)) {
-            throw new BadRequestHttpException('Bad request');
-        }
-
-        /** @var \common\models\File $file */
-        $file = File::findOne($data['id']);
-        if (empty($file)) {
-            throw new BadRequestHttpException('Common File not found');
-        }
-        $file->code = $data['code'];
-
-        if (!$file->save()) {
-            throw new BadRequestHttpException($file->getErrors());
-        }
-
-        return Html::tag('pre', Html::tag('code', Html::encode($file->code)), ['class' => 'scroll']);
-    }
-
-    /**
-     * @return string
-     * @throws BadRequestHttpException
-     */
-    public function actionSaveAdditional()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -107,8 +87,8 @@ class SettingsController extends Controller
         if ($file->load(Yii::$app->request->post()) && $file->save()) {
             return ['success' => $this->renderAjax('_panel', [
                 'file' => $file,
-                'isCommon' => false,
-                'isRemovable' => true,
+                'isCommon' => Yii::$app->request->post('isCommon'),
+                'isRemovable' => Yii::$app->request->post('isRemovable'),
                 'id' => $file->id,
             ])];
         } else {
@@ -120,7 +100,7 @@ class SettingsController extends Controller
      * @return string
      * @throws BadRequestHttpException
      */
-    public function actionRemoveAdditional()
+    public function actionRemove()
     {
         /** @var string $id   template id */
         $id = intval(Yii::$app->request->post('id'));
@@ -162,14 +142,15 @@ class SettingsController extends Controller
      */
     public function actionFilePanel()
     {
-        $id = Yii::$app->request->post('id');
+        $id = Yii::$app->request->get('id');
         if (!$id) {
             throw new BadRequestHttpException('Bad request');
         }
 
         return $this->renderAjax('_panel', [
             'file' => new File(),
-            'isCommon' => false,
+            'isCommon' => Yii::$app->request->get('isCommon'),
+            'isRemovable' => Yii::$app->request->get('isRemovable'),
             'id' => $id,
         ]);
     }
