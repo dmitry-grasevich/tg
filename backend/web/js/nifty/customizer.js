@@ -276,24 +276,26 @@ var TgCustomizer = library(function ($) {
         },
 
         initEditable = function () {
-            $(document).on('click', '.section-wrapper > img,.control-wrapper', function (e) {
+            $(document).on('click', '.section-wrapper > img', function (e) {
                 e.preventDefault();
 
-                if ($(this).hasClass('control-wrapper')) { // control settings editing
-                    if ($(this).hasClass('selected')) {
-                        clearSelected();
-                        return;
-                    }
-                    highlightSelectedControl($(this));
-                    loadSettings($(this).find('img'));
-                } else {    // section settings editing
-                    if ($(this).parent().hasClass('selected')) {
-                        clearSelected();
-                        return;
-                    }
-                    highlightSelectedSection($(this).parent());
-                    loadSettings($(this));
+                if ($(this).parent().hasClass('selected')) {
+                    clearSelected();
+                    return;
                 }
+                highlightSelectedSection($(this).parent());
+                loadSettings($(this));
+            });
+
+            $(document).on('click', '.control-wrapper', function (e) {
+                e.preventDefault();
+
+                if ($(this).hasClass('selected')) {
+                    clearSelected();
+                    return;
+                }
+                highlightSelectedControl($(this));
+                loadSettings($(this).find('img'));
             });
         },
 
@@ -382,7 +384,6 @@ var TgCustomizer = library(function ($) {
             initSectionsSortable($('.sections-sortable'));
             initControlsSortable($('.controls-sortable'));
             initDroppable($('#droppable'));
-            initEditable();
 
             clearSelected();
 
@@ -529,6 +530,8 @@ var TgCustomizer = library(function ($) {
     return {
         init: function () {
             storage = TgCustomizerObj.init(templateId);
+
+            initEditable();
 
             $('#load-customizer-btn')
                 .niftyOverlay()

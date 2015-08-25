@@ -6,6 +6,10 @@ use Yii;
 use common\helpers\ZipArchiveTg;
 use yii\behaviors\SluggableBehavior;
 
+/**
+ * Class Generator
+ * @package common\models
+ */
 class Generator
 {
     const DIR_CORE = 'core';
@@ -25,6 +29,10 @@ class Generator
         self::createZip($blocks, $q['name']);
     }
 
+    /**
+     * @param $blocks
+     * @param $name
+     */
     public static function createZip($blocks, $name)
     {
         $file = tempnam('tmp', uniqid('zip'));
