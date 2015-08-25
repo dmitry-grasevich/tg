@@ -22,6 +22,8 @@ use yii\helpers\VarDumper;
  */
 class Section extends Library
 {
+    protected $panelAlias;
+
     /**
      * @inheritdoc
      */
@@ -131,19 +133,38 @@ class Section extends Library
     }
 
     /**
-     * @param string $panel
      * @param string $priority
      *
      * @return string
      */
-    public function getCodeForConfig($panel, $priority)
+    public function getCodeForConfig($priority)
     {
-        return "'" . $this->alias . "' => array(
-                'title' => __('" . $this->title . "', 'tg'),
-                'description' => __('" . $this->description . "', 'tg'),
-                'panel' => '" . $panel . "',
-                'priority' => " . $priority . "
+        return "'{$this->getFullAlias()}' => array(
+                'title' => __('{$this->title}', 'tg'),
+                'description' => __('{$this->description}', 'tg'),
+                'panel' => '{$this->panelAlias}',
+                'priority' => $priority
             ),
             ";
+    }
+
+    /**
+     * Set panel alias
+     *
+     * @param $alias
+     */
+    public function setPanelAlias($alias)
+    {
+        $this->panelAlias = $alias;
+    }
+
+    /**
+     * Full alias
+     *
+     * @return string
+     */
+    public function getFullAlias()
+    {
+        return $this->panelAlias . '-' . $this->alias;
     }
 }

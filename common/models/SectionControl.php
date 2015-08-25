@@ -30,6 +30,8 @@ class SectionControl extends ActiveRecord
 {
     const SCENARIO_WITHOUT_SECTION = 'without_section';
 
+    protected $sectionAlias;
+
     /**
      * @inheritdoc
      */
@@ -102,33 +104,31 @@ class SectionControl extends ActiveRecord
     }
 
     /**
-     * @param string $sectionAlias
+     * Set Section Alias
+     *
+     * @param $alias
+     */
+    public function setSectionAlias($alias)
+    {
+        $this->sectionAlias = $alias;
+    }
+
+    /**
      * @return string
      */
-    public function getCodeForConfig($sectionAlias)
+    public function getCodeForConfig()
     {
         $control = $this->control;
 
         $code = "
-                'tg-" . $sectionAlias . "-" . $this->alias . "' => array(
-                    'type' => '" . $control->type . "',
-                    'label' => __('" . $this->label . "', 'tg'),\n";
+                '{$this->getFullAlias()}' => array(
+                    'type' => '{$control->type}',
+                    'label' => __('{$this->label}', 'tg'),\n";
 
-        if (!empty($this->description)) {
-            $code .= "                    'description' => __('" . $this->description . "', 'tg'),\n";
-        }
-
-        if (!empty($this->default)) {
-            $code .= "                    'default' => " . $this->default . ",\n";
-        }
-
-        if (!empty($this->help)) {
-            $code .= "                    'help' => __('" . $this->help . "', 'tg'),\n";
-        }
-
-        if (!empty($this->params)) {
-            $code .= "                    " . $this->params . "\n";
-        }
+        if (!empty($this->description)) { $code .= "                    'description' => __('{$this->description}', 'tg'),\n"; }
+        if (!empty($this->default)) {     $code .= "                    'default' => {$this->default},\n"; }
+        if (!empty($this->help)) {        $code .= "                    'help' => __('{$this->help}', 'tg'),\n"; }
+        if (!empty($this->params)) {      $code .= "                    {$this->params}\n"; }
 
         $code .= "                ),\n";
 
@@ -136,39 +136,45 @@ class SectionControl extends ActiveRecord
     }
 
     /**
-     * @param $sectionAlias
+     * Full alias
+     *
+     * @return string
+     */
+    public function getFullAlias()
+    {
+        return 'tg-' . $this->sectionAlias . '-' . $this->alias;
+    }
+
+    /**
      * @param $code
      *
      * @return mixed
      */
-    public function applyDefault($sectionAlias, $code)
+    public function applyDefault($code)
     {
         if (!empty($this->default)) {
-            $code = str_replace("'tg-" . $sectionAlias . "-" . $this->alias . "'",
-                "'tg-" . $sectionAlias . "-" . $this->alias . "', " . $this->default, $code);
+            $code = str_replace("'{$this->getFullAlias()}'", "'{$this->getFullAlias()}', " . $this->default, $code);
         }
         return $code;
     }
 
     /**
-     * @param string $sectionAlias
      * @return string
      */
-    public function getStylesForConfig($sectionAlias)
+    public function getStylesForConfig()
     {
-        return "'tg-" . $sectionAlias . "-" . $this->alias . "' => array(
+        return "'{$this->getFullAlias()}' => array(
                 " . $this->style . "
              ),
              ";
     }
 
     /**
-     * @param string $sectionAlias
      * @return string
      */
-    public function getPseudoJsForConfig($sectionAlias)
+    public function getPseudoJsForConfig()
     {
-        return "'tg-" . $sectionAlias . "-" . $this->alias . "' => array(
+        return "'{$this->getFullAlias()}' => array(
                 " . $this->pseudojs . "
             ),
             ";

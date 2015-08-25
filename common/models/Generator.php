@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use common\helpers\ZipArchiveTg;
 use yii\behaviors\SluggableBehavior;
+use yii\helpers\VarDumper;
 
 /**
  * Class Generator
@@ -18,6 +19,8 @@ class Generator
     const DIR_CSS = 'css';
     const DIR_INC = 'inc';
     const DIR_TGM = 'TGM-Plugin-Activation';
+
+    const SECTION_SORTER_ID = 'tg-sections-order-sorter';
 
     /**
      * @param $q - query
@@ -39,6 +42,9 @@ class Generator
         $zip = new ZipArchiveTg();
         $zip->open($file, \ZipArchive::OVERWRITE);
 
+        $panelCode = $sectionCode = $controlCode = $styleCode = $pseudoJsCode =
+        $sorterDefault = $sorterChoices = $cssCode = '';
+
         $templateSource = self::getTemplateSourcePath();
 
         /** Add common dirs */
@@ -56,8 +62,28 @@ class Generator
         $screenshot = Screenshot::find()->screenshot()->one();
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
 
-        $panelCode = $sectionCode = $controlCode = $styleCode = $pseudoJsCode =
-        $sorterDefault = $sorterChoices = $cssCode = '';
+        /** Prepare and add common files */
+        $commonFiles = File::find()->common()->all();
+        foreach ($commonFiles as $commonFile) {
+            /** @var File $commonFile */
+            if ($commonFile->filename == File::COMMON_CSS_FILENAME) {
+                $commonFile->code = str_replace('{{name}}', $name, $commonFile->code);
+            } elseif ($commonFile->filename == File::CUSTOM_PAGE_FILENAME) {
+                // convert comma separated string into array and trim all elements (explode -> array_map(trim, ...))
+                // remove all empty values and convert array into comma separated string (array_filter -> implode)
+                $sorterCode = 'array(' . implode(', ', array_filter(array_map('trim', explode(',', $sorterDefault)))) . ')';
+                $commonFile->code = str_replace("'" . self::SECTION_SORTER_ID . "'", "'" . self::SECTION_SORTER_ID . "', " . $sorterCode, $commonFile->code);
+            }
+            $zip->addFromString($commonFile->filename, $commonFile->code);
+        }
+
+        /** Prepare and add additional files */
+        $addFiles = File::find()->additional(true)->all();
+        foreach ($addFiles as $addFile) {
+            /** @var File $addFile */
+            $zip->addEmptyDir($addFile->directory);
+            $zip->addFromString($addFile->directory . DIRECTORY_SEPARATOR . $addFile->filename, $addFile->code);
+        }
 
         /** Add blocks HTML into partials and prepare customizer config */
         $templates = Template::findAll($blocks);
@@ -68,17 +94,15 @@ class Generator
             /** @var File $css */
             $css = File::find()->styles()->one();
 
-            $category = $templates[0]->category;
-
-            /** main styles for the current category */
-            if (!empty($css) && !empty($category->style)) {
-                $cssCode .= self::getComment(strtoupper($category->name));
-                $cssCode .= $category->style;
-            }
-
             $panelPriority = 20;
             $priorityStep = 10;
             foreach ($templates as $template) {
+                /** main styles for the current category */
+                if (!empty($css) && !empty($template->category->style)) {
+                    $cssCode .= self::getComment(strtoupper($template->category->name));
+                    $cssCode .= "{$template->category->style}\n";
+                }
+
                 $templateCode = $template->code;
 
                 /** @var Template $template */
@@ -96,48 +120,49 @@ class Generator
                 $panelPriority += $priorityStep;
 
                 $sorterDefault .= "'" . $template->alias . "',\n                        ";
-                $sorterChoices .= "'" . $template->alias . "' => __('" . $template->title . "', 'tg'),\n                        ";
+                $sorterChoices .= "'" . $template->alias . "' => __('{$template->title}', 'tg'),\n                        ";
 
                 if (!empty($css)) {
-                    $cssCode .= self::getComment("Styles for block \"" . $template->name . "\"");
+                    $cssCode .= self::getComment("Styles for block \"{$template->name}\"");
                     $cssCode .= $template->style;
-                    $cssCode .= self::getComment("End of styles for block \"" . $template->name . "\"");
+                    $cssCode .= self::getComment("End of styles for block \"{$template->name}\"");
                 }
 
                 if (!isset($templateData['sections']) || empty($templateData['sections'])) {
                     continue;
                 }
 
-                $sectionCode .= "// " . $template->title . "\n            ";
+                $sectionCode .= "// {$template->title}\n            ";
 
                 $sectionPriority = 10;
                 foreach ($templateData['sections'] as $sectionData) {
                     $section = new Section();
                     $section->attributes = $sectionData;
-                    $sectionCode .= $section->getCodeForConfig($template->alias, $sectionPriority);
+                    $section->setPanelAlias($template->alias);
+                    $sectionCode .= $section->getCodeForConfig($sectionPriority);
                     $sectionPriority += $priorityStep;
 
                     if (!isset($sectionData['sectionControls']) || empty($sectionData['sectionControls'])) {
                         continue;
                     }
 
-                    $controlCode .= "// " . $template->title . " -> " . $section->title . "\n            ";
-                    $controlCode .= "'" . $section->alias . "' => array(\n                ";
+                    $controlCode .= "// {$template->title} -> {$section->title}\n            ";
+                    $controlCode .= "'{$section->getFullAlias()}' => array(\n                ";
 
                     foreach ($sectionData['sectionControls'] as $sectionControlData) {
                         $sectionControl = new SectionControl();
                         $sectionControl->attributes = $sectionControlData;
-                        $alias = $template->alias . '-' . $section->alias;
-                        $controlCode .= $sectionControl->getCodeForConfig($alias);
+                        $sectionControl->setSectionAlias($section->getFullAlias());
+                        $controlCode .= $sectionControl->getCodeForConfig();
 
-                        $templateCode = $sectionControl->applyDefault($alias, $templateCode);
+                        $templateCode = $sectionControl->applyDefault($templateCode);
 
                         if (!empty($sectionControl->style)) {
-                            $styleCode .= $sectionControl->getStylesForConfig($alias);
+                            $styleCode .= $sectionControl->getStylesForConfig();
                         }
 
                         if (!empty($sectionControl->pseudojs)) {
-                            $pseudoJsCode .= $sectionControl->getPseudoJsForConfig($alias);
+                            $pseudoJsCode .= $sectionControl->getPseudoJsForConfig();
                         }
                     }
 
@@ -160,29 +185,6 @@ class Generator
             if (!empty($css)) {
                 $zip->addFromString($css->directory . DIRECTORY_SEPARATOR . $css->filename, $css->code . $cssCode);
             }
-        }
-
-        /** Prepare and add common files */
-        $commonFiles = File::find()->common()->all();
-        foreach ($commonFiles as $commonFile) {
-            /** @var File $commonFile */
-            if ($commonFile->filename == File::COMMON_CSS_FILENAME) {
-                $commonFile->code = str_replace('{{name}}', $name, $commonFile->code);
-            } elseif ($commonFile->filename == File::CUSTOM_PAGE_FILENAME) {
-                // convert comma separated string into array and trim all elements (explode -> array_map(trim, ...))
-                // remove all empty values and convert array into comma separated string (array_filter -> implode)
-                $sorterCode = 'array(' . implode(', ', array_filter(array_map('trim', explode(',', $sorterDefault)))) . ')';
-                $commonFile->code = str_replace("'tg-sections-order-sorter'", "'tg-sections-order-sorter', " . $sorterCode, $commonFile->code);
-            }
-            $zip->addFromString($commonFile->filename, $commonFile->code);
-        }
-
-        /** Prepare and add additional files */
-        $addFiles = File::find()->additional(true)->all();
-        foreach ($addFiles as $addFile) {
-            /** @var File $addFile */
-            $zip->addEmptyDir($addFile->directory);
-            $zip->addFromString($addFile->directory . DIRECTORY_SEPARATOR . $addFile->filename, $addFile->code);
         }
 
         // Close and send to user

@@ -636,10 +636,10 @@ class Template extends Library
      */
     public function getCodeForConfig($priority)
     {
-        return "'" . $this->alias . "' => array(
-                'title' => __('" . $this->title . "', 'tg'),
-                'description' => __('" . $this->description . "', 'tg'),
-                'priority' => " . $priority . "
+        return "'{$this->alias}' => array(
+                'title' => __('{$this->title}', 'tg'),
+                'description' => __('{$this->description}', 'tg'),
+                'priority' => $priority
             ),
             ";
     }
