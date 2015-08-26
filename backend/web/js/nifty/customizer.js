@@ -287,6 +287,12 @@ var TgCustomizer = library(function ($) {
                 loadSettings($(this));
             });
 
+            $(document).on('click', '.section-wrapper > .duplicate-btn', function (e) {
+                e.preventDefault();
+
+                duplicateSection($(this).parent().parent());
+            });
+
             $(document).on('click', '.control-wrapper', function (e) {
                 e.preventDefault();
 
@@ -297,6 +303,40 @@ var TgCustomizer = library(function ($) {
                 highlightSelectedControl($(this));
                 loadSettings($(this).find('img'));
             });
+        },
+
+        duplicateSection = function ($el) {
+            var $newSection = $el.clone(),
+                sectionSettings = $.parseJSON($newSection.find('img:first').attr('data-settings'));
+            {
+                var settings = {};
+                _.each(['alias', 'title', 'description'], function(attr) {
+                    if (_.has(sectionSettings, attr)) {
+                        settings[attr] = sectionSettings[attr];
+                    }
+                });
+                $newSection.find('a:first').removeClass('selected');
+                $newSection.find('img:first')
+                    .attr('data-settings', JSON.stringify(settings))
+                    .attr('id', _.uniqueId('section_'));
+            }
+            {
+                _.each($newSection.find('.controls-sortable').find('.ui-sortable-handle'), function (el) {
+                    var $control = $(el).find('img'),
+                        controlSettings = $.parseJSON($control.attr('data-settings')),
+                        settings = {};
+                    _.each(['control_id', 'alias', 'label', 'help', 'description', 'default', 'style',' params', 'pseudojs', 'img'], function(attr) {
+                        if (_.has(controlSettings, attr)) {
+                            settings[attr] = controlSettings[attr];
+                        }
+                    });
+                    $control
+                        .attr('data-settings', JSON.stringify(settings))
+                        .attr('id', _.uniqueId('control_'));
+                });
+            }
+
+            $el.after($newSection);
         },
 
         /**

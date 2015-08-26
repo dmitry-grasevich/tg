@@ -7,6 +7,7 @@ use common\models\Control;
     {{/if}}
 
         <a href="#" class="section-wrapper {{#if isUnsaved}}unsaved{{/if}}">
+            <button class="btn btn-xs btn-purple duplicate-btn">Duplicate</button>
             <img src="/images/controls/section.png"
                  data-toggle="panel-overlay"
                  data-target="#settings-wrapper"

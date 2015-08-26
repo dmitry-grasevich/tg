@@ -137,3 +137,14 @@
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
+
+.duplicate-btn {
+    position: absolute;
+    top: 12px;
+    right: 30px;
+    display: none;
+}
+
+.section-wrapper:hover .duplicate-btn {
+    display: inline;
+}
