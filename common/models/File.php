@@ -17,7 +17,7 @@ class File extends Library
 {
     const COMMON_CSS_FILENAME = 'style.css';
     const COMMON_INDEX_FILENAME = 'index.php';
-    const CUSTOM_PAGE_FILENAME = 'page-custom.php';
+    const HOME_PAGE_FILENAME = 'page-home.php';
     const CONFIG_FILENAME = 'config.php';
     const THEME_STYLES_FILENAME = 'theme.css';
 

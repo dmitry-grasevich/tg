@@ -63,21 +63,6 @@ class Generator
         $screenshot = Screenshot::find()->screenshot()->one();
         $zip->addFile(Yii::getAlias(Screenshot::getImageDir() . '/' . $screenshot->filename), $screenshot->filename);
 
-        /** Prepare and add common files */
-        $commonFiles = File::find()->common()->all();
-        foreach ($commonFiles as $commonFile) {
-            /** @var File $commonFile */
-            if ($commonFile->filename == File::COMMON_CSS_FILENAME) {
-                $commonFile->code = str_replace('{{name}}', $name, $commonFile->code);
-            } elseif ($commonFile->filename == File::CUSTOM_PAGE_FILENAME) {
-                // convert comma separated string into array and trim all elements (explode -> array_map(trim, ...))
-                // remove all empty values and convert array into comma separated string (array_filter -> implode)
-                $sorterCode = 'array(' . implode(', ', array_filter(array_map('trim', explode(',', $sorterDefault)))) . ')';
-                $commonFile->code = str_replace("'" . self::SECTION_SORTER_ID . "'", "'" . self::SECTION_SORTER_ID . "', " . $sorterCode, $commonFile->code);
-            }
-            $zip->addFromString($commonFile->filename, $commonFile->code);
-        }
-
         /** Prepare and add additional files */
         $addFiles = File::find()->additional(true)->all();
         foreach ($addFiles as $addFile) {
@@ -171,6 +156,21 @@ class Generator
                 }
 
                 $zip->addFromString(self::DIR_PARTIALS . '/section-' . $template->alias . '.php', $templateCode);
+            }
+
+            /** Prepare and add common files */
+            $commonFiles = File::find()->common()->all();
+            foreach ($commonFiles as $commonFile) {
+                /** @var File $commonFile */
+                if ($commonFile->filename == File::COMMON_CSS_FILENAME) {
+                    $commonFile->code = str_replace('{{name}}', $name, $commonFile->code);
+                } elseif ($commonFile->filename == File::HOME_PAGE_FILENAME) {
+                    // convert comma separated string into array and trim all elements (explode -> array_map(trim, ...))
+                    // remove all empty values and convert array into comma separated string (array_filter -> implode)
+                    $sorterCode = 'array(' . implode(', ', array_filter(array_map('trim', explode(',', $sorterDefault)))) . ')';
+                    $commonFile->code = str_replace("'" . self::SECTION_SORTER_ID . "'", "'" . self::SECTION_SORTER_ID . "', " . $sorterCode, $commonFile->code);
+                }
+                $zip->addFromString($commonFile->filename, $commonFile->code);
             }
 
             if (!empty($config)) {

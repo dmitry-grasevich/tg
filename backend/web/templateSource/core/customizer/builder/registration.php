@@ -72,7 +72,7 @@ if (!class_exists('TG_Customizer_Registration')) :
             $this->registerSections($this->config->sections);
 
             // Move default sections into TG Panels
-            $this->moveDefaultSections($this->config->default_sections);
+//            $this->moveDefaultSections($this->config->default_sections);
 
             $this->registerDefaultControls($this->config->default_controls, $this->config->styles);
 
