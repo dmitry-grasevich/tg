@@ -14,6 +14,7 @@ use yii\helpers\VarDumper;
 class Generator
 {
     const DIR_CORE = 'core';
+    const DIR_FONTS = 'fonts';
     const DIR_PARTIALS = 'partials';
     const DIR_IMAGES = 'images';
     const DIR_CSS = 'css';
@@ -48,7 +49,7 @@ class Generator
         $templateSource = self::getTemplateSourcePath();
 
         /** Add common dirs */
-        foreach ([self::DIR_CORE, self::DIR_INC, self::DIR_PARTIALS, self::DIR_TGM] as $dir) {
+        foreach ([self::DIR_CORE, self::DIR_FONTS, self::DIR_INC, self::DIR_PARTIALS, self::DIR_TGM] as $dir) {
             $zip->addDir(Yii::getAlias($templateSource . '/' . $dir), '');
         }
 
