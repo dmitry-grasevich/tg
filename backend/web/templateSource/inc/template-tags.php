@@ -40,37 +40,6 @@ if (!function_exists('the_posts_navigation')) :
     }
 endif;
 
-if (!function_exists('the_post_navigation')) :
-    /**
-     * Display navigation to next/previous post when applicable.
-     *
-     * @todo Remove this function when WordPress 4.3 is released.
-     */
-    function the_post_navigation()
-    {
-        // Don't print empty markup if there's nowhere to navigate.
-        $previous = (is_attachment()) ? get_post(get_post()->post_parent) : get_adjacent_post(false, '', true);
-        $next = get_adjacent_post(false, '', false);
-
-        if (!$next && !$previous) {
-            return;
-        }
-        ?>
-        <nav class="navigation post-navigation" role="navigation">
-            <h2 class="screen-reader-text"><?php esc_html_e('Post navigation', 'tg'); ?></h2>
-
-            <div class="nav-links">
-                <?php
-                previous_post_link('<div class="nav-previous">%link</div>', '%title');
-                next_post_link('<div class="nav-next">%link</div>', '%title');
-                ?>
-            </div>
-            <!-- .nav-links -->
-        </nav><!-- .navigation -->
-        <?php
-    }
-endif;
-
 if (!function_exists('tg_posted_on')) :
     /**
      * Prints HTML with meta information for the current post-date/time and author.
@@ -100,7 +69,50 @@ if (!function_exists('tg_posted_on')) :
         );
 
         echo '<span class="posted-on">' . $posted_on . '</span><span class="byline"> ' . $byline . '</span>'; // WPCS: XSS OK.
+    }
+endif;
 
+if (!function_exists('tg_post_date')) :
+    /**
+     * Prints HTML with meta information for the current post-date.
+     *
+     * @param string $slug
+     */
+    function tg_post_date($slug)
+    {
+        $time_string = '<time datetime="%1$s">%2$s</time>';
+
+        $time_string = sprintf($time_string,
+            esc_attr(get_the_date('c')),
+            esc_html(get_the_date())
+        );
+
+        echo "<p class='{$slug}--item-meta'><span class='posted-on'>{$time_string}</span></p>";
+    }
+endif;
+
+if (!function_exists('tg_post_excerpt')) :
+    /**
+     * Prints excerpt.
+     *
+     * @param string $slug
+     */
+    function tg_post_excerpt($slug)
+    {
+        echo "<p class='{$slug}--item-excerpt'>" . get_the_excerpt() . "</p>";
+    }
+endif;
+
+if (!function_exists('tg_post_title')) :
+    /**
+     * Prints post title.
+     *
+     * @param string $slug
+     * @param string $tag
+     */
+    function tg_post_title($slug, $tag = 'h3')
+    {
+        echo the_title(sprintf("<{$tag} class='{$slug}--item-title'><a href='%s' rel='bookmark'>", esc_url(get_permalink())), "</a></{$tag}>");;
     }
 endif;
 
