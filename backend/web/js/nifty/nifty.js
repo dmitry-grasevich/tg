@@ -196,7 +196,7 @@
     var t, e = function(t) {
         if (!t.data("nifty-check")) {
             t.data("nifty-check", !0), t.text().trim().length ? t.addClass("form-text") : t.removeClass("form-text");
-            var e = t.find("input")[0],
+            var e = t.find("input[type='radio']")[0] || t.find("input[type='checkbox']")[0],
                 i = e.name,
                 a = function() {
                     return "radio" == e.type && i ? n(".form-radio").not(t).find("input").filter("input[name=" + i + "]").parent() : !1

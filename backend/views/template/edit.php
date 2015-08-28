@@ -50,11 +50,7 @@ $labels = $template->attributeLabels();
                         ]
                     ]); ?>
 
-                    <div class="checkbox">
-                        <label class="form-checkbox form-normal form-success form-text">
-                            <?= Html::checkbox('Template[is_visible]', $template->is_visible) . ' ' . $labels['is_visible'] ?>
-                        </label>
-                    </div>
+                    <?= $form->field($template, 'is_visible')->checkbox()->label(null, ['class' => 'form-checkbox form-normal form-success']) ?>
 
                     <?= $form->field($template, 'name')->textInput([
                         'placeholder' => Yii::t('tg', 'Internal system name (usually equal to Title)'),

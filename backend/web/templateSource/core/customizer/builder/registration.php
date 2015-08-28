@@ -72,7 +72,9 @@ if (!class_exists('TG_Customizer_Registration')) :
             $this->registerSections($this->config->sections);
 
             // Move default sections into TG Panels
-//            $this->moveDefaultSections($this->config->default_sections);
+            $this->moveDefaultPanels($this->config->default_panels);
+            $this->moveDefaultSections($this->config->default_sections);
+            $this->moveDefaultControls($this->config->default_controls);
 
             $this->registerDefaultControls($this->config->default_controls, $this->config->styles);
 
@@ -179,6 +181,29 @@ if (!class_exists('TG_Customizer_Registration')) :
         }
 
         /**
+         * Move Default Panels
+         *
+         * @param array $panels
+         */
+        public function moveDefaultPanels($panels = array())
+        {
+            foreach ($panels as $panel_key => $panel_data) {
+                // Get the current panel
+                $panel = $this->customizer->get_panel($panel_key);
+
+                // Panel Title
+                if (isset($panel->title) && isset($panel_data['title'])) {
+                    $panel->title = $panel_data['title'];
+                }
+
+                // Panel Priority
+                if (isset($panel->priority) && isset($panel_data['priority'])) {
+                    $panel->priority = $panel_data['priority'];
+                }
+            }
+        }
+
+        /**
          * Move Default Sections
          *
          * @param array $sections
@@ -190,23 +215,53 @@ if (!class_exists('TG_Customizer_Registration')) :
                 $section = $this->customizer->get_section($section_key);
 
                 // Move this section to a specific panel
-                if (isset($section_data['panel'])) {
+                if (isset($section->panel) && isset($section_data['panel'])) {
                     $section->panel = $this->prefix . $section_data['panel'];
                 }
 
-                // Prioritize this section
-                if (isset($section_data['title'])) {
+                // Section Title
+                if (isset($section->title) && isset($section_data['title'])) {
                     $section->title = $section_data['title'];
                 }
 
-                // Prioritize this section
-                if (isset($section_data['priority'])) {
+                // Section Priority
+                if (isset($section->priority) && isset($section_data['priority'])) {
                     $section->priority = $section_data['priority'];
                 }
             }
 
-            // Remove the theme switcher Panel, Layers isn't ready for that
-            $this->customizer->remove_section('themes');
+            // Remove the theme switcher Panel, we isn't ready for that
+//            $this->customizer->remove_section('themes');
+            // Remove the header text color control, we don't support it yet
+            $this->customizer->remove_section('colors');
+        }
+
+        /**
+         * Move Default Controls
+         *
+         * @param array $controls
+         */
+        public function moveDefaultControls($controls = array())
+        {
+            foreach ($controls as $control_key => $control_data) {
+                // Get the current control
+                $control = $this->customizer->get_control($control_key);
+
+                // Move this control to a specific section
+                if (isset($control->section) && isset($control_data['section'])) {
+                    $control->section = $this->prefix . $control_data['section'];
+                }
+
+                // Control Title
+                if (isset($control->title) && isset($control_data['title'])) {
+                    $control->title = $control_data['title'];
+                }
+
+                // Control Priority
+                if (isset($control->priority) && isset($control_data['priority'])) {
+                    $control->priority = $control_data['priority'];
+                }
+            }
         }
 
         /**

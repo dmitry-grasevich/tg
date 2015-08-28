@@ -164,7 +164,8 @@ if (!function_exists('tg_sanitize_text_kses')) :
             'span' => array(
                 'class' => array(),
                 'style' => array(),
-            )
+            ),
+            'p' => array(),
         );
 
         $input = wp_kses($input, $allowed_html);
