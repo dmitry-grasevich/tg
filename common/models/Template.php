@@ -468,6 +468,7 @@ class Template extends Library
             ->joinWith('sections.sectionControls.control')
             ->with('sections')
             ->with('images')
+            ->with('js')
             ->asArray()
             ->one();
 

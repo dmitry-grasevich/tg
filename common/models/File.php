@@ -19,7 +19,9 @@ class File extends Library
     const COMMON_INDEX_FILENAME = 'index.php';
     const HOME_PAGE_FILENAME = 'page-home.php';
     const CONFIG_FILENAME = 'config.php';
+    const FUNCTIONS_FILENAME = 'functions.php';
     const THEME_STYLES_FILENAME = 'theme.css';
+    const THEME_JS_FILENAME = 'theme.js';
 
     /**
      * @inheritdoc
@@ -133,6 +135,18 @@ class FileQuery extends ActiveQuery
     {
         return $this
             ->where(['=', 'filename', File::THEME_STYLES_FILENAME])
+            ->andWhere('directory IS NOT NULL');
+    }
+
+    /**
+     * Get javascript file
+     *
+     * @return $this
+     */
+    public function scripts()
+    {
+        return $this
+            ->where(['=', 'filename', File::THEME_JS_FILENAME])
             ->andWhere('directory IS NOT NULL');
     }
 }

@@ -18,6 +18,7 @@ class Generator
     const DIR_PARTIALS = 'partials';
     const DIR_IMAGES = 'images';
     const DIR_CSS = 'css';
+    const DIR_JS = 'js';
     const DIR_INC = 'inc';
     const DIR_TGM = 'TGM-Plugin-Activation';
 
@@ -44,11 +45,12 @@ class Generator
         $zip->open($file, \ZipArchive::OVERWRITE);
 
         $panelCode = $sectionCode = $controlCode = $styleCode = $pseudoJsCode =
-        $sorterDefault = $sorterChoices = $cssCode = '';
+        $sorterDefault = $sorterChoices = $cssCode = $jsCode = '';
+        $additionalTemplateJs = [];
 
         $templateSource = self::getTemplateSourcePath();
 
-        /** Add common dirs */
+        /** Add common dirs with files */
         foreach ([self::DIR_CORE, self::DIR_FONTS, self::DIR_INC, self::DIR_PARTIALS, self::DIR_TGM] as $dir) {
             $zip->addDir(Yii::getAlias($templateSource . '/' . $dir), '');
         }
@@ -58,6 +60,9 @@ class Generator
 
         /** Add directory for styles */
         $zip->addEmptyDir(self::DIR_CSS);
+
+        /** Add directory for scripts */
+        $zip->addEmptyDir(self::DIR_JS);
 
         /** @var Screenshot $screenshot */
         $screenshot = Screenshot::find()->screenshot()->one();
@@ -80,6 +85,9 @@ class Generator
             /** @var File $css */
             $css = File::find()->styles()->one();
 
+            /** @var File $js */
+            $js = File::find()->scripts()->one();
+
             $panelPriority = 20;
             $priorityStep = 10;
             foreach ($templates as $template) {
@@ -93,6 +101,7 @@ class Generator
 
                 /** @var Template $template */
                 $templateData = $template->getCustomizerControls();
+                /** Add template's images */
                 if (isset($templateData['images']) && count($templateData['images'])) {
                     foreach ($templateData['images'] as  $id => $img) {
                         $image = new Image();
@@ -102,16 +111,31 @@ class Generator
                     }
                 }
 
+                /** Add template's js libraries */
+                if (isset($templateData['js']) && count($templateData['js'])) {
+                    foreach ($templateData['js'] as  $id => $jsLib) {
+                        $jsFile = new Js();
+                        $jsFile->attributes = $jsLib;
+                        $path = self::DIR_JS . DIRECTORY_SEPARATOR . (empty($jsFile->directory) ? '' : $jsFile->directory . DIRECTORY_SEPARATOR) . $jsFile->filename;
+                        $zip->addFromString($path, $jsFile->code);
+                        $additionalTemplateJs[] = $path;
+                    }
+                }
+
                 $panelCode .= $template->getCodeForConfig($panelPriority);
                 $panelPriority += $priorityStep;
 
                 $sorterDefault .= "'" . $template->alias . "',\n                        ";
                 $sorterChoices .= "'" . $template->alias . "' => __('{$template->title}', 'tg'),\n                        ";
 
-                if (!empty($css)) {
+                if (!empty($css) && !empty($template->style)) {
                     $cssCode .= self::getComment("Styles for block \"{$template->name}\"");
                     $cssCode .= $template->style;
                     $cssCode .= self::getComment("End of styles for block \"{$template->name}\"");
+                }
+                if (!empty($js) && !empty($template->script)) {
+                    $jsCode .= self::getComment(strtoupper($template->name));
+                    $jsCode .= "{$template->script}\n";
                 }
 
                 if (!isset($templateData['sections']) || empty($templateData['sections'])) {
@@ -169,6 +193,13 @@ class Generator
                     // remove all empty values and convert array into comma separated string (array_filter -> implode)
                     $sorterCode = 'array(' . implode(', ', array_filter(array_map('trim', explode(',', $sorterDefault)))) . ')';
                     $commonFile->code = str_replace("'" . self::SECTION_SORTER_ID . "'", "'" . self::SECTION_SORTER_ID . "', " . $sorterCode, $commonFile->code);
+                } elseif ($commonFile->filename == File::FUNCTIONS_FILENAME) {
+                    $addJs = ''; $counter = 1;
+                    foreach ($additionalTemplateJs as $jsFileName) {
+                        $addJs .= "    wp_enqueue_script('tg-js-{$counter}', get_template_directory_uri() . '/{$jsFileName}');\n";
+                        $counter++;
+                    }
+                    $commonFile->code = str_replace('{{additional_js}}', $addJs, $commonFile->code);
                 }
                 $zip->addFromString($commonFile->filename, $commonFile->code);
             }
@@ -185,6 +216,10 @@ class Generator
 
             if (!empty($css)) {
                 $zip->addFromString($css->directory . DIRECTORY_SEPARATOR . $css->filename, $css->code . $cssCode);
+            }
+            if (!empty($js) && !empty($jsCode)) {
+                $code = str_replace('{%code%}', $jsCode, $js->code);
+                $zip->addFromString($js->directory . DIRECTORY_SEPARATOR . $js->filename, $code);
             }
         }
 
