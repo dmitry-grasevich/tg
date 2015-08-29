@@ -194,10 +194,15 @@ class Generator
                     $sorterCode = 'array(' . implode(', ', array_filter(array_map('trim', explode(',', $sorterDefault)))) . ')';
                     $commonFile->code = str_replace("'" . self::SECTION_SORTER_ID . "'", "'" . self::SECTION_SORTER_ID . "', " . $sorterCode, $commonFile->code);
                 } elseif ($commonFile->filename == File::FUNCTIONS_FILENAME) {
+                    /** Add javascript libraries attached to templates */
                     $addJs = ''; $counter = 1;
                     foreach ($additionalTemplateJs as $jsFileName) {
                         $addJs .= "    wp_enqueue_script('tg-js-{$counter}', get_template_directory_uri() . '/{$jsFileName}');\n";
                         $counter++;
+                    }
+                    /** If there is js code for theme, add theme javascript */
+                    if (!empty($jsCode)) {
+                        $addJs .= "    wp_enqueue_script('tg-theme-js', get_template_directory_uri() . '/js/theme.js');\n";
                     }
                     $commonFile->code = str_replace('{{additional_js}}', $addJs, $commonFile->code);
                 }
