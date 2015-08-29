@@ -5,8 +5,6 @@ namespace common\models;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\FileHelper;
-use yii\behaviors\TimestampBehavior;
-use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 use common\helpers\ImageTg;
 
@@ -19,6 +17,7 @@ use common\helpers\ImageTg;
  * @property string $img
  * @property string $code
  * @property string $style
+ * @property string $script
  * @property boolean $is_visible
  * @property string $alias
  * @property string $title
@@ -60,12 +59,12 @@ class Template extends Library
         return [
             [['category_id', 'name', 'alias', 'title'], 'required'],
             [['category_id', 'is_visible', 'updated_at'], 'integer'],
-            [['code', 'style', 'description'], 'string'],
+            [['code', 'style', 'description', 'script'], 'string'],
             [['name', 'img', 'alias', 'title'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             // relations
-            [['images'], 'safe'],
+            [['images', 'js'], 'safe'],
         ];
     }
 
@@ -84,6 +83,7 @@ class Template extends Library
             'img' => Yii::t('tg', 'Preview Image'),
             'code' => Yii::t('tg', 'Code'),
             'style' => Yii::t('tg', 'Style'),
+            'script' => Yii::t('tg', 'Script'),
 
             'categoryName' => Yii::t('tg', 'Category'),
             'css' => Yii::t('tg', 'CSS'),
@@ -255,6 +255,20 @@ class Template extends Library
             return implode(', ', $names);
         }
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getImagePreview()
+    {
+        $result = '';
+        if (!empty($this->images)) {
+            foreach ($this->images as $image) {
+                $result .= Html::img($image->getUrl(), ['class' => 'file-preview-image', 'style' => 'width:100%']) . '<hr>';
+            }
+        }
+        return $result;
     }
 
     /**

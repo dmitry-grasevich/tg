@@ -93,7 +93,9 @@ class TemplateController extends Controller
         }
 
         /** @var \common\models\Template $template */
-        $template = Template::find()->where(['id' => $id])->with('images')->one();
+        $template = Template::find()->where(['id' => $id])
+            ->with('images')->with('js')
+            ->one();
 
         return $this->render('view', [
             'template' => $template,

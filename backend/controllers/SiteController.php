@@ -58,7 +58,7 @@ class SiteController extends Controller
         if (Yii::$app->user->isGuest) {
             $this->redirect('login');
         } else {
-            $this->redirect('/template');
+            $this->redirect('/dashboard');
         }
     }
 

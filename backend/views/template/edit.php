@@ -12,6 +12,7 @@ use yii\bootstrap\Button;
 use kartik\widgets\FileInput;
 use kartik\select2\Select2;
 use common\models\Image;
+use common\models\Js;
 
 $title = Yii::t('tg', $template->isNewRecord ? 'New block in category "{category}"' :
     'Edit block in category "{category}"', ['category' => $category->name, 'template' => $template->name]);
@@ -98,6 +99,23 @@ $labels = $template->attributeLabels();
                         'class' => 'form-control',
                         'rows' => 10,
                         'placeholder' => Yii::t('tg', 'Block styles'),
+                    ]) ?>
+
+                    <?= $form->field($template, 'script')->textarea([
+                        'class' => 'form-control',
+                        'rows' => 10,
+                        'placeholder' => Yii::t('tg', 'Block\'s javascript code'),
+                    ]) ?>
+
+                    <?= $form->field($template, 'js')->widget(Select2::classname(), [
+                        'data' => Js::listAll(),
+                        'options' => [
+                            'placeholder' => 'Select js-library ...',
+                            'multiple' => true,
+                        ],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                        ],
                     ]) ?>
 
                     <?= $form->field($template, 'images')->widget(Select2::classname(), [

@@ -6,6 +6,7 @@
  */
 
 use yii\helpers\Html;
+use common\helpers\HtmlTg;
 
 ?>
 <div class="form-group">
@@ -20,17 +21,27 @@ use yii\helpers\Html;
     <?php endif ?>
 
     <?php if (!empty($template->code)): ?>
-        <?= Html::tag('pre', Html::tag('code', Html::encode($template->code)), ['class' => 'scroll', 'style' => 'max-height: 400px; position: relative;']) ?>
+        <label><?= Yii::t('tg', 'Code') ?>:</label>
+        <?= HtmlTg::code($template->code) ?>
     <?php endif ?>
 
     <?php if (!empty($template->style)): ?>
-        <?= Html::tag('pre', Html::tag('code', Html::encode($template->style)), ['class' => 'scroll', 'style' => 'max-height: 400px; position: relative;']) ?>
+        <label><?= Yii::t('tg', 'Styles') ?>:</label>
+        <?= HtmlTg::code($template->style) ?>
+    <?php endif ?>
+
+    <?php if (!empty($template->script)): ?>
+        <label><?= Yii::t('tg', 'Javascript') ?>:</label>
+        <?= HtmlTg::code($template->script) ?>
+    <?php endif ?>
+
+    <?php if (!empty($template->js)): ?>
+        <label><?= Yii::t('tg', 'Attached javascript libraries') ?>:</label><br>
+        <?= $template->getJsName() ?>
     <?php endif ?>
 
     <?php if (!empty($template->images)): ?>
-        <label><?= Yii::t('tg', 'Attached images') ?></label>
-        <?php foreach ($template->images as $image): ?>
-            <?= Html::img($image->getUrl(), ['class' => 'file-preview-image', 'style' => 'width:100%']) ?><hr>
-        <?php endforeach ?>
+        <label><?= Yii::t('tg', 'Attached images') ?>:</label>
+        <?= $template->getImagePreview() ?>
     <?php endif ?>
 </div>

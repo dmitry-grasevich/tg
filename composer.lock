@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f0f38d3f2ae8908acfe76c513eb957bb",
+    "hash": "3a1a94a65be601a8e1e16149e6923edb",
     "packages": [
         {
             "name": "bazilio/yii2-stubs-generator",
@@ -974,7 +974,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/modernizr/zipball/c39800d2430655771480b583af0c2ba40038eed0",
+                "url": "https://api.github.com/repos/components/modernizr/zipball/b0d09e95a96830ade9e89858f8b4173a955a5170",
                 "reference": "c39800d2430655771480b583af0c2ba40038eed0",
                 "shasum": ""
             },
@@ -1029,6 +1029,54 @@
                 "feature detection"
             ],
             "time": "2015-06-24 13:45:43"
+        },
+        {
+            "name": "cornernote/yii2-linkall",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cornernote/yii2-linkall.git",
+                "reference": "7488756f6bff3757a6ed28abb3af4ae56bfc47de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cornernote/yii2-linkall/zipball/7488756f6bff3757a6ed28abb3af4ae56bfc47de",
+                "reference": "7488756f6bff3757a6ed28abb3af4ae56bfc47de",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "phpunit/dbunit": "~1.0",
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "cornernote\\linkall\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Brett O'Donnell",
+                    "email": "cornernote@gmail.com",
+                    "homepage": "http://mrphp.com.au/"
+                }
+            ],
+            "description": "Behavior to handle saving multiple many to many related records in Yii2.",
+            "keywords": [
+                "link",
+                "linkall",
+                "many to many",
+                "yii2"
+            ],
+            "time": "2015-06-22 12:05:49"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -1186,7 +1234,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/dcb78b5fd0eb5d9872caef7561d89cd01f1a9562",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/e4906dd5ee852a5333d3ce4d19f69ee855efe844",
                 "reference": "dcb78b5fd0eb5d9872caef7561d89cd01f1a9562",
                 "shasum": ""
             },
@@ -2776,7 +2824,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/scssphp/zipball/61bc5ba5553ba37f0e646e82759121d41ab21566",
+                "url": "https://api.github.com/repos/leafo/scssphp/zipball/c66d477b00ce1763e0faa1770b8b0649900abbd7",
                 "reference": "61bc5ba5553ba37f0e646e82759121d41ab21566",
                 "shasum": ""
             },
@@ -3085,7 +3133,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/baed9ab2ef1ef61c5ff50ab4dd504d24796d7c2e",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/47c7b9bb4066ebedc6114410dcd6ceff6e273e9c",
                 "reference": "baed9ab2ef1ef61c5ff50ab4dd504d24796d7c2e",
                 "shasum": ""
             },
@@ -3173,7 +3221,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/51ed559fe2ef9d33217e47a0ac77ffaa15f57c30",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/5ae12770c69b1b42f1be742ca16d97dc63371eb8",
                 "reference": "51ed559fe2ef9d33217e47a0ac77ffaa15f57c30",
                 "shasum": ""
             },
@@ -3447,7 +3495,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/5015592f93c764c48f440511f56a6c83ce744137",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/c27c8263797619a97987bd2411f1084b9d03e90a",
                 "reference": "5015592f93c764c48f440511f56a6c83ce744137",
                 "shasum": ""
             },
@@ -3578,7 +3626,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/edf9a4152c795d90e8b02fc6aa88e50d53a54d02",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/848fb19e123aaf2ea2e535282eed6c6cc781bd9a",
                 "reference": "edf9a4152c795d90e8b02fc6aa88e50d53a54d02",
                 "shasum": ""
             },
@@ -3672,7 +3720,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/aeec43df7b85e0f100220f4ab5eb179d827f6aa1",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/0a3940119a7552418bbd7c842de12953390e4ab2",
                 "reference": "aeec43df7b85e0f100220f4ab5eb179d827f6aa1",
                 "shasum": ""
             },
